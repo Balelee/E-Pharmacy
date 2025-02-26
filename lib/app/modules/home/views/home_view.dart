@@ -1,5 +1,5 @@
-import 'package:e_pharma/app/composants/app_colors.dart';
-import 'package:e_pharma/app/composants/main_button.dart';
+import 'package:e_pharma/app/widgets/app_colors.dart';
+import 'package:e_pharma/app/widgets/main_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
