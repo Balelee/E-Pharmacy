@@ -1,8 +1,9 @@
+import 'package:e_pharma/app/modules/Login/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-class SplashViewView extends GetView {
+class SplashViewView extends GetView<LoginController> {
   const SplashViewView({super.key});
   @override
   Widget build(BuildContext context) {
