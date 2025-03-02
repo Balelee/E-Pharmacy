@@ -1,4 +1,5 @@
 import 'package:e_pharma/app/config/env.dart';
+import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -22,6 +23,9 @@ void main() async {
       title: Env.appName,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      translationsKeys: AppTranslation.translations,
+      locale: Locale('fr', 'FR'),
+      fallbackLocale: Locale('en', 'US'),
     ),
   );
 }

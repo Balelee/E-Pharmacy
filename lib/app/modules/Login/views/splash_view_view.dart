@@ -1,4 +1,5 @@
 import 'package:e_pharma/app/modules/Login/controllers/login_controller.dart';
+import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -30,7 +31,7 @@ class SplashViewView extends GetView<LoginController> {
                 right: 0,
                 child: Center(
                   child: Image.asset(
-                    'images/splashImage.jpg',
+                    'assets/images/splashImage.jpg',
                     fit: BoxFit.contain,
                     width: Get.width * 0.6,
                   ),
@@ -44,8 +45,8 @@ class SplashViewView extends GetView<LoginController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                'E-pharmacie',
+              Text(
+                LocaleKeys.app_name.tr,
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -59,7 +60,7 @@ class SplashViewView extends GetView<LoginController> {
                     left: 10.0,
                     top: 10.0),
                 child: Text(
-                  "Trouvez et commandez vos médicaments en toute sécurité depuis chez vous, en quelques clics !",
+                  LocaleKeys.slogan.tr,
                   textAlign: TextAlign.left,
                   style: const TextStyle(
                     fontSize: 17,

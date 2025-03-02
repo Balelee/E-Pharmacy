@@ -1,0 +1,13 @@
+{
+  "app_name": "E-Pharmacy",
+  "slogan": "Trouvez et commandez vos médicaments en toute sécurité depuis chez vous, en quelques clics !",
+    "buttons": {
+      "login": "Connexion",
+      "sign_in": "S'identifier",
+      "logout": "Déconnexion",
+      "sign_in_fb": "Se connecter avec Facebook",
+      "sign_in_google": "Se connecter avec Google",
+      "sign_in_apple": "Se connecter avec Apple"
+    }
+  }
+  
