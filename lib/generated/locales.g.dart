@@ -13,6 +13,14 @@ class LocaleKeys {
   LocaleKeys._();
   static const app_name = 'app_name';
   static const slogan = 'slogan';
+  static const login = 'login';
+  static const login_description = 'login_description';
+  static const phone = 'phone';
+  static const password = 'password';
+  static const forgot_password = 'forgot_password';
+  static const or_continue_with = 'or_continue_with';
+  static const no_account = 'no_account';
+  static const sign_up = 'sign_up';
   static const buttons_login = 'buttons_login';
   static const buttons_sign_in = 'buttons_sign_in';
   static const buttons_logout = 'buttons_logout';
@@ -26,6 +34,14 @@ class Locales {
     'app_name': 'E-Pharmacy',
     'slogan':
         'Find and order your medicines safely from home, in just a few clicks!',
+    'login': 'Login',
+    'login_description': 'Enter your credentials to log in.',
+    'phone': 'Phone',
+    'password': 'Password',
+    'forgot_password': 'Forgot password?',
+    'or_continue_with': 'Or continue with',
+    'no_account': 'Don\'t have an account?',
+    'sign_up': 'Sign up',
     'buttons_login': 'Login',
     'buttons_sign_in': 'Sign-in',
     'buttons_logout': 'Logout',
@@ -37,6 +53,14 @@ class Locales {
     'app_name': 'E-Pharmacy',
     'slogan':
         'Trouvez et commandez vos médicaments en toute sécurité depuis chez vous, en quelques clics !',
+    'login': 'Se connecter',
+    'login_description': 'Entrez vos données d\'accès pour vous connecter.',
+    'phone': 'Téléphone',
+    'password': 'Mot de passe',
+    'forgot_password': 'Mot de passe oublié?',
+    'or_continue_with': 'Ou continuer avec',
+    'no_account': 'Je n’ai pas de compte ?',
+    'sign_up': 'S’inscrire',
     'buttons_login': 'Connexion',
     'buttons_sign_in': 'S\'identifier',
     'buttons_logout': 'Déconnexion',

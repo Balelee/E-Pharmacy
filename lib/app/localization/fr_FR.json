@@ -1,6 +1,14 @@
 {
   "app_name": "E-Pharmacy",
   "slogan": "Trouvez et commandez vos médicaments en toute sécurité depuis chez vous, en quelques clics !",
+  "login": "Se connecter",
+  "login_description": "Entrez vos données d'accès pour vous connecter.",
+  "phone": "Téléphone",
+  "password": "Mot de passe",
+  "forgot_password": "Mot de passe oublié?",
+  "or_continue_with": "Ou continuer avec",
+  "no_account": "Je n’ai pas de compte ?",
+  "sign_up": "S’inscrire",
     "buttons": {
       "login": "Connexion",
       "sign_in": "S'identifier",
