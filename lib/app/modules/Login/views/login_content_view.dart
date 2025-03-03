@@ -1,10 +1,12 @@
 import 'package:e_pharma/app/modules/Login/controllers/login_controller.dart';
 import 'package:e_pharma/app/themes/app_colors.dart';
+import 'package:e_pharma/app/utils/validators.dart';
 import 'package:e_pharma/app/widgets/country_code_box.dart';
 import 'package:e_pharma/app/widgets/custom_button.dart';
 import 'package:e_pharma/app/widgets/custom_icon.dart';
 import 'package:e_pharma/app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -57,9 +59,14 @@ class LoginContentView extends GetView<LoginController> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: CustomTextFormField(
+                    keyboardType: TextInputType.phone,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     controller: controller.phoneController,
                     labelText: LocaleKeys.phone.tr,
                     prefix: contryCodeBox(selectedCode: controller.contryCode),
+                    validator: (value) {
+                      return Validators.validatePhoneNumber(value);
+                    },
                   ),
                 ),
                 Padding(
@@ -77,6 +84,9 @@ class LoginContentView extends GetView<LoginController> {
                       ),
                       onPressed: controller.togglePasswordVisibility,
                     ),
+                    validator: (value) {
+                      return Validators.validatePassword(value);
+                    },
                   ),
                 ),
                 Padding(

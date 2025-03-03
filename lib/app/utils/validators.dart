@@ -27,9 +27,10 @@ class Validators {
     if (value == null || value.isEmpty) {
       return 'Phone number is required';
     }
-    if (!RegExp(r'^\+?[1-9]\d{1,14}$').hasMatch(value)) {
-      return 'Enter a valid phone number';
-    }
+
+    // if (!RegExp(r'^\+?[1-9]\d{1,14}$').hasMatch(value)) {
+    //   return 'Enter a valid phone number';
+    // }
     return null;
   }
 

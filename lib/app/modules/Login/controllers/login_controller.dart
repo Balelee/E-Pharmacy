@@ -36,7 +36,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> changeScreen() async {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 1), () {
       animateContent.value = LoginContentView();
     });
   }

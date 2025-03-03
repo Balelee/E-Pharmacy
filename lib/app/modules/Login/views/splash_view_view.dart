@@ -1,4 +1,5 @@
 import 'package:e_pharma/app/modules/Login/controllers/login_controller.dart';
+import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class SplashViewView extends GetView<LoginController> {
                 width: Get.width,
                 height: Get.height * 0.5,
                 decoration: BoxDecoration(
-                    color: const Color(0xFF28722B),
+                    color: AppColors.primary,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(60),
                       bottomRight: Radius.circular(60),
