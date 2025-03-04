@@ -25,7 +25,7 @@ class CustomButton {
         overlayColor: Colors.black,
         backgroundColor: backgroundColor ?? AppColors.primary,
         padding: padding ??
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 12.0),
         ),
@@ -68,7 +68,7 @@ class CustomButton {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        foregroundColor: textColor ?? Colors.blue,
+        foregroundColor: textColor ?? AppColors.primary,
         padding: padding ??
             const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
         shape: RoundedRectangleBorder(
@@ -95,6 +95,4 @@ class CustomButton {
       ),
     );
   }
-
-
 }

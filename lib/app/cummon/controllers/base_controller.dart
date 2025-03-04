@@ -1,0 +1,49 @@
+import 'package:e_pharma/app/core/network/api_exception.dart';
+import 'package:get/get.dart';
+import '../../utils/helpers/dialog_helper.dart';
+
+mixin BaseController {
+  void handleError(error) {
+    hideLoading();
+    if (error is ApiException) {
+      var message = error.message;
+      displayErrorDialog(message: message!);
+    } else {
+      displayErrorDialog(message: 'Erreur inconnu!');
+    }
+  }
+
+  showLoading({String? message, bool noBkgColor = false}) {
+    DialogHelper.showLoading(message: message, noBkgColor: noBkgColor);
+  }
+
+  hideLoading() {
+    DialogHelper.hideLoading();
+  }
+
+  displayErrorDialog({required String message}) {
+    DialogHelper.displayErrorDialog(message: message);
+  }
+
+  displaySuccesDialog(
+      {required String message,
+      void Function()? onConfirmBtnTap,
+      bool? barrierDismissible}) {
+    DialogHelper.displaySuccesDialog(
+        message: message.tr,
+        onConfirmBtnTap: onConfirmBtnTap,
+        barrierDismissible: barrierDismissible ?? true);
+  }
+
+  displayConfirmationDialog(
+      {required String title,
+      required String message,
+      required Function() onConfirm,
+      required Function() onCancel}) {
+    DialogHelper.confirmationDialog(
+        title: title,
+        message: message,
+        onConfirm: onConfirm,
+        onCancel: onCancel);
+  }
+}

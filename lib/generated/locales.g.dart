@@ -17,10 +17,17 @@ class LocaleKeys {
   static const login_description = 'login_description';
   static const phone = 'phone';
   static const password = 'password';
+  static const confirmPassword = 'confirmPassword';
   static const forgot_password = 'forgot_password';
+  static const or_with_phone_number = 'or_with_phone_number';
   static const or_continue_with = 'or_continue_with';
+  static const continue_with = 'continue_with';
   static const no_account = 'no_account';
+  static const have_account = 'have_account';
   static const sign_up = 'sign_up';
+  static const free_sign_up = 'free_sign_up';
+  static const identique_password_error = 'identique_password_error';
+  static const buttons_continuous = 'buttons_continuous';
   static const buttons_login = 'buttons_login';
   static const buttons_sign_in = 'buttons_sign_in';
   static const buttons_logout = 'buttons_logout';
@@ -38,10 +45,17 @@ class Locales {
     'login_description': 'Enter your credentials to log in.',
     'phone': 'Phone',
     'password': 'Password',
+    'confirmPassword': 'Confirm Password',
     'forgot_password': 'Forgot password?',
+    'or_with_phone_number': 'Or with phone number',
     'or_continue_with': 'Or continue with',
+    'continue_with': 'Continue with',
     'no_account': 'Don\'t have an account?',
+    'have_account': 'I already have an account.',
     'sign_up': 'Sign up',
+    'free_sign_up': 'Sign up gratuitously',
+    'identique_password_error': 'The passwords sould be identics',
+    'buttons_continuous': 'Continuous',
     'buttons_login': 'Login',
     'buttons_sign_in': 'Sign-in',
     'buttons_logout': 'Logout',
@@ -57,10 +71,17 @@ class Locales {
     'login_description': 'Entrez vos données d\'accès pour vous connecter.',
     'phone': 'Téléphone',
     'password': 'Mot de passe',
+    'confirmPassword': 'Confirmer mot de passe',
     'forgot_password': 'Mot de passe oublié?',
+    'or_with_phone_number': 'Ou avec numéro de téléphone',
     'or_continue_with': 'Ou continuer avec',
+    'continue_with': 'Continuer avec',
     'no_account': 'Je n’ai pas de compte ?',
+    'have_account': 'J\'ai déja un compte.',
     'sign_up': 'S’inscrire',
+    'free_sign_up': 'S’inscrire gratuitement',
+    'identique_password_error': 'Les mots de passe non indentiques',
+    'buttons_continuous': 'Continuer',
     'buttons_login': 'Connexion',
     'buttons_sign_in': 'S\'identifier',
     'buttons_logout': 'Déconnexion',

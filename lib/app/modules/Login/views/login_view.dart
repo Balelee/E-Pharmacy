@@ -1,4 +1,3 @@
-import 'package:e_pharma/app/modules/Login/views/splash_view_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

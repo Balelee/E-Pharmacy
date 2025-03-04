@@ -6,13 +6,13 @@ class AppTextStyles {
   static const TextStyle heading1 = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,
-    color: Colors.black,
+    color: AppColors.primary,
   );
 
   static const TextStyle heading2 = TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.bold,
-    color: Colors.black,
+    color: AppColors.primary,
   );
 
   static const TextStyle heading3 = TextStyle(
@@ -57,7 +57,7 @@ class AppTextStyles {
   static const TextStyle secondaryButtonTextStyle = TextStyle(
     fontSize: 16.0,
     fontWeight: FontWeight.w600,
-    color: Colors.blue,
+    color: AppColors.primary,
   );
 
   // Caption

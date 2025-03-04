@@ -1,9 +1,24 @@
+import 'package:e_pharma/app/utils/form_helper.dart';
 import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
-  //TODO: Implement RegisterController
+  // form controllers
+  final phoneController = FormHelper.getController();
+  final passwordController = FormHelper.getController();
+  final confirmPasswordController = FormHelper.getController();
+  // Reactive variable to handle password visibility
+  var isPasswordHidden = true.obs;
+  var isConfirmPasswordHidden = true.obs;
+  // Method to toggle password visibility
+  void togglePasswordVisibility() {
+    isPasswordHidden.value = !isPasswordHidden.value;
+  }
 
-  final count = 0.obs;
+  void toggleConfirmPasswordVisibility() {
+    isConfirmPasswordHidden.value = !isConfirmPasswordHidden.value;
+  }
+
+  RxString contryCode = '+225'.obs;
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +33,4 @@ class RegisterController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

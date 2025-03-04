@@ -1,4 +1,5 @@
-import 'package:e_pharma/app/widgets/custom_button.dart';
+
+import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +14,9 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Column(
-        children: [],
+        children: [
+          CustomText(text: "text"),
+        ],
       ),
     );
   }

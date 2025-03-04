@@ -1,3 +1,7 @@
+import 'package:e_pharma/generated/locales.g.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 class Validators {
   // Email validator
   static String? validateEmail(String? value) {
@@ -18,6 +22,21 @@ class Validators {
     }
     if (value.length < 6) {
       return 'Password must be at least 6 characters';
+    }
+    return null;
+  }
+
+  static String? validateConfirmPassword(
+      {String? value, required TextEditingController passwordController}) {
+    if (value == null || value.isEmpty) {
+      return 'Password is required';
+    }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters';
+    }
+
+    if (value != passwordController.text.toString()) {
+      return LocaleKeys.identique_password_error.tr;
     }
     return null;
   }
