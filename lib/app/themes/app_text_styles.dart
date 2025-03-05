@@ -1,3 +1,4 @@
+import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyles {
@@ -5,19 +6,19 @@ class AppTextStyles {
   static const TextStyle heading1 = TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.bold,
-    color: Colors.black,
+    color: AppColors.primary,
   );
-  
+
   static const TextStyle heading2 = TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.bold,
-    color: Colors.black,
+    color: AppColors.primary,
   );
-  
+
   static const TextStyle heading3 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w600,
-    color: Colors.black,
+    color: AppColors.primary,
   );
 
   // Body Text
@@ -26,13 +27,13 @@ class AppTextStyles {
     fontWeight: FontWeight.normal,
     color: Colors.black,
   );
-  
+
   static const TextStyle bodyText2 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
     color: Colors.black54,
   );
-  
+
   static const TextStyle bodyText3 = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.normal,
@@ -46,7 +47,7 @@ class AppTextStyles {
     color: Colors.white,
   );
 
-   // Button styles
+  // Button styles
   static const TextStyle buttonTextStyle = TextStyle(
     fontSize: 18.0,
     fontWeight: FontWeight.w700,
@@ -56,7 +57,7 @@ class AppTextStyles {
   static const TextStyle secondaryButtonTextStyle = TextStyle(
     fontSize: 16.0,
     fontWeight: FontWeight.w600,
-    color: Colors.blue,
+    color: AppColors.primary,
   );
 
   // Caption

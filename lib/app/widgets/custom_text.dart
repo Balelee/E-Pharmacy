@@ -26,6 +26,7 @@ class CustomText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      
       style: style ??
           TextStyle(
             color: color ?? Colors.black,

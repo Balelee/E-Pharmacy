@@ -1,7 +1,24 @@
 { 
   "app_name": "E-Pharmacy",
   "slogan": "Find and order your medicines safely from home, in just a few clicks!",
+  "login": "Login",
+  "login_description": "Enter your credentials to log in.",
+  "phone": "Phone",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "forgot_password": "Forgot password?",
+  "or_with_phone_number": "Or with phone number",
+  "or_continue_with": "Or continue with",
+  "continue_with": "Continue with",
+  "no_account": "Don't have an account?",
+  "have_account": "I already have an account.",
+  "sign_up": "Sign up",
+
+  "free_sign_up": "Sign up gratuitously",
+ "identique_password_error":"The passwords sould be identics",
+
     "buttons": {
+      "continuous": "Continuous",
       "login": "Login",
       "sign_in": "Sign-in",
       "logout": "Logout",

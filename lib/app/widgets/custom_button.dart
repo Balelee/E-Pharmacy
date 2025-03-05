@@ -1,3 +1,4 @@
+import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:e_pharma/app/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ class CustomButton {
     MainAxisSize mainAxisSize = MainAxisSize.max,
     Widget? leadingIcon,
     Widget? trailingIcon,
+    Widget? child,
     required String buttonTitle,
     TextStyle? textStyle,
     double? fontSize,
@@ -21,31 +23,33 @@ class CustomButton {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         overlayColor: Colors.black,
-        backgroundColor: backgroundColor ?? const Color(0xFF28722B),
-        padding: padding ?? const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+        backgroundColor: backgroundColor ?? AppColors.primary,
+        padding: padding ??
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+          borderRadius: BorderRadius.circular(borderRadius ?? 12.0),
         ),
-        elevation: elevation ?? 2.0, // Default elevation if not provided
+        elevation: elevation ?? 2.0,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: mainAxisSize,
-        children: [
-          if (leadingIcon != null) ...[
-            leadingIcon,
-            const SizedBox(width: 8.0),
-          ],
-          Text(
-            buttonTitle,
-            style: textStyle ?? AppTextStyles.buttonTextStyle, 
+      child: child ??
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: mainAxisSize,
+            children: [
+              if (leadingIcon != null) ...[
+                leadingIcon,
+                const SizedBox(width: 8.0),
+              ],
+              Text(
+                buttonTitle,
+                style: textStyle ?? AppTextStyles.buttonTextStyle,
+              ),
+              if (trailingIcon != null) ...[
+                const SizedBox(width: 8.0),
+                trailingIcon,
+              ],
+            ],
           ),
-          if (trailingIcon != null) ...[
-            const SizedBox(width: 8.0),
-            trailingIcon,
-          ],
-        ],
-      ),
     );
   }
 
@@ -64,10 +68,12 @@ class CustomButton {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        foregroundColor: textColor ?? Colors.blue, padding: padding ?? const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+        foregroundColor: textColor ?? AppColors.primary,
+        padding: padding ??
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-        ), 
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +85,7 @@ class CustomButton {
           ],
           Text(
             buttonTitle,
-            style: textStyle ?? AppTextStyles.secondaryButtonTextStyle, 
+            style: textStyle ?? AppTextStyles.secondaryButtonTextStyle,
           ),
           if (trailingIcon != null) ...[
             const SizedBox(width: 8.0),

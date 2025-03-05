@@ -7,6 +7,7 @@ CountryCodePicker contryCodeBox({RxString? selectedCode}) {
     onChanged: (countryCode) {
       selectedCode!.value = countryCode.dialCode!;
     },
+    pickerStyle: PickerStyle.bottomSheet,
     initialSelection: "Cote d'Ivoire",
     favorite: const ["Cote d'Ivoire"],
     enabled: true,

@@ -1,8 +1,9 @@
+import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
-    primaryColorLight: Colors.blue,
+    primaryColorLight: AppColors.primary,
     hintColor: Colors.green,
     textTheme: TextTheme(
       bodyLarge: TextStyle(fontSize: 16, color: Colors.black),

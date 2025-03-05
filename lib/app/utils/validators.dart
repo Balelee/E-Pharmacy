@@ -1,3 +1,7 @@
+import 'package:e_pharma/generated/locales.g.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 class Validators {
   // Email validator
   static String? validateEmail(String? value) {
@@ -22,14 +26,30 @@ class Validators {
     return null;
   }
 
+  static String? validateConfirmPassword(
+      {String? value, required TextEditingController passwordController}) {
+    if (value == null || value.isEmpty) {
+      return 'Password is required';
+    }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters';
+    }
+
+    if (value != passwordController.text.toString()) {
+      return LocaleKeys.identique_password_error.tr;
+    }
+    return null;
+  }
+
   // Phone number validator
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
       return 'Phone number is required';
     }
-    if (!RegExp(r'^\+?[1-9]\d{1,14}$').hasMatch(value)) {
-      return 'Enter a valid phone number';
-    }
+
+    // if (!RegExp(r'^\+?[1-9]\d{1,14}$').hasMatch(value)) {
+    //   return 'Enter a valid phone number';
+    // }
     return null;
   }
 
