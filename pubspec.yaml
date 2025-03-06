@@ -44,6 +44,7 @@ dependencies:
   font_awesome_flutter: ^10.8.0
   flutter_svg: ^2.0.17
   quickalert: ^1.1.0
+  convex_bottom_bar: ^3.2.0
 
 dev_dependencies:
   flutter_test:

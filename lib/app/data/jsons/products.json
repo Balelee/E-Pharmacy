@@ -1,0 +1,98 @@
+[
+    { "id": 1,
+      "name": "Paracetamol Almus",
+      "description": "Le paracétamol est utilisé pour diminuer les douleurs d’intensité légère à modérée et pour réduire la fièvre.",
+      "price": 100,
+      "stock": 12,
+      "category": "Anti douleur"
+    },
+    {
+        "id": 2,
+      "name": "Doliprane",
+      "description": "Le Doliprane contient du paracétamol et est utilisé pour soulager la douleur et la fièvre.",
+      "price": 300,
+      "stock": 32,
+      "category": "Anti douleur"
+    },
+    {
+        "id": 3,
+      "name": "Amoxicilline",
+      "description": "Antibiotique utilisé pour traiter diverses infections bactériennes.",
+      "price": 2500,
+      "stock": 20,
+      "category": "Antibiotiques"
+    },
+    {
+        "id": 4,
+      "name": "Azithromycine",
+      "description": "Antibiotique utilisé pour les infections respiratoires et ORL.",
+      "price": 3500,
+      "stock": 15,
+      "category": "Antibiotiques"
+    },
+    {
+        "id": 5,
+      "name": "Ibuprofène",
+      "description": "Anti-inflammatoire non stéroïdien utilisé contre la douleur et la fièvre.",
+      "price": 1500,
+      "stock": 25,
+      "category": "Anti-inflammatoires"
+    },
+    {
+        "id": 6,
+      "name": "Aspirine",
+      "description": "Utilisé pour soulager la douleur et réduire l'inflammation.",
+      "price": 800,
+      "stock": 18,
+      "category": "Anti-inflammatoires"
+    },
+    {
+        "id": 7,
+      "name": "Zolpidem",
+      "description": "Médicament hypnotique utilisé pour traiter les troubles du sommeil.",
+      "price": 5000,
+      "stock": 10,
+      "category": "Psychotropes"
+    },
+    {
+        "id": 8,
+      "name": "Diazépam",
+      "description": "Anxiolytique utilisé pour traiter l'anxiété et les troubles du sommeil.",
+      "price": 4500,
+      "stock": 8,
+      "category": "Psychotropes"
+    },
+    {
+        "id": 9,
+      "name": "Tamiflu",
+      "description": "Antiviral utilisé pour le traitement et la prévention de la grippe.",
+      "price": 6000,
+      "stock": 5,
+      "category": "Antiviraux"
+    },
+    {
+        "id": 10,
+      "name": "Ribavirine",
+      "description": "Utilisé pour traiter certaines infections virales sévères.",
+      "price": 7500,
+      "stock": 4,
+      "category": "Antiviraux"
+    },
+    {
+        "id": 11,
+      "name": "Metformine",
+      "description": "Médicament antidiabétique utilisé pour contrôler le taux de sucre dans le sang.",
+      "price": 2000,
+      "stock": 22,
+      "category": "Antidiabétiques"
+    },
+    {
+        "id": 12,
+      "name": "Insuline Lantus",
+      "description": "Utilisé pour le traitement du diabète en régulant le taux de glucose dans le sang.",
+      "price": 12000,
+      "stock": 9,
+      "category": "Antidiabétiques"
+    }
+  ]
+ 

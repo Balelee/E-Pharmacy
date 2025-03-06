@@ -1,5 +1,6 @@
 import 'package:e_pharma/app/config/env.dart';
 import 'package:e_pharma/app/cummon/controllers/language_controller.dart';
+import 'package:e_pharma/app/cummon/controllers/navigation_controller.dart';
 import 'package:e_pharma/app/themes/app_theme.dart';
 import 'package:e_pharma/app/utils/services/localization_service.dart';
 import 'package:e_pharma/generated/locales.g.dart';
@@ -19,6 +20,8 @@ void main() async {
       DeviceOrientation.portraitUp,
     ],
   );
+
+  Get.put(NavigationController());
   Get.put(LocalizationService());
   Get.put(LanguageController());
   await dotenv.load(fileName: Env.isLocal ? Env.developement : Env.production);
@@ -26,7 +29,7 @@ void main() async {
     GetMaterialApp(
       debugShowCheckedModeBanner: Env.debugMode,
       title: Env.appName,
-      initialRoute: AppPages.INITIAL,
+      initialRoute: AppPages.HOME,
       getPages: AppPages.routes,
       locale: LocalizationService.to.getCurrentLocale(),
       translationsKeys: AppTranslation.translations,
