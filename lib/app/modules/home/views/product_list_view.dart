@@ -1,10 +1,11 @@
 import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
+import 'package:e_pharma/app/routes/app_pages.dart';
 import 'package:e_pharma/app/themes/app_text_styles.dart';
 import 'package:e_pharma/app/utils/constants/size_constant.dart';
 import 'package:e_pharma/app/widgets/category_filter.dart';
 import 'package:e_pharma/app/widgets/custom_search_bar.dart';
 import 'package:e_pharma/app/widgets/custom_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,11 +24,15 @@ class ProductListView extends GetView<ProductController> {
               padding: EdgeInsets.only(top: context.height / 14),
               child: CustomSearchBar(
                 onSearch: (query) {
-                  print("Recherche : $query");
+                  if (kDebugMode) {
+                    print("Recherche : $query");
+                  }
                 },
                 onPhotoTaken: (image) {
                   if (image != null) {
-                    print("Photo prise : ${image.path}");
+                    if (kDebugMode) {
+                      print("Photo prise : ${image.path}");
+                    }
                   }
                 },
               ),
@@ -61,59 +66,88 @@ class ProductListView extends GetView<ProductController> {
                   ),
                   itemBuilder: (context, index) {
                     final produit = filteredProducts[index];
-                    return Card(
-                      elevation: 0.0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              width: double.infinity,
-                              decoration:
-                                  BoxDecoration(color: AppColors.secondary),
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(12)),
-                                child: Image.asset(
-                                  produit.imageUrl ?? '',
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) =>
-                                      const Icon(Icons.broken_image, size: 50),
+                    return GestureDetector(
+                      onTap: () => Get.toNamed(AppPages.DETAIL_PRODUIT,
+                          arguments: produit),
+                      child: Card(
+                        elevation: 0.6,
+                        color: Get.theme.scaffoldBackgroundColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Get.theme.cardColor,
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(12.0))),
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(12)),
+                                  child: Image.asset(
+                                    produit.imageUrl ?? '',
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(Icons.broken_image,
+                                                size: 50),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              produit.name,
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                produit.name,
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                          ),
-                          Padding(
+                            Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: CustomText(
-                                text: "${produit.price} F",
-                                style: AppTextStyles.bodyText1Bold,
-                              )),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              "Stock: ${produit.stock}",
-                              style: const TextStyle(fontSize: 12),
+                              child: Text(
+                                "Stock: ${produit.stock}",
+                                style: const TextStyle(fontSize: 12),
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                        ],
+                            Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0, vertical: 6.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CustomText(
+                                      text: "${produit.price} F",
+                                      style: AppTextStyles.bodyText1Bold,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => null,
+                                      child: Container(
+                                        padding: EdgeInsets.all(4.0),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Get.theme.primaryColor,
+                                        ),
+                                        child: Icon(
+                                          Icons.add,
+                                          color: Get.theme.cardColor,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ],
+                        ),
                       ),
                     );
                   },

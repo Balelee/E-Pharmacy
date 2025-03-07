@@ -33,7 +33,7 @@
       "price": 3500,
       "stock": 15,
       "category": "Antibiotiques",
-      "imageUrl": "https://via.placeholder.com/150?text=Azithromycine"
+      "imageUrl": "assets/images/img1.png"
   },
   {
       "id": 5,
@@ -42,7 +42,7 @@
       "price": 1500,
       "stock": 25,
       "category": "Anti-inflammatoires",
-      "imageUrl": "https://via.placeholder.com/150?text=Ibuprofène"
+      "imageUrl": "assets/images/img3.png"
   },
   {
       "id": 6,
@@ -51,7 +51,7 @@
       "price": 800,
       "stock": 18,
       "category": "Anti-inflammatoires",
-      "imageUrl": "https://via.placeholder.com/150?text=Aspirine"
+      "imageUrl": "assets/images/img4.png"
   },
   {
       "id": 7,
@@ -60,7 +60,7 @@
       "price": 5000,
       "stock": 10,
       "category": "Psychotropes",
-      "imageUrl": "https://via.placeholder.com/150?text=Zolpidem"
+      "imageUrl": "assets/images/img1.png"
   },
   {
       "id": 8,
@@ -69,7 +69,7 @@
       "price": 4500,
       "stock": 8,
       "category": "Psychotropes",
-      "imageUrl": "https://via.placeholder.com/150?text=Diazépam"
+      "imageUrl": "assets/images/img3.png"
   },
   {
       "id": 9,
@@ -78,7 +78,7 @@
       "price": 6000,
       "stock": 5,
       "category": "Antiviraux",
-      "imageUrl": "https://via.placeholder.com/150?text=Tamiflu"
+      "imageUrl": "assets/images/img4.png"
   },
   {
       "id": 10,
@@ -87,7 +87,7 @@
       "price": 7500,
       "stock": 4,
       "category": "Antiviraux",
-      "imageUrl": "https://via.placeholder.com/150?text=Ribavirine"
+      "imageUrl": "assets/images/img1.png"
   },
   {
       "id": 11,
@@ -96,7 +96,7 @@
       "price": 2000,
       "stock": 22,
       "category": "Antidiabétiques",
-      "imageUrl": "https://via.placeholder.com/150?text=Metformine"
+      "imageUrl": "assets/images/img3.png"
   },
   {
       "id": 12,
@@ -105,6 +105,6 @@
       "price": 12000,
       "stock": 9,
       "category": "Antidiabétiques",
-      "imageUrl": "https://via.placeholder.com/150?text=Insuline+Lantus"
+      "imageUrl": "assets/images/img4.png"
   }
 ]

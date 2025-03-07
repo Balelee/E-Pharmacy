@@ -20,8 +20,18 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.primary,
   );
+  static const TextStyle heading4 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  );
 
   // Body Text
+  static const TextStyle bodyText1Hight = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
   static const TextStyle bodyText1 = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,

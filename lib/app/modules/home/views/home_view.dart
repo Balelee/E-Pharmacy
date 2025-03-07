@@ -1,4 +1,5 @@
 import 'package:e_pharma/app/cummon/controllers/navigation_controller.dart';
+import 'package:e_pharma/app/modules/home/views/basket_view.dart';
 import 'package:e_pharma/app/modules/home/views/product_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,9 +24,7 @@ class HomeView extends GetView<HomeController> {
           Container(
             color: Colors.green,
           ),
-          Container(
-            color: Colors.blue,
-          ),
+          BasketView(),
           Container(
             color: const Color.fromARGB(255, 243, 152, 33),
           ),
