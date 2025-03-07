@@ -1,11 +1,11 @@
 import 'package:e_pharma/app/themes/app_text_styles.dart';
+import 'package:e_pharma/app/utils/constants/size_constant.dart';
 import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:e_pharma/app/widgets/otp_field_widget.dart';
 import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
-import '../../../themes/app_colors.dart';
 import '../../../widgets/custom_button.dart';
 import '../controllers/otp_controller.dart';
 
@@ -19,7 +19,7 @@ class OtpView extends GetView<OtpController> {
       child: Scaffold(
         body: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 25.0),
+            padding:  EdgeInsets.symmetric(vertical: 16, horizontal: SizeConstant.haurizontalPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

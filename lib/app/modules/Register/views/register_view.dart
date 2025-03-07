@@ -1,6 +1,7 @@
 import 'package:e_pharma/app/routes/app_pages.dart';
 import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:e_pharma/app/themes/app_text_styles.dart';
+import 'package:e_pharma/app/utils/constants/size_constant.dart';
 import 'package:e_pharma/app/utils/validators.dart';
 import 'package:e_pharma/app/widgets/country_code_box.dart';
 import 'package:e_pharma/app/widgets/custom_button.dart';
@@ -25,7 +26,8 @@ class RegisterView extends GetView<RegisterController> {
       child: Scaffold(
         body: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 25.0),
+            padding: EdgeInsets.symmetric(
+                vertical: 16, horizontal: SizeConstant.haurizontalPadding),
             child: Obx(
               () => SizedBox(
                 width: context.width,

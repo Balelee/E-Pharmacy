@@ -5,6 +5,7 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     primaryColor: AppColors.primary,
     hintColor: Colors.green,
+    scaffoldBackgroundColor: AppColors.background,
     textTheme: TextTheme(
       bodyLarge: TextStyle(fontSize: 16, color: Colors.black),
       bodyMedium: TextStyle(fontSize: 14, color: Colors.grey),
@@ -14,6 +15,7 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     primaryColor: Colors.black,
     hintColor: Colors.orange,
+    scaffoldBackgroundColor: AppColors.background,
     textTheme: TextTheme(
       bodyLarge: TextStyle(fontSize: 16, color: Colors.white),
       bodyMedium: TextStyle(fontSize: 14, color: Colors.grey),

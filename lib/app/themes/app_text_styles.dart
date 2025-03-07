@@ -27,10 +27,20 @@ class AppTextStyles {
     fontWeight: FontWeight.normal,
     color: Colors.black,
   );
+  static const TextStyle bodyText1Bold = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
 
   static const TextStyle bodyText2 = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
+    color: Colors.black54,
+  );
+  static const TextStyle bodyText2Bold = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
     color: Colors.black54,
   );
 
