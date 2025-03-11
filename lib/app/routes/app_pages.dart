@@ -5,6 +5,8 @@ import '../modules/Login/views/login_content_view.dart';
 import '../modules/Login/views/login_view.dart';
 import '../modules/Register/bindings/register_binding.dart';
 import '../modules/Register/views/register_view.dart';
+import '../modules/detailProduit/bindings/detail_produit_binding.dart';
+import '../modules/detailProduit/views/detail_produit_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
@@ -20,6 +22,7 @@ class AppPages {
   static const LOGINCONTENT = Routes.LOGINCONTENT;
   static const HOME = Routes.HOME;
   static const OTP = Routes.OTP;
+  static const DETAIL_PRODUIT = Routes.DETAIL_PRODUIT;
 
   static final routes = [
     GetPage(
@@ -46,6 +49,11 @@ class AppPages {
       name: _Paths.OTP,
       page: () => const OtpView(),
       binding: OtpBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_PRODUIT,
+      page: () =>  DetailProduitView(),
+      binding: DetailProduitBinding(),
     ),
   ];
 }

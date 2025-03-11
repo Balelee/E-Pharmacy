@@ -1,9 +1,9 @@
-
-import 'package:e_pharma/app/widgets/custom_text.dart';
+import 'package:e_pharma/app/cummon/controllers/navigation_controller.dart';
+import 'package:e_pharma/app/modules/home/views/basket_view.dart';
+import 'package:e_pharma/app/modules/home/views/product_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../themes/app_colors.dart';
+import '../../../widgets/bottom_navigation_bar.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -12,12 +12,25 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Column(
-        children: [
-          CustomText(text: "text"),
+      body: PageView(
+        controller: NavigationController.to.pageController,
+        onPageChanged: (index) =>
+            NavigationController.to.currentIndex.value = index,
+        children: <Widget>[
+          ProductListView(),
+          Container(
+            color: Colors.red,
+          ),
+          Container(
+            color: Colors.green,
+          ),
+          BasketView(),
+          Container(
+            color: const Color.fromARGB(255, 243, 152, 33),
+          ),
         ],
       ),
+      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
