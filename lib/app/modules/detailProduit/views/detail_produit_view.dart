@@ -1,4 +1,5 @@
 import 'package:e_pharma/app/data/models/product.dart';
+import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
 import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:e_pharma/app/themes/app_text_styles.dart';
 import 'package:e_pharma/app/utils/constants/size_constant.dart';
@@ -8,9 +9,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/detail_produit_controller.dart';
-
-class DetailProduitView extends GetView<DetailProduitController> {
+class DetailProduitView extends GetView<ProductController> {
   DetailProduitView({super.key});
   final Product produit = Get.arguments;
   @override
@@ -68,39 +67,37 @@ class DetailProduitView extends GetView<DetailProduitController> {
           ),
         ),
       ),
-      bottomNavigationBar: Container(
-        height: context.height / 12,
-        decoration: BoxDecoration(color: AppColors.background),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 24.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  CustomText(
-                    text: "Prix",
-                    style: AppTextStyles.bodyText1,
-                    overflow: TextOverflow.visible,
-                  ),
-                  CustomText(
-                    text: "${produit.price} F",
-                    style: AppTextStyles.bodyText1Bold,
-                    overflow: TextOverflow.visible,
-                  ),
-                ],
-              ),
-              CustomButton.primaryButton(
-                  leadingIcon: Icon(Icons.shopping_cart_outlined,
-                      color: AppColors.secondary),
-                  onPressed: () {},
-                  buttonTitle: "Ajouter au panier",
-                  textStyle:
-                      TextStyle(fontSize: 12, color: AppColors.secondary))
-            ],
-          ),
+      persistentFooterButtons: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomText(
+                  text: "Prix",
+                  style: AppTextStyles.bodyText1,
+                  overflow: TextOverflow.visible,
+                ),
+                CustomText(
+                  text: "${produit.price} F",
+                  style: AppTextStyles.bodyText1Bold,
+                  overflow: TextOverflow.visible,
+                ),
+              ],
+            ),
+            CustomButton.primaryButton(
+                leadingIcon: Icon(Icons.shopping_cart_outlined,
+                    color: AppColors.secondary),
+                onPressed: () {
+                  controller.addToCart(produit);
+                  Get.back();
+                },
+                buttonTitle: "Ajouter au panier",
+                textStyle: TextStyle(fontSize: 12, color: AppColors.secondary))
+          ],
         ),
-      ),
+      ],
     );
   }
 }

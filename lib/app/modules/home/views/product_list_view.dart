@@ -131,7 +131,8 @@ class ProductListView extends GetView<ProductController> {
                                       style: AppTextStyles.bodyText1Bold,
                                     ),
                                     GestureDetector(
-                                      onTap: () => null,
+                                      onTap: () =>
+                                          controller.addToCart(produit),
                                       child: Container(
                                         padding: EdgeInsets.all(4.0),
                                         decoration: BoxDecoration(

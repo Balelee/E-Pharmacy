@@ -1,5 +1,6 @@
 import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AppTextStyles {
   // Headings
@@ -41,6 +42,11 @@ class AppTextStyles {
     fontSize: 16,
     fontWeight: FontWeight.bold,
     color: Colors.black,
+  );
+  static  TextStyle bodyText1PrimaryBold = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: Get.theme.primaryColor,
   );
 
   static const TextStyle bodyText2 = TextStyle(
