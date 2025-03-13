@@ -1,3 +1,4 @@
+import 'package:e_pharma/app/utils/constants/app_constant.dart';
 import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -58,8 +59,8 @@ class Validators {
     if (value == null || value.isEmpty) {
       return 'OTP code is required';
     }
-    if (value.length != 6) {
-      return 'OTP must be 6 digits';
+    if (value.length != AppConstant.otpLength) {
+      return 'OTP must be ${AppConstant.otpLength} digits';
     }
     return null;
   }

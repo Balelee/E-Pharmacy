@@ -8,8 +8,8 @@ CountryCodePicker contryCodeBox({RxString? selectedCode}) {
       selectedCode!.value = countryCode.dialCode!;
     },
     pickerStyle: PickerStyle.bottomSheet,
-    initialSelection: "Cote d'Ivoire",
-    favorite: const ["Cote d'Ivoire"],
+    initialSelection: "Burkina Faso",
+    favorite: const ["Burkina Faso"],
     enabled: true,
     closeIcon: Icon(
       Icons.close,

@@ -1,16 +1,21 @@
+import 'package:e_pharma/app/data/models/auth_message.dart';
 import 'package:e_pharma/app/themes/app_text_styles.dart';
+import 'package:e_pharma/app/utils/constants/app_constant.dart';
 import 'package:e_pharma/app/utils/constants/size_constant.dart';
+import 'package:e_pharma/app/utils/validators.dart';
 import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:e_pharma/app/widgets/otp_field_widget.dart';
 import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 import '../../../widgets/custom_button.dart';
 import '../controllers/otp_controller.dart';
 
 class OtpView extends GetView<OtpController> {
-  const OtpView({super.key});
+  OtpView({super.key});
+  AuthMessage? authMessage = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -19,7 +24,8 @@ class OtpView extends GetView<OtpController> {
       child: Scaffold(
         body: Center(
           child: SingleChildScrollView(
-            padding:  EdgeInsets.symmetric(vertical: 16, horizontal: SizeConstant.haurizontalPadding),
+            padding: EdgeInsets.symmetric(
+                vertical: 16, horizontal: SizeConstant.haurizontalPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -45,7 +51,7 @@ class OtpView extends GetView<OtpController> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: CustomText(
-                              text: "+225 03 37 23 4758",
+                              text: authMessage?.phone ?? "",
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -61,9 +67,17 @@ class OtpView extends GetView<OtpController> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 20.0),
-                  child: OTPFieldWidget(
-                    onCompleted: (value) {},
-                    otpController: controller.otpController,
+                  child: Form(
+                    key: controller.otpFormkey,
+                    child: OTPFieldWidget(
+                      onCompleted: (value) {},
+                      otpController: controller.otpController,
+                      length: AppConstant.otpLength,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      validator: (value) {
+                        return Validators.validateOTP(value);
+                      },
+                    ),
                   ),
                 ),
                 Padding(
@@ -78,9 +92,7 @@ class OtpView extends GetView<OtpController> {
                       ),
                       CustomButton.secondaryButton(
                         buttonTitle: "Renvoyé l’OPT",
-                        onPressed: () {
-                          Get.toNamed(AppPages.LOGINCONTENT);
-                        },
+                        onPressed: () {},
                       ),
                     ],
                   ),
@@ -89,7 +101,7 @@ class OtpView extends GetView<OtpController> {
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   child: CustomButton.primaryButton(
                       onPressed: () {
-                        Get.offAllNamed(AppPages.HOME);
+                        controller.verifyOtp(phone: authMessage?.phone);
                       },
                       buttonTitle: LocaleKeys.buttons_continuous.tr),
                 ),
