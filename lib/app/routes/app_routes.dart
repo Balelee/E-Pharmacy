@@ -9,6 +9,7 @@ abstract class Routes {
   static const REGISTER = _Paths.REGISTER;
   static const OTP = _Paths.OTP;
   static const DETAIL_PRODUIT = _Paths.DETAIL_PRODUIT;
+  static const TRACKER_PERIOD = _Paths.TRACKER_PERIOD;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const REGISTER = '/register';
   static const OTP = '/otp';
   static const DETAIL_PRODUIT = '/detail-produit';
+  static const TRACKER_PERIOD = '/tracker-period';
 }

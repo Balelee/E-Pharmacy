@@ -116,69 +116,78 @@ class RegisterView extends GetView<RegisterController> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: CustomTextFormField(
-                        keyboardType: TextInputType.phone,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
+                    Form(
+                      key: controller.signUpFormkey,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: CustomTextFormField(
+                              keyboardType: TextInputType.phone,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              controller: controller.phoneController,
+                              labelText: LocaleKeys.phone.tr,
+                              prefix: contryCodeBox(
+                                  selectedCode: controller.contryCode),
+                              validator: (value) {
+                                return Validators.validatePhoneNumber(value);
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: CustomTextFormField(
+                              controller: controller.passwordController,
+                              labelText: LocaleKeys.password.tr,
+                              prefix: Icon(Icons.lock),
+                              obscureText: controller.isPasswordHidden.value,
+                              suffix: IconButton(
+                                icon: Icon(
+                                  controller.isPasswordHidden.value
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                ),
+                                onPressed: controller.togglePasswordVisibility,
+                              ),
+                              validator: (value) {
+                                return Validators.validatePassword(value);
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: CustomTextFormField(
+                              controller: controller.confirmPasswordController,
+                              labelText: LocaleKeys.confirmPassword.tr,
+                              prefix: Icon(Icons.lock),
+                              obscureText:
+                                  controller.isConfirmPasswordHidden.value,
+                              suffix: IconButton(
+                                icon: Icon(
+                                  controller.isConfirmPasswordHidden.value
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                ),
+                                onPressed:
+                                    controller.toggleConfirmPasswordVisibility,
+                              ),
+                              validator: (value) {
+                                return Validators.validateConfirmPassword(
+                                    value: value,
+                                    passwordController:
+                                        controller.passwordController);
+                              },
+                            ),
+                          ),
                         ],
-                        controller: controller.phoneController,
-                        labelText: LocaleKeys.phone.tr,
-                        prefix:
-                            contryCodeBox(selectedCode: controller.contryCode),
-                        validator: (value) {
-                          return Validators.validatePhoneNumber(value);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: CustomTextFormField(
-                        controller: controller.passwordController,
-                        labelText: LocaleKeys.password.tr,
-                        prefix: Icon(Icons.lock),
-                        obscureText: controller.isPasswordHidden.value,
-                        suffix: IconButton(
-                          icon: Icon(
-                            controller.isPasswordHidden.value
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                          ),
-                          onPressed: controller.togglePasswordVisibility,
-                        ),
-                        validator: (value) {
-                          return Validators.validatePassword(value);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: CustomTextFormField(
-                        controller: controller.confirmPasswordController,
-                        labelText: LocaleKeys.confirmPassword.tr,
-                        prefix: Icon(Icons.lock),
-                        obscureText: controller.isConfirmPasswordHidden.value,
-                        suffix: IconButton(
-                          icon: Icon(
-                            controller.isConfirmPasswordHidden.value
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                          ),
-                          onPressed: controller.toggleConfirmPasswordVisibility,
-                        ),
-                        validator: (value) {
-                          return Validators.validateConfirmPassword(
-                              value: value,
-                              passwordController:
-                                  controller.passwordController);
-                        },
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: CustomButton.primaryButton(
-                          onPressed: () {},
+                          onPressed: () => controller.signUp(),
                           buttonTitle: LocaleKeys.buttons_continuous.tr),
                     ),
                     Padding(

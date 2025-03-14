@@ -60,35 +60,28 @@ class AuthProvider with BaseController {
     }
   }
 
-  // Future<Phone?> signUp({
-  //   required String phone,
-  //   required String password,
-  //   required String confirmPassword,
-  //   ValueSetter? error,
-  // }) async {
-  //   try {
-  //     return await ApiProvider.post(
-  //       auth: false,
-  //       apiURL: ApiRoutes.register.path,
-  //       data: {
-  //         'phone': phone,
-  //         'password': password,
-  //         'password_confirmation': confirmPassword
-  //       },
-  //     ).catchError(handleError).then((response) {
-  //       if (response != null) {
-  //         Token.savePhoneToken(response['token']);
-  //         Phone phone = Phone.fromJson(response['data']);
-  //         Phone.savePhone(phone);
-  //         return phone;
-  //       }
-  //       return null;
-  //     });
-  //   } catch (e) {
-  //     DialogHelper.showErrorSnackbar(message: "Sign-up error: $e");
-  //     return null;
-  //   }
-  // }
+  Future<AuthMessage?> signUp(
+      {required String phone, required String password}) async {
+    try {
+      showLoading();
+      return await ApiProvider.post(
+        auth: false,
+        apiURL: ApiRoutes.register.path,
+        data: {'phone': phone, 'password': password},
+      ).catchError(handleError).then((response) {
+        hideLoading();
+        if (response != null) {
+         AuthMessage authMessage = AuthMessage.fromJson(response['infos']);
+          return authMessage;
+        }
+        return null;
+      });
+    } catch (e) {
+      hideLoading();
+      DialogHelper.showErrorSnackbar(message: "Sign-up error: $e");
+      return null;
+    }
+  }
 
   Future<bool> logout() async {
     try {

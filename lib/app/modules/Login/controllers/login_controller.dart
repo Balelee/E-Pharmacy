@@ -60,4 +60,6 @@ class LoginController extends GetxController {
       Get.toNamed(AppPages.OTP, arguments: authMessage);
     }
   }
+
+
 }
