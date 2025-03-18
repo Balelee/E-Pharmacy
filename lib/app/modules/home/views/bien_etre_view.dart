@@ -1,5 +1,7 @@
 import 'package:e_pharma/app/routes/app_pages.dart';
+import 'package:e_pharma/app/themes/app_text_styles.dart';
 import 'package:e_pharma/app/widgets/custom_card.dart';
+import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -10,7 +12,10 @@ class BienEtreView extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('BienEtreView'),
+          title: CustomText(
+            text: "Bien etre",
+            style: AppTextStyles.heading3,
+          ),
           centerTitle: true,
         ),
         body: ListView(

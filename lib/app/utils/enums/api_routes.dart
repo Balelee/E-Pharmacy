@@ -3,7 +3,9 @@ enum ApiRoutes {
   register('users/register'),
   logout('users/logout'),
   resendOtp('phones/resend-otp'),
-  verifyOtp('users/verifyOtp');
+  verifyOtp('users/verifyOtp'),
+  products('products?page={pageKey}'),
+  ordersProduct('orders');
 
   final String path;
   const ApiRoutes(this.path);

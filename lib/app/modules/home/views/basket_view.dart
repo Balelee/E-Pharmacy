@@ -24,15 +24,17 @@ class BasketView extends GetView<ProductController> {
           centerTitle: false,
           actions: [
             controller.panierList.isNotEmpty
-                ? CustomButton.secondaryButton(
-                    onPressed: () {},
+                ? CustomButton.primaryButton(
+                    onPressed: () {
+                      controller.payeForProducts();
+                    },
                     buttonTitle: "Payer maintenant",
                     textStyle: TextStyle(
                       fontSize: 14,
-                      color: Get.theme.primaryColor,
+                      color: Get.theme.cardColor,
                       fontWeight: FontWeight.bold,
                     ),
-                    borderRadius: 24,
+                    borderRadius: 8,
                     padding:
                         EdgeInsets.symmetric(horizontal: 16, vertical: 0.0),
                   )
@@ -59,7 +61,7 @@ class BasketView extends GetView<ProductController> {
                     ),
                     title: CustomText(text: "Address de livraison"),
                     subtitle: CustomText(
-                      text: "Abidjan, cocody",
+                      text: controller.deliveryAdress.value,
                       style: AppTextStyles.caption,
                     ),
                     trailing: CustomButton.secondaryButton(
@@ -85,31 +87,39 @@ class BasketView extends GetView<ProductController> {
                       var product = cartItem.product;
 
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 12.0),
+                        padding: const EdgeInsets.only(bottom: 4.0),
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 10.0),
+                              horizontal: 8.0, vertical: 6.0),
                           decoration: BoxDecoration(
                               color: Get.theme.scaffoldBackgroundColor,
                               borderRadius: BorderRadius.circular(26.0)),
                           child: Row(
                             children: [
-                              Container(
-                                width: context.width / 4,
-                                decoration: BoxDecoration(
-                                  color: Get.theme.cardColor,
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(12)),
-                                  child: Image.asset(
-                                    product.imageUrl ?? '',
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(Icons.broken_image,
-                                                size: 50),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Container(
+                                  width: context.width / 4,
+                                  height: context.height * 0.08,
+                                  decoration: BoxDecoration(
+                                    color: Get.theme.cardColor,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.vertical(
+                                        top: Radius.circular(12)),
+                                    child: product.imageUrl != null &&
+                                            product.imageUrl!.isNotEmpty
+                                        ? Image.network(
+                                            product.imageUrl!,
+                                            width: double.infinity,
+                                            fit: BoxFit.fill,
+                                            errorBuilder: (context, error,
+                                                    stackTrace) =>
+                                                const Icon(Icons.broken_image,
+                                                    size: 50),
+                                          )
+                                        : const Icon(Icons.broken_image,
+                                            size: 50),
                                   ),
                                 ),
                               ),
@@ -189,7 +199,7 @@ class BasketView extends GetView<ProductController> {
                                 "${controller.fraisLivraison.toInt()}F"),
                             Divider(),
                             _buildRow(
-                                "Total", "${controller.totalGeneral.toInt()}F",
+                                "Total", "${controller.totalPrice.toInt()}F",
                                 isBold: true),
                           ],
                         ),
