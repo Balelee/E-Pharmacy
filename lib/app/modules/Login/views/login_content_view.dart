@@ -56,38 +56,47 @@ class LoginContentView extends GetView<LoginController> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: CustomTextFormField(
-                      keyboardType: TextInputType.phone,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      controller: controller.phoneController,
-                      labelText: LocaleKeys.phone.tr,
-                      prefix:
-                          contryCodeBox(selectedCode: controller.contryCode),
-                      validator: (value) {
-                        return Validators.validatePhoneNumber(value);
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
-                    child: CustomTextFormField(
-                      controller: controller.passwordController,
-                      labelText: LocaleKeys.password.tr,
-                      prefix: Icon(Icons.lock),
-                      obscureText: controller.isPasswordHidden.value,
-                      suffix: IconButton(
-                        icon: Icon(
-                          controller.isPasswordHidden.value
-                              ? Icons.visibility_off
-                              : Icons.visibility,
+                  Form(
+                    key: controller.loginFormkey,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: CustomTextFormField(
+                            keyboardType: TextInputType.phone,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            controller: controller.phoneController,
+                            labelText: LocaleKeys.phone.tr,
+                            prefix: contryCodeBox(
+                                selectedCode: controller.contryCode),
+                            validator: (value) {
+                              return Validators.validatePhoneNumber(value);
+                            },
+                          ),
                         ),
-                        onPressed: controller.togglePasswordVisibility,
-                      ),
-                      validator: (value) {
-                        return Validators.validatePassword(value);
-                      },
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
+                          child: CustomTextFormField(
+                            controller: controller.passwordController,
+                            labelText: LocaleKeys.password.tr,
+                            prefix: Icon(Icons.lock),
+                            obscureText: controller.isPasswordHidden.value,
+                            suffix: IconButton(
+                              icon: Icon(
+                                controller.isPasswordHidden.value
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              onPressed: controller.togglePasswordVisibility,
+                            ),
+                            validator: (value) {
+                              return Validators.validatePassword(value);
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
@@ -110,7 +119,8 @@ class LoginContentView extends GetView<LoginController> {
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: CustomButton.primaryButton(
                         onPressed: () {
-                          Get.offAllNamed(AppPages.OTP);
+                          // Get.toNamed(AppPages.OTP);
+                          controller.login();
                         },
                         buttonTitle: LocaleKeys.login.tr),
                   ),

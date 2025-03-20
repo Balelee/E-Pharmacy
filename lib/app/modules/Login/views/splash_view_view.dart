@@ -9,11 +9,11 @@ class SplashViewView extends GetView<LoginController> {
   const SplashViewView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          child: Stack(
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Stack(
             clipBehavior: Clip.none,
             children: [
               Container(
@@ -40,39 +40,39 @@ class SplashViewView extends GetView<LoginController> {
               ),
             ],
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                LocaleKeys.app_name.tr,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    bottom: context.height / 5,
-                    right: 10.0,
-                    left: 10.0,
-                    top: 10.0),
-                child: Text(
-                  LocaleKeys.slogan.tr,
-                  textAlign: TextAlign.left,
-                  style: const TextStyle(
-                    fontSize: 17,
-                    color: Color.fromARGB(221, 104, 104, 104),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  LocaleKeys.app_name.tr,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: EdgeInsets.only(
+                      bottom: context.height / 5,
+                      right: 10.0,
+                      left: 10.0,
+                      top: 10.0),
+                  child: Text(
+                    LocaleKeys.slogan.tr,
+                    textAlign: TextAlign.left,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      color: Color.fromARGB(221, 104, 104, 104),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

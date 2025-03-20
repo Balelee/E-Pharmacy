@@ -5,6 +5,7 @@ import '../../utils/helpers/dialog_helper.dart';
 mixin BaseController {
   void handleError(error) {
     hideLoading();
+    print(error);
     if (error is ApiException) {
       var message = error.message;
       displayErrorDialog(message: message!);
@@ -22,17 +23,14 @@ mixin BaseController {
   }
 
   displayErrorDialog({required String message}) {
-    DialogHelper.displayErrorDialog(message: message);
+    DialogHelper.showErrorSnackbar(message: message);
   }
 
-  displaySuccesDialog(
+  displaySuccesMessage(
       {required String message,
       void Function()? onConfirmBtnTap,
       bool? barrierDismissible}) {
-    DialogHelper.displaySuccesDialog(
-        message: message.tr,
-        onConfirmBtnTap: onConfirmBtnTap,
-        barrierDismissible: barrierDismissible ?? true);
+    DialogHelper.showSuccessSnackbar(message: message.tr);
   }
 
   displayConfirmationDialog(

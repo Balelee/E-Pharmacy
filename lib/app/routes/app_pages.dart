@@ -11,6 +11,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/trackerPeriod/bindings/tracker_period_binding.dart';
+import '../modules/trackerPeriod/views/tracker_period_view.dart';
 
 part 'app_routes.dart';
 
@@ -23,6 +25,7 @@ class AppPages {
   static const HOME = Routes.HOME;
   static const OTP = Routes.OTP;
   static const DETAIL_PRODUIT = Routes.DETAIL_PRODUIT;
+  static const TRACKER_PERIOD = Routes.TRACKER_PERIOD;
 
   static final routes = [
     GetPage(
@@ -47,13 +50,18 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.OTP,
-      page: () => const OtpView(),
+      page: () => OtpView(),
       binding: OtpBinding(),
     ),
     GetPage(
       name: _Paths.DETAIL_PRODUIT,
-      page: () =>  DetailProduitView(),
+      page: () => DetailProduitView(),
       binding: DetailProduitBinding(),
+    ),
+    GetPage(
+      name: _Paths.TRACKER_PERIOD,
+      page: () => const TrackerPeriodView(),
+      binding: TrackerPeriodBinding(),
     ),
   ];
 }

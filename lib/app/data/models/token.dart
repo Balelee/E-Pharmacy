@@ -1,17 +1,22 @@
-import 'package:get_storage/get_storage.dart';
+import 'package:e_pharma/app/utils/helpers/storage_helper.dart';
 
 class Token {
-  static final _storage = GetStorage();
-
-  static void save(String token) {
-    _storage.write('auth_token', token);
+  static void savePhoneToken(String token) {
+    StorageHelper.set('phone_token', token);
   }
-
-  static String get() {
-    return _storage.read('auth_token') ?? '';
+  static void saveAuthToken(String token) {
+     StorageHelper.set('auth_token', token);
   }
-
-  static void clear() {
-    _storage.remove('auth_token');
+  static String getPhoneToken() {
+    return StorageHelper.get('phone_token') ?? '';
+  }
+  static String getAuthToken() {
+    return StorageHelper.get('auth_token') ?? '';
+  }
+  static void clearPhoneToken() {
+    StorageHelper.delete('phone_token');
+  }
+  static void clearAuthToken() {
+     StorageHelper.delete('auth_token');
   }
 }

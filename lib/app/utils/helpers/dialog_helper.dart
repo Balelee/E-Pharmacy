@@ -5,37 +5,25 @@ import 'package:quickalert/widgets/quickalert_dialog.dart';
 import '../../themes/app_colors.dart';
 
 class DialogHelper {
-  //show error dialog
-  static void showErroDialog(
-      {String title = 'Error', String? description = 'Something went wrong'}) {
-    Get.dialog(
-      Dialog(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                title,
-                style: Get.textTheme.headlineMedium,
-              ),
-              Text(
-                description ?? '',
-                style: Get.textTheme.titleLarge,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (Get.isDialogOpen!) Get.back();
-                },
-                child: const Text('Okay'),
-              ),
-            ],
-          ),
-        ),
+ 
+
+  // Show an error snackbar
+  static void showErrorSnackbar(
+      {String title = 'Error', required String message}) {
+    Get.snackbar(
+      title.tr,
+      message.tr,
+      backgroundColor: AppColors.error,
+      colorText: Colors.white,
+      snackPosition: SnackPosition.TOP,
+      isDismissible: false,
+      icon: IconButton(
+        onPressed: () => Get.closeCurrentSnackbar(),
+        icon: const Icon(Icons.cancel_rounded, color: Colors.white),
       ),
+      duration: const Duration(seconds: 30),
     );
   }
-
   //show loading
   static void showLoading({String? message, bool? noBkgColor}) {
     Get.dialog(
@@ -62,51 +50,51 @@ class DialogHelper {
     if (Get.isDialogOpen!) Get.back();
   }
 
-  static void displayErrorDialog({required String message}) {
-    QuickAlert.show(
-      context: Get.context!,
-      type: QuickAlertType.warning,
-      titleColor: AppColors.error,
-      confirmBtnColor: AppColors.background,
-      title: 'error_title'.tr,
-      text: message.tr,
+
+
+  // Show a success snackbar
+  static void showSuccessSnackbar(
+      {String title = 'Success', required String message}) {
+    Get.snackbar(
+      title.tr,
+      message.tr,
+      backgroundColor: AppColors.success,
+      colorText: Colors.white,
+      snackPosition: SnackPosition.TOP,
+      duration: const Duration(seconds: 20),
     );
   }
 
-  static void displayInfoDialog(
-      {required String message,
-      void Function()? onConfirmBtnTap,
-      void Function()? onCancelBtnTap,
-      String confirmBtnText = 'new',
-      String cancelBtnText = 'cancel',
-      bool barrierDismissible = true}) {
-    QuickAlert.show(
-        context: Get.context!,
-        barrierDismissible: barrierDismissible,
-        type: QuickAlertType.info,
-        titleColor: AppColors.info,
-        confirmBtnColor: AppColors.background,
-        onConfirmBtnTap: onConfirmBtnTap,
-        onCancelBtnTap: onCancelBtnTap,
-        title: 'Information'.tr,
-        text: message.tr,
-        confirmBtnText: confirmBtnText.tr,
-        cancelBtnText: cancelBtnText.tr,
-        showCancelBtn: true);
+  // Show an info snackbar
+  static void showInfoSnackbar(
+      {String title = 'Info', required String message}) {
+    Get.snackbar(
+      title.tr,
+      message.tr,
+      backgroundColor: AppColors.info,
+      colorText: Colors.white,
+      snackPosition: SnackPosition.TOP,
+      duration: const Duration(seconds: 20),
+    );
   }
 
-  static void displaySuccesDialog(
-      {required String message,
-      void Function()? onConfirmBtnTap,
-      bool barrierDismissible = true}) {
-    QuickAlert.show(
-      barrierDismissible: barrierDismissible,
-      context: Get.context!,
-      type: QuickAlertType.success,
-      titleColor: AppColors.success,
-      confirmBtnColor: AppColors.background,
-      text: message.tr,
-      onConfirmBtnTap: onConfirmBtnTap,
+  // Show a confirmation dialog
+  static Future<bool?> showConfirmationDialog({
+    required String title,
+    required String message,
+    required Function() onConfirm,
+  }) {
+    return Get.defaultDialog(
+      title: title.tr,
+      middleText: message.tr,
+      textConfirm: 'Yes'.tr,
+      textCancel: 'No'.tr,
+      confirmTextColor: Colors.white,
+      onConfirm: () {
+        Get.back(result: true);
+        onConfirm();
+      },
+      onCancel: () => Get.back(result: false),
     );
   }
 
@@ -151,12 +139,13 @@ class DialogHelper {
             child: Text(
               'yes'.tr,
               style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.background),
+                  fontWeight: FontWeight.bold, color: AppColors.background),
             ),
           ),
         ],
       ),
     );
   }
+
+
 }

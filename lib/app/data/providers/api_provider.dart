@@ -9,9 +9,10 @@ import '../models/token.dart';
 class ApiProvider {
   static const int timeOutDuration = 200;
 
-  Future<dynamic> get({bool auth = true, required String apiURL}) async {
+  static Future<dynamic> get(
+      {bool auth = true, required String apiURL, bool isPhone = false}) async {
     try {
-      String token = Token.get();
+      String token = !isPhone ? Token.getAuthToken() : Token.getPhoneToken();
       var response = await http
           .get(Uri.parse(ApiClient.baseUrl + apiURL),
               headers: ApiClient.headers(auth: auth, token: token))
@@ -24,12 +25,14 @@ class ApiProvider {
     }
   }
 
-  Future<dynamic> post(
-      {required bool auth,
-      required Map<String, dynamic> data,
-      required String apiURL}) async {
+  static Future<dynamic> post({
+    required bool auth,
+    required Map<String, dynamic> data,
+    required String apiURL,
+    bool isPhone = false,
+  }) async {
     try {
-      String token = Token.get();
+      String token = !isPhone ? Token.getAuthToken() : Token.getPhoneToken();
       var response = await http
           .post(Uri.parse(ApiClient.baseUrl + apiURL),
               body: jsonEncode(data),
@@ -44,9 +47,13 @@ class ApiProvider {
     }
   }
 
-  Future<dynamic> delete({bool auth = false, required String apiURL}) async {
+  static Future<dynamic> delete({
+    bool auth = false,
+    required String apiURL,
+    bool isPhone = false,
+  }) async {
     try {
-      String token = Token.get();
+      String token = !isPhone ? Token.getAuthToken() : Token.getPhoneToken();
       var response = await http
           .delete(Uri.parse(ApiClient.baseUrl + apiURL),
               headers: ApiClient.headers(auth: auth, token: token))

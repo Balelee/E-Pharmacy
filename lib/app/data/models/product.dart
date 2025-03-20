@@ -1,10 +1,11 @@
 class Product {
   final int id;
   final String name;
-  final String description;
+  final String? description;
   final int stock;
   final double price;
   final String category;
+  final String pharmacieName;
   final String? imageUrl;
 
   Product({
@@ -14,6 +15,7 @@ class Product {
     required this.stock,
     required this.price,
     required this.category,
+    required this.pharmacieName,
     required this.imageUrl,
   });
 
@@ -21,12 +23,13 @@ class Product {
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       id: json['id'],
-      name: json['name'],
+      name: json['productName'],
       description: json['description'],
       stock: json['stock'],
       price: (json['price'] as num).toDouble(),
-      category: json['category'],
-      imageUrl: json['imageUrl'],
+      category: json['productType'],
+      pharmacieName: json['pharmacieName'],
+      imageUrl: json['productImage'],
     );
   }
 
@@ -39,6 +42,7 @@ class Product {
       'stock': stock,
       'price': price,
       'category': category,
+      'pharmacieName': pharmacieName,
       'imageUrl': imageUrl,
     };
   }

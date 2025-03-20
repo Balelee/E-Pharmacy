@@ -35,13 +35,16 @@ class DetailProduitView extends GetView<ProductController> {
                 ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(12)),
-                  child: Image.asset(
-                    produit.imageUrl ?? '',
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        const Icon(Icons.broken_image, size: 50),
-                  ),
+                  child:
+                      produit.imageUrl != null && produit.imageUrl!.isNotEmpty
+                          ? Image.network(
+                              produit.imageUrl!,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.broken_image, size: 50),
+                            )
+                          : const Icon(Icons.broken_image, size: 50),
                 ),
                 CustomText(
                   text: produit.name,
@@ -57,7 +60,7 @@ class DetailProduitView extends GetView<ProductController> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: CustomText(
-                    text: produit.description,
+                    text: produit.description ?? '',
                     style: AppTextStyles.bodyText1,
                     overflow: TextOverflow.visible,
                   ),

@@ -29,7 +29,7 @@ void main() async {
     GetMaterialApp(
       debugShowCheckedModeBanner: Env.debugMode,
       title: Env.appName,
-      initialRoute: AppPages.INITIAL,
+      initialRoute: AppPages.HOME,
       getPages: AppPages.routes,
       locale: LocalizationService.to.getCurrentLocale(),
       translationsKeys: AppTranslation.translations,
