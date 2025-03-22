@@ -1,10 +1,12 @@
+import 'dart:async'; // Import Timer
 import 'package:e_pharma/app/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CustomSearchBar extends StatefulWidget {
-  final Function(String)? onSearch; // Callback pour la recherche
-  final Function(XFile?)? onPhotoTaken; // Callback pour la photo
+  final Function(String?)? onSearch;
+  final Function(XFile?)? onPhotoTaken;
 
   const CustomSearchBar({Key? key, this.onSearch, this.onPhotoTaken})
       : super(key: key);
@@ -17,6 +19,7 @@ class CustomSearchBar extends StatefulWidget {
 class _CustomSearchBarState extends State<CustomSearchBar> {
   final TextEditingController _searchController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+  Timer? _debounceTimer;
 
   void _pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.camera);
@@ -28,8 +31,29 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   void _onSearch() {
     String query = _searchController.text.trim();
     if (query.isNotEmpty) {
-      widget.onSearch?.call(query); // Exécute la recherche
+      widget.onSearch?.call(query);
+    } else {
+      widget.onSearch?.call(null);
     }
+  }
+
+  void _onSearchChanged() {
+    // Cancel the previous timer if it exists
+    if (_debounceTimer?.isActive ?? false) {
+      _debounceTimer?.cancel();
+    }
+
+    // Start a new timer
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      _onSearch();
+    });
+  }
+
+  @override
+  void dispose() {
+    _debounceTimer?.cancel();
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -51,8 +75,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.blue),
-            onPressed: _onSearch, // Lance la recherche
+            icon: Icon(Icons.search, color: Get.theme.primaryColor),
+            onPressed: () {},
           ),
           Expanded(
             child: TextField(
@@ -61,12 +85,12 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                   hintText: "Rechercher un médicament...",
                   border: InputBorder.none,
                   hintStyle: AppTextStyles.bodyText2),
-              onSubmitted: (_) => _onSearch(),
+              onChanged: (value) => _onSearchChanged(),
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.camera_alt, color: Colors.blue),
-            onPressed: _pickImage, // Capture une photo
+            icon: Icon(Icons.camera_alt, color: Get.theme.primaryColor),
+            onPressed: _pickImage,
           ),
         ],
       ),

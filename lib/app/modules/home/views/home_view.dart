@@ -19,7 +19,7 @@ class HomeView extends GetView<HomeController> {
         physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (index) =>
             NavigationController.to.currentIndex.value = index,
-        itemCount: 5, // Nombre total de pages
+        itemCount: 5,
         itemBuilder: (context, index) {
           switch (index) {
             case 0:
@@ -33,7 +33,7 @@ class HomeView extends GetView<HomeController> {
             case 4:
               return ProfileView();
             default:
-              return Container(); // Sécurité au cas où
+              return Container(); 
           }
         },
       ),

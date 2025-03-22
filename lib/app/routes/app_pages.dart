@@ -9,6 +9,8 @@ import '../modules/detailProduit/bindings/detail_produit_binding.dart';
 import '../modules/detailProduit/views/detail_produit_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/orderDetail/bindings/order_detail_binding.dart';
+import '../modules/orderDetail/views/order_detail_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/trackerPeriod/bindings/tracker_period_binding.dart';
@@ -26,6 +28,7 @@ class AppPages {
   static const OTP = Routes.OTP;
   static const DETAIL_PRODUIT = Routes.DETAIL_PRODUIT;
   static const TRACKER_PERIOD = Routes.TRACKER_PERIOD;
+  static const ORDER_DETAIL = Routes.ORDER_DETAIL;
 
   static final routes = [
     GetPage(
@@ -62,6 +65,11 @@ class AppPages {
       name: _Paths.TRACKER_PERIOD,
       page: () => const TrackerPeriodView(),
       binding: TrackerPeriodBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_DETAIL,
+      page: () =>  OrderDetailView(),
+      binding: OrderDetailBinding(),
     ),
   ];
 }

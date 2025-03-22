@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:e_pharma/app/cummon/controllers/base_controller.dart';
+import 'package:e_pharma/app/data/models/order.dart';
 import 'package:e_pharma/app/data/providers/api_provider.dart';
 import 'package:e_pharma/app/utils/enums/api_routes.dart';
 import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
@@ -21,11 +22,12 @@ class ProductProvider with BaseController {
   //   }
   // }
 
-  Future<dynamic> fetchProduits({required int pageKey}) async {
+  Future<dynamic> fetchProduits({required int pageKey, String? query}) async {
     try {
       final response = await ApiProvider.get(
         auth: true,
-        apiURL: ApiRoutes.products.format({'pageKey': pageKey.toString()}),
+        apiURL: ApiRoutes.products
+            .format({'pageKey': pageKey.toString(), 'query': query}),
       ).catchError(handleError);
       if (response != null && response['data'] != null) {
         return response;
@@ -37,20 +39,22 @@ class ProductProvider with BaseController {
     }
   }
 
-  Future<dynamic> storeCommand({required Map<String, dynamic> data}) async {
+  Future<List<Order>?> storeCommand(
+      {required Map<String, dynamic> data}) async {
     try {
-      print("Arrive ici");
       showLoading();
       final response = await ApiProvider.post(
         auth: true,
         apiURL: ApiRoutes.ordersProduct.path,
         data: data,
       ).catchError(handleError);
-      print("Atteint ici");
-      print(response);
       hideLoading();
       if (response != null && response['data'] != null) {
-        return response;
+        final List<dynamic> data = response['data'];
+        print("data value");
+        // print(data);
+        print(data.map((json) => print(Order.fromJson(json))));
+        return data.map((json) => Order.fromJson(json)).toList();
       }
       return null;
     } catch (e) {
