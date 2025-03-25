@@ -1,15 +1,18 @@
 import 'package:e_pharma/app/cummon/controllers/navigation_controller.dart';
+import 'package:e_pharma/app/modules/home/controllers/cart_controller.dart';
 import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:badges/badges.dart' as badges;
 
 class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({super.key});
-
+  BottomNavBar({super.key});
+  CartController cartController = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      var cartItemCount = cartController.panierList.length;
       return ConvexAppBar(
         backgroundColor: AppColors.background,
         color: Colors.grey,
@@ -24,7 +27,24 @@ class BottomNavBar extends StatelessWidget {
           TabItem(icon: Icons.home, title: "Acceuil"),
           TabItem(icon: Icons.health_and_safety, title: "Bien être"),
           TabItem(icon: Icons.forum, title: "Forum"),
-          TabItem(icon: Icons.shopping_cart, title: "Cart"),
+          TabItem(
+            icon: badges.Badge(
+              badgeContent: Text(
+                cartItemCount.toString(),
+                style: const TextStyle(color: Colors.white, fontSize: 12),
+              ),
+              stackFit: StackFit.expand,
+              showBadge: cartItemCount > 0 &&
+                  NavigationController.to.currentIndex.value != 3,
+              child: Icon(
+                Icons.shopping_cart,
+                color: NavigationController.to.currentIndex.value != 3
+                    ? Get.theme.disabledColor
+                    : Get.theme.cardColor,
+              ),
+            ),
+            title: "Cart",
+          ),
           TabItem(icon: Icons.person, title: "Profile"),
         ],
       );

@@ -88,10 +88,10 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               onChanged: (value) => _onSearchChanged(),
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.camera_alt, color: Get.theme.primaryColor),
-            onPressed: _pickImage,
-          ),
+          // IconButton(
+          //   icon: Icon(Icons.camera_alt, color: Get.theme.primaryColor),
+          //   onPressed: _pickImage,
+          // ),
         ],
       ),
     );

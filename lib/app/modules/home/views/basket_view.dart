@@ -32,31 +32,7 @@ class BasketView extends GetView<CartController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Container(
-              //   padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
-              //   decoration: BoxDecoration(
-              //       color: Get.theme.cardTheme.color,
-              //       borderRadius: BorderRadius.circular(26.0)),
-              //   child: ListTile(
-              //     leading: CircleAvatar(
-              //       backgroundColor: Get.theme.scaffoldBackgroundColor,
-              //       foregroundColor: Get.theme.primaryColor,
-              //       child: Icon(Icons.location_on),
-              //     ),
-              //     title: CustomText(text: "Address de livraison"),
-              //     subtitle: CustomText(
-              //       text: controller.deliveryAdress.value,
-              //       style: AppTextStyles.caption,
-              //     ),
-              //     trailing: CustomButton.secondaryButton(
-              //       onPressed: () {},
-              //       buttonTitle: "Editer",
-              //       mainAxisSize: MainAxisSize.min,
-              //       padding: EdgeInsets.all(0.0),
-              //       textStyle: TextStyle(fontSize: 13),
-              //     ),
-              //   ),
-              // ),
+         
 
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
@@ -173,7 +149,7 @@ class BasketView extends GetView<CartController> {
               controller.panierList.isNotEmpty
                   ? CustomButton.primaryButton(
                       onPressed: () {
-                        controller.payeForProducts();
+                        controller.storeCommand();
                       },
                       buttonTitle: "Demander la disponibilité",
                       textStyle: TextStyle(

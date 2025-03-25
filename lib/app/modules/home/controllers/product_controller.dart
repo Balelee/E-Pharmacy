@@ -1,6 +1,5 @@
 import 'package:e_pharma/app/data/models/cart_item.dart';
 import 'package:e_pharma/app/data/models/paginated_transaction.dart';
-import 'package:e_pharma/app/data/models/user.dart';
 import 'package:e_pharma/app/modules/home/controllers/cart_controller.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -77,8 +76,6 @@ class ProductController extends GetxController {
         _pageSize.value = products.meta.total;
         final isLastPage = products.meta.currentPage == products.meta.lastPage;
         if (isLastPage) {
-          print("On est ici");
-          print(products.data);
           pagingController.appendLastPage(products.data);
         } else {
           pagingController.appendPage(products.data, pageKey + 1);

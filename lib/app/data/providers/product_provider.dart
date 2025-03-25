@@ -51,9 +51,6 @@ class ProductProvider with BaseController {
       hideLoading();
       if (response != null && response['data'] != null) {
         final List<dynamic> data = response['data'];
-        print("data value");
-        // print(data);
-        print(data.map((json) => print(Order.fromJson(json))));
         return data.map((json) => Order.fromJson(json)).toList();
       }
       return null;

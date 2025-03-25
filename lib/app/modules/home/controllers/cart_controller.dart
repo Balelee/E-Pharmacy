@@ -1,13 +1,11 @@
 import 'package:e_pharma/app/data/models/cart_item.dart';
 import 'package:e_pharma/app/data/models/order.dart';
 import 'package:e_pharma/app/data/providers/product_provider.dart';
-import 'package:e_pharma/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
   final ProductProvider produitProvider = ProductProvider();
   var panierList = <CartItem>[].obs;
-  RxString deliveryAdress = RxString("Abidjan, cocody");
 
   RxList<Order> orders = RxList<Order>([]);
 
@@ -26,11 +24,10 @@ class CartController extends GetxController {
     super.onClose();
   }
 
-  void payeForProducts() async {
+  void storeCommand() async {
     var data = {
       "user_id": 2,
       "total_price": totalPrice,
-      "delivery_adress": deliveryAdress.value,
       "items": panierList
           .map((item) => {
                 "product_id": item.product.id,
@@ -40,10 +37,8 @@ class CartController extends GetxController {
           .toList(),
     };
     orders.value = await produitProvider.storeCommand(data: data).then((data) {
-      print("on est ici");
-      print(data);
       panierList.clear();
-    
+
       return data ?? [];
     });
   }
