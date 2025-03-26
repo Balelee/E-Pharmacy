@@ -33,13 +33,11 @@ class ProductController extends GetxController {
     selectedCategory.value = category;
   }
 
-  List<Product> get filteredProducts {
-    if (selectedCategory.value == "All") return produits;
-    return produits.where((p) => p.category == selectedCategory.value).toList();
-  }
+  
 
   final ProductProvider produitProvider = ProductProvider();
   RxnString query = RxnString(null);
+  RxnString currentFliter = RxnString(null);
   @override
   void onInit() {
     super.onInit();
@@ -68,7 +66,7 @@ class ProductController extends GetxController {
   Future<void> _fetchPage({required int pageKey}) async {
     try {
       final response = await produitProvider.fetchProduits(
-          pageKey: pageKey, query: query.value);
+          pageKey: pageKey, query: query.value,filter: currentFliter.value);
       if (response['data'].isEmpty) {
         pagingController.appendLastPage([]);
       } else {

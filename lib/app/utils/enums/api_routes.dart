@@ -4,7 +4,8 @@ enum ApiRoutes {
   logout('users/logout'),
   resendOtp('phones/resend-otp'),
   verifyOtp('users/verifyOtp'),
-  products('products?page={pageKey}&q={query}'),
+  filterProduct('filterProduct'),
+  products('products?page={pageKey}&q={query}&filter={filter}'),
   ordersProduct('orders');
 
   final String path;

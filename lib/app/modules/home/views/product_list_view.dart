@@ -3,6 +3,7 @@ import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
 import 'package:e_pharma/app/routes/app_pages.dart';
 import 'package:e_pharma/app/themes/app_text_styles.dart';
 import 'package:e_pharma/app/utils/constants/size_constant.dart';
+import 'package:e_pharma/app/widgets/category_filter.dart';
 import 'package:e_pharma/app/widgets/custom_search_bar.dart';
 import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:e_pharma/generated/locales.g.dart';
@@ -40,7 +41,6 @@ class ProductListView extends GetView<ProductController> {
                   },
                 ),
               ),
-
               Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Row(
@@ -52,10 +52,10 @@ class ProductListView extends GetView<ProductController> {
                       ),
                     ],
                   )),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(vertical: 16.0),
-              //   child: CategoryFilterWidget(),
-              // ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                child: CategoryFilterWidget(),
+              ),
               Expanded(
                 child: PagedGridView<int, Product>(
                   pagingController: controller.pagingController,
@@ -65,6 +65,7 @@ class ProductListView extends GetView<ProductController> {
                     mainAxisSpacing: 10,
                     childAspectRatio: 0.75,
                   ),
+                  padding: EdgeInsets.all(0.0),
                   builderDelegate: PagedChildBuilderDelegate<Product>(
                     itemBuilder: (context, produit, index) {
                       return GestureDetector(
