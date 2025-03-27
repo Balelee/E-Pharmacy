@@ -10,13 +10,13 @@ class ProductFilter {
   factory ProductFilter.fromJson(Map<String, dynamic> json) {
     return ProductFilter(
       label: json['label'],
-      filter: json['filter'],
+      filter: json['value'].toString(),
     );
   }
   Map<String, dynamic> toJson() {
     return {
       'label': label,
-      'filter': filter,
+      'value': filter,
     };
   }
 }

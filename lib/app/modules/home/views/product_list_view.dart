@@ -7,7 +7,6 @@ import 'package:e_pharma/app/widgets/category_filter.dart';
 import 'package:e_pharma/app/widgets/custom_search_bar.dart';
 import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:e_pharma/generated/locales.g.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -23,7 +22,8 @@ class ProductListView extends GetView<ProductController> {
       child: Scaffold(
         body: Padding(
           padding: EdgeInsets.symmetric(
-              vertical: 16, horizontal: SizeConstant.haurizontalPadding),
+                  vertical: 0.0, horizontal: SizeConstant.haurizontalPadding)
+              .copyWith(bottom: 20.0),
           child: Column(
             children: [
               Padding(
@@ -32,13 +32,6 @@ class ProductListView extends GetView<ProductController> {
                   onSearch: (query) {
                     controller.fetchResearchData(label: query);
                   },
-                  onPhotoTaken: (image) {
-                    if (image != null) {
-                      if (kDebugMode) {
-                        print("Photo prise : ${image.path}");
-                      }
-                    }
-                  },
                 ),
               ),
               Padding(
@@ -46,8 +39,10 @@ class ProductListView extends GetView<ProductController> {
                   child: Row(
                     children: [
                       CustomText(
-                        text: ".Produits",
-                        style: AppTextStyles.bodyText1Bold,
+                        text: "Filtrer par pharmacie",
+                        style: AppTextStyles.bodyText1Bold.copyWith(
+                            color: Get.theme.textTheme.bodyLarge?.color
+                                ?.withOpacity(0.4)),
                         textAlign: TextAlign.left,
                       ),
                     ],
@@ -56,6 +51,19 @@ class ProductListView extends GetView<ProductController> {
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: CategoryFilterWidget(),
               ),
+              Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Row(
+                    children: [
+                      CustomText(
+                        text: "Produits",
+                        style: AppTextStyles.bodyText1Bold.copyWith(
+                            color: Get.theme.textTheme.bodyLarge?.color
+                                ?.withOpacity(0.4)),
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
+                  )),
               Expanded(
                 child: PagedGridView<int, Product>(
                   pagingController: controller.pagingController,
@@ -119,6 +127,17 @@ class ProductListView extends GetView<ProductController> {
                                 ),
                               ),
                               Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                  produit.pharmacieName,
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      color: Get.theme.primaryColor,
+                                      fontStyle: FontStyle.italic),
+                                ),
+                              ),
+                              Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 6.0),
                                 child: Row(
@@ -133,7 +152,7 @@ class ProductListView extends GetView<ProductController> {
                                       onTap: () =>
                                           controller.addToCart(produit),
                                       child: Container(
-                                        padding: EdgeInsets.all(6.0),
+                                        padding: EdgeInsets.all(1.0),
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           color: Get.theme.primaryColor,
@@ -150,10 +169,14 @@ class ProductListView extends GetView<ProductController> {
                         ),
                       );
                     },
-                    firstPageProgressIndicatorBuilder: (_) =>
-                        const Center(child: CircularProgressIndicator()),
-                    newPageProgressIndicatorBuilder: (_) =>
-                        const Center(child: CircularProgressIndicator()),
+                    firstPageProgressIndicatorBuilder: (_) => Center(
+                        child: CircularProgressIndicator(
+                      color: Get.theme.primaryColor,
+                    )),
+                    newPageProgressIndicatorBuilder: (_) => Center(
+                        child: CircularProgressIndicator(
+                      color: Get.theme.primaryColor,
+                    )),
                     noItemsFoundIndicatorBuilder: (_) =>
                         Center(child: Text(LocaleKeys.no_product.tr)),
                   ),
