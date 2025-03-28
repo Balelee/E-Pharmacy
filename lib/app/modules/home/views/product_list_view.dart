@@ -20,6 +20,7 @@ class ProductListView extends GetView<ProductController> {
       behavior: HitTestBehavior.deferToChild,
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        appBar: AppBar(),
         body: Padding(
           padding: EdgeInsets.symmetric(
                   vertical: 0.0, horizontal: SizeConstant.haurizontalPadding)
