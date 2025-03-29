@@ -24,6 +24,7 @@ class ProductController extends GetxController {
   final ProductProvider produitProvider = ProductProvider();
   RxnString query = RxnString(null);
   final RxBool _isDisposed = RxBool(false);
+
   @override
   void onInit() {
     super.onInit();

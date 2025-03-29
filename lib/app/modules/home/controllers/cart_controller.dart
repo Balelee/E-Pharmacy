@@ -17,6 +17,9 @@ class CartController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    if (orders.isEmpty) {
+      loadOrdersData();
+    }
   }
 
   @override
@@ -41,6 +44,10 @@ class CartController extends GetxController {
 
       return data ?? [];
     });
+  }
+
+  void loadOrdersData() async {
+    orders.value = await produitProvider.getOrdersCommand() ?? [];
   }
 
   void incrementQuantity(int productId) {

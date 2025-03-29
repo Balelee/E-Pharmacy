@@ -30,7 +30,7 @@ class OtpController extends GetxController {
       bool isVerified =
           await authProvider.verifyOtp(otp: otpController.text, phone: phone);
       if (isVerified) {
-        Get.offAllNamed(AppPages.HOME);
+        Get.offAllNamed(AppPages.BASE);
       }
     }
   }

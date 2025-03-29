@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class OrderDetail {
   final int id;
   final int orderId;
@@ -5,6 +7,8 @@ class OrderDetail {
   final String productName;
   final String quantity;
   final String priceUnitaire;
+  final String status;
+  final Color statusColor;
   final String? imageUrl;
 
   OrderDetail({
@@ -14,6 +18,8 @@ class OrderDetail {
     required this.productName,
     required this.quantity,
     required this.priceUnitaire,
+    required this.status,
+    required this.statusColor,
     required this.imageUrl,
   });
 
@@ -26,6 +32,8 @@ class OrderDetail {
       quantity: json['quantity'].toString(),
       imageUrl: json['productImage'],
       priceUnitaire: (json['priceUnitaire'] as num).toString(),
+      status: json['orderDetailLabel'],
+      statusColor: Color(int.parse(json['orderDetailColor'] ?? '0xFFF44336')),
     );
   }
 
@@ -38,6 +46,7 @@ class OrderDetail {
       'quantity': quantity,
       'priceUnitaire': priceUnitaire,
       'imageUrl': imageUrl,
+      'orderDetailStatus': status,
     };
   }
 }
