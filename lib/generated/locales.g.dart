@@ -27,6 +27,7 @@ class LocaleKeys {
   static const sign_up = 'sign_up';
   static const free_sign_up = 'free_sign_up';
   static const identique_password_error = 'identique_password_error';
+  static const no_product = 'no_product';
   static const buttons_continuous = 'buttons_continuous';
   static const buttons_login = 'buttons_login';
   static const buttons_sign_in = 'buttons_sign_in';
@@ -55,6 +56,7 @@ class Locales {
     'sign_up': 'Sign up',
     'free_sign_up': 'Sign up gratuitously',
     'identique_password_error': 'The passwords sould be identics',
+    'no_product': 'No product found',
     'buttons_continuous': 'Continuous',
     'buttons_login': 'Login',
     'buttons_sign_in': 'Sign-in',
@@ -81,6 +83,7 @@ class Locales {
     'sign_up': 'S’inscrire',
     'free_sign_up': 'S’inscrire gratuitement',
     'identique_password_error': 'Les mots de passe non indentiques',
+    'no_product': 'Pas de produit trouvé',
     'buttons_continuous': 'Continuer',
     'buttons_login': 'Connexion',
     'buttons_sign_in': 'S\'identifier',

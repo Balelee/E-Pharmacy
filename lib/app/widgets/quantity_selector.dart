@@ -1,6 +1,6 @@
+import 'package:e_pharma/app/modules/home/controllers/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
 
 class QuantitySelector extends StatelessWidget {
   final int productId;
@@ -8,7 +8,7 @@ class QuantitySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductController controller = Get.find<ProductController>();
+    final CartController controller = Get.find<CartController>();
 
     return Obx(() {
       var cartItem = controller.panierList
@@ -21,7 +21,7 @@ class QuantitySelector extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () => controller.decrementQuantity(productId),
-            icon: Icon(Icons.remove, color: Colors.red),
+            icon: Icon(Icons.remove, color: const Color(0xFFF44336)),
           ),
           Text(
             cartItem.quantity.toString(),
