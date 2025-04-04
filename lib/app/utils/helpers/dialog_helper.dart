@@ -1,3 +1,4 @@
+import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quickalert/models/quickalert_type.dart';
@@ -131,21 +132,22 @@ class DialogHelper {
         content: Text(message),
         actions: [
           TextButton(
-            child: Text('no'.tr),
+            child: Text(LocaleKeys.buttons_no.tr),
             onPressed: () => Get.back(),
           ),
           TextButton(
             onPressed: onConfirm,
             child: Text(
-              'yes'.tr,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, color: AppColors.background),
+              LocaleKeys.buttons_yes.tr,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Get.theme.primaryColor),
             ),
           ),
         ],
       ),
     );
   }
+
 
 
 }

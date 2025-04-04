@@ -1,5 +1,10 @@
 import 'package:e_pharma/app/modules/home/controllers/profile_controller.dart';
+import 'package:e_pharma/app/themes/app_text_styles.dart';
 import 'package:e_pharma/app/widgets/custom_button.dart';
+import 'package:e_pharma/app/widgets/custom_text.dart';
+import 'package:e_pharma/app/widgets/loding_indicator.dart';
+import 'package:e_pharma/app/widgets/profil_widgets.dart';
+import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,16 +13,53 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ProfileView'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
+    return GestureDetector(
+      behavior: HitTestBehavior.deferToChild,
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        body: Column(
           children: [
-            CustomButton.secondaryButton(
-                onPressed: () =>controller.logOut(), buttonTitle: "Log out")
+            ProfileHeader(),
+            Container(
+              height: 30.0,
+              color: Colors.amber,
+            ),
+            Expanded(
+              child: ListView(
+                controller: ScrollController(),
+                children: [
+                  ProfileDetails(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: GestureDetector(
+                      onTap: () => controller.logOut(),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0.0, horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          color: Get.theme.scaffoldBackgroundColor,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        child: Obx(
+                          () => ListTile(
+                            leading: const Icon(Icons.logout),
+                            title: CustomText(
+                              text: LocaleKeys.buttons_logout.tr,
+                              style: AppTextStyles.bodyText1,
+                            ),
+                            trailing: controller.isLoding.value
+                                ? LoadingIndicator(
+                                    color: Get.theme.primaryColor)
+                                : null,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

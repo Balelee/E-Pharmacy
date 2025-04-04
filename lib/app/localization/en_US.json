@@ -29,7 +29,12 @@
   "baby_sleep": "Baby Sleep",
   "baby_sleep_tip_description": "Tips to improve your baby's sleep...",
 
+  "confirm_title":"Confirmation",
+  "logout_message":"Do you realy want to logout from the app",
+
     "buttons": {
+      "no": "No",
+      "yes": "Yes",
       "continuous": "Continuous",
       "login": "Login",
       "sign_in": "Sign-in",

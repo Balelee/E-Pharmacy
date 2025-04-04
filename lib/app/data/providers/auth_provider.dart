@@ -71,7 +71,7 @@ class AuthProvider with BaseController {
       ).catchError(handleError).then((response) {
         hideLoading();
         if (response != null) {
-         AuthMessage authMessage = AuthMessage.fromJson(response['infos']);
+          AuthMessage authMessage = AuthMessage.fromJson(response['infos']);
           return authMessage;
         }
         return null;
@@ -85,20 +85,17 @@ class AuthProvider with BaseController {
 
   Future<bool> logout() async {
     try {
-      showLoading();
       return await ApiProvider.post(
         auth: true,
         apiURL: ApiRoutes.logout.path,
         data: {},
       ).catchError(handleError).then((response) {
-        hideLoading();
         if (response != null) {
           return true;
         }
         return false;
       });
     } catch (e) {
-      hideLoading();
       DialogHelper.showErrorSnackbar(message: "Logout error: $e");
       return false;
     }

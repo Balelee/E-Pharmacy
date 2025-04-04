@@ -39,6 +39,10 @@ class LocaleKeys {
   static const pregnancy_tip_description = 'pregnancy_tip_description';
   static const baby_sleep = 'baby_sleep';
   static const baby_sleep_tip_description = 'baby_sleep_tip_description';
+  static const confirm_title = 'confirm_title';
+  static const logout_message = 'logout_message';
+  static const buttons_no = 'buttons_no';
+  static const buttons_yes = 'buttons_yes';
   static const buttons_continuous = 'buttons_continuous';
   static const buttons_login = 'buttons_login';
   static const buttons_sign_in = 'buttons_sign_in';
@@ -80,6 +84,10 @@ class Locales {
         'Tips to stay healthy during your pregnancy...',
     'baby_sleep': 'Baby Sleep',
     'baby_sleep_tip_description': 'Tips to improve your baby\'s sleep...',
+    'confirm_title': 'Confirmation',
+    'logout_message': 'Do you realy want to logout from the app',
+    'buttons_no': 'No',
+    'buttons_yes': 'Yes',
     'buttons_continuous': 'Continuous',
     'buttons_login': 'Login',
     'buttons_sign_in': 'Sign-in',
@@ -120,6 +128,11 @@ class Locales {
     'baby_sleep': 'Sommeil de bébé',
     'baby_sleep_tip_description':
         'Astuces pour améliorer le sommeil de votre bébé...',
+    'confirm_title': 'Confirmation',
+    'logout_message':
+        'Voullez-vous vraiment vous déconnecter de l\'application ?',
+    'buttons_no': 'Non',
+    'buttons_yes': 'Oui',
     'buttons_continuous': 'Continuer',
     'buttons_login': 'Connexion',
     'buttons_sign_in': 'S\'identifier',

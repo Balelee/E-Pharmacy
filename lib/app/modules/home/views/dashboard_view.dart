@@ -1,5 +1,4 @@
 import 'package:e_pharma/app/modules/home/controllers/dashboard_controller.dart';
-import 'package:e_pharma/app/modules/home/views/product_list_view.dart';
 import 'package:e_pharma/app/routes/app_pages.dart';
 import 'package:e_pharma/app/widgets/service_card.dart';
 import 'package:e_pharma/app/widgets/tip_card.dart';

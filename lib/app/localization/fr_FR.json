@@ -29,7 +29,12 @@
   "baby_sleep": "Sommeil de bébé",
   "baby_sleep_tip_description": "Astuces pour améliorer le sommeil de votre bébé...",
 
+  "confirm_title":"Confirmation",
+  "logout_message":"Voullez-vous vraiment vous déconnecter de l'application ?",
+
     "buttons": {
+      "no": "Non",
+      "yes": "Oui",
       "continuous": "Continuer",
       "login": "Connexion",
       "sign_in": "S'identifier",
