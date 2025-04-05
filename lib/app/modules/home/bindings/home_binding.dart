@@ -1,3 +1,5 @@
+import 'package:e_pharma/app/cummon/controllers/user_controller.dart';
+import 'package:e_pharma/app/data/repositories/user_repository.dart';
 import 'package:get/get.dart';
 
 import 'package:e_pharma/app/modules/home/controllers/cart_controller.dart';
@@ -25,5 +27,7 @@ class HomeBinding extends Bindings {
     Get.lazyPut<HomeController>(
       () => HomeController(),
     );
+    Get.lazyPut(() => UserRepository());
+    Get.lazyPut(() => UserController(Get.find<UserRepository>()));
   }
 }

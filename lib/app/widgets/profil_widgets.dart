@@ -1,13 +1,17 @@
+import 'package:e_pharma/app/cummon/controllers/user_controller.dart';
+import 'package:e_pharma/app/modules/home/controllers/profile_controller.dart';
 import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProfileHeader extends StatelessWidget {
+  String? userAvatar;
+  ProfileHeader({super.key, required this.userAvatar});
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Container(
+    return SizedBox(
       height: Get.height / 4.5,
       child: Stack(
         clipBehavior: Clip.none,
@@ -35,14 +39,16 @@ class ProfileHeader extends StatelessWidget {
                 radius: 40,
                 backgroundColor: Colors.grey,
                 child: ClipOval(
-                  child: Image.asset(
-                    'assets/images/profile.jpg',
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
-                    errorBuilder: (ctx, error, stackTrace) =>
-                        Icon(Icons.person, size: 40),
-                  ),
+                  child: userAvatar != null
+                      ? Image.network(userAvatar!)
+                      : Image.asset(
+                          'assets/images/profile.jpg',
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.cover,
+                          errorBuilder: (ctx, error, stackTrace) =>
+                              Icon(Icons.person, size: 40),
+                        ),
                 ),
               ),
             ),
@@ -71,53 +77,136 @@ class ProfileHeader extends StatelessWidget {
 }
 
 class ProfileDetails extends StatelessWidget {
+  const ProfileDetails({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 50),
-          const Text(
-            'Catrin Crane',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          ),
-          const Text('@Catrin | Joined August 2023',
-              style: TextStyle(color: Colors.grey)),
-          const SizedBox(height: 20),
-          ProfileField(label: 'Email', value: 'catrin.crane@design.com'),
-          ProfileField(label: 'Phone number', value: '(204) 751-8623'),
-          ProfileField(
-              label: 'Address', value: '20 Cooper Square, New York 10003'),
-          ProfileField(label: 'Password', value: '************'),
-        ],
-      ),
-    );
+    final userController = Get.find<UserController>();
+
+    return Obx(() {
+      final user = userController.user;
+      if (user == null) return Center(child: CircularProgressIndicator());
+
+      return SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            Text(
+              '${user.firstname ?? ''} ${user.lastname ?? ''}',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            Text('@${user.firstname ?? ''} | Joined ${user.joinedAt ?? ''}',
+                style: TextStyle(color: Colors.grey)),
+            const SizedBox(height: 20),
+            ProfileField(
+              field: 'firstname',
+              label: 'First Name',
+              value: user.firstname ?? '',
+            ),
+            ProfileField(
+              field: 'lastname',
+              label: 'Last Name',
+              value: user.lastname ?? '',
+            ),
+            ProfileField(
+              field: 'email',
+              label: 'Email',
+              value: user.email ?? '',
+            ),
+            ProfileField(
+              field: 'phone',
+              label: 'Phone number',
+              value: user.phone ?? '',
+            ),
+            ProfileField(
+              field: 'address',
+              label: 'Address',
+              value: user.address ?? '',
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
 
 class ProfileField extends StatelessWidget {
+  final String field;
   final String label;
   final String value;
 
-  const ProfileField({required this.label, required this.value});
+  const ProfileField({
+    super.key,
+    required this.field,
+    required this.label,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label, style: TextStyle(color: Colors.grey)),
-          TextField(
-            decoration: InputDecoration(
-              hintText: value,
-              suffixIcon: Icon(Icons.edit, color: Colors.grey),
-            ),
-          ),
-        ],
-      ),
-    );
+    final controller = TextEditingController(text: value);
+    final profileController = Get.find<ProfileController>();
+
+    return Obx(() {
+      final isEditing = profileController.isEditing(field);
+
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(label, style: TextStyle(color: Colors.grey)),
+            if (isEditing)
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(vertical: 8),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.check, color: Colors.green),
+                    onPressed: () async {
+                      await profileController.updateField(
+                        field: field,
+                        value: controller.text,
+                      );
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.close, color: Colors.red),
+                    onPressed: profileController.cancelEditing,
+                  ),
+                ],
+              )
+            else
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      value,
+                      style: TextStyle(color: AppColors.textPrimary),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.edit,
+                      size: 16,
+                      color: Get.theme.disabledColor,
+                    ),
+                    onPressed: () => profileController.startEditing(field),
+                  ),
+                ],
+              ),
+          ],
+        ),
+      );
+    });
   }
 }

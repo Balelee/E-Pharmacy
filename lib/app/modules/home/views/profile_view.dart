@@ -1,7 +1,6 @@
 import 'package:e_pharma/app/modules/home/controllers/profile_controller.dart';
 import 'package:e_pharma/app/themes/app_text_styles.dart';
 import 'package:e_pharma/app/utils/constants/app_constant.dart';
-import 'package:e_pharma/app/widgets/custom_button.dart';
 import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:e_pharma/app/widgets/loding_indicator.dart';
 import 'package:e_pharma/app/widgets/profil_widgets.dart';
@@ -20,7 +19,9 @@ class ProfileView extends GetView<ProfileController> {
       child: Scaffold(
         body: Column(
           children: [
-            ProfileHeader(),
+            ProfileHeader(
+              userAvatar: controller.userAvatar,
+            ),
             Container(
               height: context.height * 0.05,
             ),
@@ -37,9 +38,9 @@ class ProfileView extends GetView<ProfileController> {
                       onTap: () => controller.logOut(),
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 0.0, horizontal: 10.0),
+                            vertical: 0.0, horizontal: 0.0),
                         decoration: BoxDecoration(
-                          color: Get.theme.scaffoldBackgroundColor,
+                          color: Get.theme.canvasColor,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(15.0)),
                         ),

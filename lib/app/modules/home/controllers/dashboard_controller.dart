@@ -28,22 +28,20 @@ class DashboardController extends GetxController {
       phone: "77890534",
       birthdate: "17/03/2004",
       birthplace: "Aboisso",
-      email: "issa@gmail.com");
+      email: "issa@gmail.com",
+      address: "Ouagadougou, Belle ville",
+      joinedAt: 'April 2025');
   @override
   void onInit() {
     super.onInit();
-    userController.userRx.value = user;
-    // ever(userController.userRx, (_) => update());
-    // print("userName");
-    // print(userName);
+    userController.updateUser(user);
+    ever(userController.userRx, (_) => update());
   }
 
   @override
   void onReady() {
     // TODO: implement onReady
     super.onReady();
-    print("userName");
-    print(userName);
   }
 
   @override

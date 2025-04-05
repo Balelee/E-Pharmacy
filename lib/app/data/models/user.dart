@@ -11,6 +11,8 @@ class User {
   final String? birthdate;
   final String? birthplace;
   final String? email;
+  final String? address;
+  final String? joinedAt;
 
   User({
     required this.id,
@@ -21,6 +23,8 @@ class User {
     required this.birthdate,
     required this.birthplace,
     required this.email,
+    required this.address,
+    required this.joinedAt,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -33,6 +37,8 @@ class User {
       birthdate: json['birthdate'],
       birthplace: json['birthplace'],
       email: json['email'],
+      address: json['adress'] ?? "",
+      joinedAt: json['joinedAt'] ?? "",
     );
   }
 
@@ -46,6 +52,8 @@ class User {
       'birthdate': birthdate,
       'birthplace': birthplace,
       'email': email,
+      'adress': address,
+      'joinedAt': joinedAt,
     };
   }
 
@@ -58,6 +66,8 @@ class User {
     String? birthdate,
     String? birthplace,
     String? email,
+    String? address,
+    String? joinedAt,
   }) {
     return User(
       id: id ?? this.id,
@@ -68,6 +78,8 @@ class User {
       birthdate: birthdate ?? this.birthdate,
       birthplace: birthplace ?? this.birthplace,
       email: email ?? this.email,
+      address: address ?? this.address,
+      joinedAt: joinedAt ?? this.joinedAt,
     );
   }
 }
