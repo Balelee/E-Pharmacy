@@ -11,8 +11,9 @@ class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
   @override
   Widget build(BuildContext context) {
+    print(" controller.userName");
+    print(controller.userName);
     return Scaffold(
-  
       body: Obx(
         () => SafeArea(
           child: Column(
@@ -36,7 +37,7 @@ class DashboardView extends GetView<DashboardController> {
                           ),
                         ),
                         Text(
-                          controller.userName.value,
+                          controller.userName,
                           style:
                               Theme.of(context).textTheme.titleLarge?.copyWith(
                                     fontWeight: FontWeight.w600,

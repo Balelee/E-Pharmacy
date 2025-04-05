@@ -7,6 +7,9 @@ import 'package:e_pharma/app/utils/enums/api_routes.dart';
 import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../repositories/user_repository.dart';
 
 class AuthProvider with BaseController {
   Future<AuthMessage?> login({
@@ -43,12 +46,12 @@ class AuthProvider with BaseController {
               apiURL: ApiRoutes.verifyOtp.path,
               data: {'otp_code': otp, 'phone': phone})
           .catchError(handleError)
-          .then((response) {
+          .then((response) async{
         hideLoading();
         if (response != null) {
           Token.saveAuthToken(response['data']['token']);
           User user = User.fromJson(response['data']);
-          User.saveUser(user);
+          await Get.find<UserRepository>().saveUser(user);
           return true;
         }
         return false;

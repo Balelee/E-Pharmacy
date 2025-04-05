@@ -73,27 +73,24 @@ class ProfileHeader extends StatelessWidget {
 class ProfileDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 50),
-            const Text(
-              'Catrin Crane',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const Text('@Catrin | Joined August 2023',
-                style: TextStyle(color: Colors.grey)),
-            const SizedBox(height: 20),
-            ProfileField(label: 'Email', value: 'catrin.crane@design.com'),
-            ProfileField(label: 'Phone number', value: '(204) 751-8623'),
-            ProfileField(
-                label: 'Address', value: '20 Cooper Square, New York 10003'),
-            ProfileField(label: 'Password', value: '************'),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 50),
+          const Text(
+            'Catrin Crane',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+          const Text('@Catrin | Joined August 2023',
+              style: TextStyle(color: Colors.grey)),
+          const SizedBox(height: 20),
+          ProfileField(label: 'Email', value: 'catrin.crane@design.com'),
+          ProfileField(label: 'Phone number', value: '(204) 751-8623'),
+          ProfileField(
+              label: 'Address', value: '20 Cooper Square, New York 10003'),
+          ProfileField(label: 'Password', value: '************'),
+        ],
       ),
     );
   }

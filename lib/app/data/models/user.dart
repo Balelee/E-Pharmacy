@@ -49,20 +49,25 @@ class User {
     };
   }
 
-  static void saveUser(User user) {
-    String userJson = jsonEncode(user.toJson());
-    StorageHelper.set('user', userJson);
-  }
-
-  static User? getUser() {
-    String? userJson = StorageHelper.get('user');
-    if (userJson != null && userJson.isNotEmpty) {
-      return User.fromJson(jsonDecode(userJson));
-    }
-    return null;
-  }
-
-  static void clearUser() {
-    StorageHelper.delete('user');
+  User copyWith({
+    int? id,
+    String? username,
+    String? firstname,
+    String? lastname,
+    String? phone,
+    String? birthdate,
+    String? birthplace,
+    String? email,
+  }) {
+    return User(
+      id: id ?? this.id,
+      username: username ?? this.username,
+      firstname: firstname ?? this.firstname,
+      lastname: lastname ?? this.lastname,
+      phone: phone ?? this.phone,
+      birthdate: birthdate ?? this.birthdate,
+      birthplace: birthplace ?? this.birthplace,
+      email: email ?? this.email,
+    );
   }
 }

@@ -1,28 +1,34 @@
+// lib/app/utils/helpers/storage_helper.dart
 import 'package:get_storage/get_storage.dart';
 
 class StorageHelper {
-  static final _getStorage = GetStorage();
-  final String _languageKey = 'language';
+  static final GetStorage _storage = GetStorage();
 
-  static void set(String key, value) {
-    _getStorage.write(key, value);
+  // Generic methods
+  static Future<void> set(String key, dynamic value) async {
+    await _storage.write(key, value);
   }
 
-  static dynamic get(String key, {def = 'eeee'}) {
-    return _getStorage.read(key) ?? def;
+  static dynamic get(String key, {dynamic defaultValue}) {
+    return _storage.read(key) ?? defaultValue;
   }
 
-  static void delete(String key) {
-    _getStorage.remove(key);
+  static Future<void> delete(String key) async {
+    await _storage.remove(key);
   }
 
-  // Sauvegarder la langue
-  void saveLanguage(String language) {
-    _getStorage.write(_languageKey, language);
+  static Future<void> clearAll() async {
+    await _storage.erase();
   }
 
-  // Récupérer la langue
-  String? getLanguage() {
-    return _getStorage.read(_languageKey);
+  // Language-specific methods
+  static const String _languageKey = 'language';
+  
+  static Future<void> saveLanguage(String language) async {
+    await _storage.write(_languageKey, language);
+  }
+
+  static String? getLanguage() {
+    return _storage.read(_languageKey);
   }
 }

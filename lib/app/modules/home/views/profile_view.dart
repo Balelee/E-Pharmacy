@@ -1,5 +1,6 @@
 import 'package:e_pharma/app/modules/home/controllers/profile_controller.dart';
 import 'package:e_pharma/app/themes/app_text_styles.dart';
+import 'package:e_pharma/app/utils/constants/app_constant.dart';
 import 'package:e_pharma/app/widgets/custom_button.dart';
 import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:e_pharma/app/widgets/loding_indicator.dart';
@@ -21,11 +22,12 @@ class ProfileView extends GetView<ProfileController> {
           children: [
             ProfileHeader(),
             Container(
-              height: 30.0,
-              color: Colors.amber,
+              height: context.height * 0.05,
             ),
             Expanded(
               child: ListView(
+                padding: EdgeInsets.symmetric(
+                    horizontal: AppConstant.haurizontalPadding),
                 controller: ScrollController(),
                 children: [
                   ProfileDetails(),
