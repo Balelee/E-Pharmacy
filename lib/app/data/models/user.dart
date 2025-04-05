@@ -11,6 +11,8 @@ class User {
   final String? birthdate;
   final String? birthplace;
   final String? email;
+  final String? address;
+  final String? joinedAt;
 
   User({
     required this.id,
@@ -21,6 +23,8 @@ class User {
     required this.birthdate,
     required this.birthplace,
     required this.email,
+    required this.address,
+    required this.joinedAt,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -33,6 +37,8 @@ class User {
       birthdate: json['birthdate'],
       birthplace: json['birthplace'],
       email: json['email'],
+      address: json['adress'] ?? "",
+      joinedAt: json['joinedAt'] ?? "",
     );
   }
 
@@ -46,23 +52,34 @@ class User {
       'birthdate': birthdate,
       'birthplace': birthplace,
       'email': email,
+      'adress': address,
+      'joinedAt': joinedAt,
     };
   }
 
-  static void saveUser(User user) {
-    String userJson = jsonEncode(user.toJson());
-    StorageHelper.set('user', userJson);
-  }
-
-  static User? getUser() {
-    String? userJson = StorageHelper.get('user');
-    if (userJson != null && userJson.isNotEmpty) {
-      return User.fromJson(jsonDecode(userJson));
-    }
-    return null;
-  }
-
-  static void clearUser() {
-    StorageHelper.delete('user');
+  User copyWith({
+    int? id,
+    String? username,
+    String? firstname,
+    String? lastname,
+    String? phone,
+    String? birthdate,
+    String? birthplace,
+    String? email,
+    String? address,
+    String? joinedAt,
+  }) {
+    return User(
+      id: id ?? this.id,
+      username: username ?? this.username,
+      firstname: firstname ?? this.firstname,
+      lastname: lastname ?? this.lastname,
+      phone: phone ?? this.phone,
+      birthdate: birthdate ?? this.birthdate,
+      birthplace: birthplace ?? this.birthplace,
+      email: email ?? this.email,
+      address: address ?? this.address,
+      joinedAt: joinedAt ?? this.joinedAt,
+    );
   }
 }

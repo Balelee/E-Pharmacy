@@ -59,18 +59,10 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 4,
-            spreadRadius: 1,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Row(
         children: [
@@ -88,10 +80,6 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
               onChanged: (value) => _onSearchChanged(),
             ),
           ),
-          // IconButton(
-          //   icon: Icon(Icons.camera_alt, color: Get.theme.primaryColor),
-          //   onPressed: _pickImage,
-          // ),
         ],
       ),
     );

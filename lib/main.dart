@@ -10,6 +10,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:get/get.dart';
 
+import 'app/cummon/controllers/user_controller.dart';
+import 'app/data/repositories/user_repository.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
@@ -24,16 +26,18 @@ void main() async {
   Get.put(NavigationController());
   Get.put(LocalizationService());
   Get.put(LanguageController());
+  Get.lazyPut(() => UserRepository());
+  Get.lazyPut(() => UserController(Get.find<UserRepository>()));
   await dotenv.load(fileName: Env.isLocal ? Env.developement : Env.production);
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: Env.debugMode,
       title: Env.appName,
-      initialRoute: AppPages.HOME,
+      initialRoute: AppPages.BASE,
       getPages: AppPages.routes,
       locale: LocalizationService.to.getCurrentLocale(),
       translationsKeys: AppTranslation.translations,
-      fallbackLocale: Locale('en', 'US'),
+      fallbackLocale: Locale('fr', 'FR'),
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light,

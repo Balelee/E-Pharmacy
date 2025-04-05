@@ -1,3 +1,7 @@
+import 'package:e_pharma/app/modules/home/bindings/home_binding.dart';
+import 'package:e_pharma/app/modules/home/views/base_view.dart';
+import 'package:e_pharma/app/modules/home/views/basket_view.dart';
+import 'package:e_pharma/app/modules/home/views/product_list_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/Login/bindings/login_binding.dart';
@@ -7,8 +11,6 @@ import '../modules/Register/bindings/register_binding.dart';
 import '../modules/Register/views/register_view.dart';
 import '../modules/detailProduit/bindings/detail_produit_binding.dart';
 import '../modules/detailProduit/views/detail_produit_view.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
 import '../modules/orderDetail/bindings/order_detail_binding.dart';
 import '../modules/orderDetail/views/order_detail_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
@@ -24,16 +26,28 @@ class AppPages {
   static const INITIAL = Routes.LOGIN;
   static const REGISTER = Routes.REGISTER;
   static const LOGINCONTENT = Routes.LOGINCONTENT;
-  static const HOME = Routes.HOME;
+  static const BASE = Routes.BASE;
   static const OTP = Routes.OTP;
+  static const PRODUIT_LIST = Routes.PRODUIT_LIST;
   static const DETAIL_PRODUIT = Routes.DETAIL_PRODUIT;
+  static const BASKET = Routes.BASKET;
   static const TRACKER_PERIOD = Routes.TRACKER_PERIOD;
   static const ORDER_DETAIL = Routes.ORDER_DETAIL;
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
+      name: _Paths.BASE,
+      page: () => const BaseView(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUIT_LIST,
+      page: () => const ProductListView(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.BASKET,
+      page: () => const BasketView(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -68,7 +82,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ORDER_DETAIL,
-      page: () =>  OrderDetailView(),
+      page: () => OrderDetailView(),
       binding: OrderDetailBinding(),
     ),
   ];

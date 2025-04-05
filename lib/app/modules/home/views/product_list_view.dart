@@ -1,6 +1,7 @@
 import 'package:e_pharma/app/data/models/product.dart';
 import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
 import 'package:e_pharma/app/routes/app_pages.dart';
+import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:e_pharma/app/themes/app_text_styles.dart';
 import 'package:e_pharma/app/utils/constants/size_constant.dart';
 import 'package:e_pharma/app/widgets/category_filter.dart';
@@ -10,6 +11,7 @@ import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:badges/badges.dart' as badges;
 
 class ProductListView extends GetView<ProductController> {
   const ProductListView({super.key});
@@ -17,10 +19,9 @@ class ProductListView extends GetView<ProductController> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      behavior: HitTestBehavior.deferToChild,
+      behavior: HitTestBehavior.opaque,
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(),
         body: Padding(
           padding: EdgeInsets.symmetric(
                   vertical: 0.0, horizontal: SizeConstant.haurizontalPadding)
@@ -28,7 +29,23 @@ class ProductListView extends GetView<ProductController> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(top: context.height / 14),
+                padding: EdgeInsets.only(top: 30.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    BackButton(
+                      onPressed: () => Get.toNamed(AppPages.BASE),
+                    ),
+                    Expanded(
+                        child: CustomText(
+                      text: LocaleKeys.marketplace.tr,
+                      style: AppTextStyles.heading4,
+                    ))
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 4.0),
                 child: CustomSearchBar(
                   onSearch: (query) {
                     controller.fetchResearchData(label: query);
@@ -52,19 +69,6 @@ class ProductListView extends GetView<ProductController> {
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: CategoryFilterWidget(),
               ),
-              Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Row(
-                    children: [
-                      CustomText(
-                        text: "Produits",
-                        style: AppTextStyles.bodyText1Bold.copyWith(
-                            color: Get.theme.textTheme.bodyLarge?.color
-                                ?.withOpacity(0.4)),
-                        textAlign: TextAlign.left,
-                      ),
-                    ],
-                  )),
               Expanded(
                 child: PagedGridView<int, Product>(
                   pagingController: controller.pagingController,
@@ -114,17 +118,10 @@ class ProductListView extends GetView<ProductController> {
                                   produit.name,
                                   style: const TextStyle(
                                       fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textPrimary),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(
-                                  "Stock: ${produit.stock}",
-                                  style: const TextStyle(fontSize: 12),
                                 ),
                               ),
                               Padding(
@@ -134,8 +131,16 @@ class ProductListView extends GetView<ProductController> {
                                   produit.pharmacieName,
                                   style: TextStyle(
                                       fontSize: 13,
-                                      color: Get.theme.primaryColor,
+                                      fontWeight: FontWeight.bold,
                                       fontStyle: FontStyle.italic),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Text(
+                                  "Stock: ${produit.stock}",
+                                  style: const TextStyle(fontSize: 12),
                                 ),
                               ),
                               Padding(
@@ -186,6 +191,39 @@ class ProductListView extends GetView<ProductController> {
             ],
           ),
         ),
+        floatingActionButton: Obx(
+          () => FloatingActionButton(
+            backgroundColor: Colors.white,
+            splashColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            onPressed: () {
+              Get.toNamed(AppPages.BASKET);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Get.theme.cardColor,
+                borderRadius: BorderRadius.circular(40.0),
+              ),
+              child: badges.Badge(
+                badgeContent: Text(
+                  controller.cartController.panierList.length.toString(),
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                ),
+                badgeStyle:
+                    badges.BadgeStyle(badgeColor: Get.theme.primaryColor),
+                showBadge: controller.cartController.panierList.isNotEmpty,
+                child: Icon(
+                  Icons.shopping_cart,
+                  color: Get.theme.disabledColor,
+                  size: 30,
+                ),
+              ),
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

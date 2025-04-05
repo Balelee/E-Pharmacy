@@ -7,6 +7,9 @@ import 'package:e_pharma/app/utils/enums/api_routes.dart';
 import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../repositories/user_repository.dart';
 
 class AuthProvider with BaseController {
   Future<AuthMessage?> login({
@@ -43,12 +46,12 @@ class AuthProvider with BaseController {
               apiURL: ApiRoutes.verifyOtp.path,
               data: {'otp_code': otp, 'phone': phone})
           .catchError(handleError)
-          .then((response) {
+          .then((response) async{
         hideLoading();
         if (response != null) {
           Token.saveAuthToken(response['data']['token']);
           User user = User.fromJson(response['data']);
-          User.saveUser(user);
+          await Get.find<UserRepository>().saveUser(user);
           return true;
         }
         return false;
@@ -71,7 +74,7 @@ class AuthProvider with BaseController {
       ).catchError(handleError).then((response) {
         hideLoading();
         if (response != null) {
-         AuthMessage authMessage = AuthMessage.fromJson(response['infos']);
+          AuthMessage authMessage = AuthMessage.fromJson(response['infos']);
           return authMessage;
         }
         return null;
@@ -85,20 +88,17 @@ class AuthProvider with BaseController {
 
   Future<bool> logout() async {
     try {
-      showLoading();
       return await ApiProvider.post(
         auth: true,
         apiURL: ApiRoutes.logout.path,
         data: {},
       ).catchError(handleError).then((response) {
-        hideLoading();
         if (response != null) {
           return true;
         }
         return false;
       });
     } catch (e) {
-      hideLoading();
       DialogHelper.showErrorSnackbar(message: "Logout error: $e");
       return false;
     }

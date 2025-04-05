@@ -32,8 +32,6 @@ class BasketView extends GetView<CartController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-         
-
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
                 child:

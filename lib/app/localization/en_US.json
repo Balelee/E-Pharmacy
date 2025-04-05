@@ -13,12 +13,28 @@
   "no_account": "Don't have an account?",
   "have_account": "I already have an account.",
   "sign_up": "Sign up",
-
   "free_sign_up": "Sign up gratuitously",
- "identique_password_error":"The passwords sould be identics",
- "no_product": "No product found",
+  "identique_password_error":"The passwords sould be identics",
+  "no_product": "No product found",
+
+  "welcome": "👋 Welcome",
+  "our_services": "Our Services",
+  "marketplace": "Marketplace",
+  "cycle": "Cycle",
+  "pregnancy": "Pregnancy",
+  "baby": "Baby",
+  "daily_tips": "Daily Tips",
+  "pregnancy_wellness": "Pregnancy Wellness",
+  "pregnancy_tip_description": "Tips to stay healthy during your pregnancy...",
+  "baby_sleep": "Baby Sleep",
+  "baby_sleep_tip_description": "Tips to improve your baby's sleep...",
+
+  "confirm_title":"Confirmation",
+  "logout_message":"Do you realy want to logout from the app",
 
     "buttons": {
+      "no": "No",
+      "yes": "Yes",
       "continuous": "Continuous",
       "login": "Login",
       "sign_in": "Sign-in",

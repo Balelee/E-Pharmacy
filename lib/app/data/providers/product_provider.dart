@@ -48,6 +48,23 @@ class ProductProvider with BaseController {
     }
   }
 
+  Future<List<Order>?> getOrdersCommand() async {
+    try {
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.ordersProduct.path,
+      ).catchError(handleError);
+      if (response != null && response['data'] != null) {
+        final List<dynamic> data = response['data'];
+        return data.map((json) => Order.fromJson(json)).toList();
+      }
+      return null;
+    } catch (e) {
+      DialogHelper.showErrorSnackbar(message: "fetching error: $e");
+      return null;
+    }
+  }
+
   Future<List<ProductFilter>> loadFilterProductsData() async {
     try {
       final response = await ApiProvider.get(

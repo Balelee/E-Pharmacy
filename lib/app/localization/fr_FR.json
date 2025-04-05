@@ -17,7 +17,24 @@
   "identique_password_error":"Les mots de passe non indentiques",
   "no_product": "Pas de produit trouvé",
 
+  "welcome": "👋 Bienvenue",
+  "our_services": "Nos services",
+  "marketplace": "Marketplace",
+  "cycle": "Cycle",
+  "pregnancy": "Grossesse",
+  "baby": "Bébé",
+  "daily_tips": "Conseils du Jour",
+  "pregnancy_wellness": "Bien-être pendant la grossesse",
+  "pregnancy_tip_description": "Conseils pour rester en bonne santé pendant votre grossesse...",
+  "baby_sleep": "Sommeil de bébé",
+  "baby_sleep_tip_description": "Astuces pour améliorer le sommeil de votre bébé...",
+
+  "confirm_title":"Confirmation",
+  "logout_message":"Voullez-vous vraiment vous déconnecter de l'application ?",
+
     "buttons": {
+      "no": "Non",
+      "yes": "Oui",
       "continuous": "Continuer",
       "login": "Connexion",
       "sign_in": "S'identifier",

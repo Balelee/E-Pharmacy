@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class NavigationController extends GetxController {
   static NavigationController get to => Get.find();
   var currentIndex = 0.obs;
-  late PageController pageController;
+ final pageController = PageController(initialPage: 0);
   void changePage(int index) {
     currentIndex.value = index;
   }
@@ -12,7 +12,6 @@ class NavigationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    pageController = PageController();
   }
 
   @override
