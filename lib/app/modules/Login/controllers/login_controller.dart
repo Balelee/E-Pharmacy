@@ -1,12 +1,10 @@
 import 'package:e_pharma/app/data/models/auth_message.dart';
-import 'package:e_pharma/app/data/models/user.dart';
 import 'package:e_pharma/app/data/providers/auth_provider.dart';
 import 'package:e_pharma/app/modules/Login/views/login_content_view.dart';
 import 'package:e_pharma/app/modules/Login/views/splash_view_view.dart';
 import 'package:e_pharma/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../utils/form_helper.dart';
 
 class LoginController extends GetxController {

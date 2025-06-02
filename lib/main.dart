@@ -1,21 +1,16 @@
 import 'package:e_pharma/app/config/env.dart';
-import 'package:e_pharma/app/cummon/controllers/language_controller.dart';
-import 'package:e_pharma/app/cummon/controllers/navigation_controller.dart';
+import 'package:e_pharma/app/cummon/controllers/dependency_injection.dart';
 import 'package:e_pharma/app/themes/app_theme.dart';
 import 'package:e_pharma/app/utils/services/localization_service.dart';
 import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import 'package:get/get.dart';
-
-import 'app/cummon/controllers/user_controller.dart';
-import 'app/data/repositories/user_repository.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DependencieInjection.init();
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitDown,
@@ -23,12 +18,6 @@ void main() async {
     ],
   );
 
-  Get.put(NavigationController());
-  Get.put(LocalizationService());
-  Get.put(LanguageController());
-  Get.lazyPut(() => UserRepository());
-  Get.lazyPut(() => UserController(Get.find<UserRepository>()));
-  await dotenv.load(fileName: Env.isLocal ? Env.developement : Env.production);
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: Env.debugMode,
