@@ -9,10 +9,10 @@ import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import '../../../routes/app_pages.dart';
 import '../../../widgets/custom_button.dart';
 import '../controllers/otp_controller.dart';
 
+// ignore: must_be_immutable
 class OtpView extends GetView<OtpController> {
   OtpView({super.key});
   AuthMessage? authMessage = Get.arguments;

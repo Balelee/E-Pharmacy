@@ -4,11 +4,10 @@ import 'package:e_pharma/app/utils/constants/app_constant.dart';
 import 'package:e_pharma/app/widgets/custom_button.dart';
 import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/order_detail_controller.dart';
 
+// ignore: must_be_immutable
 class OrderDetailView extends GetView<OrderDetailController> {
   OrderDetailView({super.key});
   Order order = Get.arguments;

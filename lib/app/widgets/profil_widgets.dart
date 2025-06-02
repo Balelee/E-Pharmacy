@@ -4,6 +4,7 @@ import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class ProfileHeader extends StatelessWidget {
   String? userAvatar;
   ProfileHeader({super.key, required this.userAvatar});

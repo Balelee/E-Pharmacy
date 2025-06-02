@@ -1,6 +1,4 @@
-import 'dart:convert';
 
-import 'package:e_pharma/app/utils/helpers/storage_helper.dart';
 
 class User {
   final int id;

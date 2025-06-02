@@ -122,7 +122,9 @@ class DashboardView extends GetView<DashboardController> {
                                   color: Colors.blue,
                                 ),
                                 ServiceCard(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(AppPages.TRACKER_PERIOD);
+                                  },
                                   icon: Icons.calendar_today,
                                   label: LocaleKeys.cycle.tr,
                                   color: Colors.pink,

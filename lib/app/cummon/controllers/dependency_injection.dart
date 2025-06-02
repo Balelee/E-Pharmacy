@@ -1,6 +1,7 @@
 import 'package:e_pharma/app/config/env.dart';
 import 'package:e_pharma/app/cummon/controllers/language_controller.dart';
 import 'package:e_pharma/app/cummon/controllers/navigation_controller.dart';
+import 'package:e_pharma/app/cummon/controllers/socket_controller.dart';
 import 'package:e_pharma/app/cummon/controllers/user_controller.dart';
 import 'package:e_pharma/app/data/repositories/user_repository.dart';
 import 'package:e_pharma/app/utils/services/localization_service.dart';
@@ -16,6 +17,7 @@ class DependencieInjection {
     Get.put(NavigationController());
     Get.put(LocalizationService());
     Get.put(LanguageController());
+    Get.put(SocketController());
     Get.lazyPut(() => UserRepository());
     Get.lazyPut(() => UserController(Get.find<UserRepository>()));
   }

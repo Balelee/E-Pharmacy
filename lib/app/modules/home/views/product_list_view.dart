@@ -33,9 +33,10 @@ class ProductListView extends GetView<ProductController> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    BackButton(
-                      onPressed: () => Get.toNamed(AppPages.BASE),
-                    ),
+                    BackButton(onPressed: () {
+                      Get.delete<ProductController>();
+                      Get.toNamed(AppPages.BASE);
+                    }),
                     Expanded(
                         child: CustomText(
                       text: LocaleKeys.marketplace.tr,
