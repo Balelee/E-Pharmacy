@@ -1,3 +1,4 @@
+import 'package:e_pharma/app/cummon/controllers/socket_controller.dart';
 import 'package:e_pharma/app/data/models/cart_item.dart';
 import 'package:e_pharma/app/data/models/paginated_transaction.dart';
 import 'package:e_pharma/app/data/models/product_filter.dart';
@@ -10,6 +11,7 @@ import '../../../data/providers/product_provider.dart';
 
 class ProductController extends GetxController {
   CartController cartController = Get.find<CartController>();
+  SocketController socketController = Get.find<SocketController>();
   var produits = <Product>[].obs;
 
   var isLoading = true.obs;
@@ -33,7 +35,9 @@ class ProductController extends GetxController {
     }
     pagingController = PagingController(firstPageKey: 1);
     pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey: pageKey);
+      _fetchPage(pageKey: pageKey).then((onValue) async {
+        await socketController.connectToSocket();
+      });
     });
   }
 
