@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:e_pharma/app/cummon/controllers/base_controller.dart';
 import 'package:e_pharma/app/data/models/order.dart';
 import 'package:e_pharma/app/data/models/product_filter.dart';
+import 'package:e_pharma/app/data/models/searchproduct.dart';
 import 'package:e_pharma/app/data/providers/api_provider.dart';
 import 'package:e_pharma/app/utils/enums/api_routes.dart';
 import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
@@ -80,6 +79,28 @@ class ProductProvider with BaseController {
       return [];
     } catch (e) {
       DialogHelper.showErrorSnackbar(message: "fetching error: $e");
+      return [];
+    }
+  }
+
+  Future<List<Searchproduct>> searchProductByName(String query) async {
+    try {
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.searchProduct.format({'query': query}),
+      ).catchError(handleError);
+
+      if (response != null && response is List) {
+        List<Searchproduct> searchproduct = response
+            .map((item) => Searchproduct.fromJson(item))
+            .cast<Searchproduct>()
+            .toList();
+        return searchproduct;
+      }
+
+      return [];
+    } catch (e) {
+      DialogHelper.showErrorSnackbar(message: "Erreur de recherche: $e");
       return [];
     }
   }

@@ -33,9 +33,10 @@ class ProductListView extends GetView<ProductController> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    BackButton(
-                      onPressed: () => Get.toNamed(AppPages.BASE),
-                    ),
+                    BackButton(onPressed: () {
+                      Get.delete<ProductController>();
+                      Get.toNamed(AppPages.BASE);
+                    }),
                     Expanded(
                         child: CustomText(
                       text: LocaleKeys.marketplace.tr,
@@ -128,7 +129,7 @@ class ProductListView extends GetView<ProductController> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(
-                                  produit.pharmacieName,
+                                  produit.pharmacieName!,
                                   style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.bold,

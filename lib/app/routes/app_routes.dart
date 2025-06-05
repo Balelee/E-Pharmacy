@@ -13,6 +13,7 @@ abstract class Routes {
   static const DETAIL_PRODUIT = _Paths.DETAIL_PRODUIT;
   static const TRACKER_PERIOD = _Paths.TRACKER_PERIOD;
   static const ORDER_DETAIL = _Paths.ORDER_DETAIL;
+  static const SEARCHPRODUCT = _Paths.SEARCHPRODUCT;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const DETAIL_PRODUIT = '/detail-produit';
   static const TRACKER_PERIOD = '/tracker-period';
   static const ORDER_DETAIL = '/order-detail';
+  static const SEARCHPRODUCT = '/searchproduct';
 }

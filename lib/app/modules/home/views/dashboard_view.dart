@@ -1,10 +1,11 @@
 import 'package:e_pharma/app/modules/home/controllers/dashboard_controller.dart';
 import 'package:e_pharma/app/routes/app_pages.dart';
+import 'package:e_pharma/app/themes/app_colors.dart';
+import 'package:e_pharma/app/widgets/custom_button.dart';
 import 'package:e_pharma/app/widgets/service_card.dart';
 import 'package:e_pharma/app/widgets/tip_card.dart';
 import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 class DashboardView extends GetView<DashboardController> {
@@ -89,7 +90,6 @@ class DashboardView extends GetView<DashboardController> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      // Services Section
                       Padding(
                         padding: const EdgeInsets.all(24),
                         child: Column(
@@ -104,6 +104,21 @@ class DashboardView extends GetView<DashboardController> {
                               ),
                             ),
                             const SizedBox(height: 16),
+                            CustomButton.primaryButton(
+                              onPressed: () {
+                                Get.toNamed(AppPages.SEARCHPRODUCT);
+                              },
+                              buttonTitle: "Recherche prix de médicament",
+                              textStyle: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.background,
+                              ),
+                              leadingIcon: Icon(Icons.search,
+                                  color: AppColors.background, size: 25),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
                             GridView.count(
                               controller: controller.scrollController,
                               shrinkWrap: true,
@@ -118,26 +133,28 @@ class DashboardView extends GetView<DashboardController> {
                                     Get.offNamed(AppPages.PRODUIT_LIST);
                                   },
                                   icon: Icons.shopping_bag,
-                                  label: LocaleKeys.marketplace.tr,
+                                  label: 'Achat produit',
                                   color: Colors.blue,
                                 ),
                                 ServiceCard(
                                   onTap: () {},
-                                  icon: Icons.calendar_today,
-                                  label: LocaleKeys.cycle.tr,
-                                  color: Colors.pink,
+                                  icon: Icons.child_care,
+                                  label: 'Pharmacies dispo',
+                                  color: Colors.green,
                                 ),
                                 ServiceCard(
                                   onTap: () {},
                                   icon: Icons.pregnant_woman,
-                                  label: LocaleKeys.pregnancy.tr,
+                                  label: 'Cliniques/Labo',
                                   color: Colors.purple,
                                 ),
                                 ServiceCard(
-                                  onTap: () {},
-                                  icon: Icons.child_care,
-                                  label: LocaleKeys.baby.tr,
-                                  color: Colors.green,
+                                  onTap: () {
+                                    Get.toNamed(AppPages.TRACKER_PERIOD);
+                                  },
+                                  icon: Icons.calendar_today,
+                                  label: 'Reproduction',
+                                  color: Colors.pink,
                                 ),
                               ],
                             ),

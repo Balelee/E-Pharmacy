@@ -6,6 +6,7 @@ enum ApiRoutes {
   verifyOtp('users/verifyOtp'),
   filterProduct('filterProduct'),
   products('products?page={pageKey}&q={query}&filter={filter}'),
+  searchProduct('products/search-product?query={query}'),
   ordersProduct('orders');
 
   final String path;
@@ -17,13 +18,13 @@ enum ApiRoutes {
     params.forEach((key, value) {
       formattedPath = formattedPath.replaceAll(
         '{$key}',
-       value != null ? Uri.encodeComponent(value.toString()) : '',
+        value != null ? Uri.encodeComponent(value.toString()) : '',
       );
     });
-     formattedPath = formattedPath
+    formattedPath = formattedPath
         .replaceAll(RegExp(r'[?&][^=]+=$'), '')
-        .replaceAll(RegExp(r'\?&'), '?') 
-        .replaceAll(RegExp(r'\?$'), ''); 
+        .replaceAll(RegExp(r'\?&'), '?')
+        .replaceAll(RegExp(r'\?$'), '');
 
     return formattedPath;
   }

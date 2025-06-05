@@ -6,8 +6,6 @@ import 'package:quickalert/widgets/quickalert_dialog.dart';
 import '../../themes/app_colors.dart';
 
 class DialogHelper {
- 
-
   // Show an error snackbar
   static void showErrorSnackbar(
       {String title = 'Error', required String message}) {
@@ -25,8 +23,13 @@ class DialogHelper {
       duration: const Duration(seconds: 30),
     );
   }
+
   //show loading
-  static void showLoading({String? message, bool? noBkgColor}) {
+  static void showLoading(
+      {String? message,
+      bool? noBkgColor,
+      Color? colorProgress,
+      TextStyle? messageStyle}) {
     Get.dialog(
       barrierDismissible: false,
       Dialog(
@@ -36,9 +39,14 @@ class DialogHelper {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const CircularProgressIndicator(),
+              CircularProgressIndicator(
+                color: colorProgress,
+              ),
               const SizedBox(height: 8),
-              Text(message ?? 'Loading...'),
+              Text(
+                message ?? 'Loading...',
+                style: messageStyle,
+              ),
             ],
           ),
         ),
@@ -50,8 +58,6 @@ class DialogHelper {
   static void hideLoading() {
     if (Get.isDialogOpen!) Get.back();
   }
-
-
 
   // Show a success snackbar
   static void showSuccessSnackbar(
@@ -147,7 +153,4 @@ class DialogHelper {
       ),
     );
   }
-
-
-
 }

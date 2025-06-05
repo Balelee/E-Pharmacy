@@ -16,25 +16,28 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffix;
   final Function()? onTap;
   final bool isReadOnly;
+  final TextStyle? hintStyle;
+  final InputBorder? focusedBorder;
   final List<TextInputFormatter>? inputFormatters;
 
-  const CustomTextFormField({
-    super.key,
-    this.controller,
-    this.autovalidateMode = AutovalidateMode.onUserInteraction,
-    this.labelText,
-    this.hintText,
-    this.keyboardType = TextInputType.text,
-    this.obscureText = false,
-    this.validator,
-    this.textInputAction,
-    this.onFieldSubmitted,
-    this.prefix,
-    this.suffix,
-    this.onTap,
-    this.isReadOnly = false,
-    this.inputFormatters,
-  });
+  const CustomTextFormField(
+      {super.key,
+      this.controller,
+      this.autovalidateMode = AutovalidateMode.onUserInteraction,
+      this.labelText,
+      this.hintText,
+      this.keyboardType = TextInputType.text,
+      this.obscureText = false,
+      this.validator,
+      this.textInputAction,
+      this.onFieldSubmitted,
+      this.prefix,
+      this.suffix,
+      this.onTap,
+      this.focusedBorder,
+      this.isReadOnly = false,
+      this.inputFormatters,
+      this.hintStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +56,11 @@ class CustomTextFormField extends StatelessWidget {
         hintText: hintText,
         prefixIcon: prefix,
         suffixIcon: suffix,
+        hintStyle: hintStyle,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),
+        focusedBorder: focusedBorder,
         filled: true,
         fillColor: AppColors.secondary,
       ),
