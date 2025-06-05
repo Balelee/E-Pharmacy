@@ -1,8 +1,10 @@
 import 'package:e_pharma/app/themes/app_colors.dart';
+import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
 import 'package:e_pharma/app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/searchproduct_controller.dart';
+import 'package:badges/badges.dart' as badges;
 
 class SearchproductView extends GetView<SearchproductController> {
   const SearchproductView({super.key});
@@ -28,38 +30,6 @@ class SearchproductView extends GetView<SearchproductController> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    const Icon(
-                      Icons.favorite,
-                      size: 25,
-                      color: AppColors.textSecondary,
-                    ),
-                    Positioned(
-                      right: -4,
-                      top: -10,
-                      child: Container(
-                        width: 21,
-                        height: 21,
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.all(1),
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(60),
-                        ),
-                        child: Text(
-                          textAlign: TextAlign.center,
-                          "0",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
               ],
             ),
             const SizedBox(height: 20),
@@ -93,7 +63,17 @@ class SearchproductView extends GetView<SearchproductController> {
                     ),
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(top: 5.0),
-                      child: const Icon(Icons.search),
+                      child: const Icon(
+                        Icons.search,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: const Icon(
+                        Icons.sort_outlined,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -202,7 +182,15 @@ class SearchproductView extends GetView<SearchproductController> {
                                                   top: 20.0),
                                               child: CustomButton.primaryButton(
                                                 padding: EdgeInsets.all(10),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  controller.addToFavorites();
+                                                  DialogHelper.showInfoSnackbar(
+                                                    title: "Favori ajouté",
+                                                    message:
+                                                        "${medicament.productName} a été ajouté aux favoris.",
+                                                    seconds: 3,
+                                                  );
+                                                },
                                                 buttonTitle:
                                                     'Ajouter aux favoris',
                                                 textStyle: TextStyle(
@@ -229,13 +217,12 @@ class SearchproductView extends GetView<SearchproductController> {
                               ),
                               trailing: TextButton.icon(
                                 onPressed: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: AppColors.primary,
-                                      content: Text(
-                                        "${medicament.productName} ajouté au panier",
-                                      ),
-                                    ),
+                                  controller.addToFavorites();
+                                  DialogHelper.showInfoSnackbar(
+                                    title: "Favori ajouté",
+                                    message:
+                                        "${medicament.productName} a été ajouté aux favoris.",
+                                    seconds: 3,
                                   );
                                 },
                                 icon: const Icon(Icons.add_circle_rounded,
@@ -254,6 +241,38 @@ class SearchproductView extends GetView<SearchproductController> {
           ],
         ),
       ),
+      floatingActionButton: Obx(
+        () => FloatingActionButton(
+          backgroundColor: Colors.white,
+          splashColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          onPressed: () {
+            // Get.toNamed(AppPages.BASKET);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: Get.theme.cardColor,
+              borderRadius: BorderRadius.circular(40.0),
+            ),
+            child: badges.Badge(
+              badgeContent: Text(
+                controller.favoriteCount.value.toString(),
+                style: const TextStyle(color: Colors.white, fontSize: 10),
+              ),
+              badgeStyle: badges.BadgeStyle(badgeColor: Get.theme.primaryColor),
+              showBadge: controller.favoriteCount.value == 0 ? false : true,
+              child: Icon(
+                Icons.shopping_cart,
+                color: Get.theme.disabledColor,
+                size: 30,
+              ),
+            ),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

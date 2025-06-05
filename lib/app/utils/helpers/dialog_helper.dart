@@ -74,14 +74,14 @@ class DialogHelper {
 
   // Show an info snackbar
   static void showInfoSnackbar(
-      {String title = 'Info', required String message}) {
+      {String title = 'Info', required String message, int seconds = 0}) {
     Get.snackbar(
       title.tr,
       message.tr,
       backgroundColor: AppColors.info,
       colorText: Colors.white,
       snackPosition: SnackPosition.TOP,
-      duration: const Duration(seconds: 20),
+      duration: Duration(seconds: seconds),
     );
   }
 

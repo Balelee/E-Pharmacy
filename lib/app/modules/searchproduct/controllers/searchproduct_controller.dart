@@ -12,6 +12,7 @@ class SearchproductController extends GetxController {
   RxString searchText = ''.obs;
   RxList<Searchproduct> products = <Searchproduct>[].obs;
   final productProvider = ProductProvider();
+  RxInt favoriteCount = 0.obs;
 
   Timer? debounce;
 
@@ -46,6 +47,12 @@ class SearchproductController extends GetxController {
       DialogHelper.hideLoading();
     }
   }
+
+
+  void addToFavorites() {
+    favoriteCount.value++;
+  }
+
 
   @override
   // ignore: unnecessary_overrides
