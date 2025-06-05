@@ -1,11 +1,12 @@
+import 'package:e_pharma/app/modules/trackerPeriod/views/calendar_view.dart';
 import 'package:e_pharma/app/modules/trackerPeriod/views/editpage_view.dart';
 import 'package:e_pharma/app/themes/app_colors.dart';
+import 'package:e_pharma/app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-
 import '../controllers/tracker_period_controller.dart';
 
 class TrackerPeriodView extends GetView<TrackerPeriodController> {
@@ -172,6 +173,22 @@ class TrackerPeriodView extends GetView<TrackerPeriodController> {
                       backgroundColor: AppColors.textSecondary.withOpacity(0.1),
                     ),
                   ),
+                  const SizedBox(height: 60),
+                  Center(
+                    child: SizedBox(
+                      width: Get.width / 1.5,
+                      child: CustomButton.primaryButton(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 0),
+                        onPressed: () {
+                          Get.to(CalendarView());
+                        },
+                        buttonTitle: "Mon récaputilf",
+                        backgroundColor: AppColors.primary,
+                        borderRadius: 10,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),

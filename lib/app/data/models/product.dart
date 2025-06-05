@@ -1,11 +1,11 @@
 class Product {
-  final int id;
+  final int? id;
   final String name;
   final String? description;
-  final int stock;
+  final int? stock;
   final double price;
-  final String category;
-  final String pharmacieName;
+  final String? category;
+  final String? pharmacieName;
   final String? imageUrl;
 
   Product({

@@ -129,7 +129,7 @@ class ProductListView extends GetView<ProductController> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(
-                                  produit.pharmacieName,
+                                  produit.pharmacieName!,
                                   style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.bold,

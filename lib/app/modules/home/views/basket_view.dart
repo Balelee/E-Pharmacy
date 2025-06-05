@@ -130,11 +130,11 @@ class BasketView extends GetView<CartController> {
                                 IconButton(
                                   alignment: Alignment.centerRight,
                                   onPressed: () =>
-                                      controller.removeFromCart(product.id),
+                                      controller.removeFromCart(product.id!),
                                   icon: Icon(Icons.delete,
                                       size: 20, color: AppColors.error),
                                 ),
-                                QuantitySelector(productId: product.id),
+                                QuantitySelector(productId: product.id!),
                               ],
                             ),
                           ],

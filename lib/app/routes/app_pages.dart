@@ -1,7 +1,3 @@
-import 'package:e_pharma/app/modules/home/bindings/home_binding.dart';
-import 'package:e_pharma/app/modules/home/views/base_view.dart';
-import 'package:e_pharma/app/modules/home/views/basket_view.dart';
-import 'package:e_pharma/app/modules/home/views/product_list_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/Login/bindings/login_binding.dart';
@@ -11,10 +7,16 @@ import '../modules/Register/bindings/register_binding.dart';
 import '../modules/Register/views/register_view.dart';
 import '../modules/detailProduit/bindings/detail_produit_binding.dart';
 import '../modules/detailProduit/views/detail_produit_view.dart';
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/views/base_view.dart';
+import '../modules/home/views/basket_view.dart';
+import '../modules/home/views/product_list_view.dart';
 import '../modules/orderDetail/bindings/order_detail_binding.dart';
 import '../modules/orderDetail/views/order_detail_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/searchproduct/bindings/searchproduct_binding.dart';
+import '../modules/searchproduct/views/searchproduct_view.dart';
 import '../modules/trackerPeriod/bindings/tracker_period_binding.dart';
 import '../modules/trackerPeriod/views/tracker_period_view.dart';
 
@@ -33,6 +35,7 @@ class AppPages {
   static const BASKET = Routes.BASKET;
   static const TRACKER_PERIOD = Routes.TRACKER_PERIOD;
   static const ORDER_DETAIL = Routes.ORDER_DETAIL;
+  static const SEARCHPRODUCT = Routes.SEARCHPRODUCT;
 
   static final routes = [
     GetPage(
@@ -84,6 +87,11 @@ class AppPages {
       name: _Paths.ORDER_DETAIL,
       page: () => OrderDetailView(),
       binding: OrderDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCHPRODUCT,
+      page: () => const SearchproductView(),
+      binding: SearchproductBinding(),
     ),
   ];
 }
