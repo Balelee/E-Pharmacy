@@ -43,7 +43,7 @@ class SearchproductController extends GetxController {
     DialogHelper.showLoading(
       message: "Patienter...",
       noBkgColor: true,
-      colorProgress: AppColors.primary,
+      colorProgress: Colors.green,
       messageStyle: const TextStyle(fontWeight: FontWeight.bold),
     );
 
@@ -62,22 +62,21 @@ class SearchproductController extends GetxController {
     }
   }
 
-
   void sortByName() {
     isNameAsc.value = !isNameAsc.value;
     products.sort((a, b) => isNameAsc.value
         ? a.productName.compareTo(b.productName)
         : b.productName.compareTo(a.productName));
     iconColor.value = iconColor.value == AppColors.textSecondary
-        ? AppColors.primary
+        ? Colors.green
         : AppColors.textSecondary;
     products.refresh();
   }
 
   void loadMoreProducts() async {
-    if (isLoadingMore.value || !hasMore.value || searchText.value.isEmpty)
+    if (isLoadingMore.value || !hasMore.value || searchText.value.isEmpty) {
       return;
-
+    }
     isLoadingMore.value = true;
     try {
       final nextPage = currentPage.value + 1;
@@ -108,12 +107,11 @@ class SearchproductController extends GetxController {
     }
   }
 
-
   @override
   // ignore: unnecessary_overrides
   void onInit() {
     super.onInit();
-     scrollController.addListener(scrollListener);
+    scrollController.addListener(scrollListener);
   }
 
   @override
@@ -125,7 +123,7 @@ class SearchproductController extends GetxController {
   @override
   void onClose() {
     debounce?.cancel();
-    scrollController.dispose(); 
+    scrollController.dispose();
     searchController.dispose();
     super.onClose();
   }

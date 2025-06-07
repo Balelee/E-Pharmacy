@@ -21,14 +21,16 @@ class SearchproductView extends GetView<SearchproductController> {
               children: [
                 const SizedBox(height: 60),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    BackButton(onPressed: () => Get.back()),
+                    BackButton(
+                      onPressed: () => Get.back(),
+                      color: Colors.green,
+                    ),
                     const Text(
                       'Recherche de prix de médicament',
                       style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
+                        fontSize: 17,
+                        color: AppColors.textSecondary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -47,10 +49,10 @@ class SearchproductView extends GetView<SearchproductController> {
                           borderRadius: BorderRadius.circular(12),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
+                              color: Colors.green.withOpacity(0.2),
                               spreadRadius: 2,
                               blurRadius: 6,
-                              offset: Offset(0, 3),
+                              offset: Offset(0, 1),
                             ),
                           ],
                         ),
@@ -71,7 +73,7 @@ class SearchproductView extends GetView<SearchproductController> {
                               padding: const EdgeInsets.only(top: 5.0),
                               child: const Icon(
                                 Icons.search,
-                                color: AppColors.textSecondary,
+                                color: Colors.green,
                               ),
                             ),
                             border: OutlineInputBorder(
@@ -94,10 +96,10 @@ class SearchproductView extends GetView<SearchproductController> {
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
+                            color: Colors.green.withOpacity(0.2),
                             spreadRadius: 2,
                             blurRadius: 6,
-                            offset: Offset(0, 3),
+                            offset: Offset(0, 1),
                           ),
                         ],
                       ),
@@ -117,27 +119,39 @@ class SearchproductView extends GetView<SearchproductController> {
                 const SizedBox(height: 10),
                 Expanded(
                   child: controller.searchText.value.trim().isEmpty
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/no_data.png',
-                              width: 200,
-                              fit: BoxFit.contain,
-                            ),
-                            Text(
-                              "Tapez un nom pour rechercher un médicament.",
-                              style: TextStyle(
-                                  fontSize: 12, fontStyle: FontStyle.italic),
-                            )
-                          ],
+                      ? Container(
+                          color: Colors.green.shade100,
+                          width: Get.width,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.green.shade100,
+                                radius: 80,
+                                child: Image.asset(
+                                  'assets/images/no_data.png',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: Text(
+                                  "Tapez un nom pour rechercher un médicament.",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         )
                       : Container(
                           margin: const EdgeInsets.only(top: 5),
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.green.shade100,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
@@ -179,7 +193,7 @@ class SearchproductView extends GetView<SearchproductController> {
                                               width: 20,
                                               height: 20,
                                               child: CircularProgressIndicator(
-                                                color: AppColors.primary,
+                                                color: AppColors.background,
                                               ),
                                             ),
                                           ),
@@ -216,10 +230,9 @@ class SearchproductView extends GetView<SearchproductController> {
                                                     children: [
                                                       Text(
                                                         medicament.productName,
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                           fontSize: 16,
-                                                          color:
-                                                              AppColors.primary,
+                                                          color: Colors.green,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                         ),
@@ -241,8 +254,8 @@ class SearchproductView extends GetView<SearchproductController> {
                                                             style:
                                                                 const TextStyle(
                                                               fontSize: 16,
-                                                              color: AppColors
-                                                                  .primary,
+                                                              color:
+                                                                  Colors.green,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
@@ -257,6 +270,8 @@ class SearchproductView extends GetView<SearchproductController> {
                                                                 top: 20.0),
                                                         child: CustomButton
                                                             .primaryButton(
+                                                          backgroundColor:
+                                                              Colors.green,
                                                           padding:
                                                               EdgeInsets.all(
                                                                   10),
@@ -269,7 +284,7 @@ class SearchproductView extends GetView<SearchproductController> {
                                                                     medicament
                                                                         .toProduct());
                                                             DialogHelper
-                                                                .showInfoSnackbar(
+                                                                .showSuccessSnackbar(
                                                               title: medicament
                                                                   .productName,
                                                               message:
@@ -310,7 +325,7 @@ class SearchproductView extends GetView<SearchproductController> {
                                                 Get.find<ProductController>();
                                             cartController.addToCart(
                                                 medicament.toProduct());
-                                            DialogHelper.showInfoSnackbar(
+                                            DialogHelper.showSuccessSnackbar(
                                               title: medicament.productName,
                                               message:
                                                   "a été ajouté au panier.",
@@ -319,11 +334,11 @@ class SearchproductView extends GetView<SearchproductController> {
                                           },
                                           icon: const Icon(
                                               Icons.add_circle_rounded,
-                                              color: Colors.blue),
+                                              color: Colors.green),
                                           label: const Text(
                                             "Ajouter",
                                             style:
-                                                TextStyle(color: Colors.blue),
+                                                TextStyle(color: Colors.green),
                                           ),
                                         ),
                                       );
@@ -355,7 +370,7 @@ class SearchproductView extends GetView<SearchproductController> {
                 controller.cartController.panierList.length.toString(),
                 style: const TextStyle(color: Colors.white, fontSize: 10),
               ),
-              badgeStyle: badges.BadgeStyle(badgeColor: Get.theme.primaryColor),
+              badgeStyle: badges.BadgeStyle(badgeColor: Colors.green),
               showBadge: controller.cartController.panierList.isNotEmpty,
               child: Icon(
                 Icons.shopping_cart,
