@@ -117,12 +117,21 @@ class SearchproductView extends GetView<SearchproductController> {
                 const SizedBox(height: 10),
                 Expanded(
                   child: controller.searchText.value.trim().isEmpty
-                      ? Center(
-                          child: Image.asset(
-                            'assets/images/no_data.png',
-                            width: 200,
-                            fit: BoxFit.contain,
-                          ),
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/no_data.png',
+                              width: 200,
+                              fit: BoxFit.contain,
+                            ),
+                            Text(
+                              "Tapez un nom pour rechercher un médicament.",
+                              style: TextStyle(
+                                  fontSize: 12, fontStyle: FontStyle.italic),
+                            )
+                          ],
                         )
                       : Container(
                           margin: const EdgeInsets.only(top: 5),
@@ -166,7 +175,13 @@ class SearchproductView extends GetView<SearchproductController> {
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Center(
-                                            child: CircularProgressIndicator(),
+                                            child: SizedBox(
+                                              width: 20,
+                                              height: 20,
+                                              child: CircularProgressIndicator(
+                                                color: AppColors.primary,
+                                              ),
+                                            ),
                                           ),
                                         );
                                       }

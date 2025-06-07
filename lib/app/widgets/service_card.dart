@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
 class ServiceCard extends StatelessWidget {
-  final IconData icon;
+  final Widget leading; // Peut être un Icon ou une Image
   final String label;
   final Color color;
- final void Function()? onTap;
+  final void Function()? onTap;
 
   const ServiceCard({
     super.key,
-    required this.icon,
+    required this.leading,
     required this.label,
     required this.color,
-    required this.onTap
-
+    required this.onTap,
   });
 
   @override
@@ -29,7 +28,7 @@ class ServiceCard extends StatelessWidget {
                 color: color.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, color: color),
+              child: leading,
             ),
             const SizedBox(height: 8),
             Text(

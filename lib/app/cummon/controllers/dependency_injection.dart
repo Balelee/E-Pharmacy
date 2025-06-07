@@ -5,6 +5,7 @@ import 'package:e_pharma/app/cummon/controllers/socket_controller.dart';
 import 'package:e_pharma/app/cummon/controllers/user_controller.dart';
 import 'package:e_pharma/app/data/repositories/user_repository.dart';
 import 'package:e_pharma/app/modules/home/controllers/cart_controller.dart';
+import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
 import 'package:e_pharma/app/modules/searchproduct/controllers/searchproduct_controller.dart';
 import 'package:e_pharma/app/utils/services/localization_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -25,5 +26,6 @@ class DependencieInjection {
     Get.lazyPut(() => UserController(Get.find<UserRepository>()));
     Get.lazyPut<SearchproductController>(() => SearchproductController());
     Get.lazyPut<CartController>(() => CartController());
+    Get.lazyPut<ProductController>(() => ProductController());
   }
 }

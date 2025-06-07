@@ -21,7 +21,7 @@ class DashboardView extends GetView<DashboardController> {
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                color: Colors.white,
+                color: AppColors.background,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -132,37 +132,47 @@ class DashboardView extends GetView<DashboardController> {
                                   onTap: () {
                                     Get.offNamed(AppPages.PRODUIT_LIST);
                                   },
-                                  icon: Icons.shopping_bag,
+                                  leading: Image.asset(
+                                    "assets/images/shop1.png",
+                                    width: 35,
+                                  ),
                                   label: 'Achat produit',
                                   color: Colors.blue,
                                 ),
                                 ServiceCard(
                                   onTap: () {},
-                                  icon: Icons.child_care,
+                                  leading: Image.asset(
+                                    "assets/images/store.png",
+                                    width: 35,
+                                  ),
                                   label: 'Pharmacies dispo',
-                                  color: Colors.green,
+                                  color: Colors.blue,
                                 ),
                                 ServiceCard(
                                   onTap: () {},
-                                  icon: Icons.pregnant_woman,
+                                  leading: Image.asset(
+                                    "assets/images/store.png",
+                                    width: 35,
+                                  ),
                                   label: 'Cliniques/Labo',
-                                  color: Colors.purple,
+                                  color: Colors.blue,
                                 ),
                                 ServiceCard(
                                   onTap: () {
                                     Get.toNamed(AppPages.TRACKER_PERIOD);
                                   },
-                                  icon: Icons.calendar_today,
-                                  label: 'Reproduction',
-                                  color: Colors.pink,
+                                  leading: Icon(
+                                    Icons.access_alarm,
+                                    color: AppColors.primary,
+                                  ),
+                                  label: 'Rappel medicament',
+                                  color: Colors.blue,
                                 ),
                               ],
                             ),
                           ],
                         ),
                       ),
-
-                      // Daily Tips Section
                       Padding(
                         padding: const EdgeInsets.all(24),
                         child: Column(
