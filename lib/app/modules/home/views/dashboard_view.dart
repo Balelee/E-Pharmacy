@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,7 +141,9 @@ class DashboardView extends GetView<DashboardController> {
                                   color: Colors.blue,
                                 ),
                                 ServiceCard(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(Routes.PHARMACIES);
+                                  },
                                   leading: Image.asset(
                                     "assets/images/store.png",
                                     width: 35,
