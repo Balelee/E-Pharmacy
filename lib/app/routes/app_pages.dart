@@ -15,6 +15,8 @@ import '../modules/orderDetail/bindings/order_detail_binding.dart';
 import '../modules/orderDetail/views/order_detail_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/pharmacies/bindings/pharmacies_binding.dart';
+import '../modules/pharmacies/views/pharmacies_view.dart';
 import '../modules/searchproduct/bindings/searchproduct_binding.dart';
 import '../modules/searchproduct/views/searchproduct_view.dart';
 import '../modules/trackerPeriod/bindings/tracker_period_binding.dart';
@@ -92,6 +94,11 @@ class AppPages {
       name: _Paths.SEARCHPRODUCT,
       page: () => const SearchproductView(),
       binding: SearchproductBinding(),
+    ),
+    GetPage(
+      name: _Paths.PHARMACIES,
+      page: () => const PharmaciesView(),
+      binding: PharmaciesBinding(),
     ),
   ];
 }

@@ -9,14 +9,14 @@ class Product {
   final String? imageUrl;
 
   Product({
-    required this.id,
+    this.id,
     required this.name,
-    required this.description,
-    required this.stock,
+    this.description,
+    this.stock,
     required this.price,
-    required this.category,
-    required this.pharmacieName,
-    required this.imageUrl,
+    this.category,
+    this.pharmacieName,
+    this.imageUrl,
   });
 
   // Méthode pour convertir un JSON en objet Product

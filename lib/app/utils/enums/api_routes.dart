@@ -6,7 +6,8 @@ enum ApiRoutes {
   verifyOtp('users/verifyOtp'),
   filterProduct('filterProduct'),
   products('products?page={pageKey}&q={query}&filter={filter}'),
-  searchProduct('products/search-product?query={query}'),
+  searchProduct(
+      'products/search-product?query={query}&page={page}&limit={limit}'),
   ordersProduct('orders');
 
   final String path;

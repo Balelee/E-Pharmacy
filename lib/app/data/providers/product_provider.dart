@@ -83,15 +83,23 @@ class ProductProvider with BaseController {
     }
   }
 
-  Future<List<Searchproduct>> searchProductByName(String query) async {
+ Future<List<Searchproduct>> searchProductByName(
+    String query, {
+    int page = 1,
+    int limit = 20,
+  }) async {
     try {
       final response = await ApiProvider.get(
         auth: true,
-        apiURL: ApiRoutes.searchProduct.format({'query': query}),
+        apiURL: ApiRoutes.searchProduct.format({
+          'query': query,
+          'page': page,
+          'limit': limit,
+        }),
       ).catchError(handleError);
 
-      if (response != null && response is List) {
-        List<Searchproduct> searchproduct = response
+      if (response != null && response is Map && response['data'] is List) {
+        List<Searchproduct> searchproduct = (response['data'] as List)
             .map((item) => Searchproduct.fromJson(item))
             .cast<Searchproduct>()
             .toList();
@@ -104,4 +112,5 @@ class ProductProvider with BaseController {
       return [];
     }
   }
+
 }
