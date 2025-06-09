@@ -8,7 +8,8 @@ enum ApiRoutes {
   products('products?page={pageKey}&q={query}&filter={filter}'),
   searchProduct(
       'products/search-product?query={query}&page={page}&limit={limit}'),
-  ordersProduct('orders');
+  ordersProduct('orders'),
+  pharmacies('pharmacies?page={pageKey}&q={query}');
 
   final String path;
   const ApiRoutes(this.path);
