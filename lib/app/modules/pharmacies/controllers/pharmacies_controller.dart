@@ -14,17 +14,27 @@ class PharmaciesController extends GetxController {
   final RxString searchText = ''.obs;
   RxBool isNameAsc = true.obs;
   Rx<Color> iconColor = AppColors.textSecondary.obs;
+  int currentPage = 1;
+  RxBool isLastPage = false.obs;
+  RxBool isLoadingMore = false.obs;
+  ScrollController scrollController = ScrollController();
+  RxBool hasSearched = false.obs;
 
   @override
   void onInit() {
     super.onInit();
-
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          scrollController.position.maxScrollExtent - 200) {
+        loadPharmacies(pageKey: currentPage);
+      }
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       loadPharmacies();
     });
-
     debounce(searchText, (value) {
-      loadPharmacies(query: value);
+      hasSearched.value = value.isNotEmpty;
+      loadPharmacies(query: value, isRefresh: true);
     }, time: const Duration(milliseconds: 500));
   }
 
@@ -36,6 +46,7 @@ class PharmaciesController extends GetxController {
 
   @override
   void onClose() {
+    scrollController.dispose();
     searchController.dispose();
     super.onClose();
   }
@@ -44,20 +55,52 @@ class PharmaciesController extends GetxController {
     return DateFormat('EEEE', 'fr_FR').format(DateTime.now());
   }
 
-  Future<void> loadPharmacies({int pageKey = 1, String? query}) async {
-    DialogHelper.showLoading(
-      message: "Patienter...",
-      noBkgColor: false,
-      colorProgress: Colors.green,
-      messageStyle: const TextStyle(fontWeight: FontWeight.bold),
-    );
+  Future<void> loadPharmacies({
+    int pageKey = 1,
+    String? query,
+    bool isRefresh = false,
+  }) async {
+    if (isLoadingMore.value) return;
+
+    if (isLastPage.value && !isRefresh) return;
+    if (isRefresh) {
+      currentPage = 1;
+      isLastPage.value = false;
+      pharmacies.clear();
+    }
+
+    isLoadingMore.value = true;
+
+    if (pageKey == 1) {
+      DialogHelper.showLoading(
+        message: "Patienter...",
+        noBkgColor: false,
+        colorProgress: Colors.green,
+        messageStyle: const TextStyle(fontWeight: FontWeight.bold),
+      );
+    }
 
     try {
       final result = await pharmacyProvider.fetchPharmacies(
-          pageKey: pageKey, query: query);
-      pharmacies.value = result;
+        pageKey: pageKey,
+        query: query,
+      );
+
+      if (result.isEmpty) {
+        isLastPage.value = true;
+      } else {
+        if (isRefresh) {
+          pharmacies.assignAll(result);
+        } else {
+          pharmacies.addAll(result);
+        }
+        currentPage++;
+      }
     } finally {
-      DialogHelper.hideLoading();
+      isLoadingMore.value = false;
+      if (pageKey == 1) {
+        DialogHelper.hideLoading();
+      }
     }
   }
 
