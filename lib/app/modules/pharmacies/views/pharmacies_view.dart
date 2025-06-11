@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../controllers/pharmacies_controller.dart';
 
@@ -24,8 +25,8 @@ class PharmaciesView extends GetView<PharmaciesController> {
                     onPressed: () => Get.back(),
                     color: Colors.green,
                   ),
-                  const Text(
-                    'Pharmacies à proximité',
+                  CustomText(
+                    text: 'Pharmacies à proximité',
                     style: TextStyle(
                       fontSize: 17,
                       color: AppColors.textSecondary,
@@ -134,8 +135,8 @@ class PharmaciesView extends GetView<PharmaciesController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Liste des pharmacies",
+                  CustomText(
+                    text: "Liste des pharmacies",
                     style: TextStyle(
                         color: AppColors.textSecondary,
                         fontSize: 14,
@@ -182,14 +183,15 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                 width: Get.width / 2,
                                 fit: BoxFit.contain,
                               ),
-                              Text(
-                                "Aucune pharmacie trouvée pour votre recherche",
+                              CustomText(
+                                text:
+                                    "Aucune pharmacie trouvée pour votre recherche",
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: AppColors.textSecondary,
                                   fontStyle: FontStyle.italic,
                                 ),
-                              ),
+                              )
                             ],
                           ),
                         ),
@@ -234,16 +236,16 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              pharmacy.pharmacieName,
+                                            CustomText(
+                                              text: pharmacy.pharmacieName,
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
                                                 color: AppColors.textSecondary,
                                               ),
                                             ),
-                                            Text(
-                                              pharmacy.isOpenNow
+                                            CustomText(
+                                              text: pharmacy.isOpenNow
                                                   ? "Ouvert"
                                                   : "Fermé",
                                               style: TextStyle(
@@ -255,8 +257,8 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                           ],
                                         ),
                                         const SizedBox(height: 4),
-                                        Text(
-                                          pharmacy.adresse,
+                                        CustomText(
+                                          text: pharmacy.adresse,
                                           style: const TextStyle(
                                             fontSize: 13,
                                             color: Colors.grey,
@@ -266,15 +268,16 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                         if (todayHours != null)
                                           Row(
                                             children: [
-                                              Text(
-                                                "${todayHours.day}: ",
+                                              CustomText(
+                                                text: "${todayHours.day}: ",
                                                 style: const TextStyle(
                                                   fontSize: 13,
                                                   color: Colors.grey,
                                                 ),
                                               ),
-                                              Text(
-                                                "${todayHours.openingTime} - ${todayHours.closingTime}",
+                                              CustomText(
+                                                text:
+                                                    "${todayHours.openingTime} - ${todayHours.closingTime}",
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.bold,
@@ -285,8 +288,8 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                             ],
                                           )
                                         else
-                                          Text(
-                                            "Dimanche - Fermé",
+                                          CustomText(
+                                            text: "Dimanche - Fermé",
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: AppColors.error
@@ -306,8 +309,8 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                                     color: Colors.green,
                                                     size: 20,
                                                   ),
-                                                  Text(
-                                                    pharmacy.phone,
+                                                  CustomText(
+                                                    text: pharmacy.phone,
                                                     style: const TextStyle(
                                                       fontSize: 13,
                                                       color: Colors.grey,
@@ -358,8 +361,6 @@ class PharmaciesView extends GetView<PharmaciesController> {
                               ),
                             );
                           }
-
-                          // Show loading spinner at the end if more data is loading
                           if (controller.searchText.value.isEmpty &&
                               !controller.isLastPage.value &&
                               controller.isLoadingMore.value &&

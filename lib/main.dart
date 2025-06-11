@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -25,7 +24,7 @@ void main() async {
     GetMaterialApp(
       debugShowCheckedModeBanner: Env.debugMode,
       title: Env.appName,
-      initialRoute: AppPages.INITIAL,
+      initialRoute: AppPages.BASE,
       getPages: AppPages.routes,
       locale: LocalizationService.to.getCurrentLocale(),
       translationsKeys: AppTranslation.translations,
