@@ -1,10 +1,9 @@
-import 'package:e_pharma/app/routes/app_pages.dart';
-import 'package:e_pharma/app/themes/app_text_styles.dart';
-import 'package:e_pharma/app/widgets/custom_card.dart';
-import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/widgets/custom_card.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
 
 class BienEtreView extends GetView {
   const BienEtreView({super.key});

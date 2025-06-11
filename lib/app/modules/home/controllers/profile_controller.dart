@@ -1,9 +1,10 @@
-import 'package:e_pharma/app/cummon/controllers/user_controller.dart';
-import 'package:e_pharma/app/data/providers/auth_provider.dart';
-import 'package:e_pharma/app/routes/app_pages.dart';
-import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
-import 'package:e_pharma/generated/locales.g.dart';
+
 import 'package:get/get.dart';
+import 'package:pharmix/app/cummon/controllers/user_controller.dart';
+import 'package:pharmix/app/data/providers/auth_provider.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
+import 'package:pharmix/generated/locales.g.dart';
 
 class ProfileController extends GetxController {
   //TODO: Implement ProfileController

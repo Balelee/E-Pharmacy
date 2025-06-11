@@ -1,5 +1,5 @@
-import 'package:e_pharma/app/core/network/api_exception.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/core/network/api_exception.dart';
 import '../../utils/helpers/dialog_helper.dart';
 
 mixin BaseController {

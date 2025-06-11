@@ -1,17 +1,18 @@
-import 'package:e_pharma/app/data/models/product.dart';
-import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
-import 'package:e_pharma/app/routes/app_pages.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
-import 'package:e_pharma/app/themes/app_text_styles.dart';
-import 'package:e_pharma/app/utils/constants/size_constant.dart';
-import 'package:e_pharma/app/widgets/category_filter.dart';
-import 'package:e_pharma/app/widgets/custom_search_bar.dart';
-import 'package:e_pharma/app/widgets/custom_text.dart';
-import 'package:e_pharma/generated/locales.g.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:pharmix/app/data/models/product.dart';
+import 'package:pharmix/app/modules/home/controllers/product_controller.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/constants/size_constant.dart';
+import 'package:pharmix/app/widgets/category_filter.dart';
+import 'package:pharmix/app/widgets/custom_search_bar.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
+import 'package:pharmix/generated/locales.g.dart';
 
 class ProductListView extends GetView<ProductController> {
   const ProductListView({super.key});

@@ -1,13 +1,12 @@
-import 'package:e_pharma/app/modules/home/controllers/profile_controller.dart';
-import 'package:e_pharma/app/themes/app_text_styles.dart';
-import 'package:e_pharma/app/utils/constants/app_constant.dart';
-import 'package:e_pharma/app/widgets/custom_text.dart';
-import 'package:e_pharma/app/widgets/loding_indicator.dart';
-import 'package:e_pharma/app/widgets/profil_widgets.dart';
-import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:pharmix/app/modules/home/controllers/profile_controller.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/constants/app_constant.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
+import 'package:pharmix/app/widgets/loding_indicator.dart';
+import 'package:pharmix/app/widgets/profil_widgets.dart';
+import 'package:pharmix/generated/locales.g.dart';
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({super.key});

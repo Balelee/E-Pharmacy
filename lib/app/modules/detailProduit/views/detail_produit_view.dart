@@ -1,13 +1,14 @@
-import 'package:e_pharma/app/data/models/product.dart';
-import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
-import 'package:e_pharma/app/themes/app_text_styles.dart';
-import 'package:e_pharma/app/utils/constants/size_constant.dart';
-import 'package:e_pharma/app/widgets/custom_button.dart';
-import 'package:e_pharma/app/widgets/custom_text.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/models/product.dart';
+import 'package:pharmix/app/modules/home/controllers/product_controller.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/constants/size_constant.dart';
+import 'package:pharmix/app/widgets/custom_button.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
 
 class DetailProduitView extends GetView<ProductController> {
   DetailProduitView({super.key});

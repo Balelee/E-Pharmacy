@@ -1,6 +1,6 @@
-import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../controllers/pharmacies_controller.dart';
 

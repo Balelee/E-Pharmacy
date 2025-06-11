@@ -1,6 +1,6 @@
-import 'package:e_pharma/app/themes/app_colors.dart';
-import 'package:e_pharma/app/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
 
 class CustomButton {
   static Widget primaryButton({

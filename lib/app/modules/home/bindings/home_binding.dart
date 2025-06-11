@@ -1,11 +1,11 @@
-import 'package:e_pharma/app/cummon/controllers/user_controller.dart';
-import 'package:e_pharma/app/data/repositories/user_repository.dart';
-import 'package:get/get.dart';
 
-import 'package:e_pharma/app/modules/home/controllers/cart_controller.dart';
-import 'package:e_pharma/app/modules/home/controllers/dashboard_controller.dart';
-import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
-import 'package:e_pharma/app/modules/home/controllers/profile_controller.dart';
+import 'package:get/get.dart';
+import 'package:pharmix/app/cummon/controllers/user_controller.dart';
+import 'package:pharmix/app/data/repositories/user_repository.dart';
+import 'package:pharmix/app/modules/home/controllers/cart_controller.dart';
+import 'package:pharmix/app/modules/home/controllers/dashboard_controller.dart';
+import 'package:pharmix/app/modules/home/controllers/product_controller.dart';
+import 'package:pharmix/app/modules/home/controllers/profile_controller.dart';
 
 import '../controllers/home_controller.dart';
 

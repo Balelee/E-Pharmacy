@@ -1,10 +1,10 @@
-import 'package:e_pharma/app/data/models/pharmacy.dart';
-import 'package:e_pharma/app/data/providers/pharmacy_provider.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
-import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pharmix/app/data/models/pharmacy.dart';
+import 'package:pharmix/app/data/providers/pharmacy_provider.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PharmaciesController extends GetxController {

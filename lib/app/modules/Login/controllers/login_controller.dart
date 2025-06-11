@@ -1,10 +1,11 @@
-import 'package:e_pharma/app/data/models/auth_message.dart';
-import 'package:e_pharma/app/data/providers/auth_provider.dart';
-import 'package:e_pharma/app/modules/Login/views/login_content_view.dart';
-import 'package:e_pharma/app/modules/Login/views/splash_view_view.dart';
-import 'package:e_pharma/app/routes/app_pages.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/models/auth_message.dart';
+import 'package:pharmix/app/data/providers/auth_provider.dart';
+import 'package:pharmix/app/modules/Login/views/login_content_view.dart';
+import 'package:pharmix/app/modules/Login/views/splash_view_view.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
 import '../../../utils/form_helper.dart';
 
 class LoginController extends GetxController {
@@ -21,12 +22,12 @@ class LoginController extends GetxController {
     isPasswordHidden.value = !isPasswordHidden.value;
   }
 
-  Rx<Widget> animateContent = Rx<Widget>(Container());
+  Rx<Widget> changeContent = Rx<Widget>(Container());
   RxString contryCode = '+226'.obs;
   @override
   void onInit() {
     super.onInit();
-    animateContent.value = SplashViewView();
+    changeContent.value = SplashViewView();
     changeScreen();
     phoneController.text = "53380701";
     passwordController.text = "adminadmin";
@@ -45,8 +46,8 @@ class LoginController extends GetxController {
   }
 
   Future<void> changeScreen() async {
-    Future.delayed(Duration(seconds: 1), () {
-      animateContent.value = LoginContentView();
+    Future.delayed(Duration(seconds: 8), () {
+      changeContent.value = LoginContentView();
     });
   }
 
@@ -60,6 +61,4 @@ class LoginController extends GetxController {
       Get.toNamed(AppPages.OTP, arguments: authMessage);
     }
   }
-
-
 }

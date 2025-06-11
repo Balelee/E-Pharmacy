@@ -10,24 +10,10 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(
-        () => AnimatedSwitcher(
-          duration: Duration(seconds: 1),
-          transitionBuilder: (widget, animation) {
-            return FadeTransition(
-              opacity: animation,
-              child: SlideTransition(
-                position: Tween<Offset>(
-                  begin: Offset(0, 0.3),
-                  end: Offset.zero, 
-                ).animate(animation),
-                child: widget,
-              ),
-            );
-          },
-          child: controller.animateContent.value,
-        ),
+        body: Obx(
+      () => Center(
+        child: controller.changeContent.value,
       ),
-    );
+    ));
   }
 }

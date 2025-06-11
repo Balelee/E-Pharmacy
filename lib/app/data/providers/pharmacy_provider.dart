@@ -1,8 +1,10 @@
-import 'package:e_pharma/app/cummon/controllers/base_controller.dart';
-import 'package:e_pharma/app/data/models/pharmacy.dart';
-import 'package:e_pharma/app/data/providers/api_provider.dart';
-import 'package:e_pharma/app/utils/enums/api_routes.dart';
-import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
+
+
+import 'package:pharmix/app/cummon/controllers/base_controller.dart';
+import 'package:pharmix/app/data/models/pharmacy.dart';
+import 'package:pharmix/app/data/providers/api_provider.dart';
+import 'package:pharmix/app/utils/enums/api_routes.dart';
+import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 
 class PharmacyProvider with BaseController {
   Future<List<Pharmacy>> fetchPharmacies(

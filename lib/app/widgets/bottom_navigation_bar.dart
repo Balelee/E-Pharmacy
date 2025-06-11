@@ -1,6 +1,6 @@
-import 'package:e_pharma/app/cummon/controllers/navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
 
 class BottomNavBar extends StatelessWidget {
   BottomNavBar({super.key});

@@ -1,10 +1,10 @@
-import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
-import 'package:e_pharma/app/routes/app_pages.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
-import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
-import 'package:e_pharma/app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/modules/home/controllers/product_controller.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
+import 'package:pharmix/app/widgets/custom_button.dart';
 import '../controllers/searchproduct_controller.dart';
 import 'package:badges/badges.dart' as badges;
 

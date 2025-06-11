@@ -19,8 +19,6 @@ import '../modules/pharmacies/bindings/pharmacies_binding.dart';
 import '../modules/pharmacies/views/pharmacies_view.dart';
 import '../modules/searchproduct/bindings/searchproduct_binding.dart';
 import '../modules/searchproduct/views/searchproduct_view.dart';
-import '../modules/trackerPeriod/bindings/tracker_period_binding.dart';
-import '../modules/trackerPeriod/views/tracker_period_view.dart';
 
 part 'app_routes.dart';
 
@@ -79,11 +77,6 @@ class AppPages {
       name: _Paths.DETAIL_PRODUIT,
       page: () => DetailProduitView(),
       binding: DetailProduitBinding(),
-    ),
-    GetPage(
-      name: _Paths.TRACKER_PERIOD,
-      page: () => const TrackerPeriodView(),
-      binding: TrackerPeriodBinding(),
     ),
     GetPage(
       name: _Paths.ORDER_DETAIL,

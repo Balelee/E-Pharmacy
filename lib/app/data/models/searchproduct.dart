@@ -1,4 +1,6 @@
-import 'package:e_pharma/app/data/models/product.dart';
+
+
+import 'package:pharmix/app/data/models/product.dart';
 
 class Searchproduct {
   final int? id;

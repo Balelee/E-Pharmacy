@@ -1,7 +1,7 @@
-import 'package:e_pharma/app/cummon/controllers/user_controller.dart';
-import 'package:e_pharma/app/data/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/cummon/controllers/user_controller.dart';
+import 'package:pharmix/app/data/models/user.dart';
 
 class DashboardController extends GetxController {
   // Get the UserController instance

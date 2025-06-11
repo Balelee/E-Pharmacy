@@ -1,10 +1,11 @@
-import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/modules/home/controllers/product_controller.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
 
 class CategoryFilterWidget extends StatelessWidget {
   final ProductController controller = Get.find<ProductController>();
+  CategoryFilterWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

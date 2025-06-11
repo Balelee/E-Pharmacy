@@ -1,10 +1,10 @@
-import 'package:e_pharma/app/data/models/order.dart';
-import 'package:e_pharma/app/themes/app_text_styles.dart';
-import 'package:e_pharma/app/utils/constants/app_constant.dart';
-import 'package:e_pharma/app/widgets/custom_button.dart';
-import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/models/order.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/constants/app_constant.dart';
+import 'package:pharmix/app/widgets/custom_button.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
 import '../controllers/order_detail_controller.dart';
 
 // ignore: must_be_immutable

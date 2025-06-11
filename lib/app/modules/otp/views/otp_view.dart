@@ -1,14 +1,14 @@
-import 'package:e_pharma/app/data/models/auth_message.dart';
-import 'package:e_pharma/app/themes/app_text_styles.dart';
-import 'package:e_pharma/app/utils/constants/app_constant.dart';
-import 'package:e_pharma/app/utils/constants/size_constant.dart';
-import 'package:e_pharma/app/utils/validators.dart';
-import 'package:e_pharma/app/widgets/custom_text.dart';
-import 'package:e_pharma/app/widgets/otp_field_widget.dart';
-import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/models/auth_message.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/constants/app_constant.dart';
+import 'package:pharmix/app/utils/constants/size_constant.dart';
+import 'package:pharmix/app/utils/validators.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
+import 'package:pharmix/app/widgets/otp_field_widget.dart';
+import 'package:pharmix/generated/locales.g.dart';
 import '../../../widgets/custom_button.dart';
 import '../controllers/otp_controller.dart';
 
