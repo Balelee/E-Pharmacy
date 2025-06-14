@@ -128,4 +128,23 @@ class PharmaciesController extends GetxController {
         : AppColors.textSecondary;
     pharmacies.refresh();
   }
+
+  String getInitials(String name) {
+    final parts = name.trim().split(' ');
+    if (parts.length >= 2) {
+      final secondWord = parts[1];
+      return secondWord.length >= 2
+          ? secondWord.substring(0, 2).toUpperCase()
+          : secondWord.toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  }
+
+  final List<Color> avatarColors = [
+    AppColors.success,
+    AppColors.primary,
+    Colors.orange,
+    AppColors.error,
+    Colors.purple,
+  ];
 }

@@ -162,7 +162,7 @@ class DashboardView extends GetView<DashboardController> {
                                 ),
                                 ServiceCard(
                                   onTap: () {
-                                    Get.toNamed(AppPages.TRACKER_PERIOD);
+                                    Get.toNamed(AppPages.RAPPELMEDI);
                                   },
                                   leading: Icon(
                                     Icons.access_alarm,

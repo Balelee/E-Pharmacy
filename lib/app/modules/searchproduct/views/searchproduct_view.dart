@@ -5,6 +5,8 @@ import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
+import 'package:pharmix/app/widgets/custom_toast.dart';
 import '../controllers/searchproduct_controller.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -15,28 +17,44 @@ class SearchproductView extends GetView<SearchproductController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: AppBar(
+        toolbarHeight: 80,
+        centerTitle: true,
+        backgroundColor: Colors.green,
+        leading: BackButton(
+          color: AppColors.background,
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        title: CustomText(
+          text: 'Recherche de prix de médicament',
+          style: TextStyle(
+            fontSize: 18,
+            color: AppColors.background,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          Padding(
+              padding: const EdgeInsets.only(right: 15.0),
+              child: Icon(
+                Icons.medication,
+                color: AppColors.background,
+              )),
+        ],
+      ),
       body: Obx(() => Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
               children: [
-                const SizedBox(height: 60),
-                Row(
-                  children: [
-                    BackButton(
-                      onPressed: () => Get.back(),
-                      color: Colors.green,
-                    ),
-                    const Text(
-                      'Recherche de prix de médicament',
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                CustomToast(
+                  icon: Icons.info_outline,
+                  message:
+                      "Trouvez rapidement le prix d’un médicament en entrant son nom dans la barre de recherche.",
+                  backgroundColor: AppColors.primary.withOpacity(0.6),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

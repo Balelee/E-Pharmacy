@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -97,22 +96,13 @@ class ProductListView extends GetView<ProductController> {
                             children: [
                               Expanded(
                                 child: ClipRRect(
-                                  borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(12)),
-                                  child: produit.imageUrl != null &&
-                                          produit.imageUrl!.isNotEmpty
-                                      ? Image.network(
-                                          produit.imageUrl!,
-                                          width: double.infinity,
-                                          fit: BoxFit.cover,
-                                          errorBuilder:
-                                              (context, error, stackTrace) =>
-                                                  const Icon(Icons.broken_image,
-                                                      size: 50),
-                                        )
-                                      : const Icon(Icons.broken_image,
-                                          size: 50),
-                                ),
+                                    borderRadius: const BorderRadius.vertical(
+                                        top: Radius.circular(12)),
+                                    child: Icon(
+                                      Icons.medication,
+                                      size: 60,
+                                      color: AppColors.primary,
+                                    )),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -121,7 +111,7 @@ class ProductListView extends GetView<ProductController> {
                                   style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
-                                      color: AppColors.textPrimary),
+                                      color: AppColors.primary),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),

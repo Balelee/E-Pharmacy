@@ -17,6 +17,8 @@ import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/pharmacies/bindings/pharmacies_binding.dart';
 import '../modules/pharmacies/views/pharmacies_view.dart';
+import '../modules/rappelmedi/bindings/rappelmedi_binding.dart';
+import '../modules/rappelmedi/views/rappelmedi_view.dart';
 import '../modules/searchproduct/bindings/searchproduct_binding.dart';
 import '../modules/searchproduct/views/searchproduct_view.dart';
 
@@ -33,7 +35,7 @@ class AppPages {
   static const PRODUIT_LIST = Routes.PRODUIT_LIST;
   static const DETAIL_PRODUIT = Routes.DETAIL_PRODUIT;
   static const BASKET = Routes.BASKET;
-  static const TRACKER_PERIOD = Routes.TRACKER_PERIOD;
+  static const RAPPELMEDI = Routes.RAPPELMEDI;
   static const ORDER_DETAIL = Routes.ORDER_DETAIL;
   static const SEARCHPRODUCT = Routes.SEARCHPRODUCT;
 
@@ -92,6 +94,11 @@ class AppPages {
       name: _Paths.PHARMACIES,
       page: () => const PharmaciesView(),
       binding: PharmaciesBinding(),
+    ),
+    GetPage(
+      name: _Paths.RAPPELMEDI,
+      page: () => const RappelmediView(),
+      binding: RappelmediBinding(),
     ),
   ];
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
+import 'package:pharmix/app/widgets/custom_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../controllers/pharmacies_controller.dart';
 
@@ -12,34 +13,46 @@ class PharmaciesView extends GetView<PharmaciesController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      appBar: AppBar(
+        toolbarHeight: 80,
+        centerTitle: true,
+        backgroundColor: Colors.green,
+        leading: BackButton(
+          color: AppColors.background,
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        title: CustomText(
+          text: "Pharmacies à proximité",
+          style: TextStyle(
+            fontSize: 20,
+            color: AppColors.background,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          Padding(
+              padding: const EdgeInsets.only(right: 15.0),
+              child: Icon(
+                Icons.local_pharmacy,
+                color: AppColors.background,
+              )),
+        ],
+      ),
       body: Obx(() {
         return Padding(
-          padding: const EdgeInsets.only(top: 80.0, right: 15, left: 15),
+          padding: const EdgeInsets.only(top: 10.0, right: 15, left: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  BackButton(
-                    onPressed: () => Get.back(),
-                    color: Colors.green,
-                  ),
-                  CustomText(
-                    text: 'Pharmacies à proximité',
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: AppColors.textSecondary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Image.asset(
-                    "assets/images/pharmLogo.png",
-                    width: 70,
-                  )
-                ],
+              CustomToast(
+                icon: Icons.info_outline,
+                message:
+                    "Trouvez les pharmacies les plus proches en saisissant leur nom dans la barre de recherche.",
+                backgroundColor: AppColors.primary.withOpacity(0.6),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -170,6 +183,9 @@ class PharmaciesView extends GetView<PharmaciesController> {
                   )
                 ],
               ),
+              SizedBox(
+                height: 15,
+              ),
               Expanded(
                 child: controller.hasSearched.value &&
                         controller.pharmacies.isEmpty
@@ -204,6 +220,8 @@ class PharmaciesView extends GetView<PharmaciesController> {
                             final pharmacy = controller.pharmacies[index];
                             final todayHours =
                                 pharmacy.getOpeningHoursForToday();
+                            final avatarColor = controller.avatarColors[
+                                index % controller.avatarColors.length];
                             return Container(
                               margin: const EdgeInsets.only(bottom: 12),
                               padding: const EdgeInsets.all(12),
@@ -221,10 +239,17 @@ class PharmaciesView extends GetView<PharmaciesController> {
                               ),
                               child: Row(
                                 children: [
-                                  const Icon(
-                                    Icons.local_pharmacy,
-                                    color: Colors.green,
-                                    size: 30,
+                                  CircleAvatar(
+                                    backgroundColor: avatarColor,
+                                    radius: 25,
+                                    child: Text(
+                                      controller
+                                          .getInitials(pharmacy.pharmacieName),
+                                      style: const TextStyle(
+                                        color: AppColors.background,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ),
                                   const SizedBox(width: 12),
                                   Expanded(
@@ -251,7 +276,9 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                               style: TextStyle(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.green.shade300,
+                                                color: pharmacy.isOpenNow
+                                                    ? Colors.green.shade300
+                                                    : AppColors.error,
                                               ),
                                             ),
                                           ],

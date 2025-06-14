@@ -21,7 +21,7 @@ class BienEtreView extends GetView {
           children: [
             CustomCard(
               onTap: () {
-                Get.toNamed(AppPages.TRACKER_PERIOD);
+                Get.toNamed(AppPages.RAPPELMEDI);
               },
               title: "Période traqueur",
               description:
