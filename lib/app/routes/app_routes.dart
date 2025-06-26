@@ -16,6 +16,7 @@ abstract class Routes {
   static const SEARCHPRODUCT = _Paths.SEARCHPRODUCT;
   static const PHARMACIES = _Paths.PHARMACIES;
   static const RAPPELMEDI = _Paths.RAPPELMEDI;
+  static const CLINIQUE = _Paths.CLINIQUE;
 }
 
 abstract class _Paths {
@@ -33,4 +34,5 @@ abstract class _Paths {
   static const SEARCHPRODUCT = '/searchproduct';
   static const PHARMACIES = '/pharmacies';
   static const RAPPELMEDI = '/rappelmedi';
+  static const CLINIQUE = '/clinique';
 }

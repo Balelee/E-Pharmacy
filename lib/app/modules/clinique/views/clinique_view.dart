@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../controllers/pharmacies_controller.dart';
 
-class PharmaciesView extends GetView<PharmaciesController> {
-  const PharmaciesView({super.key});
+import '../controllers/clinique_controller.dart';
 
+class CliniqueView extends GetView<CliniqueController> {
+  const CliniqueView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +18,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
       appBar: AppBar(
         toolbarHeight: 80,
         centerTitle: true,
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.primary,
         leading: BackButton(
           color: AppColors.background,
           onPressed: () {
@@ -24,7 +26,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
           },
         ),
         title: CustomText(
-          text: "Pharmacies à proximité",
+          text: "Clinique & Labo à proximité",
           style: TextStyle(
             fontSize: 18,
             color: AppColors.background,
@@ -35,7 +37,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
           Padding(
               padding: const EdgeInsets.only(right: 15.0),
               child: Icon(
-                Icons.local_pharmacy,
+                Icons.local_hospital,
                 color: AppColors.background,
               )),
         ],
@@ -49,8 +51,15 @@ class PharmaciesView extends GetView<PharmaciesController> {
               CustomToast(
                 icon: Icons.info_outline,
                 message:
-                    "Trouvez les pharmacies les plus proches en saisissant leur nom dans la barre de recherche.",
-                backgroundColor: AppColors.primary.withOpacity(0.6),
+                    "Vous ne trouvez pas votre clinique ou laboratoire ? Ajoutez-la en quelques clics pour en faire profiter tout le monde.",
+                action: CustomButton.primaryButton(
+                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                  onPressed: () {},
+                  buttonTitle: 'Ajouter',
+                  textStyle:
+                      TextStyle(fontSize: 12, color: AppColors.background),
+                ),
+                backgroundColor: Colors.green.withOpacity(0.6),
               ),
               const SizedBox(height: 15),
               Row(
@@ -65,7 +74,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.green.withOpacity(0.2),
+                            color: AppColors.primary.withOpacity(0.2),
                             spreadRadius: 2,
                             blurRadius: 6,
                             offset: Offset(0, 1),
@@ -78,7 +87,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                         onChanged: (value) =>
                             controller.searchText.value = value.trim(),
                         decoration: InputDecoration(
-                          hintText: "Tapez le nom de la pharmacie...",
+                          hintText: "Tapez nom de clinique ou Labo...",
                           hintStyle: const TextStyle(
                             color: AppColors.textSecondary,
                             fontSize: 13,
@@ -87,7 +96,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                             padding: const EdgeInsets.only(top: 5.0),
                             child: const Icon(
                               Icons.search,
-                              color: Colors.green,
+                              color: AppColors.primary,
                             ),
                           ),
                           border: OutlineInputBorder(
@@ -110,7 +119,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.green.withOpacity(0.2),
+                          color: AppColors.primary.withOpacity(0.2),
                           spreadRadius: 2,
                           blurRadius: 6,
                           offset: Offset(0, 1),
@@ -126,29 +135,29 @@ class PharmaciesView extends GetView<PharmaciesController> {
                       ),
                       itemBuilder: (context) => [
                         PopupMenuItem(
-                          value: 'garde',
+                          value: 'clinic',
                           child: Text(
-                            'Pharmacie de garde',
+                            'Cliniques',
                             style: TextStyle(color: AppColors.textSecondary),
                           ),
                         ),
                         PopupMenuItem(
-                          value: 'normal',
+                          value: 'labo',
                           child: Text(
-                            'Toutes les pharmacies',
+                            'Laboratoires',
                             style: TextStyle(color: AppColors.textSecondary),
                           ),
                         ),
                       ],
                       onSelected: (value) async {
-                        if (value == 'garde') {
-                          controller.listTitle.value = "Pharmacie de garde";
+                        if (value == 'clinic') {
+                          controller.listTitle.value = "Liste des cliniques";
                           controller.isGardeMode.value = true;
-                          await controller.loadPharmaciesDeGarde();
-                        } else if (value == 'normal') {
-                          controller.listTitle.value = "Liste des pharmacies";
+                          // await controller.loadPharmaciesDeGarde();
+                        } else if (value == 'labo') {
+                          controller.listTitle.value = "Liste des laboratoires";
                           controller.isGardeMode.value = false;
-                          controller.loadPharmacies(isRefresh: true);
+                          // controller.loadPharmacies(isRefresh: true);
                         }
                       },
                     ),
@@ -174,7 +183,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.green.withOpacity(0.2),
+                          color: AppColors.primary.withOpacity(0.2),
                           spreadRadius: 2,
                           blurRadius: 6,
                           offset: Offset(0, 1),
@@ -199,7 +208,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
               ),
               Expanded(
                 child: controller.hasSearched.value &&
-                        controller.pharmacies.isEmpty
+                        controller.sampleFacilities.isEmpty
                     ? SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 80.0),
@@ -225,12 +234,11 @@ class PharmaciesView extends GetView<PharmaciesController> {
                       )
                     : ListView.builder(
                         controller: controller.scrollController,
-                        itemCount: controller.pharmacies.length + 1,
+                        itemCount: controller.sampleFacilities.length + 1,
                         itemBuilder: (context, index) {
-                          if (index < controller.pharmacies.length) {
-                            final pharmacy = controller.pharmacies[index];
-                            final todayHours =
-                                pharmacy.getOpeningHoursForToday();
+                          if (index < controller.sampleFacilities.length) {
+                            final samplefacilities =
+                                controller.sampleFacilities[index];
                             final avatarColor = controller.avatarColors[
                                 index % controller.avatarColors.length];
                             return Container(
@@ -255,7 +263,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                     radius: 25,
                                     child: Text(
                                       controller
-                                          .getInitials(pharmacy.pharmacieName),
+                                          .getInitials(samplefacilities.name),
                                       style: const TextStyle(
                                         color: AppColors.background,
                                         fontWeight: FontWeight.bold,
@@ -273,77 +281,69 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             CustomText(
-                                              text: pharmacy.pharmacieName,
+                                              text: samplefacilities.name,
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
                                                 color: AppColors.textSecondary,
                                               ),
                                             ),
-                                            if (controller.isGardeMode.value)
-                                              CustomText(
-                                                  text: "De garde",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: AppColors.error,
-                                                  ))
-                                            else
-                                              CustomText(
-                                                text: pharmacy.isOpenNow
-                                                    ? "Ouvert"
-                                                    : "Fermé",
-                                                style: TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: pharmacy.isOpenNow
-                                                      ? Colors.green.shade300
-                                                      : AppColors.error,
-                                                ),
-                                              ),
+                                            // CustomText(
+                                            //   text: samplefacilities.isOpenNow
+                                            //       ? "Ouvert"
+                                            //       : "Fermé",
+                                            //   style: TextStyle(
+                                            //     fontSize: 13,
+                                            //     fontWeight: FontWeight.bold,
+                                            //     color:
+                                            //         samplefacilities.isOpenNow
+                                            //             ? Colors.green.shade300
+                                            //             : AppColors.error,
+                                            //   ),
+                                            // ),
                                           ],
                                         ),
                                         const SizedBox(height: 4),
                                         CustomText(
-                                          text: pharmacy.adresse,
+                                          text: samplefacilities.address,
                                           style: const TextStyle(
                                             fontSize: 13,
                                             color: Colors.grey,
                                           ),
                                         ),
                                         const SizedBox(height: 4),
-                                        if (!controller.isGardeMode.value)
-                                          if (todayHours != null)
-                                            Row(
-                                              children: [
-                                                CustomText(
-                                                  text: "${todayHours.day}: ",
-                                                  style: const TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.grey,
-                                                  ),
-                                                ),
-                                                CustomText(
-                                                  text:
-                                                      "${todayHours.openingTime} - ${todayHours.closingTime}",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: AppColors.error
-                                                        .withOpacity(0.6),
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          else
-                                            CustomText(
-                                              text: "Dimanche - Fermé",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: AppColors.error
-                                                    .withOpacity(0.6),
-                                              ),
-                                            ),
+                                        // if (!controller.isGardeMode.value)
+                                        //   if (todayHours != null)
+                                        //     Row(
+                                        //       children: [
+                                        //         CustomText(
+                                        //           text: "${todayHours.day}: ",
+                                        //           style: const TextStyle(
+                                        //             fontSize: 13,
+                                        //             color: Colors.grey,
+                                        //           ),
+                                        //         ),
+                                        //         CustomText(
+                                        //           text:
+                                        //               "${todayHours.openingTime} - ${todayHours.closingTime}",
+                                        //           style: TextStyle(
+                                        //             fontSize: 13,
+                                        //             fontWeight: FontWeight.bold,
+                                        //             color: AppColors.error
+                                        //                 .withOpacity(0.6),
+                                        //           ),
+                                        //         ),
+                                        //       ],
+                                        //     )
+                                        //   else
+                                        //     CustomText(
+                                        //       text: "Dimanche - Fermé",
+                                        //       style: TextStyle(
+                                        //         fontWeight: FontWeight.bold,
+                                        //         color: AppColors.error
+                                        //             .withOpacity(0.6),
+                                        //       ),
+                                        //     ),
                                         const SizedBox(height: 5),
                                         Row(
                                           mainAxisAlignment:
@@ -354,11 +354,12 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                                 children: [
                                                   const Icon(
                                                     Icons.phone,
-                                                    color: Colors.green,
+                                                    color: AppColors.primary,
                                                     size: 20,
                                                   ),
                                                   CustomText(
-                                                    text: pharmacy.phone,
+                                                    text:
+                                                        samplefacilities.phone,
                                                     style: const TextStyle(
                                                       fontSize: 13,
                                                       color: Colors.grey,
@@ -368,13 +369,15 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                               ),
                                               onTap: () {
                                                 launchUrl(Uri.parse(
-                                                    "tel:${pharmacy.phone}"));
+                                                    "tel:${samplefacilities.phone}"));
                                               },
                                             ),
                                             OutlinedButton.icon(
                                               onPressed: () async {
-                                                final lat = pharmacy.latitude;
-                                                final lng = pharmacy.longitude;
+                                                final lat =
+                                                    samplefacilities.latitude;
+                                                final lng =
+                                                    samplefacilities.longitude;
                                                 if (lat != null &&
                                                     lng != null) {
                                                   controller.openMap(lat, lng);
@@ -385,9 +388,10 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                                   size: 16),
                                               label: const Text("Localisation"),
                                               style: OutlinedButton.styleFrom(
-                                                foregroundColor: Colors.green,
+                                                foregroundColor:
+                                                    AppColors.primary,
                                                 side: const BorderSide(
-                                                  color: Colors.green,
+                                                  color: AppColors.primary,
                                                 ),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:

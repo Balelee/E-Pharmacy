@@ -12,6 +12,8 @@ class PharmaciesController extends GetxController {
   final pharmacyProvider = PharmacyProvider();
   final TextEditingController searchController = TextEditingController();
   final RxString searchText = ''.obs;
+  final RxString listTitle = "Liste des pharmacies".obs;
+  final RxBool isGardeMode = false.obs;
   RxBool isNameAsc = true.obs;
   Rx<Color> iconColor = AppColors.textSecondary.obs;
   int currentPage = 1;
@@ -101,6 +103,26 @@ class PharmaciesController extends GetxController {
       if (pageKey == 1) {
         DialogHelper.hideLoading();
       }
+    }
+  }
+
+  Future<void> loadPharmaciesDeGarde() async {
+    DialogHelper.showLoading(
+      message: "Chargement pharmacies de garde...",
+      noBkgColor: false,
+      colorProgress: Colors.green,
+      messageStyle: const TextStyle(fontWeight: FontWeight.bold),
+    );
+    try {
+      final result = await pharmacyProvider.fetchPharmaciesDeGarde();
+      pharmacies.assignAll(result);
+      isLastPage.value = true;
+      hasSearched.value = false;
+      currentPage = 1;
+    } catch (e) {
+      DialogHelper.showErrorSnackbar(message: "Erreur: $e");
+    } finally {
+      DialogHelper.hideLoading();
     }
   }
 

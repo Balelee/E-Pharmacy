@@ -5,6 +5,7 @@ class CustomToast extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
   final IconData? icon;
+  final Widget? action; // Nouveau paramètre pour le bouton/action
 
   const CustomToast({
     super.key,
@@ -12,6 +13,7 @@ class CustomToast extends StatelessWidget {
     this.backgroundColor = Colors.black87,
     this.textColor = Colors.white,
     this.icon,
+    this.action,
   });
 
   @override
@@ -34,19 +36,15 @@ class CustomToast extends StatelessWidget {
           if (icon != null) Icon(icon, color: textColor),
           if (icon != null) const SizedBox(width: 8),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  message,
-                  style: TextStyle(
-                    color: textColor.withOpacity(0.9),
-                    fontSize: 12,
-                  ),
-                ),
-              ],
+            child: Text(
+              message,
+              style: TextStyle(
+                color: textColor.withOpacity(0.9),
+                fontSize: 12,
+              ),
             ),
           ),
+          if (action != null) action!,
         ],
       ),
     );

@@ -152,7 +152,9 @@ class DashboardView extends GetView<DashboardController> {
                                   color: Colors.blue,
                                 ),
                                 ServiceCard(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(Routes.CLINIQUE);
+                                  },
                                   leading: Image.asset(
                                     "assets/images/store.png",
                                     width: 35,

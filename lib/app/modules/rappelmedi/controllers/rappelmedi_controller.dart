@@ -6,6 +6,10 @@ class RappelmediController extends GetxController {
   late final int daysInMonth;
   late final ScrollController scrollController;
   RxString selectedForm = "".obs;
+  RxString selectedTime = "Daily".obs;
+  RxString selectedhour = "Specific time".obs;
+  RxList<String> hourOptions = ["Specific time", "Every X hour"].obs;
+  RxList<String> timeOptions = ["Daily", "Weekly", "Monthly"].obs;
 
   RxList<Map<String, dynamic>> takeProductS = [
     {
