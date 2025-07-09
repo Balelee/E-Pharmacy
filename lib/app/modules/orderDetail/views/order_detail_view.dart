@@ -87,18 +87,10 @@ class OrderDetailView extends GetView<OrderDetailController> {
                               child: ClipRRect(
                                 borderRadius: const BorderRadius.vertical(
                                     top: Radius.circular(12)),
-                                child: orderItem.imageUrl != null &&
-                                        orderItem.imageUrl!.isNotEmpty
-                                    ? Image.network(
-                                        orderItem.imageUrl!,
-                                        width: double.infinity,
-                                        fit: BoxFit.fill,
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                const Icon(Icons.broken_image,
-                                                    size: 50),
-                                      )
-                                    : const Icon(Icons.broken_image, size: 50),
+                                child: Image.asset(
+                                  "assets/images/productimg.png",
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
@@ -127,7 +119,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CustomText(
-                                text: orderItem.status,
+                                text: orderItem.status.toString(),
                                 style: AppTextStyles.bodyText1PrimaryBold
                                     .copyWith(color: orderItem.statusColor),
                               ),

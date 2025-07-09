@@ -22,28 +22,41 @@ class ProductListView extends GetView<ProductController> {
       behavior: HitTestBehavior.opaque,
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 80,
+          centerTitle: true,
+          backgroundColor: AppColors.primary,
+          leading: BackButton(
+            color: AppColors.background,
+            onPressed: () {
+              Get.toNamed(AppPages.BASE);
+            },
+          ),
+          title: CustomText(
+            text: "Boutique des produits",
+            style: TextStyle(
+              fontSize: 18,
+              color: AppColors.background,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: Icon(
+                  Icons.shop,
+                  color: AppColors.background,
+                )),
+          ],
+        ),
         body: Padding(
           padding: EdgeInsets.symmetric(
                   vertical: 0.0, horizontal: SizeConstant.haurizontalPadding)
               .copyWith(bottom: 20.0),
           child: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.only(top: 30.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    BackButton(onPressed: () {
-                      Get.delete<ProductController>();
-                      Get.toNamed(AppPages.BASE);
-                    }),
-                    Expanded(
-                        child: CustomText(
-                      text: LocaleKeys.marketplace.tr,
-                      style: AppTextStyles.heading4,
-                    ))
-                  ],
-                ),
+              SizedBox(
+                height: 15,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4.0),
@@ -96,20 +109,20 @@ class ProductListView extends GetView<ProductController> {
                             children: [
                               Expanded(
                                 child: ClipRRect(
-                                    borderRadius: const BorderRadius.vertical(
-                                        top: Radius.circular(12)),
-                                    child: Icon(
-                                      Icons.medication,
-                                      size: 60,
-                                      color: AppColors.primary,
-                                    )),
+                                  borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(12)),
+                                  child: Image.asset(
+                                    "assets/images/productimg.png",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   produit.name,
                                   style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 13,
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.primary),
                                   maxLines: 1,

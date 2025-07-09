@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -86,19 +85,10 @@ class BasketView extends GetView<CartController> {
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.vertical(
                                       top: Radius.circular(12)),
-                                  child: product.imageUrl != null &&
-                                          product.imageUrl!.isNotEmpty
-                                      ? Image.network(
-                                          product.imageUrl!,
-                                          width: double.infinity,
-                                          fit: BoxFit.fill,
-                                          errorBuilder:
-                                              (context, error, stackTrace) =>
-                                                  const Icon(Icons.broken_image,
-                                                      size: 50),
-                                        )
-                                      : const Icon(Icons.broken_image,
-                                          size: 50),
+                                  child: Image.asset(
+                                    "assets/images/productimg.png",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),

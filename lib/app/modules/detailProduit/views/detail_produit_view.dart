@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -36,16 +35,10 @@ class DetailProduitView extends GetView<ProductController> {
                 ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(12)),
-                  child:
-                      produit.imageUrl != null && produit.imageUrl!.isNotEmpty
-                          ? Image.network(
-                              produit.imageUrl!,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.broken_image, size: 50),
-                            )
-                          : const Icon(Icons.broken_image, size: 50),
+                  child: Image.asset(
+                    "assets/images/productimg.png",
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 CustomText(
                   text: produit.name,
