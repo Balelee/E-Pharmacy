@@ -14,6 +14,9 @@ class RappelmediView extends GetView<RappelmediController> {
 
   @override
   Widget build(BuildContext context) {
+    final dateController = TextEditingController();
+    final timeController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -341,23 +344,67 @@ class RappelmediView extends GetView<RappelmediController> {
                     ),
                     const SizedBox(height: 12),
                     CustomTextFormField(
-                      hintText: "JJ/MM/AAAA",
-                      suffix: Icon(
-                        Icons.calendar_month,
-                        color: AppColors.textSecondary,
-                      ),
-                      hintStyle: TextStyle(
-                          color: AppColors.textSecondary, fontSize: 14),
-                    ),
+                        hintText: "JJ/MM/AAAA",
+                        controller: dateController,
+                        suffix: Icon(
+                          Icons.calendar_month,
+                          color: AppColors.textSecondary,
+                        ),
+                        hintStyle: TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: 14,
+                        ),
+                        onTap: () async {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                contentPadding: EdgeInsets.zero,
+                                content: Theme(
+                                  data: Theme.of(context).copyWith(
+                                    colorScheme: ColorScheme.light(
+                                        primary: AppColors.primary),
+                                  ),
+                                  child: CalendarDatePicker(
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(2100),
+                                    onDateChanged: (pickedDate) {
+                                      Navigator.pop(context);
+                                      dateController.text =
+                                          "${pickedDate.day.toString().padLeft(2, '0')}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.year}";
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }),
                     const SizedBox(height: 12),
                     CustomTextFormField(
                       hintText: "Ex: 23h:45min",
+                      controller: timeController,
                       suffix: Icon(
                         Icons.access_alarm,
                         color: AppColors.textSecondary,
                       ),
                       hintStyle: TextStyle(
-                          color: AppColors.textSecondary, fontSize: 14),
+                        color: AppColors.textSecondary,
+                        fontSize: 14,
+                      ),
+                      onTap: () async {
+                        TimeOfDay? pickedTime = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        );
+                        if (pickedTime != null) {
+                          final hour =
+                              pickedTime.hour.toString().padLeft(2, '0');
+                          final minute =
+                              pickedTime.minute.toString().padLeft(2, '0');
+                          timeController.text = "$hour:$minute";
+                        }
+                      },
                     ),
                     const SizedBox(height: 12),
                     CustomDropdownFormField<String>(

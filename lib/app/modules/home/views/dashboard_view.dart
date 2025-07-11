@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/modules/home/controllers/dashboard_controller.dart';
@@ -149,7 +150,7 @@ class DashboardView extends GetView<DashboardController> {
                                     width: 35,
                                   ),
                                   label: 'Pharmacies dispo',
-                                  color: Colors.blue,
+                                  color: Colors.teal,
                                 ),
                                 ServiceCard(
                                   onTap: () {
@@ -168,10 +169,10 @@ class DashboardView extends GetView<DashboardController> {
                                   },
                                   leading: Icon(
                                     Icons.access_alarm,
-                                    color: AppColors.primary,
+                                    color: Colors.purple.shade500,
                                   ),
                                   label: 'Rappel medicament',
-                                  color: Colors.blue,
+                                  color: Colors.purple.shade500,
                                 ),
                               ],
                             ),
@@ -179,7 +180,12 @@ class DashboardView extends GetView<DashboardController> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(24),
+                        padding: const EdgeInsets.only(
+                          left: 24,
+                          right: 24,
+                          bottom: 10,
+                          top: 10,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -191,24 +197,24 @@ class DashboardView extends GetView<DashboardController> {
                                 color: Color(0xFF202938),
                               ),
                             ),
-                            const SizedBox(height: 16),
-                            TipCard(
-                              onTap: () {},
-                              icon: Icons.favorite,
-                              title: LocaleKeys.pregnancy_wellness.tr,
-                              description:
-                                  LocaleKeys.pregnancy_tip_description.tr,
-                              color: Colors.pink,
-                            ),
-                            const SizedBox(height: 16),
-                            TipCard(
-                              onTap: () {},
-                              icon: Icons.nightlight,
-                              title: LocaleKeys.baby_sleep.tr,
-                              description:
-                                  LocaleKeys.baby_sleep_tip_description.tr,
-                              color: Colors.blue,
-                            ),
+                            const SizedBox(height: 14),
+                            CarouselSlider(
+                              options: CarouselOptions(
+                                autoPlay: true,
+                                autoPlayInterval: const Duration(seconds: 3),
+                                enlargeCenterPage: true,
+                                viewportFraction: 1,
+                              ),
+                              items: controller.tips.map((tip) {
+                                return TipCard(
+                                  onTap: () {},
+                                  icon: tip.iconData,
+                                  title: tip.title,
+                                  description: tip.content,
+                                  color: Colors.teal,
+                                );
+                              }).toList(),
+                            )
                           ],
                         ),
                       ),
