@@ -150,7 +150,9 @@ class ProductListView extends GetView<ProductController> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 6.0),
+                                  horizontal: 8.0,
+                                  vertical: 6.0,
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,

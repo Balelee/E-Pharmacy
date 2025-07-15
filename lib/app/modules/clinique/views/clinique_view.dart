@@ -48,19 +48,27 @@ class CliniqueView extends GetView<CliniqueController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomToast(
-                icon: Icons.info_outline,
-                message:
-                    "Vous ne trouvez pas votre clinique ou laboratoire ? Ajoutez-la en quelques clics pour en faire profiter tout le monde.",
-                action: CustomButton.primaryButton(
-                  padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                  onPressed: () {},
-                  buttonTitle: 'Ajouter',
-                  textStyle:
-                      TextStyle(fontSize: 12, color: AppColors.background),
-                ),
-                backgroundColor: Colors.green.withOpacity(0.6),
-              ),
+              controller.showToast.value
+                  ? CustomToast(
+                      icon: Icons.info_outline,
+                      message:
+                          "Vous ne trouvez pas votre clinique ou laboratoire ? Ajoutez-la en quelques clics pour en faire profiter tout le monde.",
+                      action: CustomButton.primaryButton(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                        onPressed: () {},
+                        buttonTitle: 'Ajouter',
+                        textStyle: TextStyle(
+                          fontSize: 12,
+                          color: AppColors.background,
+                        ),
+                      ),
+                      backgroundColor: Colors.green.withOpacity(0.6),
+                      onClose: () {
+                        controller.showToast.value = false;
+                      },
+                    )
+                  : SizedBox.shrink(),
               const SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

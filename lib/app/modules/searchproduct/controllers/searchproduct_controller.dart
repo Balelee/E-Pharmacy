@@ -20,6 +20,7 @@ class SearchproductController extends GetxController {
   final int pageSize = 20;
   RxBool isLoadingMore = false.obs;
   RxBool hasMore = true.obs;
+  final RxBool showToast = true.obs;
   final scrollController = ScrollController();
 
   Timer? debounce;

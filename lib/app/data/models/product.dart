@@ -25,7 +25,7 @@ class Product {
       id: json['id'],
       name: json['productName'],
       description: json['description'],
-      stock: json['stock'],
+      stock: json['stock'] ?? 0,
       price: (json['price'] as num).toDouble(),
       category: json['productType'],
       pharmacieName: json['pharmacieName'],

@@ -21,6 +21,7 @@ class CliniqueController extends GetxController {
   RxBool isLoadingMore = false.obs;
   ScrollController scrollController = ScrollController();
   RxBool hasSearched = false.obs;
+   final RxBool showToast = true.obs;
 
   final List<MedicalFacility> sampleFacilities = [
     MedicalFacility.fromJson({

@@ -48,12 +48,17 @@ class SearchproductView extends GetView<SearchproductController> {
             padding: const EdgeInsets.all(15.0),
             child: Column(
               children: [
-                CustomToast(
-                  icon: Icons.info_outline,
-                  message:
-                      "Trouvez rapidement le prix d’un médicament en entrant son nom dans la barre de recherche.",
-                  backgroundColor: AppColors.primary.withOpacity(0.6),
-                ),
+                controller.showToast.value
+                    ? CustomToast(
+                        icon: Icons.info_outline,
+                        message:
+                            "Trouvez rapidement le prix d’un médicament en entrant son nom dans la barre de recherche.",
+                        backgroundColor: AppColors.primary.withOpacity(0.6),
+                        onClose: () {
+                          controller.showToast.value = false;
+                        },
+                      )
+                    : SizedBox.shrink(),
                 const SizedBox(height: 15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -169,7 +174,7 @@ class SearchproductView extends GetView<SearchproductController> {
                           margin: const EdgeInsets.only(top: 5),
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           decoration: BoxDecoration(
-                            color: Colors.green.shade100,
+                            color: AppColors.background,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
                               BoxShadow(
@@ -223,32 +228,59 @@ class SearchproductView extends GetView<SearchproductController> {
                                         contentPadding: EdgeInsets.zero,
                                         title: GestureDetector(
                                           onTap: () {
-                                            showDialog(
+                                            showModalBottomSheet(
                                               context: context,
-                                              builder: (_) => AlertDialog(
-                                                title: const Text(
-                                                  "Détails du médicament",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20),
-                                                ),
-                                                content: Container(
-                                                  width: Get.width,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                    color: AppColors.background,
-                                                  ),
+                                              isScrollControlled: true,
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.vertical(
+                                                        top: Radius.circular(
+                                                            20)),
+                                              ),
+                                              builder: (_) {
+                                                return Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      16.0),
                                                   child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
                                                     children: [
+                                                      Center(
+                                                        child: Container(
+                                                          width: 40,
+                                                          height: 4,
+                                                          margin:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  bottom: 16),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors
+                                                                .grey[400],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const Text(
+                                                        "Détails du médicament",
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 20,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                          height: 16),
                                                       Text(
                                                         medicament.productName,
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                           fontSize: 16,
                                                           color: Colors.green,
                                                           fontWeight:
@@ -281,82 +313,103 @@ class SearchproductView extends GetView<SearchproductController> {
                                                           ),
                                                         ],
                                                       ),
-                                                      Padding(
+                                                      const SizedBox(
+                                                          height: 20),
+                                                      CustomButton
+                                                          .primaryButton(
+                                                        backgroundColor:
+                                                            Colors.green,
                                                         padding:
                                                             const EdgeInsets
-                                                                .only(
-                                                                top: 20.0),
-                                                        child: CustomButton
-                                                            .primaryButton(
-                                                          backgroundColor:
-                                                              Colors.green,
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  10),
-                                                          onPressed: () {
-                                                            final cartController =
-                                                                Get.find<
-                                                                    ProductController>();
-                                                            cartController
-                                                                .addToCart(
-                                                                    medicament
-                                                                        .toProduct());
-                                                            DialogHelper
-                                                                .showSuccessSnackbar(
-                                                              title: medicament
-                                                                  .productName,
-                                                              message:
-                                                                  "a été ajouté au panier.",
-                                                              seconds: 3,
-                                                            );
-                                                          },
-                                                          buttonTitle:
-                                                              'Ajouter au panier',
-                                                          textStyle:
-                                                              const TextStyle(
-                                                            fontSize: 13,
-                                                            color: AppColors
-                                                                .background,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
+                                                                .all(10),
+                                                        onPressed: () {
+                                                          final cartController =
+                                                              Get.find<
+                                                                  ProductController>();
+                                                          cartController.addToCart(
+                                                              medicament
+                                                                  .toProduct());
+                                                          DialogHelper
+                                                              .showSuccessSnackbar(
+                                                            title: medicament
+                                                                .productName,
+                                                            message:
+                                                                "a été ajouté au panier.",
+                                                            seconds: 3,
+                                                          );
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        buttonTitle:
+                                                            'Ajouter au panier',
+                                                        textStyle:
+                                                            const TextStyle(
+                                                          fontSize: 13,
+                                                          color: AppColors
+                                                              .background,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
-                                                      )
+                                                      ),
+                                                      const SizedBox(
+                                                          height: 10),
                                                     ],
                                                   ),
-                                                ),
-                                              ),
+                                                );
+                                              },
                                             );
                                           },
-                                          child: Text(
-                                            medicament.productName,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.textSecondary,
-                                              fontSize: 12,
+                                          child: Container(
+                                            padding: const EdgeInsets.all(8),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.1),
+                                                  blurRadius: 6,
+                                                  offset: const Offset(0, 3),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Text(
+                                              medicament.productName,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: AppColors.textSecondary,
+                                                fontSize: 12,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                        trailing: TextButton.icon(
-                                          onPressed: () {
-                                            final cartController =
-                                                Get.find<ProductController>();
-                                            cartController.addToCart(
-                                                medicament.toProduct());
-                                            DialogHelper.showSuccessSnackbar(
-                                              title: medicament.productName,
-                                              message:
-                                                  "a été ajouté au panier.",
-                                              seconds: 3,
-                                            );
-                                          },
-                                          icon: const Icon(
-                                              Icons.add_circle_rounded,
-                                              color: Colors.green),
-                                          label: const Text(
-                                            "Ajouter",
-                                            style:
-                                                TextStyle(color: Colors.green),
+                                        trailing: Container(
+                                          width: 35,
+                                          height: 35,
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                          ),
+                                          child: IconButton(
+                                            onPressed: () {
+                                              final cartController =
+                                                  Get.find<ProductController>();
+                                              cartController.addToCart(
+                                                  medicament.toProduct());
+                                              DialogHelper.showSuccessSnackbar(
+                                                title: medicament.productName,
+                                                message:
+                                                    "a été ajouté au panier.",
+                                                seconds: 3,
+                                              );
+                                            },
+                                            icon: const Icon(
+                                                Icons.add_circle_rounded,
+                                                color: Colors.white),
+                                            padding: EdgeInsets.zero,
+                                            iconSize: 24,
                                           ),
                                         ),
                                       );

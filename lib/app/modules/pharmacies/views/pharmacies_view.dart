@@ -46,12 +46,17 @@ class PharmaciesView extends GetView<PharmaciesController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomToast(
-                icon: Icons.info_outline,
-                message:
-                    "Trouvez les pharmacies les plus proches en saisissant leur nom dans la barre de recherche.",
-                backgroundColor: AppColors.primary.withOpacity(0.6),
-              ),
+              controller.showToast.value
+                  ? CustomToast(
+                      icon: Icons.info_outline,
+                      message:
+                          "Trouvez les pharmacies les plus proches en saisissant leur nom dans la barre de recherche.",
+                      backgroundColor: AppColors.primary.withOpacity(0.6),
+                      onClose: () {
+                        controller.showToast.value = false;
+                      },
+                    )
+                  : SizedBox.shrink(),
               const SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

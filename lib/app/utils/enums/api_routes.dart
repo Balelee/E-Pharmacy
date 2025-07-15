@@ -10,7 +10,9 @@ enum ApiRoutes {
       'products/search-product?query={query}&page={page}&limit={limit}'),
   ordersProduct('orders'),
   pharmacies('pharmacies?page={pageKey}&q={query}'),
-  tips('tips');
+  tips('tips'),
+  pillremember('remenbers'),
+  getremenbers('remenbers');
 
   final String path;
   const ApiRoutes(this.path);

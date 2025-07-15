@@ -21,6 +21,7 @@ class PharmaciesController extends GetxController {
   RxBool isLoadingMore = false.obs;
   ScrollController scrollController = ScrollController();
   RxBool hasSearched = false.obs;
+   final RxBool showToast = true.obs;
 
   @override
   void onInit() {

@@ -55,6 +55,8 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
   carousel_slider: ^5.1.1
   convex_bottom_bar: ^3.2.0
+  flutter_local_notifications: ^19.3.0
+  timezone: ^0.10.1
 
 dev_dependencies:
   flutter_test:

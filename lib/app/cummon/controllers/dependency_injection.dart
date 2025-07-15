@@ -1,4 +1,3 @@
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -29,4 +28,6 @@ class DependencieInjection {
     Get.lazyPut<CartController>(() => CartController());
     Get.lazyPut<ProductController>(() => ProductController());
   }
+
+
 }

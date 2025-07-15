@@ -14,9 +14,6 @@ class RappelmediView extends GetView<RappelmediController> {
 
   @override
   Widget build(BuildContext context) {
-    final dateController = TextEditingController();
-    final timeController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -53,12 +50,17 @@ class RappelmediView extends GetView<RappelmediController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomToast(
-                  icon: Icons.info_outline,
-                  message:
-                      "Pour un bon respect de votre traitement, n’oubliez pas d’ajouter vos médicaments afin de recevoir des rappels précis.",
-                  backgroundColor: AppColors.primary.withOpacity(0.6),
-                ),
+                controller.showToast.value
+                    ? CustomToast(
+                        icon: Icons.info_outline,
+                        message:
+                            "Pour un bon respect de votre traitement, n’oubliez pas d’ajouter vos médicaments afin de recevoir des rappels précis.",
+                        backgroundColor: AppColors.primary.withOpacity(0.6),
+                        onClose: () {
+                          controller.showToast.value = false;
+                        },
+                      )
+                    : SizedBox.shrink(),
                 SizedBox(height: 15),
                 CustomText(
                   textAlign: TextAlign.center,
@@ -110,6 +112,24 @@ class RappelmediView extends GetView<RappelmediController> {
                         );
                         String dayName = DateFormat('E', 'fr_FR').format(date);
                         String dayNumber = DateFormat('d').format(date);
+                        bool isReminderDay = controller.pills.any((pill) {
+                          final pillDate =
+                              DateTime.parse(pill.startDate.toString());
+                          return pillDate.year == date.year &&
+                              pillDate.month == date.month &&
+                              pillDate.day == date.day;
+                        });
+                        Color circleColor = isReminderDay
+                            ? Colors.amber.shade300
+                            : (displayDay == controller.currentDate.day
+                                ? AppColors.primary
+                                : Colors.grey.shade300);
+
+                        Color textColor = isReminderDay ||
+                                displayDay == controller.currentDate.day
+                            ? Colors.white
+                            : Colors.black;
+
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 3),
                           child: Column(
@@ -125,17 +145,11 @@ class RappelmediView extends GetView<RappelmediController> {
                               SizedBox(height: 8),
                               CircleAvatar(
                                 radius: 22,
-                                backgroundColor:
-                                    displayDay == controller.currentDate.day
-                                        ? AppColors.primary
-                                        : Colors.grey.shade300,
+                                backgroundColor: circleColor,
                                 child: Text(
                                   dayNumber,
                                   style: TextStyle(
-                                    color:
-                                        displayDay == controller.currentDate.day
-                                            ? Colors.white
-                                            : Colors.black,
+                                    color: textColor,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -146,7 +160,7 @@ class RappelmediView extends GetView<RappelmediController> {
                       }),
                 ),
                 SizedBox(height: 40),
-                controller.takeProductS.isEmpty
+                controller.pills.isEmpty
                     ? Column(
                         children: [
                           CustomText(
@@ -193,10 +207,9 @@ class RappelmediView extends GetView<RappelmediController> {
                           ListView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: controller.takeProductS.length,
+                            itemCount: controller.pills.length,
                             itemBuilder: (context, index) {
-                              final takeproducts =
-                                  controller.takeProductS[index];
+                              final takeproducts = controller.pills[index];
                               return Container(
                                 margin: const EdgeInsets.symmetric(vertical: 8),
                                 padding: const EdgeInsets.all(12),
@@ -232,9 +245,8 @@ class RappelmediView extends GetView<RappelmediController> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               CustomText(
-                                                text:
-                                                    takeproducts['productName']
-                                                        .toString(),
+                                                text: takeproducts.medicineName
+                                                    .toString(),
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: AppColors.textPrimary,
@@ -246,7 +258,7 @@ class RappelmediView extends GetView<RappelmediController> {
                                                     left: 5.0),
                                                 child: CustomText(
                                                   text:
-                                                      "(${takeproducts['form']})",
+                                                      "(${takeproducts.form})",
                                                   style: TextStyle(
                                                     fontStyle: FontStyle.italic,
                                                     fontSize: 15,
@@ -264,7 +276,7 @@ class RappelmediView extends GetView<RappelmediController> {
                                                     top: 5.0),
                                                 child: CustomText(
                                                   text:
-                                                      "${takeproducts['takeQuantity']}, à ${takeproducts['takeHour']}",
+                                                      "${takeproducts.frequency}, à ${takeproducts.reminderTime}",
                                                   style: TextStyle(
                                                     fontStyle: FontStyle.italic,
                                                     fontSize: 12,
@@ -281,13 +293,37 @@ class RappelmediView extends GetView<RappelmediController> {
                                           Padding(
                                             padding:
                                                 const EdgeInsets.only(top: 5.0),
-                                            child: CustomText(
-                                              text: takeproducts['startDate'],
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: AppColors.textPrimary,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                CustomText(
+                                                  text: DateFormat("dd-MM-yyyy")
+                                                      .format(takeproducts
+                                                          .startDate),
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    color:
+                                                        AppColors.textPrimary,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.edit,
+                                                      size: 18,
+                                                      color: AppColors.primary,
+                                                    ),
+                                                    Icon(
+                                                      Icons.delete,
+                                                      size: 18,
+                                                      color: AppColors.error,
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
                                             ),
                                           )
                                         ],
@@ -310,7 +346,6 @@ class RappelmediView extends GetView<RappelmediController> {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            isScrollControlled: true,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
@@ -325,27 +360,32 @@ class RappelmediView extends GetView<RappelmediController> {
                     topRight: Radius.circular(20),
                   ),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText(
-                      text: "Ajouter un rappel",
-                      style: TextStyle(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        text: "Ajouter un rappel",
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary,
-                          fontSize: 16),
-                    ),
-                    const SizedBox(height: 18),
-                    CustomTextFormField(
-                      hintText: "Nom de médicament",
-                      hintStyle: TextStyle(
-                          color: AppColors.textSecondary, fontSize: 14),
-                    ),
-                    const SizedBox(height: 12),
-                    CustomTextFormField(
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 18),
+                      CustomTextFormField(
+                        controller: controller.pillnameController,
+                        hintText: "Nom de médicament",
+                        hintStyle: TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      CustomTextFormField(
                         hintText: "JJ/MM/AAAA",
-                        controller: dateController,
+                        controller: controller.dateController,
                         suffix: Icon(
                           Icons.calendar_month,
                           color: AppColors.textSecondary,
@@ -371,7 +411,7 @@ class RappelmediView extends GetView<RappelmediController> {
                                     lastDate: DateTime(2100),
                                     onDateChanged: (pickedDate) {
                                       Navigator.pop(context);
-                                      dateController.text =
+                                      controller.dateController.text =
                                           "${pickedDate.day.toString().padLeft(2, '0')}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.year}";
                                     },
                                   ),
@@ -379,172 +419,164 @@ class RappelmediView extends GetView<RappelmediController> {
                               );
                             },
                           );
-                        }),
-                    const SizedBox(height: 12),
-                    CustomTextFormField(
-                      hintText: "Ex: 23h:45min",
-                      controller: timeController,
-                      suffix: Icon(
-                        Icons.access_alarm,
-                        color: AppColors.textSecondary,
+                        },
                       ),
-                      hintStyle: TextStyle(
-                        color: AppColors.textSecondary,
-                        fontSize: 14,
+                      const SizedBox(height: 12),
+                      CustomTextFormField(
+                        hintText: "Ex: 23h:45min",
+                        controller: controller.timeController,
+                        suffix: Icon(
+                          Icons.access_alarm,
+                          color: AppColors.textSecondary,
+                        ),
+                        hintStyle: TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: 14,
+                        ),
+                        onTap: () async {
+                          TimeOfDay? pickedTime = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.now(),
+                          );
+                          if (pickedTime != null) {
+                            final hour =
+                                pickedTime.hour.toString().padLeft(2, '0');
+                            final minute =
+                                pickedTime.minute.toString().padLeft(2, '0');
+                            controller.timeController.text = "$hour:$minute";
+                          }
+                        },
                       ),
-                      onTap: () async {
-                        TimeOfDay? pickedTime = await showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.now(),
-                        );
-                        if (pickedTime != null) {
-                          final hour =
-                              pickedTime.hour.toString().padLeft(2, '0');
-                          final minute =
-                              pickedTime.minute.toString().padLeft(2, '0');
-                          timeController.text = "$hour:$minute";
-                        }
-                      },
-                    ),
-                    const SizedBox(height: 12),
-                    CustomDropdownFormField<String>(
-                      hintText: "Type médicament",
-                      hintStyle: TextStyle(
-                          color: AppColors.textSecondary, fontSize: 14),
-                      value: controller.selectedForm.value.isEmpty
-                          ? null
-                          : controller.selectedForm.value,
-                      onChanged: (value) {
-                        controller.selectedForm.value = value ?? "";
-                      },
-                      items: const [
-                        DropdownMenuItem(
-                          value: 'Comprimé',
-                          child: Text('Comprimé'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'Sirop',
-                          child: Text('Sirop'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'Injection',
-                          child: Text('Injection'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomText(
-                          text: "Répeter",
-                          color: AppColors.textPrimary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Obx(
-                          () => Container(
+                      const SizedBox(height: 12),
+                      CustomDropdownFormField<String>(
+                        hintText: "Type médicament",
+                        hintStyle: TextStyle(
+                            color: AppColors.textSecondary, fontSize: 14),
+                        value: controller.selectedForm.value.isEmpty
+                            ? null
+                            : controller.selectedForm.value,
+                        onChanged: (value) {
+                          controller.selectedForm.value = value ?? "";
+                        },
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'Comprimé',
+                            child: Text('Comprimé'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Sirop',
+                            child: Text('Sirop'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Injection',
+                            child: Text('Injection'),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                            text: "Répéter",
+                            color: AppColors.textPrimary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          const SizedBox(height: 5),
+                          Container(
                             height: 60,
                             decoration: BoxDecoration(
                               color: AppColors.textSecondary.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: controller.timeOptions.map((option) {
-                                bool isSelected =
-                                    controller.selectedTime.value == option;
-
-                                return GestureDetector(
-                                  onTap: () {
-                                    controller.selectedTime.value = option;
-                                  },
-                                  child: Container(
-                                    width: 100,
-                                    height: 45,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: isSelected
-                                          ? Colors.blue
-                                          : Colors.transparent,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Text(
-                                      option,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
+                            child: Obx(
+                              () => Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: controller.timeOptions.map((option) {
+                                  bool isSelected =
+                                      controller.selectedTime.value == option;
+                                  return GestureDetector(
+                                    onTap: () {
+                                      controller.selectedTime.value = option;
+                                    },
+                                    child: Container(
+                                      width: 100,
+                                      height: 45,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
                                         color: isSelected
-                                            ? Colors.white
-                                            : Colors.black,
+                                            ? Colors.blue
+                                            : Colors.transparent,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Text(
+                                        option,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: isSelected
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              }).toList(),
+                                  );
+                                }).toList(),
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Obx(
-                          () => Container(
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: AppColors.textSecondary.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: controller.hourOptions.map((option) {
-                                bool isSelected =
-                                    controller.selectedhour.value == option;
-
-                                return GestureDetector(
-                                  onTap: () {
-                                    controller.selectedhour.value = option;
-                                  },
-                                  child: Container(
-                                    width: 130,
-                                    height: 45,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: isSelected
-                                          ? Colors.blue
-                                          : Colors.transparent,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Text(
-                                      option,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 13,
-                                        color: isSelected
-                                            ? Colors.white
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    CustomButton.primaryButton(
-                      onPressed: () {},
-                      buttonTitle: "Enrégister",
-                      padding: EdgeInsets.symmetric(
-                        vertical: 12,
+                        ],
                       ),
-                    )
-                  ],
+                      const SizedBox(height: 20),
+                      CustomButton.primaryButton(
+                        onPressed: () {
+                          final name =
+                              controller.pillnameController.text.trim();
+                          final dateText =
+                              controller.dateController.text.trim();
+                          final timeText =
+                              controller.timeController.text.trim();
+                          final form = controller.selectedForm.value;
+                          final repeat = controller.selectedTime.value;
+                          if (name.isEmpty ||
+                              dateText.isEmpty ||
+                              timeText.isEmpty ||
+                              form.isEmpty ||
+                              repeat.isEmpty) {
+                            Get.snackbar(
+                                "Erreur", "Veuillez remplir tous les champs !");
+                            return;
+                          }
+
+                          final rawDateText =
+                              controller.dateController.text.trim();
+                          DateTime parsedDate;
+
+                          try {
+                            parsedDate = DateFormat('dd/MM/yyyy')
+                                .parseStrict(rawDateText);
+                          } catch (e) {
+                            Get.snackbar("Erreur", "Date invalide !");
+                            return;
+                          }
+                          final formattedDate =
+                              DateFormat('yyyy-MM-dd').format(parsedDate);
+                          final formData = {
+                            "medicine_name": name,
+                            "start_date": formattedDate,
+                            "reminder_time": timeText,
+                            "frequency": repeat,
+                            "form": form,
+                          };
+                          controller.submitPill(formData);
+                          controller.clearFields();
+                          Navigator.pop(context);
+                        },
+                        buttonTitle: "Enrégister",
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

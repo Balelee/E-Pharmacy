@@ -91,6 +91,7 @@ class DashboardView extends GetView<DashboardController> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(24),
@@ -198,23 +199,36 @@ class DashboardView extends GetView<DashboardController> {
                               ),
                             ),
                             const SizedBox(height: 14),
-                            CarouselSlider(
-                              options: CarouselOptions(
-                                autoPlay: true,
-                                autoPlayInterval: const Duration(seconds: 3),
-                                enlargeCenterPage: true,
-                                viewportFraction: 1,
-                              ),
-                              items: controller.tips.map((tip) {
-                                return TipCard(
-                                  onTap: () {},
-                                  icon: tip.iconData,
-                                  title: tip.title,
-                                  description: tip.content,
-                                  color: Colors.teal,
-                                );
-                              }).toList(),
-                            )
+                            controller.tips.isEmpty
+                                ? Container(
+                                    width: 15,
+                                    height: 15,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 3,
+                                      color: AppColors.primary,
+                                    ),
+                                  )
+                                : CarouselSlider(
+                                    options: CarouselOptions(
+                                      autoPlay: true,
+                                      autoPlayInterval:
+                                          const Duration(seconds: 3),
+                                      enlargeCenterPage: true,
+                                      viewportFraction: 1,
+                                    ),
+                                    items: controller.tips.map((tip) {
+                                      return TipCard(
+                                        onTap: () {},
+                                        icon: tip.iconData,
+                                        title: tip.title,
+                                        description: tip.content,
+                                        color: Colors.teal,
+                                      );
+                                    }).toList(),
+                                  )
                           ],
                         ),
                       ),
