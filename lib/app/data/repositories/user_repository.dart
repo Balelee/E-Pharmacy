@@ -1,5 +1,7 @@
 // lib/app/data/repositories/user_repository.dart
-import 'package:e_pharma/app/data/models/user.dart';
+
+import 'package:pharmix/app/data/models/user.dart';
+
 import '../../utils/helpers/storage_helper.dart';
 
 class UserRepository {

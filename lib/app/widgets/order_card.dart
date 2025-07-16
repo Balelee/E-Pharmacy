@@ -1,5 +1,5 @@
-import 'package:e_pharma/app/data/models/order.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmix/app/data/models/order.dart';
 
 class OrderCard extends StatelessWidget {
   final Order order;

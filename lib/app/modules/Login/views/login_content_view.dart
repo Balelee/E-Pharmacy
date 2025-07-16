@@ -1,16 +1,14 @@
-import 'package:e_pharma/app/modules/Login/controllers/login_controller.dart';
-import 'package:e_pharma/app/routes/app_pages.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
-import 'package:e_pharma/app/utils/validators.dart';
-import 'package:e_pharma/app/widgets/country_code_box.dart';
-import 'package:e_pharma/app/widgets/custom_button.dart';
-import 'package:e_pharma/app/widgets/custom_icon.dart';
-import 'package:e_pharma/app/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
-
+import 'package:pharmix/app/modules/Login/controllers/login_controller.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/utils/validators.dart';
+import 'package:pharmix/app/widgets/country_code_box.dart';
+import 'package:pharmix/app/widgets/custom_button.dart';
+import 'package:pharmix/app/widgets/custom_icon.dart';
+import 'package:pharmix/app/widgets/custom_text_form_field.dart';
 import '../../../../generated/locales.g.dart';
 import '../../../themes/app_text_styles.dart';
 import '../../../widgets/custom_text.dart';
@@ -31,16 +29,17 @@ class LoginContentView extends GetView<LoginController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 0),
                     child: Image.asset(
-                      'assets/images/app_logo.png',
-                      height: 50,
-                      width: 50,
+                      'assets/images/sflogo.png',
+                      width: 180,
                       fit: BoxFit.contain,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 14.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 14.0, horizontal: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

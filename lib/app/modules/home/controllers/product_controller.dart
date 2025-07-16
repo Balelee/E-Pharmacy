@@ -1,10 +1,10 @@
-import 'package:e_pharma/app/cummon/controllers/socket_controller.dart';
-import 'package:e_pharma/app/data/models/cart_item.dart';
-import 'package:e_pharma/app/data/models/paginated_transaction.dart';
-import 'package:e_pharma/app/data/models/product_filter.dart';
-import 'package:e_pharma/app/modules/home/controllers/cart_controller.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
+import 'package:pharmix/app/data/models/cart_item.dart';
+import 'package:pharmix/app/data/models/paginated_transaction.dart';
+import 'package:pharmix/app/data/models/product_filter.dart';
+import 'package:pharmix/app/modules/home/controllers/cart_controller.dart';
 
 import '../../../data/models/product.dart';
 import '../../../data/providers/product_provider.dart';

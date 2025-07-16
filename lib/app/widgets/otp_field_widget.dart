@@ -1,6 +1,6 @@
-import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPFieldWidget extends StatelessWidget {

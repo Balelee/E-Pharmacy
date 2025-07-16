@@ -1,7 +1,7 @@
-import 'package:e_pharma/app/core/websocket/echo_service.dart';
-import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
 import 'package:get/get.dart';
 import 'package:laravel_echo_null/laravel_echo_null.dart';
+import 'package:pharmix/app/core/websocket/echo_service.dart';
+import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:pusher_client_socket/pusher_client_socket.dart' as pusher;
 
 class SocketController extends GetxController {

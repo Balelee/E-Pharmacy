@@ -1,6 +1,8 @@
-import 'package:e_pharma/app/data/models/pagination_links.dart';
-import 'package:e_pharma/app/data/models/pagination_meta.dart';
-import 'package:e_pharma/app/data/models/product.dart';
+
+
+import 'package:pharmix/app/data/models/pagination_links.dart';
+import 'package:pharmix/app/data/models/pagination_meta.dart';
+import 'package:pharmix/app/data/models/product.dart';
 
 class PaginatedProducts {
   final List<Product> data;

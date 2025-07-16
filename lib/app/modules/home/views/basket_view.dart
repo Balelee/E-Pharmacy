@@ -1,15 +1,15 @@
-import 'package:e_pharma/app/modules/home/controllers/cart_controller.dart';
-import 'package:e_pharma/app/routes/app_pages.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
-import 'package:e_pharma/app/themes/app_text_styles.dart';
-import 'package:e_pharma/app/utils/constants/size_constant.dart';
-import 'package:e_pharma/app/widgets/custom_button.dart';
-import 'package:e_pharma/app/widgets/custom_text.dart';
-import 'package:e_pharma/app/widgets/order_card.dart';
-import 'package:e_pharma/app/widgets/quantity_selector.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pharmix/app/modules/home/controllers/cart_controller.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/constants/size_constant.dart';
+import 'package:pharmix/app/widgets/custom_button.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
+import 'package:pharmix/app/widgets/order_card.dart';
+import 'package:pharmix/app/widgets/quantity_selector.dart';
 
 class BasketView extends GetView<CartController> {
   const BasketView({super.key});
@@ -85,19 +85,10 @@ class BasketView extends GetView<CartController> {
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.vertical(
                                       top: Radius.circular(12)),
-                                  child: product.imageUrl != null &&
-                                          product.imageUrl!.isNotEmpty
-                                      ? Image.network(
-                                          product.imageUrl!,
-                                          width: double.infinity,
-                                          fit: BoxFit.fill,
-                                          errorBuilder:
-                                              (context, error, stackTrace) =>
-                                                  const Icon(Icons.broken_image,
-                                                      size: 50),
-                                        )
-                                      : const Icon(Icons.broken_image,
-                                          size: 50),
+                                  child: Image.asset(
+                                    "assets/images/productimg.png",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),

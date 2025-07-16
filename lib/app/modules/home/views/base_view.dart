@@ -1,9 +1,8 @@
-import 'package:e_pharma/app/cummon/controllers/navigation_controller.dart';
-import 'package:e_pharma/app/modules/home/views/bien_etre_view.dart';
-import 'package:e_pharma/app/modules/home/views/dashboard_view.dart';
-import 'package:e_pharma/app/modules/home/views/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
+import 'package:pharmix/app/modules/home/views/dashboard_view.dart';
+import 'package:pharmix/app/modules/home/views/profile_view.dart';
 import '../../../widgets/bottom_navigation_bar.dart';
 import '../controllers/home_controller.dart';
 
@@ -21,8 +20,7 @@ class BaseView extends GetView<HomeController> {
         },
         children: const [
           DashboardView(),
-          BienEtreView(),
-          ProfileView(),
+          EditProfilePage(),
         ],
       ),
       bottomNavigationBar: BottomNavBar(),

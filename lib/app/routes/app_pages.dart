@@ -5,6 +5,8 @@ import '../modules/Login/views/login_content_view.dart';
 import '../modules/Login/views/login_view.dart';
 import '../modules/Register/bindings/register_binding.dart';
 import '../modules/Register/views/register_view.dart';
+import '../modules/clinique/bindings/clinique_binding.dart';
+import '../modules/clinique/views/clinique_view.dart';
 import '../modules/detailProduit/bindings/detail_produit_binding.dart';
 import '../modules/detailProduit/views/detail_produit_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -17,10 +19,10 @@ import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/pharmacies/bindings/pharmacies_binding.dart';
 import '../modules/pharmacies/views/pharmacies_view.dart';
+import '../modules/rappelmedi/bindings/rappelmedi_binding.dart';
+import '../modules/rappelmedi/views/rappelmedi_view.dart';
 import '../modules/searchproduct/bindings/searchproduct_binding.dart';
 import '../modules/searchproduct/views/searchproduct_view.dart';
-import '../modules/trackerPeriod/bindings/tracker_period_binding.dart';
-import '../modules/trackerPeriod/views/tracker_period_view.dart';
 
 part 'app_routes.dart';
 
@@ -35,7 +37,7 @@ class AppPages {
   static const PRODUIT_LIST = Routes.PRODUIT_LIST;
   static const DETAIL_PRODUIT = Routes.DETAIL_PRODUIT;
   static const BASKET = Routes.BASKET;
-  static const TRACKER_PERIOD = Routes.TRACKER_PERIOD;
+  static const RAPPELMEDI = Routes.RAPPELMEDI;
   static const ORDER_DETAIL = Routes.ORDER_DETAIL;
   static const SEARCHPRODUCT = Routes.SEARCHPRODUCT;
 
@@ -81,11 +83,6 @@ class AppPages {
       binding: DetailProduitBinding(),
     ),
     GetPage(
-      name: _Paths.TRACKER_PERIOD,
-      page: () => const TrackerPeriodView(),
-      binding: TrackerPeriodBinding(),
-    ),
-    GetPage(
       name: _Paths.ORDER_DETAIL,
       page: () => OrderDetailView(),
       binding: OrderDetailBinding(),
@@ -99,6 +96,16 @@ class AppPages {
       name: _Paths.PHARMACIES,
       page: () => const PharmaciesView(),
       binding: PharmaciesBinding(),
+    ),
+    GetPage(
+      name: _Paths.RAPPELMEDI,
+      page: () => const RappelmediView(),
+      binding: RappelmediBinding(),
+    ),
+    GetPage(
+      name: _Paths.CLINIQUE,
+      page: () => const CliniqueView(),
+      binding: CliniqueBinding(),
     ),
   ];
 }

@@ -1,8 +1,8 @@
-import 'package:e_pharma/app/cummon/controllers/user_controller.dart';
-import 'package:e_pharma/app/modules/home/controllers/profile_controller.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/cummon/controllers/user_controller.dart';
+import 'package:pharmix/app/modules/home/controllers/profile_controller.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
 
 // ignore: must_be_immutable
 class ProfileHeader extends StatelessWidget {

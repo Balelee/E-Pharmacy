@@ -1,12 +1,11 @@
 import 'dart:async';
-
-import 'package:e_pharma/app/data/models/searchproduct.dart';
-import 'package:e_pharma/app/data/providers/product_provider.dart';
-import 'package:e_pharma/app/modules/home/controllers/cart_controller.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
-import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/models/searchproduct.dart';
+import 'package:pharmix/app/data/providers/product_provider.dart';
+import 'package:pharmix/app/modules/home/controllers/cart_controller.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 
 class SearchproductController extends GetxController {
   final searchController = TextEditingController();
@@ -21,6 +20,7 @@ class SearchproductController extends GetxController {
   final int pageSize = 20;
   RxBool isLoadingMore = false.obs;
   RxBool hasMore = true.obs;
+  final RxBool showToast = true.obs;
   final scrollController = ScrollController();
 
   Timer? debounce;

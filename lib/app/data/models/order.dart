@@ -1,5 +1,5 @@
-import 'package:e_pharma/app/data/models/order_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmix/app/data/models/order_detail.dart';
 
 class Order {
   final int id;

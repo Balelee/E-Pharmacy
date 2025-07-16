@@ -1,17 +1,17 @@
-import 'package:e_pharma/app/data/models/product.dart';
-import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
-import 'package:e_pharma/app/routes/app_pages.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
-import 'package:e_pharma/app/themes/app_text_styles.dart';
-import 'package:e_pharma/app/utils/constants/size_constant.dart';
-import 'package:e_pharma/app/widgets/category_filter.dart';
-import 'package:e_pharma/app/widgets/custom_search_bar.dart';
-import 'package:e_pharma/app/widgets/custom_text.dart';
-import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:pharmix/app/data/models/product.dart';
+import 'package:pharmix/app/modules/home/controllers/product_controller.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/constants/size_constant.dart';
+import 'package:pharmix/app/widgets/category_filter.dart';
+import 'package:pharmix/app/widgets/custom_search_bar.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
+import 'package:pharmix/generated/locales.g.dart';
 
 class ProductListView extends GetView<ProductController> {
   const ProductListView({super.key});
@@ -22,28 +22,41 @@ class ProductListView extends GetView<ProductController> {
       behavior: HitTestBehavior.opaque,
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 80,
+          centerTitle: true,
+          backgroundColor: AppColors.primary,
+          leading: BackButton(
+            color: AppColors.background,
+            onPressed: () {
+              Get.toNamed(AppPages.BASE);
+            },
+          ),
+          title: CustomText(
+            text: "Boutique des produits",
+            style: TextStyle(
+              fontSize: 18,
+              color: AppColors.background,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: Icon(
+                  Icons.shop,
+                  color: AppColors.background,
+                )),
+          ],
+        ),
         body: Padding(
           padding: EdgeInsets.symmetric(
                   vertical: 0.0, horizontal: SizeConstant.haurizontalPadding)
               .copyWith(bottom: 20.0),
           child: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.only(top: 30.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    BackButton(onPressed: () {
-                      Get.delete<ProductController>();
-                      Get.toNamed(AppPages.BASE);
-                    }),
-                    Expanded(
-                        child: CustomText(
-                      text: LocaleKeys.marketplace.tr,
-                      style: AppTextStyles.heading4,
-                    ))
-                  ],
-                ),
+              SizedBox(
+                height: 15,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4.0),
@@ -98,19 +111,10 @@ class ProductListView extends GetView<ProductController> {
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.vertical(
                                       top: Radius.circular(12)),
-                                  child: produit.imageUrl != null &&
-                                          produit.imageUrl!.isNotEmpty
-                                      ? Image.network(
-                                          produit.imageUrl!,
-                                          width: double.infinity,
-                                          fit: BoxFit.cover,
-                                          errorBuilder:
-                                              (context, error, stackTrace) =>
-                                                  const Icon(Icons.broken_image,
-                                                      size: 50),
-                                        )
-                                      : const Icon(Icons.broken_image,
-                                          size: 50),
+                                  child: Image.asset(
+                                    "assets/images/productimg.png",
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -118,9 +122,9 @@ class ProductListView extends GetView<ProductController> {
                                 child: Text(
                                   produit.name,
                                   style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 13,
                                       fontWeight: FontWeight.bold,
-                                      color: AppColors.textPrimary),
+                                      color: AppColors.primary),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -146,7 +150,9 @@ class ProductListView extends GetView<ProductController> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 6.0),
+                                  horizontal: 8.0,
+                                  vertical: 6.0,
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,

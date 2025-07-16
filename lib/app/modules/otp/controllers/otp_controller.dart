@@ -1,8 +1,7 @@
-import 'package:e_pharma/app/data/providers/auth_provider.dart';
-import 'package:e_pharma/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:pharmix/app/data/providers/auth_provider.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
 import '../../../utils/form_helper.dart';
 
 class OtpController extends GetxController {

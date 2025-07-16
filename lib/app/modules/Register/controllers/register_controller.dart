@@ -1,9 +1,9 @@
-import 'package:e_pharma/app/data/models/auth_message.dart';
-import 'package:e_pharma/app/data/providers/auth_provider.dart';
-import 'package:e_pharma/app/routes/app_pages.dart';
-import 'package:e_pharma/app/utils/form_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/models/auth_message.dart';
+import 'package:pharmix/app/data/providers/auth_provider.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/utils/form_helper.dart';
 
 class RegisterController extends GetxController {
   GlobalKey<FormState> signUpFormkey = GlobalKey<FormState>();

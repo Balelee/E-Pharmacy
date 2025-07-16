@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:e_pharma/app/config/env.dart';
 import 'package:http/http.dart' as http;
+import 'package:pharmix/app/config/env.dart';
 import 'api_exception.dart';
 
 class ApiClient {

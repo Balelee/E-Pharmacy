@@ -1,8 +1,8 @@
 import 'dart:async'; // Import Timer
-import 'package:e_pharma/app/themes/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
 
 class CustomSearchBar extends StatefulWidget {
   final Function(String?)? onSearch;

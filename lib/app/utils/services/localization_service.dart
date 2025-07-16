@@ -1,8 +1,8 @@
 // services/localization_service.dart
-import 'package:e_pharma/app/utils/helpers/storage_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pharmix/app/utils/helpers/storage_helper.dart';
 
 class LocalizationService extends GetxService {
   static LocalizationService get to => Get.find();

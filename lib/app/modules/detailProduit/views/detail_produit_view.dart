@@ -1,13 +1,13 @@
-import 'package:e_pharma/app/data/models/product.dart';
-import 'package:e_pharma/app/modules/home/controllers/product_controller.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
-import 'package:e_pharma/app/themes/app_text_styles.dart';
-import 'package:e_pharma/app/utils/constants/size_constant.dart';
-import 'package:e_pharma/app/widgets/custom_button.dart';
-import 'package:e_pharma/app/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/models/product.dart';
+import 'package:pharmix/app/modules/home/controllers/product_controller.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/constants/size_constant.dart';
+import 'package:pharmix/app/widgets/custom_button.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
 
 class DetailProduitView extends GetView<ProductController> {
   DetailProduitView({super.key});
@@ -35,16 +35,10 @@ class DetailProduitView extends GetView<ProductController> {
                 ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(12)),
-                  child:
-                      produit.imageUrl != null && produit.imageUrl!.isNotEmpty
-                          ? Image.network(
-                              produit.imageUrl!,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.broken_image, size: 50),
-                            )
-                          : const Icon(Icons.broken_image, size: 50),
+                  child: Image.asset(
+                    "assets/images/productimg.png",
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 CustomText(
                   text: produit.name,

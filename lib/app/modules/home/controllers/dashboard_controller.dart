@@ -1,11 +1,15 @@
-import 'package:e_pharma/app/cummon/controllers/user_controller.dart';
-import 'package:e_pharma/app/data/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/cummon/controllers/user_controller.dart';
+import 'package:pharmix/app/data/models/tip.dart';
+import 'package:pharmix/app/data/models/user.dart';
+import 'package:pharmix/app/data/providers/tip_provider.dart';
 
 class DashboardController extends GetxController {
   // Get the UserController instance
   final UserController userController = Get.find<UserController>();
+  final TipProvider tipProvider = TipProvider();
+  RxList<Tip> tips = <Tip>[].obs;
 
   // Reactive values
   final ScrollController scrollController = ScrollController();
@@ -31,11 +35,19 @@ class DashboardController extends GetxController {
       email: "issa@gmail.com",
       address: "Ouagadougou, Belle ville",
       joinedAt: 'April 2025');
+
+  // recuperer les conseils du jour
+  Future<void> fetchTips() async {
+    final Rtips = await tipProvider.loadTipsData();
+    tips.value = Rtips;
+  }
+
   @override
   void onInit() {
     super.onInit();
     userController.updateUser(user);
     ever(userController.userRx, (_) => update());
+    fetchTips();
   }
 
   @override

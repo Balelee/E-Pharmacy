@@ -1,6 +1,7 @@
 
-import 'package:e_pharma/app/data/models/order.dart';
+
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/models/order.dart';
 
 class OrderDetailController extends GetxController {
   Rxn<Order> order = Rxn();

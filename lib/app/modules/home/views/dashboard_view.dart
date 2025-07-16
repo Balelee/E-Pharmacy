@@ -1,12 +1,13 @@
-import 'package:e_pharma/app/modules/home/controllers/dashboard_controller.dart';
-import 'package:e_pharma/app/routes/app_pages.dart';
-import 'package:e_pharma/app/themes/app_colors.dart';
-import 'package:e_pharma/app/widgets/custom_button.dart';
-import 'package:e_pharma/app/widgets/service_card.dart';
-import 'package:e_pharma/app/widgets/tip_card.dart';
-import 'package:e_pharma/generated/locales.g.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/modules/home/controllers/dashboard_controller.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/widgets/custom_button.dart';
+import 'package:pharmix/app/widgets/service_card.dart';
+import 'package:pharmix/app/widgets/tip_card.dart';
+import 'package:pharmix/generated/locales.g.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
@@ -90,6 +91,7 @@ class DashboardView extends GetView<DashboardController> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(24),
@@ -149,10 +151,12 @@ class DashboardView extends GetView<DashboardController> {
                                     width: 35,
                                   ),
                                   label: 'Pharmacies dispo',
-                                  color: Colors.blue,
+                                  color: Colors.teal,
                                 ),
                                 ServiceCard(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(Routes.CLINIQUE);
+                                  },
                                   leading: Image.asset(
                                     "assets/images/store.png",
                                     width: 35,
@@ -162,14 +166,14 @@ class DashboardView extends GetView<DashboardController> {
                                 ),
                                 ServiceCard(
                                   onTap: () {
-                                    Get.toNamed(AppPages.TRACKER_PERIOD);
+                                    Get.toNamed(AppPages.RAPPELMEDI);
                                   },
                                   leading: Icon(
                                     Icons.access_alarm,
-                                    color: AppColors.primary,
+                                    color: Colors.purple.shade500,
                                   ),
                                   label: 'Rappel medicament',
-                                  color: Colors.blue,
+                                  color: Colors.purple.shade500,
                                 ),
                               ],
                             ),
@@ -177,7 +181,12 @@ class DashboardView extends GetView<DashboardController> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(24),
+                        padding: const EdgeInsets.only(
+                          left: 24,
+                          right: 24,
+                          bottom: 10,
+                          top: 10,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -189,24 +198,37 @@ class DashboardView extends GetView<DashboardController> {
                                 color: Color(0xFF202938),
                               ),
                             ),
-                            const SizedBox(height: 16),
-                            TipCard(
-                              onTap: () {},
-                              icon: Icons.favorite,
-                              title: LocaleKeys.pregnancy_wellness.tr,
-                              description:
-                                  LocaleKeys.pregnancy_tip_description.tr,
-                              color: Colors.pink,
-                            ),
-                            const SizedBox(height: 16),
-                            TipCard(
-                              onTap: () {},
-                              icon: Icons.nightlight,
-                              title: LocaleKeys.baby_sleep.tr,
-                              description:
-                                  LocaleKeys.baby_sleep_tip_description.tr,
-                              color: Colors.blue,
-                            ),
+                            const SizedBox(height: 14),
+                            controller.tips.isEmpty
+                                ? Container(
+                                    width: 15,
+                                    height: 15,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 3,
+                                      color: AppColors.primary,
+                                    ),
+                                  )
+                                : CarouselSlider(
+                                    options: CarouselOptions(
+                                      autoPlay: true,
+                                      autoPlayInterval:
+                                          const Duration(seconds: 3),
+                                      enlargeCenterPage: true,
+                                      viewportFraction: 1,
+                                    ),
+                                    items: controller.tips.map((tip) {
+                                      return TipCard(
+                                        onTap: () {},
+                                        icon: tip.iconData,
+                                        title: tip.title,
+                                        description: tip.content,
+                                        color: Colors.teal,
+                                      );
+                                    }).toList(),
+                                  )
                           ],
                         ),
                       ),

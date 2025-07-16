@@ -1,5 +1,5 @@
-import 'package:e_pharma/app/config/env.dart';
-import 'package:e_pharma/app/data/models/token.dart';
+import 'package:pharmix/app/config/env.dart';
+import 'package:pharmix/app/data/models/token.dart';
 import 'package:pusher_client_socket/pusher_client_socket.dart' as pusher;
 import 'package:laravel_echo_null/laravel_echo_null.dart';
 

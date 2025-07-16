@@ -1,13 +1,14 @@
-import 'package:e_pharma/app/cummon/controllers/base_controller.dart';
-import 'package:e_pharma/app/data/models/auth_message.dart';
-import 'package:e_pharma/app/data/models/token.dart';
-import 'package:e_pharma/app/data/models/user.dart';
-import 'package:e_pharma/app/data/providers/api_provider.dart';
-import 'package:e_pharma/app/utils/enums/api_routes.dart';
-import 'package:e_pharma/app/utils/helpers/dialog_helper.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/cummon/controllers/base_controller.dart';
+import 'package:pharmix/app/data/models/auth_message.dart';
+import 'package:pharmix/app/data/models/token.dart';
+import 'package:pharmix/app/data/models/user.dart';
+import 'package:pharmix/app/data/providers/api_provider.dart';
+import 'package:pharmix/app/utils/enums/api_routes.dart';
+import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 
 import '../repositories/user_repository.dart';
 

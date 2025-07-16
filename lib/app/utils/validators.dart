@@ -1,7 +1,7 @@
-import 'package:e_pharma/app/utils/constants/app_constant.dart';
-import 'package:e_pharma/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/utils/constants/app_constant.dart';
+import 'package:pharmix/generated/locales.g.dart';
 
 class Validators {
   // Email validator

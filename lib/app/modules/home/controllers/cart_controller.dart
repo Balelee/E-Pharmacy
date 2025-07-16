@@ -1,7 +1,7 @@
-import 'package:e_pharma/app/data/models/cart_item.dart';
-import 'package:e_pharma/app/data/models/order.dart';
-import 'package:e_pharma/app/data/providers/product_provider.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/models/cart_item.dart';
+import 'package:pharmix/app/data/models/order.dart';
+import 'package:pharmix/app/data/providers/product_provider.dart';
 
 class CartController extends GetxController {
   final ProductProvider produitProvider = ProductProvider();
