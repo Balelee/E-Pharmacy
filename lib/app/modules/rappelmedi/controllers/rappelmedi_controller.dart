@@ -4,6 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:pharmix/app/data/models/tip.dart';
 import 'package:pharmix/app/data/providers/tip_provider.dart';
 import 'package:pharmix/app/data/repositories/notification_app.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/widgets/custom_button.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
+import 'package:pharmix/app/widgets/showDialog.dart';
 import '../../../utils/helpers/dialog_helper.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -12,6 +16,7 @@ class RappelmediController extends GetxController {
   late final int daysInMonth;
   final RxBool showToast = true.obs;
   final pills = <PillRemember>[].obs;
+  final List<TimeOfDay> selectedTimes = [];
   final TipProvider pillService = TipProvider();
   late final ScrollController scrollController;
   RxString selectedForm = "".obs;
@@ -62,26 +67,23 @@ class RappelmediController extends GetxController {
       pills.assignAll(result);
       for (var pill in result) {
         final datePart = DateFormat('yyyy-MM-dd').format(pill.startDate);
-        final timePart = pill.reminderTime;
-        final dateTimeString = "$datePart $timePart:00";
-        final scheduledDate = DateFormat("yyyy-MM-dd HH:mm:ss")
-            .parse(dateTimeString, true)
-            .toLocal();
-        final scheduledDateTZ = tz.TZDateTime.from(scheduledDate, tz.local);
-        print("🕒 Date textuelle : $dateTimeString");
-        print("🗓️ Date finale planifiée : $scheduledDateTZ");
-        print("🕒 Maintenant (local TZ) : ${tz.TZDateTime.now(tz.local)}");
-
-        if (scheduledDateTZ.isBefore(tz.TZDateTime.now(tz.local))) {
-          print("❌ Notification ignorée, date dépassée : $scheduledDateTZ");
-        } else {
-          await notificationService.scheduleNotification(
-            id: pill.id!,
-            title: 'Rappel médicament',
-            body: 'Il est temps de prendre ${pill.medicineName}',
-            scheduledDate: scheduledDateTZ,
-            frequency: pill.frequency,
-          );
+        final List<String> timeParts = pill.reminderTime.split(',');
+        for (final timePart in timeParts) {
+          final dateTimeString = "$datePart $timePart:00";
+          final scheduledDate = DateFormat("yyyy-MM-dd HH:mm:ss")
+              .parse(dateTimeString, true)
+              .toLocal();
+          final scheduledDateTZ = tz.TZDateTime.from(scheduledDate, tz.local);
+          if (scheduledDateTZ.isAfter(tz.TZDateTime.now(tz.local))) {
+            await notificationService.scheduleNotification(
+              id: pill.id! + timeParts.indexOf(timePart),
+              title: 'Prise de votre médicament',
+              body:
+                  'Il est temps de prendre votre médicament: ${pill.medicineName}',
+              scheduledDate: scheduledDateTZ,
+              frequency: pill.frequency,
+            );
+          }
         }
       }
     } catch (e) {
@@ -91,34 +93,38 @@ class RappelmediController extends GetxController {
 
   Future<void> submitPill(Map<String, dynamic> formData) async {
     try {
+      final reminderTimeList = selectedTimes
+          .map((t) =>
+              "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}")
+          .toList();
+      formData['reminder_time'] = reminderTimeList.join(',');
       final result = await pillService.storeRemenber(data: formData);
       if (result != null) {
         pills.add(result);
-        final datePart = DateFormat('yyyy-MM-dd').format(result.startDate);
-        final timePart = result.reminderTime;
-        final dateTimeString = "$datePart $timePart:00";
-
-        final scheduledDate = DateFormat("yyyy-MM-dd HH:mm:ss")
-            .parse(dateTimeString, true)
-            .toLocal();
-        final scheduledDateTZ = tz.TZDateTime.from(scheduledDate, tz.local);
-        print("🕒 Date textuelle : $dateTimeString");
-        print("🗓️ Date finale planifiée : $scheduledDateTZ");
-        print("🕒 Maintenant (local TZ) : ${tz.TZDateTime.now(tz.local)}");
-        if (scheduledDateTZ.isBefore(tz.TZDateTime.now(tz.local))) {
-          print("❌ Notification ignorée, date dépassée : $scheduledDateTZ");
-        } else {
-          await notificationService.scheduleNotification(
-            id: result.id!,
-            title: 'Rappel médicament',
-            body: 'Il est temps de prendre ${result.medicineName}',
-            scheduledDate: scheduledDateTZ,
-            frequency: result.frequency,
-          );
+        for (final timeString in reminderTimeList) {
+          final datePart = DateFormat('yyyy-MM-dd').format(result.startDate);
+          final dateTimeString = "$datePart $timeString:00";
+          final scheduledDate = DateFormat("yyyy-MM-dd HH:mm:ss")
+              .parse(dateTimeString, true)
+              .toLocal();
+          final scheduledDateTZ = tz.TZDateTime.from(scheduledDate, tz.local);
+          if (scheduledDateTZ.isAfter(tz.TZDateTime.now(tz.local))) {
+            await notificationService.scheduleNotification(
+              id: result.id! + reminderTimeList.indexOf(timeString),
+              title: 'Prise de votre médicament',
+              body:
+                  'Il est temps de prendre votre médicament: ${result.medicineName}',
+              scheduledDate: scheduledDateTZ,
+              frequency: result.frequency,
+            );
+          }
         }
-
-        Get.snackbar("Succès", "Rappel enregistré avec succès",
-            snackPosition: SnackPosition.TOP);
+        Get.snackbar(
+          "Succès",
+          "Rappel enregistré avec succès",
+          snackPosition: SnackPosition.TOP,
+          colorText: AppColors.background
+        );
       } else {
         DialogHelper.showErrorSnackbar(message: "fetching error:");
       }
@@ -126,6 +132,42 @@ class RappelmediController extends GetxController {
       DialogHelper.showErrorSnackbar(message: "Erreur : $e");
     } finally {
       DialogHelper.hideLoading();
+    }
+  }
+
+  void onDeletePressed(PillRemember reminder) async {
+    final confirmed = await ShowDialog.showdialog(
+        title: CustomText(
+          text: 'Confirmer la suppression',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        content: CustomText(
+          text: 'Voulez-vous supprimer ce rappel ?',
+          style: TextStyle(
+            fontSize: 13,
+          ),
+        ),
+        cancelButton: CustomButton.primaryButton(
+          backgroundColor: AppColors.error,
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          buttonTitle: "Anuler",
+          textStyle: TextStyle(fontSize: 14, color: AppColors.background),
+          onPressed: () => Navigator.pop(Get.context!, false),
+        ),
+        actionButton: CustomButton.primaryButton(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          buttonTitle: "Supprimer",
+          textStyle: TextStyle(fontSize: 14, color: AppColors.background),
+          onPressed: () => Navigator.pop(Get.context!, true),
+        ));
+    if (confirmed == true) {
+      bool success = await pillService.deletePillRemember(reminder.id!);
+      if (success) {
+        pills.removeWhere((r) => r.id == reminder.id);
+        update();
+        DialogHelper.showSuccessSnackbar(
+            message: "Rappel supprimé avec succès");
+      }
     }
   }
 }

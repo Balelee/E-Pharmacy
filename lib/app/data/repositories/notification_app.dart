@@ -13,7 +13,7 @@ class NotificationService {
   Future<void> initialize() async {
     tzData.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation('Africa/Ouagadougou'));
-    const androidSettings = AndroidInitializationSettings('pharmix');
+    const androidSettings = AndroidInitializationSettings('icon_pharmix');
     const initSettings = InitializationSettings(android: androidSettings);
     await flutterLocalNotificationsPlugin.initialize(
       initSettings,
@@ -97,7 +97,7 @@ class NotificationService {
       priority: Priority.high,
       playSound: true,
       enableVibration: true,
-      icon: 'pharmix',
+      icon: 'icon_pharmix',
       // sound: RawResourceAndroidNotificationSound('custom_sound'),
     );
     final notificationDetails = NotificationDetails(android: androidDetails);

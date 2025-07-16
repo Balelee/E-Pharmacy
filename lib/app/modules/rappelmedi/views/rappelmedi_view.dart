@@ -46,298 +46,305 @@ class RappelmediView extends GetView<RappelmediController> {
       body: Obx(
         () => Padding(
           padding: const EdgeInsets.only(left: 8.0, right: 8, top: 10),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                controller.showToast.value
-                    ? CustomToast(
-                        icon: Icons.info_outline,
-                        message:
-                            "Pour un bon respect de votre traitement, n’oubliez pas d’ajouter vos médicaments afin de recevoir des rappels précis.",
-                        backgroundColor: AppColors.primary.withOpacity(0.6),
-                        onClose: () {
-                          controller.showToast.value = false;
-                        },
-                      )
-                    : SizedBox.shrink(),
-                SizedBox(height: 15),
-                CustomText(
-                  textAlign: TextAlign.center,
-                  text: 'Aujourdh\'hui',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: AppColors.textPrimary,
-                    fontWeight: FontWeight.bold,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              controller.showToast.value
+                  ? CustomToast(
+                      icon: Icons.info_outline,
+                      message:
+                          "Pour un bon respect de votre traitement, n’oubliez pas d’ajouter vos médicaments afin de recevoir des rappels précis.",
+                      backgroundColor: AppColors.primary.withOpacity(0.6),
+                      onClose: () {
+                        controller.showToast.value = false;
+                      },
+                    )
+                  : SizedBox.shrink(),
+              SizedBox(height: 15),
+              CustomText(
+                textAlign: TextAlign.center,
+                text: 'Aujourdh\'hui',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10),
+              Row(
+                children: [
+                  Icon(
+                    Icons.calendar_today_outlined,
+                    color: AppColors.textSecondary,
+                    size: 20,
                   ),
-                ),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.calendar_today_outlined,
+                  SizedBox(width: 8),
+                  CustomText(
+                    textAlign: TextAlign.center,
+                    text: DateFormat('d MMMM yyyy', 'fr_FR')
+                        .format(DateTime.now()),
+                    style: TextStyle(
+                      fontSize: 16,
                       color: AppColors.textSecondary,
-                      size: 20,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(width: 8),
-                    CustomText(
-                      textAlign: TextAlign.center,
-                      text: DateFormat('d MMMM yyyy', 'fr_FR')
-                          .format(DateTime.now()),
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: AppColors.textSecondary,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 12),
-                SizedBox(
-                  height: 90,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      controller: controller.scrollController,
-                      itemCount: controller.daysInMonth,
-                      itemBuilder: (context, index) {
-                        int startDay = controller.currentDate.day;
-                        int displayDay =
-                            ((startDay - 1 + index) % controller.daysInMonth) +
-                                1;
-                        DateTime date = DateTime(
-                          controller.currentDate.year,
-                          controller.currentDate.month,
-                          displayDay,
-                        );
-                        String dayName = DateFormat('E', 'fr_FR').format(date);
-                        String dayNumber = DateFormat('d').format(date);
-                        bool isReminderDay = controller.pills.any((pill) {
-                          final pillDate =
-                              DateTime.parse(pill.startDate.toString());
-                          return pillDate.year == date.year &&
-                              pillDate.month == date.month &&
-                              pillDate.day == date.day;
-                        });
-                        Color circleColor = isReminderDay
-                            ? Colors.amber.shade300
-                            : (displayDay == controller.currentDate.day
-                                ? AppColors.primary
-                                : Colors.grey.shade300);
+                  ),
+                ],
+              ),
+              SizedBox(height: 12),
+              SizedBox(
+                height: 90,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    controller: controller.scrollController,
+                    itemCount: controller.daysInMonth,
+                    itemBuilder: (context, index) {
+                      int startDay = controller.currentDate.day;
+                      int displayDay =
+                          ((startDay - 1 + index) % controller.daysInMonth) + 1;
+                      DateTime date = DateTime(
+                        controller.currentDate.year,
+                        controller.currentDate.month,
+                        displayDay,
+                      );
+                      String dayName = DateFormat('E', 'fr_FR').format(date);
+                      String dayNumber = DateFormat('d').format(date);
+                      bool isReminderDay = controller.pills.any((pill) {
+                        final pillDate =
+                            DateTime.parse(pill.startDate.toString());
+                        return pillDate.year == date.year &&
+                            pillDate.month == date.month &&
+                            pillDate.day == date.day;
+                      });
+                      Color circleColor = isReminderDay
+                          ? Colors.amber.shade300
+                          : (displayDay == controller.currentDate.day
+                              ? AppColors.primary
+                              : Colors.grey.shade300);
 
-                        Color textColor = isReminderDay ||
-                                displayDay == controller.currentDate.day
-                            ? Colors.white
-                            : Colors.black;
+                      Color textColor = isReminderDay ||
+                              displayDay == controller.currentDate.day
+                          ? Colors.white
+                          : Colors.black;
 
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 3),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomText(
-                                text: dayName,
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 3),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomText(
+                              text: dayName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            CircleAvatar(
+                              radius: 22,
+                              backgroundColor: circleColor,
+                              child: Text(
+                                dayNumber,
                                 style: TextStyle(
+                                  color: textColor,
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textPrimary,
                                 ),
                               ),
-                              SizedBox(height: 8),
-                              CircleAvatar(
-                                radius: 22,
-                                backgroundColor: circleColor,
-                                child: Text(
-                                  dayNumber,
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+              ),
+              SizedBox(height: 40),
+              Expanded(
+                child: controller.pills.isEmpty
+                    ? Center(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CustomText(
+                                textAlign: TextAlign.center,
+                                text: "Ajoutez votre premier rappel",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: AppColors.textPrimary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(
+                                    top: 12, left: 50.0, right: 50),
+                                child: CustomText(
+                                  textAlign: TextAlign.center,
+                                  overflow: TextOverflow.visible,
+                                  text:
+                                      'We make it easier for you to take the right medication at the right time, every day',
                                   style: TextStyle(
-                                    color: textColor,
-                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.textSecondary,
+                                    fontSize: 16,
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                        );
-                      }),
-                ),
-                SizedBox(height: 40),
-                controller.pills.isEmpty
-                    ? Column(
-                        children: [
-                          CustomText(
-                            textAlign: TextAlign.center,
-                            text: "Ajoutez votre premier rappel",
-                            style: TextStyle(
+                        ),
+                      )
+                    : SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CustomText(
+                              text: "Prendre",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
                                 fontSize: 18,
                                 color: AppColors.textPrimary,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 12,
-                              left: 50.0,
-                              right: 50,
-                            ),
-                            child: CustomText(
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.visible,
-                              text:
-                                  'We make it easier for you to take the right medication at the right time, every day',
-                              style: TextStyle(
-                                color: AppColors.textSecondary,
-                                fontSize: 16,
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText(
-                            text: "Prendre",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: AppColors.textPrimary,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: controller.pills.length,
-                            itemBuilder: (context, index) {
-                              final takeproducts = controller.pills[index];
-                              return Container(
-                                margin: const EdgeInsets.symmetric(vertical: 8),
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(12),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.blue.withOpacity(0.3),
-                                      blurRadius: 8,
-                                      offset: Offset(0, 4),
-                                    ),
-                                  ],
-                                ),
-                                child: Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 20,
-                                      backgroundColor: AppColors.primary,
-                                      child: Icon(
-                                        Icons.medication,
-                                        color: AppColors.background,
+                            const SizedBox(height: 5),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: controller.pills.length,
+                              itemBuilder: (context, index) {
+                                final takeproducts = controller.pills[index];
+                                return Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 8),
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.blue.withOpacity(0.3),
+                                        blurRadius: 8,
+                                        offset: const Offset(0, 4),
                                       ),
-                                    ),
-                                    SizedBox(width: 12),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              CustomText(
-                                                text: takeproducts.medicineName
-                                                    .toString(),
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: AppColors.textPrimary,
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 5.0),
-                                                child: CustomText(
-                                                  text:
-                                                      "(${takeproducts.form})",
+                                    ],
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 20,
+                                        backgroundColor: AppColors.primary,
+                                        child: Icon(
+                                          Icons.medication,
+                                          color: AppColors.background,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                CustomText(
+                                                  text: takeproducts
+                                                      .medicineName
+                                                      .toString(),
                                                   style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
+                                                    fontWeight: FontWeight.bold,
+                                                    color:
+                                                        AppColors.textPrimary,
                                                     fontSize: 15,
                                                   ),
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 5.0),
-                                                child: CustomText(
-                                                  text:
-                                                      "${takeproducts.frequency}, à ${takeproducts.reminderTime}",
-                                                  style: TextStyle(
-                                                    fontStyle: FontStyle.italic,
-                                                    fontSize: 12,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 5.0),
+                                                  child: CustomText(
+                                                    text:
+                                                        "(${takeproducts.form})",
+                                                    style: const TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      fontSize: 15,
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              Icon(
-                                                Icons.check_circle_outline,
-                                                color: AppColors.textSecondary
-                                                    .withOpacity(0.4),
-                                              )
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 5.0),
-                                            child: Row(
+                                              ],
+                                            ),
+                                            Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                CustomText(
-                                                  text: DateFormat("dd-MM-yyyy")
-                                                      .format(takeproducts
-                                                          .startDate),
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color:
-                                                        AppColors.textPrimary,
-                                                    fontWeight: FontWeight.bold,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5.0),
+                                                  child: CustomText(
+                                                    text:
+                                                        "${takeproducts.frequency}, à ${takeproducts.reminderTime}",
+                                                    style: const TextStyle(
+                                                      fontStyle:
+                                                          FontStyle.italic,
+                                                      fontSize: 12,
+                                                    ),
                                                   ),
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.edit,
-                                                      size: 18,
-                                                      color: AppColors.primary,
+                                              ],
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 5.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  CustomText(
+                                                    text:
+                                                        DateFormat("dd-MM-yyyy")
+                                                            .format(takeproducts
+                                                                .startDate),
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color:
+                                                          AppColors.textPrimary,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
-                                                    Icon(
+                                                  ),
+                                                  const SizedBox(width: 8),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      controller
+                                                          .onDeletePressed(
+                                                              takeproducts);
+                                                    },
+                                                    child: Icon(
                                                       Icons.delete,
                                                       size: 18,
                                                       color: AppColors.error,
                                                     ),
-                                                  ],
-                                                )
-                                              ],
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          )
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),
@@ -423,29 +430,87 @@ class RappelmediView extends GetView<RappelmediController> {
                       ),
                       const SizedBox(height: 12),
                       CustomTextFormField(
-                        hintText: "Ex: 23h:45min",
+                        hintText: "Ex: 08:00, 12:00, 18:00",
                         controller: controller.timeController,
-                        suffix: Icon(
-                          Icons.access_alarm,
-                          color: AppColors.textSecondary,
+                        isReadOnly: true,
+                        onTap: () async {
+                          while (true) {
+                            final TimeOfDay? pickedTime = await showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay.now(),
+                            );
+                            if (pickedTime == null) break;
+
+                            bool exists = controller.selectedTimes.any(
+                              (t) =>
+                                  t.hour == pickedTime.hour &&
+                                  t.minute == pickedTime.minute,
+                            );
+
+                            if (!exists) {
+                              controller.selectedTimes.add(pickedTime);
+                              controller.timeController.text = controller
+                                  .selectedTimes
+                                  .map((t) =>
+                                      "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}")
+                                  .join(', ');
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Heure déjà ajoutée")),
+                              );
+                            }
+                          }
+                        },
+                        suffix: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.access_alarm,
+                                  color: AppColors.textSecondary),
+                              padding: EdgeInsets.zero,
+                              constraints: BoxConstraints(),
+                              onPressed: () async {
+                                while (true) {
+                                  final TimeOfDay? pickedTime =
+                                      await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now(),
+                                  );
+                                  if (pickedTime == null) break;
+
+                                  bool exists = controller.selectedTimes.any(
+                                    (t) =>
+                                        t.hour == pickedTime.hour &&
+                                        t.minute == pickedTime.minute,
+                                  );
+
+                                  if (!exists) {
+                                    controller.selectedTimes.add(pickedTime);
+                                    controller.timeController.text = controller
+                                        .selectedTimes
+                                        .map((t) =>
+                                            "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}")
+                                        .join(', ');
+                                  }
+                                }
+                              },
+                            ),
+                            SizedBox(width: 4),
+                            IconButton(
+                              icon: Icon(Icons.delete, color: Colors.redAccent),
+                              padding: EdgeInsets.zero,
+                              constraints: BoxConstraints(),
+                              onPressed: () {
+                                controller.selectedTimes.clear();
+                                controller.timeController.clear();
+                              },
+                            ),
+                          ],
                         ),
                         hintStyle: TextStyle(
                           color: AppColors.textSecondary,
                           fontSize: 14,
                         ),
-                        onTap: () async {
-                          TimeOfDay? pickedTime = await showTimePicker(
-                            context: context,
-                            initialTime: TimeOfDay.now(),
-                          );
-                          if (pickedTime != null) {
-                            final hour =
-                                pickedTime.hour.toString().padLeft(2, '0');
-                            final minute =
-                                pickedTime.minute.toString().padLeft(2, '0');
-                            controller.timeController.text = "$hour:$minute";
-                          }
-                        },
                       ),
                       const SizedBox(height: 12),
                       CustomDropdownFormField<String>(
@@ -534,20 +599,17 @@ class RappelmediView extends GetView<RappelmediController> {
                               controller.pillnameController.text.trim();
                           final dateText =
                               controller.dateController.text.trim();
-                          final timeText =
-                              controller.timeController.text.trim();
                           final form = controller.selectedForm.value;
                           final repeat = controller.selectedTime.value;
                           if (name.isEmpty ||
                               dateText.isEmpty ||
-                              timeText.isEmpty ||
+                              controller.selectedTimes.isEmpty ||
                               form.isEmpty ||
                               repeat.isEmpty) {
                             Get.snackbar(
                                 "Erreur", "Veuillez remplir tous les champs !");
                             return;
                           }
-
                           final rawDateText =
                               controller.dateController.text.trim();
                           DateTime parsedDate;
@@ -564,10 +626,14 @@ class RappelmediView extends GetView<RappelmediController> {
                           final formData = {
                             "medicine_name": name,
                             "start_date": formattedDate,
-                            "reminder_time": timeText,
+                            "reminder_time": controller.selectedTimes
+                                .map((t) =>
+                                    "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}")
+                                .join(','),
                             "frequency": repeat,
                             "form": form,
                           };
+
                           controller.submitPill(formData);
                           controller.clearFields();
                           Navigator.pop(context);

@@ -62,4 +62,24 @@ class TipProvider with BaseController {
       return [];
     }
   }
+
+  Future<bool> deletePillRemember(int id) async {
+    try {
+      final response = await ApiProvider.delete(
+        auth: true,
+        apiURL: '${ApiRoutes.getremenbers.path}/$id',
+      );
+      if (response != null && response['data'] != null) {
+        return true;
+      } else {
+        DialogHelper.showErrorSnackbar(
+            message: "Erreur lors de la suppression");
+        return false;
+      }
+    } catch (e) {
+      DialogHelper.showErrorSnackbar(message: "Erreur réseau: $e");
+      return false;
+    }
+  }
+
 }
