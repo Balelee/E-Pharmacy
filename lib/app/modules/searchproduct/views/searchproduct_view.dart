@@ -7,6 +7,7 @@ import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
+import 'package:pharmix/generated/locales.g.dart';
 import '../controllers/searchproduct_controller.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -28,7 +29,7 @@ class SearchproductView extends GetView<SearchproductController> {
           },
         ),
         title: CustomText(
-          text: 'Recherche de prix de médicament',
+          text: LocaleKeys.appbar_searproduct_msg.tr,
           style: TextStyle(
             fontSize: 18,
             color: AppColors.background,
@@ -51,8 +52,7 @@ class SearchproductView extends GetView<SearchproductController> {
                 controller.showToast.value
                     ? CustomToast(
                         icon: Icons.info_outline,
-                        message:
-                            "Trouvez rapidement le prix d’un médicament en entrant son nom dans la barre de recherche.",
+                        message: LocaleKeys.toast_msg_searhproduct.tr,
                         backgroundColor: AppColors.primary.withOpacity(0.6),
                         onClose: () {
                           controller.showToast.value = false;
@@ -87,7 +87,7 @@ class SearchproductView extends GetView<SearchproductController> {
                             controller.onSearchChanged(value);
                           },
                           decoration: InputDecoration(
-                            hintText: "Tapez nom de médicament...",
+                            hintText: LocaleKeys.searchproduct_title.tr,
                             hintStyle: const TextStyle(
                               color: AppColors.textSecondary,
                               fontSize: 13,
@@ -160,7 +160,7 @@ class SearchproductView extends GetView<SearchproductController> {
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: Text(
-                                  "Tapez un nom pour rechercher un médicament.",
+                                  LocaleKeys.msg_info_searchproduct.tr,
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontStyle: FontStyle.italic,
@@ -186,8 +186,10 @@ class SearchproductView extends GetView<SearchproductController> {
                             ],
                           ),
                           child: controller.products.isEmpty
-                              ? const Center(
-                                  child: Text("Aucun médicament trouvé."),
+                              ? Center(
+                                  child: Text(
+                                    LocaleKeys.introuvable_medicament.tr,
+                                  ),
                                 )
                               : NotificationListener<ScrollNotification>(
                                   onNotification:
@@ -268,8 +270,10 @@ class SearchproductView extends GetView<SearchproductController> {
                                                           ),
                                                         ),
                                                       ),
-                                                      const Text(
-                                                        "Détails du médicament",
+                                                      Text(
+                                                        LocaleKeys
+                                                            .detail_medicament
+                                                            .tr,
                                                         style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
@@ -291,8 +295,10 @@ class SearchproductView extends GetView<SearchproductController> {
                                                           height: 10),
                                                       Row(
                                                         children: [
-                                                          const Text(
-                                                            "Prix du produit : ",
+                                                          Text(
+                                                            LocaleKeys
+                                                                .price_product
+                                                                .tr,
                                                             style: TextStyle(
                                                               fontSize: 16,
                                                               color:
@@ -333,15 +339,16 @@ class SearchproductView extends GetView<SearchproductController> {
                                                               .showSuccessSnackbar(
                                                             title: medicament
                                                                 .productName,
-                                                            message:
-                                                                "a été ajouté au panier.",
+                                                            message: LocaleKeys
+                                                                .panier_success_msg
+                                                                .tr,
                                                             seconds: 3,
                                                           );
                                                           Navigator.of(context)
                                                               .pop();
                                                         },
-                                                        buttonTitle:
-                                                            'Ajouter au panier',
+                                                        buttonTitle: LocaleKeys
+                                                            .ajouter_panier.tr,
                                                         textStyle:
                                                             const TextStyle(
                                                           fontSize: 13,
@@ -400,8 +407,8 @@ class SearchproductView extends GetView<SearchproductController> {
                                                   medicament.toProduct());
                                               DialogHelper.showSuccessSnackbar(
                                                 title: medicament.productName,
-                                                message:
-                                                    "a été ajouté au panier.",
+                                                message: LocaleKeys
+                                                    .panier_success_msg.tr,
                                                 seconds: 3,
                                               );
                                             },

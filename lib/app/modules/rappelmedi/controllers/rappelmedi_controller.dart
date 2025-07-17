@@ -8,6 +8,7 @@ import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/showDialog.dart';
+import 'package:pharmix/generated/locales.g.dart';
 import '../../../utils/helpers/dialog_helper.dart';
 import 'package:timezone/timezone.dart' as tz;
 
@@ -20,8 +21,12 @@ class RappelmediController extends GetxController {
   final TipProvider pillService = TipProvider();
   late final ScrollController scrollController;
   RxString selectedForm = "".obs;
-  RxString selectedTime = "Quotidien".obs;
-  RxList<String> timeOptions = ["Quotidien", "Hebdomadaire", "Mensuel"].obs;
+  RxString selectedTime = LocaleKeys.quotien.tr.obs;
+  RxList<String> timeOptions = [
+    LocaleKeys.quotien.tr,
+    LocaleKeys.hebdomadaire.tr,
+    LocaleKeys.mensuel.tr
+  ].obs;
   final TextEditingController pillnameController = TextEditingController();
   final TextEditingController pilltypeController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
@@ -58,7 +63,7 @@ class RappelmediController extends GetxController {
     dateController.clear();
     timeController.clear();
     selectedForm.value = "";
-    selectedTime.value = "Quotidien";
+    selectedTime.value = LocaleKeys.quotien.tr;
   }
 
   Future<void> getRemenbers() async {
@@ -77,9 +82,8 @@ class RappelmediController extends GetxController {
           if (scheduledDateTZ.isAfter(tz.TZDateTime.now(tz.local))) {
             await notificationService.scheduleNotification(
               id: pill.id! + timeParts.indexOf(timePart),
-              title: 'Prise de votre médicament',
-              body:
-                  'Il est temps de prendre votre médicament: ${pill.medicineName}',
+              title: LocaleKeys.msg_prise_tile.tr,
+              body: '${LocaleKeys.msg_body_prise.tr}: ${pill.medicineName}',
               scheduledDate: scheduledDateTZ,
               frequency: pill.frequency,
             );
@@ -111,20 +115,15 @@ class RappelmediController extends GetxController {
           if (scheduledDateTZ.isAfter(tz.TZDateTime.now(tz.local))) {
             await notificationService.scheduleNotification(
               id: result.id! + reminderTimeList.indexOf(timeString),
-              title: 'Prise de votre médicament',
-              body:
-                  'Il est temps de prendre votre médicament: ${result.medicineName}',
+              title: LocaleKeys.msg_prise_tile.tr,
+              body: '${LocaleKeys.msg_body_prise.tr}: ${result.medicineName}',
               scheduledDate: scheduledDateTZ,
               frequency: result.frequency,
             );
           }
         }
-        Get.snackbar(
-          "Succès",
-          "Rappel enregistré avec succès",
-          snackPosition: SnackPosition.TOP,
-          colorText: AppColors.background
-        );
+        Get.snackbar(LocaleKeys.success.tr, LocaleKeys.success_msg_snackber.tr,
+            snackPosition: SnackPosition.TOP, colorText: AppColors.background);
       } else {
         DialogHelper.showErrorSnackbar(message: "fetching error:");
       }
@@ -135,14 +134,22 @@ class RappelmediController extends GetxController {
     }
   }
 
+  Future<void> cancelAllNotificationsForPill(PillRemember reminder) async {
+    final timeParts = reminder.reminderTime.split(',');
+    for (final timePart in timeParts) {
+      final notificationId = reminder.id! + timeParts.indexOf(timePart);
+      await notificationService.cancelNotification(notificationId);
+    }
+  }
+
   void onDeletePressed(PillRemember reminder) async {
     final confirmed = await ShowDialog.showdialog(
         title: CustomText(
-          text: 'Confirmer la suppression',
+          text: LocaleKeys.msg_delete.tr,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         content: CustomText(
-          text: 'Voulez-vous supprimer ce rappel ?',
+          text: LocaleKeys.content_delete.tr,
           style: TextStyle(
             fontSize: 13,
           ),
@@ -150,23 +157,24 @@ class RappelmediController extends GetxController {
         cancelButton: CustomButton.primaryButton(
           backgroundColor: AppColors.error,
           padding: EdgeInsets.symmetric(horizontal: 30),
-          buttonTitle: "Anuler",
+          buttonTitle: LocaleKeys.cancel.tr,
           textStyle: TextStyle(fontSize: 14, color: AppColors.background),
           onPressed: () => Navigator.pop(Get.context!, false),
         ),
         actionButton: CustomButton.primaryButton(
           padding: EdgeInsets.symmetric(horizontal: 30),
-          buttonTitle: "Supprimer",
+          buttonTitle: LocaleKeys.delete.tr,
           textStyle: TextStyle(fontSize: 14, color: AppColors.background),
           onPressed: () => Navigator.pop(Get.context!, true),
         ));
     if (confirmed == true) {
+      await cancelAllNotificationsForPill(reminder);
       bool success = await pillService.deletePillRemember(reminder.id!);
       if (success) {
         pills.removeWhere((r) => r.id == reminder.id);
         update();
         DialogHelper.showSuccessSnackbar(
-            message: "Rappel supprimé avec succès");
+            message: LocaleKeys.success_delete_msg.tr);
       }
     }
   }

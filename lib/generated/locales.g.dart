@@ -28,6 +28,68 @@ class LocaleKeys {
   static const free_sign_up = 'free_sign_up';
   static const identique_password_error = 'identique_password_error';
   static const no_product = 'no_product';
+  static const quotien = 'quotien';
+  static const hebdomadaire = 'hebdomadaire';
+  static const mensuel = 'mensuel';
+  static const msg_prise_tile = 'msg_prise_tile';
+  static const msg_body_prise = 'msg_body_prise';
+  static const success_msg_snackber = 'success_msg_snackber';
+  static const success = 'success';
+  static const msg_delete = 'msg_delete';
+  static const content_delete = 'content_delete';
+  static const cancel = 'cancel';
+  static const delete = 'delete';
+  static const success_delete_msg = 'success_delete_msg';
+  static const enregister = 'enregister';
+  static const invalid_date = 'invalid_date';
+  static const error = 'error';
+  static const empty_field_msg = 'empty_field_msg';
+  static const repeter = 'repeter';
+  static const injection = 'injection';
+  static const sirop = 'sirop';
+  static const comprime = 'comprime';
+  static const type_medication = 'type_medication';
+  static const name_medication = 'name_medication';
+  static const ajout_rappel = 'ajout_rappel';
+  static const prendre = 'prendre';
+  static const msg_prise_product = 'msg_prise_product';
+  static const title_ajout_rappel = 'title_ajout_rappel';
+  static const today = 'today';
+  static const prise_toast_msg = 'prise_toast_msg';
+  static const appbar_msg_prise = 'appbar_msg_prise';
+  static const liste_pharmacies = 'liste_pharmacies';
+  static const patienter = 'patienter';
+  static const charger_mes_pharmacie = 'charger_mes_pharmacie';
+  static const impossible_open_map = 'impossible_open_map';
+  static const appbar_pharamcy_page = 'appbar_pharamcy_page';
+  static const msg_toast_pharmacie = 'msg_toast_pharmacie';
+  static const search_pharmacie_title = 'search_pharmacie_title';
+  static const pharmacie_garde = 'pharmacie_garde';
+  static const all_pharmacie = 'all_pharmacie';
+  static const introuvable_pharmacie_msg = 'introuvable_pharmacie_msg';
+  static const de_garde = 'de_garde';
+  static const ouvert = 'ouvert';
+  static const fermer = 'fermer';
+  static const sunday_fermer = 'sunday_fermer';
+  static const localisation = 'localisation';
+  static const appbar_searproduct_msg = 'appbar_searproduct_msg';
+  static const toast_msg_searhproduct = 'toast_msg_searhproduct';
+  static const searchproduct_title = 'searchproduct_title';
+  static const msg_info_searchproduct = 'msg_info_searchproduct';
+  static const introuvable_medicament = 'introuvable_medicament';
+  static const detail_medicament = 'detail_medicament';
+  static const price_product = 'price_product';
+  static const panier_success_msg = 'panier_success_msg';
+  static const ajouter_panier = 'ajouter_panier';
+  static const liste_clinique = 'liste_clinique';
+  static const appbar_clinique_title = 'appbar_clinique_title';
+  static const toast_clinique = 'toast_clinique';
+  static const ajouter = 'ajouter';
+  static const search_clinique_title = 'search_clinique_title';
+  static const clinique = 'clinique';
+  static const laboratoire = 'laboratoire';
+  static const list_laboratoire = 'list_laboratoire';
+  static const introuvable_clinique = 'introuvable_clinique';
   static const welcome = 'welcome';
   static const our_services = 'our_services';
   static const marketplace = 'marketplace';
@@ -72,6 +134,73 @@ class Locales {
     'free_sign_up': 'Sign up gratuitously',
     'identique_password_error': 'The passwords sould be identics',
     'no_product': 'No product found',
+    'quotien': 'Daily',
+    'hebdomadaire': 'Weekly',
+    'mensuel': 'Monthly',
+    'msg_prise_tile': 'Medication Reminder',
+    'msg_body_prise': 'It\'s time to take your medication',
+    'success_msg_snackber': 'Reminder saved successfully',
+    'success': 'Success',
+    'msg_delete': 'Confirm Deletion',
+    'content_delete': 'Do you want to delete this reminder?',
+    'cancel': 'Cancel',
+    'delete': 'Delete',
+    'success_delete_msg': 'Reminder deleted successfully',
+    'enregister': 'Save',
+    'invalid_date': 'Invalid date!',
+    'error': 'Error',
+    'empty_field_msg': 'Please fill in all fields!',
+    'repeter': 'Repeat',
+    'injection': 'Injection',
+    'sirop': 'Syrup',
+    'comprime': 'Tablet',
+    'type_medication': 'Medication type',
+    'name_medication': 'Medication name',
+    'ajout_rappel': 'Add a reminder',
+    'prendre': 'Take',
+    'msg_prise_product':
+        'We help you take the right medication at the right time, every day',
+    'title_ajout_rappel': 'Add your first reminder',
+    'today': 'Today',
+    'prise_toast_msg':
+        'To follow your treatment properly, don\'t forget to add your medications to receive accurate reminders.',
+    'appbar_msg_prise': 'Medication reminders',
+    'liste_pharmacies': 'Pharmacies list',
+    'patienter': 'Please wait...',
+    'charger_mes_pharmacie': 'Loading on-duty pharmacies...',
+    'impossible_open_map': 'Unable to open Google Maps.',
+    'appbar_pharamcy_page': 'Nearby Pharmacies',
+    'msg_toast_pharmacie':
+        'Find the nearest pharmacies by typing their name in the search bar.',
+    'search_pharmacie_title': 'Type the pharmacy name...',
+    'pharmacie_garde': 'On-duty pharmacy',
+    'all_pharmacie': 'All pharmacies',
+    'introuvable_pharmacie_msg': 'No pharmacy found for your search',
+    'de_garde': 'On duty',
+    'ouvert': 'Open',
+    'fermer': 'Closed',
+    'sunday_fermer': 'Sunday - Closed',
+    'localisation': 'Location',
+    'appbar_searproduct_msg': 'Medication Price Search',
+    'toast_msg_searhproduct':
+        'Quickly find the price of a medication by entering its name in the search bar.',
+    'searchproduct_title': 'Type the medication name...',
+    'msg_info_searchproduct': 'Type a name to search for a medication.',
+    'introuvable_medicament': 'No medication found.',
+    'detail_medicament': 'Medication Details',
+    'price_product': 'Product price: ',
+    'panier_success_msg': 'has been added to the cart.',
+    'ajouter_panier': 'Add to cart',
+    'liste_clinique': 'Clinics list',
+    'appbar_clinique_title': 'Clinic & Lab Nearby',
+    'toast_clinique':
+        'Can\'t find your clinic or lab? Add it in a few clicks so everyone can benefit.',
+    'ajouter': 'Add',
+    'search_clinique_title': 'Type clinic or lab name...',
+    'clinique': 'Clinics',
+    'laboratoire': 'Laboratories',
+    'list_laboratoire': 'Laboratories list',
+    'introuvable_clinique': 'No clinic or laboratory found for your search',
     'welcome': '👋 Welcome',
     'our_services': 'Our Services',
     'marketplace': 'Marketplace',
@@ -115,6 +244,75 @@ class Locales {
     'free_sign_up': 'S’inscrire gratuitement',
     'identique_password_error': 'Les mots de passe non indentiques',
     'no_product': 'Pas de produit trouvé',
+    'quotien': 'Quotidien',
+    'hebdomadaire': 'Hebdomadaire',
+    'mensuel': 'Mensuel',
+    'msg_prise_tile': 'Prise de votre médicament',
+    'msg_body_prise': 'Il est temps de prendre votre médicament',
+    'success_msg_snackber': ' Rappel enregistré avec succès',
+    'success': 'Succès',
+    'msg_delete': 'Confirmer la suppression',
+    'content_delete': 'Voulez-vous supprimer ce rappel ?',
+    'cancel': 'Anuler',
+    'delete': 'Supprimer',
+    'success_delete_msg': 'Rappel supprimé avec succès',
+    'enregister': 'Enrégister',
+    'invalid_date': 'Date invalide !',
+    'error': 'Erreur',
+    'empty_field_msg': 'Veuillez remplir tous les champs !',
+    'repeter': 'Répéter',
+    'injection': 'Injection',
+    'sirop': 'Sirop',
+    'comprime': 'Comprimé',
+    'type_medication': 'Type médicament',
+    'name_medication': 'Nom de médicament',
+    'ajout_rappel': 'Ajouter un rappel',
+    'prendre': 'Prendre',
+    'msg_prise_product':
+        'Nous vous facilitons la prise du bon médicament au bon moment, chaque jour',
+    'title_ajout_rappel': 'Ajoutez votre premier rappel',
+    'today': 'Aujourdh\'hui',
+    'prise_toast_msg':
+        'Pour un bon respect de votre traitement, n’oubliez pas d’ajouter vos médicaments afin de recevoir des rappels précis.',
+    'appbar_msg_prise': 'Rappel mécadiments',
+    'liste_pharmacies': 'Liste des pharmacies',
+    'patienter': 'Patienter...',
+    'charger_mes_pharmacie': 'Chargement pharmacies de garde...',
+    'impossible_open_map': 'Impossible d’ouvrir Google Maps.',
+    'appbar_pharamcy_page': 'Pharmacies à proximité',
+    'msg_toast_pharmacie':
+        'Trouvez les pharmacies les plus proches en saisissant leur nom dans la barre de recherche.',
+    'search_pharmacie_title': 'Tapez le nom de la pharmacie...',
+    'pharmacie_garde': 'Pharmacie de garde',
+    'all_pharmacie': 'Toutes les pharmacies',
+    'introuvable_pharmacie_msg':
+        'Aucune pharmacie trouvée pour votre recherche',
+    'de_garde': 'De garde',
+    'ouvert': 'Ouvert',
+    'fermer': 'Fermé',
+    'sunday_fermer': 'Dimanche - Fermé',
+    'localisation': 'Localisation',
+    'appbar_searproduct_msg': 'Recherche de prix de médicament',
+    'toast_msg_searhproduct':
+        'Trouvez rapidement le prix d’un médicament en entrant son nom dans la barre de recherche.',
+    'searchproduct_title': 'Tapez nom de médicament...',
+    'msg_info_searchproduct': 'Tapez un nom pour rechercher un médicament.',
+    'introuvable_medicament': 'Aucun médicament trouvé.',
+    'detail_medicament': 'Détails du médicament',
+    'price_product': 'Prix du produit : ',
+    'panier_success_msg': 'a été ajouté au panier.',
+    'ajouter_panier': 'Ajouter au panier',
+    'liste_clinique': 'Liste des cliniques',
+    'appbar_clinique_title': 'Clinique & Labo à proximité',
+    'toast_clinique':
+        'Vous ne trouvez pas votre clinique ou laboratoire ? Ajoutez-la en quelques clics pour en faire profiter tout le monde.',
+    'ajouter': 'Ajouter',
+    'search_clinique_title': 'Tapez nom de clinique ou Labo...',
+    'clinique': 'Cliniques',
+    'laboratoire': 'Laboratoires',
+    'list_laboratoire': 'Liste des laboratoires',
+    'introuvable_clinique':
+        'Aucun(e) clinique ou laboratoire trouvée pour votre recherche',
     'welcome': '👋 Bienvenue',
     'our_services': 'Nos services',
     'marketplace': 'Marketplace',

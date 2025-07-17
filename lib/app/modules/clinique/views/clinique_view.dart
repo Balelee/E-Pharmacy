@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
+import 'package:pharmix/generated/locales.g.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../controllers/clinique_controller.dart';
 
 class CliniqueView extends GetView<CliniqueController> {
@@ -26,7 +25,7 @@ class CliniqueView extends GetView<CliniqueController> {
           },
         ),
         title: CustomText(
-          text: "Clinique & Labo à proximité",
+          text:  LocaleKeys.appbar_clinique_title.tr,
           style: TextStyle(
             fontSize: 18,
             color: AppColors.background,
@@ -52,12 +51,12 @@ class CliniqueView extends GetView<CliniqueController> {
                   ? CustomToast(
                       icon: Icons.info_outline,
                       message:
-                          "Vous ne trouvez pas votre clinique ou laboratoire ? Ajoutez-la en quelques clics pour en faire profiter tout le monde.",
+                          LocaleKeys.toast_clinique.tr,
                       action: CustomButton.primaryButton(
                         padding:
                             EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                         onPressed: () {},
-                        buttonTitle: 'Ajouter',
+                        buttonTitle:  LocaleKeys.ajouter.tr,
                         textStyle: TextStyle(
                           fontSize: 12,
                           color: AppColors.background,
@@ -95,7 +94,7 @@ class CliniqueView extends GetView<CliniqueController> {
                         onChanged: (value) =>
                             controller.searchText.value = value.trim(),
                         decoration: InputDecoration(
-                          hintText: "Tapez nom de clinique ou Labo...",
+                          hintText:  LocaleKeys.search_clinique_title.tr,
                           hintStyle: const TextStyle(
                             color: AppColors.textSecondary,
                             fontSize: 13,
@@ -145,25 +144,25 @@ class CliniqueView extends GetView<CliniqueController> {
                         PopupMenuItem(
                           value: 'clinic',
                           child: Text(
-                            'Cliniques',
+                             LocaleKeys.clinique.tr,
                             style: TextStyle(color: AppColors.textSecondary),
                           ),
                         ),
                         PopupMenuItem(
                           value: 'labo',
                           child: Text(
-                            'Laboratoires',
+                             LocaleKeys.laboratoire.tr,
                             style: TextStyle(color: AppColors.textSecondary),
                           ),
                         ),
                       ],
                       onSelected: (value) async {
                         if (value == 'clinic') {
-                          controller.listTitle.value = "Liste des cliniques";
+                          controller.listTitle.value =  LocaleKeys.liste_clinique.tr;
                           controller.isGardeMode.value = true;
                           // await controller.loadPharmaciesDeGarde();
                         } else if (value == 'labo') {
-                          controller.listTitle.value = "Liste des laboratoires";
+                          controller.listTitle.value =  LocaleKeys.list_laboratoire.tr;
                           controller.isGardeMode.value = false;
                           // controller.loadPharmacies(isRefresh: true);
                         }
@@ -229,7 +228,7 @@ class CliniqueView extends GetView<CliniqueController> {
                               ),
                               CustomText(
                                 text:
-                                    "Aucune pharmacie trouvée pour votre recherche",
+                                    LocaleKeys.introuvable_clinique.tr,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: AppColors.textSecondary,
@@ -320,39 +319,6 @@ class CliniqueView extends GetView<CliniqueController> {
                                           ),
                                         ),
                                         const SizedBox(height: 4),
-                                        // if (!controller.isGardeMode.value)
-                                        //   if (todayHours != null)
-                                        //     Row(
-                                        //       children: [
-                                        //         CustomText(
-                                        //           text: "${todayHours.day}: ",
-                                        //           style: const TextStyle(
-                                        //             fontSize: 13,
-                                        //             color: Colors.grey,
-                                        //           ),
-                                        //         ),
-                                        //         CustomText(
-                                        //           text:
-                                        //               "${todayHours.openingTime} - ${todayHours.closingTime}",
-                                        //           style: TextStyle(
-                                        //             fontSize: 13,
-                                        //             fontWeight: FontWeight.bold,
-                                        //             color: AppColors.error
-                                        //                 .withOpacity(0.6),
-                                        //           ),
-                                        //         ),
-                                        //       ],
-                                        //     )
-                                        //   else
-                                        //     CustomText(
-                                        //       text: "Dimanche - Fermé",
-                                        //       style: TextStyle(
-                                        //         fontWeight: FontWeight.bold,
-                                        //         color: AppColors.error
-                                        //             .withOpacity(0.6),
-                                        //       ),
-                                        //     ),
-                                        const SizedBox(height: 5),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -394,7 +360,7 @@ class CliniqueView extends GetView<CliniqueController> {
                                               icon: const Icon(
                                                   Icons.map_rounded,
                                                   size: 16),
-                                              label: const Text("Localisation"),
+                                              label: Text(LocaleKeys.localisation.tr),
                                               style: OutlinedButton.styleFrom(
                                                 foregroundColor:
                                                     AppColors.primary,

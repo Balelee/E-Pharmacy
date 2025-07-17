@@ -112,6 +112,10 @@ class NotificationService {
       payload: 'medicament_$id',
     );
   }
+
+  Future<void> cancelNotification(int id) async {
+    await flutterLocalNotificationsPlugin.cancel(id);
+  }
 }
 
 @pragma('vm:entry-point')

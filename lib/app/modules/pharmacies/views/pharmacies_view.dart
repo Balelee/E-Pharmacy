@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
+import 'package:pharmix/generated/locales.g.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../controllers/pharmacies_controller.dart';
 
@@ -24,7 +25,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
           },
         ),
         title: CustomText(
-          text: "Pharmacies à proximité",
+          text: LocaleKeys.appbar_pharamcy_page.tr,
           style: TextStyle(
             fontSize: 18,
             color: AppColors.background,
@@ -49,8 +50,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
               controller.showToast.value
                   ? CustomToast(
                       icon: Icons.info_outline,
-                      message:
-                          "Trouvez les pharmacies les plus proches en saisissant leur nom dans la barre de recherche.",
+                      message: LocaleKeys.msg_toast_pharmacie.tr,
                       backgroundColor: AppColors.primary.withOpacity(0.6),
                       onClose: () {
                         controller.showToast.value = false;
@@ -83,7 +83,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                         onChanged: (value) =>
                             controller.searchText.value = value.trim(),
                         decoration: InputDecoration(
-                          hintText: "Tapez le nom de la pharmacie...",
+                          hintText: LocaleKeys.search_pharmacie_title.tr,
                           hintStyle: const TextStyle(
                             color: AppColors.textSecondary,
                             fontSize: 13,
@@ -133,25 +133,27 @@ class PharmaciesView extends GetView<PharmaciesController> {
                         PopupMenuItem(
                           value: 'garde',
                           child: Text(
-                            'Pharmacie de garde',
+                            LocaleKeys.pharmacie_garde.tr,
                             style: TextStyle(color: AppColors.textSecondary),
                           ),
                         ),
                         PopupMenuItem(
                           value: 'normal',
                           child: Text(
-                            'Toutes les pharmacies',
+                            LocaleKeys.all_pharmacie.tr,
                             style: TextStyle(color: AppColors.textSecondary),
                           ),
                         ),
                       ],
                       onSelected: (value) async {
                         if (value == 'garde') {
-                          controller.listTitle.value = "Pharmacie de garde";
+                          controller.listTitle.value =
+                              LocaleKeys.pharmacie_garde.tr;
                           controller.isGardeMode.value = true;
                           await controller.loadPharmaciesDeGarde();
                         } else if (value == 'normal') {
-                          controller.listTitle.value = "Liste des pharmacies";
+                          controller.listTitle.value =
+                              LocaleKeys.liste_pharmacies.tr;
                           controller.isGardeMode.value = false;
                           controller.loadPharmacies(isRefresh: true);
                         }
@@ -216,8 +218,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                 fit: BoxFit.contain,
                               ),
                               CustomText(
-                                text:
-                                    "Aucune pharmacie trouvée pour votre recherche",
+                                text: LocaleKeys.introuvable_pharmacie_msg.tr,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: AppColors.textSecondary,
@@ -287,7 +288,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                             ),
                                             if (controller.isGardeMode.value)
                                               CustomText(
-                                                  text: "De garde",
+                                                  text: LocaleKeys.de_garde.tr,
                                                   style: TextStyle(
                                                     fontSize: 13,
                                                     fontWeight: FontWeight.bold,
@@ -296,8 +297,8 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                             else
                                               CustomText(
                                                 text: pharmacy.isOpenNow
-                                                    ? "Ouvert"
-                                                    : "Fermé",
+                                                    ? LocaleKeys.ouvert.tr
+                                                    : LocaleKeys.fermer.tr,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.bold,
@@ -342,7 +343,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                             )
                                           else
                                             CustomText(
-                                              text: "Dimanche - Fermé",
+                                              text: LocaleKeys.sunday_fermer.tr,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: AppColors.error
@@ -388,7 +389,8 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                               icon: const Icon(
                                                   Icons.map_rounded,
                                                   size: 16),
-                                              label: const Text("Localisation"),
+                                              label: Text(
+                                                  LocaleKeys.localisation.tr),
                                               style: OutlinedButton.styleFrom(
                                                 foregroundColor: Colors.green,
                                                 side: const BorderSide(

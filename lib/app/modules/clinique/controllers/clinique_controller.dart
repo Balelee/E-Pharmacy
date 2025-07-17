@@ -5,6 +5,7 @@ import 'package:pharmix/app/data/models/medical_house.dart';
 import 'package:pharmix/app/data/models/pharmacy.dart';
 import 'package:pharmix/app/data/providers/pharmacy_provider.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/generated/locales.g.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CliniqueController extends GetxController {
@@ -98,7 +99,7 @@ class CliniqueController extends GetxController {
     } else if (await canLaunchUrl(webUrl)) {
       await launchUrl(webUrl, mode: LaunchMode.externalApplication);
     } else {
-      Get.snackbar("Erreur", "Impossible d’ouvrir Google Maps.");
+      Get.snackbar(LocaleKeys.error.tr, LocaleKeys.impossible_open_map.tr);
     }
   }
 

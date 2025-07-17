@@ -7,6 +7,7 @@ import 'package:pharmix/app/widgets/custom_dropdown_field.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_text_form_field.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
+import 'package:pharmix/generated/locales.g.dart';
 import '../controllers/rappelmedi_controller.dart';
 
 class RappelmediView extends GetView<RappelmediController> {
@@ -26,7 +27,7 @@ class RappelmediView extends GetView<RappelmediController> {
           },
         ),
         title: CustomText(
-          text: "Rappel mécadiments",
+          text: LocaleKeys.appbar_msg_prise.tr,
           style: TextStyle(
             fontSize: 20,
             color: AppColors.background,
@@ -52,8 +53,7 @@ class RappelmediView extends GetView<RappelmediController> {
               controller.showToast.value
                   ? CustomToast(
                       icon: Icons.info_outline,
-                      message:
-                          "Pour un bon respect de votre traitement, n’oubliez pas d’ajouter vos médicaments afin de recevoir des rappels précis.",
+                      message: LocaleKeys.prise_toast_msg.tr,
                       backgroundColor: AppColors.primary.withOpacity(0.6),
                       onClose: () {
                         controller.showToast.value = false;
@@ -63,7 +63,7 @@ class RappelmediView extends GetView<RappelmediController> {
               SizedBox(height: 15),
               CustomText(
                 textAlign: TextAlign.center,
-                text: 'Aujourdh\'hui',
+                text: LocaleKeys.today.tr,
                 style: TextStyle(
                   fontSize: 18,
                   color: AppColors.textPrimary,
@@ -168,21 +168,20 @@ class RappelmediView extends GetView<RappelmediController> {
                             children: [
                               CustomText(
                                 textAlign: TextAlign.center,
-                                text: "Ajoutez votre premier rappel",
+                                text: LocaleKeys.title_ajout_rappel.tr,
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: AppColors.textPrimary,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.only(
                                     top: 12, left: 50.0, right: 50),
                                 child: CustomText(
                                   textAlign: TextAlign.center,
                                   overflow: TextOverflow.visible,
-                                  text:
-                                      'We make it easier for you to take the right medication at the right time, every day',
+                                  text: LocaleKeys.msg_prise_product.tr,
                                   style: TextStyle(
                                     color: AppColors.textSecondary,
                                     fontSize: 16,
@@ -198,7 +197,7 @@ class RappelmediView extends GetView<RappelmediController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CustomText(
-                              text: "Prendre",
+                              text: LocaleKeys.prendre.tr,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -373,7 +372,7 @@ class RappelmediView extends GetView<RappelmediController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CustomText(
-                        text: "Ajouter un rappel",
+                        text: LocaleKeys.ajout_rappel.tr,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary,
@@ -383,7 +382,7 @@ class RappelmediView extends GetView<RappelmediController> {
                       const SizedBox(height: 18),
                       CustomTextFormField(
                         controller: controller.pillnameController,
-                        hintText: "Nom de médicament",
+                        hintText: LocaleKeys.name_medication.tr,
                         hintStyle: TextStyle(
                           color: AppColors.textSecondary,
                           fontSize: 14,
@@ -454,11 +453,7 @@ class RappelmediView extends GetView<RappelmediController> {
                                   .map((t) =>
                                       "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}")
                                   .join(', ');
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Heure déjà ajoutée")),
-                              );
-                            }
+                            } else {}
                           }
                         },
                         suffix: Row(
@@ -514,7 +509,7 @@ class RappelmediView extends GetView<RappelmediController> {
                       ),
                       const SizedBox(height: 12),
                       CustomDropdownFormField<String>(
-                        hintText: "Type médicament",
+                        hintText: LocaleKeys.type_medication.tr,
                         hintStyle: TextStyle(
                             color: AppColors.textSecondary, fontSize: 14),
                         value: controller.selectedForm.value.isEmpty
@@ -523,18 +518,24 @@ class RappelmediView extends GetView<RappelmediController> {
                         onChanged: (value) {
                           controller.selectedForm.value = value ?? "";
                         },
-                        items: const [
+                        items: [
                           DropdownMenuItem(
-                            value: 'Comprimé',
-                            child: Text('Comprimé'),
+                            value: LocaleKeys.comprime.tr,
+                            child: Text(
+                              LocaleKeys.comprime.tr,
+                            ),
                           ),
                           DropdownMenuItem(
-                            value: 'Sirop',
-                            child: Text('Sirop'),
+                            value: LocaleKeys.sirop.tr,
+                            child: Text(
+                              LocaleKeys.sirop.tr,
+                            ),
                           ),
                           DropdownMenuItem(
-                            value: 'Injection',
-                            child: Text('Injection'),
+                            value: LocaleKeys.injection.tr,
+                            child: Text(
+                              LocaleKeys.injection.tr,
+                            ),
                           ),
                         ],
                       ),
@@ -543,8 +544,8 @@ class RappelmediView extends GetView<RappelmediController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText(
-                            text: "Répéter",
-                            color: AppColors.textPrimary,
+                            text: LocaleKeys.repeter.tr,
+                            color: const Color.fromARGB(255, 33, 33, 33),
                             fontWeight: FontWeight.bold,
                           ),
                           const SizedBox(height: 5),
@@ -607,7 +608,10 @@ class RappelmediView extends GetView<RappelmediController> {
                               form.isEmpty ||
                               repeat.isEmpty) {
                             Get.snackbar(
-                                "Erreur", "Veuillez remplir tous les champs !");
+                              LocaleKeys.error.tr,
+                              LocaleKeys.empty_field_msg.tr,
+                              colorText: AppColors.background,
+                            );
                             return;
                           }
                           final rawDateText =
@@ -618,7 +622,11 @@ class RappelmediView extends GetView<RappelmediController> {
                             parsedDate = DateFormat('dd/MM/yyyy')
                                 .parseStrict(rawDateText);
                           } catch (e) {
-                            Get.snackbar("Erreur", "Date invalide !");
+                            Get.snackbar(
+                              LocaleKeys.error.tr,
+                              LocaleKeys.invalid_date.tr,
+                              colorText: AppColors.background,
+                            );
                             return;
                           }
                           final formattedDate =
@@ -638,7 +646,7 @@ class RappelmediView extends GetView<RappelmediController> {
                           controller.clearFields();
                           Navigator.pop(context);
                         },
-                        buttonTitle: "Enrégister",
+                        buttonTitle: LocaleKeys.enregister.tr,
                         padding: EdgeInsets.symmetric(vertical: 12),
                       ),
                     ],
