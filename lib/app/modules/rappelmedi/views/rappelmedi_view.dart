@@ -350,310 +350,304 @@ class RappelmediView extends GetView<RappelmediController> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
         onPressed: () {
-          showModalBottomSheet(
-            context: context,
+          Get.bottomSheet(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
-            builder: (context) {
-              return Container(
-                padding: EdgeInsets.all(20),
-                width: Get.width,
-                decoration: BoxDecoration(
-                  color: AppColors.background,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
+            Container(
+              padding: EdgeInsets.all(20),
+              width: Get.width,
+              decoration: BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
                 ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text: LocaleKeys.ajout_rappel.tr,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textPrimary,
-                          fontSize: 16,
-                        ),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      text: LocaleKeys.ajout_rappel.tr,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
+                        fontSize: 16,
                       ),
-                      const SizedBox(height: 18),
-                      CustomTextFormField(
-                        controller: controller.pillnameController,
-                        hintText: LocaleKeys.name_medication.tr,
-                        hintStyle: TextStyle(
-                          color: AppColors.textSecondary,
-                          fontSize: 14,
-                        ),
+                    ),
+                    const SizedBox(height: 18),
+                    CustomTextFormField(
+                      controller: controller.pillnameController,
+                      hintText: LocaleKeys.name_medication.tr,
+                      hintStyle: TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 14,
                       ),
-                      const SizedBox(height: 12),
-                      CustomTextFormField(
-                        hintText: "JJ/MM/AAAA",
-                        controller: controller.dateController,
-                        suffix: Icon(
-                          Icons.calendar_month,
-                          color: AppColors.textSecondary,
-                        ),
-                        hintStyle: TextStyle(
-                          color: AppColors.textSecondary,
-                          fontSize: 14,
-                        ),
-                        onTap: () async {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                contentPadding: EdgeInsets.zero,
-                                content: Theme(
-                                  data: Theme.of(context).copyWith(
-                                    colorScheme: ColorScheme.light(
-                                        primary: AppColors.primary),
-                                  ),
-                                  child: CalendarDatePicker(
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(2000),
-                                    lastDate: DateTime(2100),
-                                    onDateChanged: (pickedDate) {
-                                      Navigator.pop(context);
-                                      controller.dateController.text =
-                                          "${pickedDate.day.toString().padLeft(2, '0')}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.year}";
-                                    },
-                                  ),
+                    ),
+                    const SizedBox(height: 12),
+                    CustomTextFormField(
+                      hintText: "JJ/MM/AAAA",
+                      controller: controller.dateController,
+                      suffix: Icon(
+                        Icons.calendar_month,
+                        color: AppColors.textSecondary,
+                      ),
+                      hintStyle: TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 14,
+                      ),
+                      onTap: () async {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              contentPadding: EdgeInsets.zero,
+                              content: Theme(
+                                data: Theme.of(context).copyWith(
+                                  colorScheme: ColorScheme.light(
+                                      primary: AppColors.primary),
                                 ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 12),
-                      CustomTextFormField(
-                        hintText: "Ex: 08:00, 12:00, 18:00",
-                        controller: controller.timeController,
-                        isReadOnly: true,
-                        onTap: () async {
-                          while (true) {
-                            final TimeOfDay? pickedTime = await showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now(),
-                            );
-                            if (pickedTime == null) break;
-
-                            bool exists = controller.selectedTimes.any(
-                              (t) =>
-                                  t.hour == pickedTime.hour &&
-                                  t.minute == pickedTime.minute,
-                            );
-
-                            if (!exists) {
-                              controller.selectedTimes.add(pickedTime);
-                              controller.timeController.text = controller
-                                  .selectedTimes
-                                  .map((t) =>
-                                      "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}")
-                                  .join(', ');
-                            } else {}
-                          }
-                        },
-                        suffix: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.access_alarm,
-                                  color: AppColors.textSecondary),
-                              padding: EdgeInsets.zero,
-                              constraints: BoxConstraints(),
-                              onPressed: () async {
-                                while (true) {
-                                  final TimeOfDay? pickedTime =
-                                      await showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-                                  if (pickedTime == null) break;
-
-                                  bool exists = controller.selectedTimes.any(
-                                    (t) =>
-                                        t.hour == pickedTime.hour &&
-                                        t.minute == pickedTime.minute,
-                                  );
-
-                                  if (!exists) {
-                                    controller.selectedTimes.add(pickedTime);
-                                    controller.timeController.text = controller
-                                        .selectedTimes
-                                        .map((t) =>
-                                            "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}")
-                                        .join(', ');
-                                  }
-                                }
-                              },
-                            ),
-                            SizedBox(width: 4),
-                            IconButton(
-                              icon: Icon(Icons.delete, color: Colors.redAccent),
-                              padding: EdgeInsets.zero,
-                              constraints: BoxConstraints(),
-                              onPressed: () {
-                                controller.selectedTimes.clear();
-                                controller.timeController.clear();
-                              },
-                            ),
-                          ],
-                        ),
-                        hintStyle: TextStyle(
-                          color: AppColors.textSecondary,
-                          fontSize: 14,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      CustomDropdownFormField<String>(
-                        hintText: LocaleKeys.type_medication.tr,
-                        hintStyle: TextStyle(
-                            color: AppColors.textSecondary, fontSize: 14),
-                        value: controller.selectedForm.value.isEmpty
-                            ? null
-                            : controller.selectedForm.value,
-                        onChanged: (value) {
-                          controller.selectedForm.value = value ?? "";
-                        },
-                        items: [
-                          DropdownMenuItem(
-                            value: LocaleKeys.comprime.tr,
-                            child: Text(
-                              LocaleKeys.comprime.tr,
-                            ),
-                          ),
-                          DropdownMenuItem(
-                            value: LocaleKeys.sirop.tr,
-                            child: Text(
-                              LocaleKeys.sirop.tr,
-                            ),
-                          ),
-                          DropdownMenuItem(
-                            value: LocaleKeys.injection.tr,
-                            child: Text(
-                              LocaleKeys.injection.tr,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomText(
-                            text: LocaleKeys.repeter.tr,
-                            color: const Color.fromARGB(255, 33, 33, 33),
-                            fontWeight: FontWeight.bold,
-                          ),
-                          const SizedBox(height: 5),
-                          Container(
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: AppColors.textSecondary.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Obx(
-                              () => Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: controller.timeOptions.map((option) {
-                                  bool isSelected =
-                                      controller.selectedTime.value == option;
-                                  return GestureDetector(
-                                    onTap: () {
-                                      controller.selectedTime.value = option;
-                                    },
-                                    child: Container(
-                                      width: 100,
-                                      height: 45,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: isSelected
-                                            ? Colors.blue
-                                            : Colors.transparent,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Text(
-                                        option,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: isSelected
-                                              ? Colors.white
-                                              : Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
+                                child: CalendarDatePicker(
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2100),
+                                  onDateChanged: (pickedDate) {
+                                    Navigator.pop(context);
+                                    controller.dateController.text =
+                                        "${pickedDate.day.toString().padLeft(2, '0')}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.year}";
+                                  },
+                                ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      CustomButton.primaryButton(
-                        onPressed: () {
-                          final name =
-                              controller.pillnameController.text.trim();
-                          final dateText =
-                              controller.dateController.text.trim();
-                          final form = controller.selectedForm.value;
-                          final repeat = controller.selectedTime.value;
-                          if (name.isEmpty ||
-                              dateText.isEmpty ||
-                              controller.selectedTimes.isEmpty ||
-                              form.isEmpty ||
-                              repeat.isEmpty) {
-                            Get.snackbar(
-                              LocaleKeys.error.tr,
-                              LocaleKeys.empty_field_msg.tr,
-                              colorText: AppColors.background,
                             );
-                            return;
-                          }
-                          final rawDateText =
-                              controller.dateController.text.trim();
-                          DateTime parsedDate;
+                          },
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    CustomTextFormField(
+                      hintText: "Ex: 08:00, 12:00, 18:00",
+                      controller: controller.timeController,
+                      isReadOnly: true,
+                      onTap: () async {
+                        while (true) {
+                          final TimeOfDay? pickedTime = await showTimePicker(
+                            context: context,
+                            initialTime: TimeOfDay.now(),
+                          );
+                          if (pickedTime == null) break;
 
-                          try {
-                            parsedDate = DateFormat('dd/MM/yyyy')
-                                .parseStrict(rawDateText);
-                          } catch (e) {
-                            Get.snackbar(
-                              LocaleKeys.error.tr,
-                              LocaleKeys.invalid_date.tr,
-                              colorText: AppColors.background,
-                            );
-                            return;
-                          }
-                          final formattedDate =
-                              DateFormat('yyyy-MM-dd').format(parsedDate);
-                          final formData = {
-                            "medicine_name": name,
-                            "start_date": formattedDate,
-                            "reminder_time": controller.selectedTimes
+                          bool exists = controller.selectedTimes.any(
+                            (t) =>
+                                t.hour == pickedTime.hour &&
+                                t.minute == pickedTime.minute,
+                          );
+
+                          if (!exists) {
+                            controller.selectedTimes.add(pickedTime);
+                            controller.timeController.text = controller
+                                .selectedTimes
                                 .map((t) =>
                                     "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}")
-                                .join(','),
-                            "frequency": repeat,
-                            "form": form,
-                          };
+                                .join(', ');
+                          } else {}
+                        }
+                      },
+                      suffix: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.access_alarm,
+                                color: AppColors.textSecondary),
+                            padding: EdgeInsets.zero,
+                            constraints: BoxConstraints(),
+                            onPressed: () async {
+                              while (true) {
+                                final TimeOfDay? pickedTime =
+                                    await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now(),
+                                );
+                                if (pickedTime == null) break;
 
-                          controller.submitPill(formData);
-                          controller.clearFields();
-                          Navigator.pop(context);
-                        },
-                        buttonTitle: LocaleKeys.enregister.tr,
-                        padding: EdgeInsets.symmetric(vertical: 12),
+                                bool exists = controller.selectedTimes.any(
+                                  (t) =>
+                                      t.hour == pickedTime.hour &&
+                                      t.minute == pickedTime.minute,
+                                );
+
+                                if (!exists) {
+                                  controller.selectedTimes.add(pickedTime);
+                                  controller.timeController.text = controller
+                                      .selectedTimes
+                                      .map((t) =>
+                                          "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}")
+                                      .join(', ');
+                                }
+                              }
+                            },
+                          ),
+                          SizedBox(width: 4),
+                          IconButton(
+                            icon: Icon(Icons.delete, color: Colors.redAccent),
+                            padding: EdgeInsets.zero,
+                            constraints: BoxConstraints(),
+                            onPressed: () {
+                              controller.selectedTimes.clear();
+                              controller.timeController.clear();
+                            },
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                      hintStyle: TextStyle(
+                        color: AppColors.textSecondary,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    CustomDropdownFormField<String>(
+                      hintText: LocaleKeys.type_medication.tr,
+                      hintStyle: TextStyle(
+                          color: AppColors.textSecondary, fontSize: 14),
+                      value: controller.selectedForm.value.isEmpty
+                          ? null
+                          : controller.selectedForm.value,
+                      onChanged: (value) {
+                        controller.selectedForm.value = value ?? "";
+                      },
+                      items: [
+                        DropdownMenuItem(
+                          value: LocaleKeys.comprime.tr,
+                          child: Text(
+                            LocaleKeys.comprime.tr,
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: LocaleKeys.sirop.tr,
+                          child: Text(
+                            LocaleKeys.sirop.tr,
+                          ),
+                        ),
+                        DropdownMenuItem(
+                          value: LocaleKeys.injection.tr,
+                          child: Text(
+                            LocaleKeys.injection.tr,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText(
+                          text: LocaleKeys.repeter.tr,
+                          color: const Color.fromARGB(255, 33, 33, 33),
+                          fontWeight: FontWeight.bold,
+                        ),
+                        const SizedBox(height: 5),
+                        Container(
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: AppColors.textSecondary.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Obx(
+                            () => Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: controller.timeOptions.map((option) {
+                                bool isSelected =
+                                    controller.selectedTime.value == option;
+                                return GestureDetector(
+                                  onTap: () {
+                                    controller.selectedTime.value = option;
+                                  },
+                                  child: Container(
+                                    width: 100,
+                                    height: 45,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: isSelected
+                                          ? Colors.blue
+                                          : Colors.transparent,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Text(
+                                      option,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: isSelected
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    CustomButton.primaryButton(
+                      onPressed: () {
+                        final name = controller.pillnameController.text.trim();
+                        final dateText = controller.dateController.text.trim();
+                        final form = controller.selectedForm.value;
+                        final repeat = controller.selectedTime.value;
+                        if (name.isEmpty ||
+                            dateText.isEmpty ||
+                            controller.selectedTimes.isEmpty ||
+                            form.isEmpty ||
+                            repeat.isEmpty) {
+                          Get.snackbar(
+                            LocaleKeys.error.tr,
+                            LocaleKeys.empty_field_msg.tr,
+                            colorText: AppColors.background,
+                          );
+                          return;
+                        }
+                        final rawDateText =
+                            controller.dateController.text.trim();
+                        DateTime parsedDate;
+
+                        try {
+                          parsedDate =
+                              DateFormat('dd/MM/yyyy').parseStrict(rawDateText);
+                        } catch (e) {
+                          Get.snackbar(
+                            LocaleKeys.error.tr,
+                            LocaleKeys.invalid_date.tr,
+                            colorText: AppColors.background,
+                          );
+                          return;
+                        }
+                        final formattedDate =
+                            DateFormat('yyyy-MM-dd').format(parsedDate);
+                        final formData = {
+                          "medicine_name": name,
+                          "start_date": formattedDate,
+                          "reminder_time": controller.selectedTimes
+                              .map((t) =>
+                                  "${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}")
+                              .join(','),
+                          "frequency": repeat,
+                          "form": form,
+                        };
+
+                        controller.submitPill(formData);
+                        controller.clearFields();
+                        Navigator.pop(context);
+                      },
+                      buttonTitle: LocaleKeys.enregister.tr,
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                    ),
+                  ],
                 ),
-              );
-            },
+              ),
+            ),
           );
         },
         child: const Icon(

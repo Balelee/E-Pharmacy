@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/order.dart';
+import 'package:pharmix/app/modules/paiement/views/paiement_view.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/utils/constants/app_constant.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
@@ -191,7 +193,26 @@ class OrderDetailView extends GetView<OrderDetailController> {
                 ],
               ),
               CustomButton.primaryButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.bottomSheet(
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20)),
+                    ),
+                    backgroundColor: AppColors.background,
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(16),
+                          topRight: Radius.circular(16),
+                        ),
+                      ),
+                      child: PaiementView(),
+                    ),
+                  );
+                },
                 buttonTitle: "Payer maintenant",
                 textStyle: TextStyle(
                   fontSize: 14,
@@ -199,7 +220,8 @@ class OrderDetailView extends GetView<OrderDetailController> {
                   fontWeight: FontWeight.bold,
                 ),
                 borderRadius: 8,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 0.0),
               ),
             ],
           ),
