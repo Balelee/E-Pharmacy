@@ -18,6 +18,7 @@ abstract class Routes {
   static const RAPPELMEDI = _Paths.RAPPELMEDI;
   static const CLINIQUE = _Paths.CLINIQUE;
   static const PAIEMENT = _Paths.PAIEMENT;
+  static const ADDRESS = _Paths.ADDRESS;
 }
 
 abstract class _Paths {
@@ -37,4 +38,5 @@ abstract class _Paths {
   static const RAPPELMEDI = '/rappelmedi';
   static const CLINIQUE = '/clinique';
   static const PAIEMENT = '/paiement';
+  static const ADDRESS = '/address';
 }

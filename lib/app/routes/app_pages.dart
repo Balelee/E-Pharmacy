@@ -5,6 +5,8 @@ import '../modules/Login/views/login_content_view.dart';
 import '../modules/Login/views/login_view.dart';
 import '../modules/Register/bindings/register_binding.dart';
 import '../modules/Register/views/register_view.dart';
+import '../modules/address/bindings/address_binding.dart';
+import '../modules/address/views/address_view.dart';
 import '../modules/clinique/bindings/clinique_binding.dart';
 import '../modules/clinique/views/clinique_view.dart';
 import '../modules/detailProduit/bindings/detail_produit_binding.dart';
@@ -113,6 +115,11 @@ class AppPages {
       name: _Paths.PAIEMENT,
       page: () => const PaiementView(),
       binding: PaiementBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDRESS,
+      page: () => const AddressView(),
+      binding: AddressBinding(),
     ),
   ];
 }

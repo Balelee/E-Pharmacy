@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pharmix/app/data/enums/orderstatus.dart';
 import 'package:pharmix/app/data/models/order_detail.dart';
 
 class Order {
   final int id;
   final String amount;
-  final String status;
+  final OrderStatus status;
   final Color statusColor;
   final List<OrderDetail> orderDetails;
 
@@ -20,7 +21,7 @@ class Order {
     return Order(
       id: json['id'],
       amount: json['priceTotal'].toString(),
-      status: json['orderStatusLabel'],
+      status: orderStatusFromString(json['orderStatus']),
       statusColor: Color(int.parse(json['orderStatusColor'] ?? '0xFFF44336')),
       orderDetails: (json['details'] as List)
           .map((item) => OrderDetail.fromJson(item))

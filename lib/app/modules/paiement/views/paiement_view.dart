@@ -12,36 +12,16 @@ class PaiementView extends GetView<PaiementController> {
     return Obx(
       () => SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(4.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                text: 'Vous devez payer',
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              CustomText(
-                text: '12500 CFA',
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              CustomText(
                 text: 'Selectionner mehode de paiement',
                 style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 20,
