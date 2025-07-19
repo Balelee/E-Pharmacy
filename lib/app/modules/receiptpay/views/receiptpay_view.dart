@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
-
 import '../controllers/receiptpay_controller.dart';
 
 class ReceiptpayView extends GetView<ReceiptpayController> {

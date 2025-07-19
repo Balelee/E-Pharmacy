@@ -21,6 +21,8 @@ import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/paiement/bindings/paiement_binding.dart';
 import '../modules/paiement/views/paiement_view.dart';
+import '../modules/pharmacien/bindings/pharmacien_binding.dart';
+import '../modules/pharmacien/views/pharmacien_view.dart';
 import '../modules/pharmacies/bindings/pharmacies_binding.dart';
 import '../modules/pharmacies/views/pharmacies_view.dart';
 import '../modules/rappelmedi/bindings/rappelmedi_binding.dart';
@@ -46,6 +48,7 @@ class AppPages {
   static const RAPPELMEDI = Routes.RAPPELMEDI;
   static const ORDER_DETAIL = Routes.ORDER_DETAIL;
   static const SEARCHPRODUCT = Routes.SEARCHPRODUCT;
+  static const PHARMACIEN = Routes.PHARMACIEN;
 
   static final routes = [
     GetPage(
@@ -127,6 +130,11 @@ class AppPages {
       name: _Paths.RECEIPTPAY,
       page: () => const ReceiptpayView(),
       binding: ReceiptpayBinding(),
+    ),
+    GetPage(
+      name: _Paths.PHARMACIEN,
+      page: () => const PharmacienView(),
+      binding: PharmacienBinding(),
     ),
   ];
 }

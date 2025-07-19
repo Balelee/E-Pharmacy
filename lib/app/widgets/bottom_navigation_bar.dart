@@ -24,7 +24,7 @@ class BottomNavBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: 'Vous',
+              label: 'Ma pharmacie',
             ),
           ],
           onTap: (index) {
