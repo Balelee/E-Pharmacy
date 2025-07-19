@@ -25,6 +25,8 @@ import '../modules/pharmacies/bindings/pharmacies_binding.dart';
 import '../modules/pharmacies/views/pharmacies_view.dart';
 import '../modules/rappelmedi/bindings/rappelmedi_binding.dart';
 import '../modules/rappelmedi/views/rappelmedi_view.dart';
+import '../modules/receiptpay/bindings/receiptpay_binding.dart';
+import '../modules/receiptpay/views/receiptpay_view.dart';
 import '../modules/searchproduct/bindings/searchproduct_binding.dart';
 import '../modules/searchproduct/views/searchproduct_view.dart';
 
@@ -120,6 +122,11 @@ class AppPages {
       name: _Paths.ADDRESS,
       page: () => const AddressView(),
       binding: AddressBinding(),
+    ),
+    GetPage(
+      name: _Paths.RECEIPTPAY,
+      page: () => const ReceiptpayView(),
+      binding: ReceiptpayBinding(),
     ),
   ];
 }
