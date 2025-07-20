@@ -17,6 +17,8 @@ import '../modules/home/views/basket_view.dart';
 import '../modules/home/views/product_list_view.dart';
 import '../modules/orderDetail/bindings/order_detail_binding.dart';
 import '../modules/orderDetail/views/order_detail_view.dart';
+import '../modules/orderpharmacien/bindings/orderpharmacien_binding.dart';
+import '../modules/orderpharmacien/views/orderpharmacien_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/paiement/bindings/paiement_binding.dart';
@@ -49,6 +51,7 @@ class AppPages {
   static const ORDER_DETAIL = Routes.ORDER_DETAIL;
   static const SEARCHPRODUCT = Routes.SEARCHPRODUCT;
   static const PHARMACIEN = Routes.PHARMACIEN;
+  static const ORDERPHARMACIEN = Routes.ORDERPHARMACIEN;
 
   static final routes = [
     GetPage(
@@ -135,6 +138,11 @@ class AppPages {
       name: _Paths.PHARMACIEN,
       page: () => const PharmacienView(),
       binding: PharmacienBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDERPHARMACIEN,
+      page: () => const OrderpharmacienView(),
+      binding: OrderpharmacienBinding(),
     ),
   ];
 }

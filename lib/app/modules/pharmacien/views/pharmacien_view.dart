@@ -166,7 +166,7 @@ class PharmacienView extends GetView<PharmacienController> {
                               children: [
                                 ServiceCard(
                                   onTap: () {
-                                    Get.offNamed(AppPages.PRODUIT_LIST);
+                                    Get.toNamed(AppPages.ORDERPHARMACIEN);
                                   },
                                   leading: Image.asset(
                                     "assets/images/shop1.png",
@@ -177,7 +177,7 @@ class PharmacienView extends GetView<PharmacienController> {
                                 ),
                                 ServiceCard(
                                   onTap: () {
-                                    Get.toNamed(Routes.PHARMACIES);
+                                    // Get.toNamed(AppPages.ORDERPHARMACIEN);
                                   },
                                   leading: Image.asset(
                                     "assets/images/store.png",
