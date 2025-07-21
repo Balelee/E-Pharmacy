@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
-import 'package:pharmix/generated/locales.g.dart';
 import '../controllers/orderpharmacien_controller.dart';
 
 class OrderpharmacienView extends GetView<OrderpharmacienController> {
@@ -24,25 +23,89 @@ class OrderpharmacienView extends GetView<OrderpharmacienController> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        leading: BackButton(
+          onPressed: () {
+            Get.back();
+          },
+          color: Colors.white,
+        ),
+        actions: [
+          Obx(
+            () => Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Icon(
+                        Icons.shopping_cart,
+                        size: 25,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Positioned(
+                      right: -2,
+                      top: -2,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 16,
+                          minHeight: 16,
+                        ),
+                        child: CustomText(
+                          text: controller.orders.length.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       body: Obx(() {
         if (controller.orders.isEmpty) {
-          return const Center(child: Text("Aucune commande disponible"));
+          return const Center(
+              child: SizedBox(
+            width: 25,
+            height: 25,
+            child: CircularProgressIndicator(
+              strokeWidth: 3,
+              color: Colors.green,
+            ),
+          ));
         }
         return Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomToast(
-                icon: Icons.info_outline,
-                message:
-                    "Cher auxiliaire, Merci de vérifier chaque commande client afin de valider ou annuler selon la situation.",
-                backgroundColor: AppColors.primary.withOpacity(0.6),
-                onClose: () {
-                  // controller.showToast.value = false;
-                },
-              ),
+              controller.showToast.value
+                  ? CustomToast(
+                      icon: Icons.info_outline,
+                      message:
+                          "Cher auxiliaire, Merci de vérifier chaque commande client afin de valider ou annuler selon la situation.",
+                      backgroundColor: AppColors.primary.withOpacity(0.6),
+                      onClose: () {
+                        controller.showToast.value = false;
+                      },
+                    )
+                  : SizedBox.shrink(),
               SizedBox(
                 height: 14,
               ),
@@ -104,15 +167,46 @@ class OrderpharmacienView extends GetView<OrderpharmacienController> {
                           color: Colors.green.withOpacity(0.2),
                           spreadRadius: 2,
                           blurRadius: 6,
-                          offset: const Offset(0, 1),
+                          offset: Offset(0, 1),
                         ),
                       ],
                     ),
-                    child: GestureDetector(
-                      onTap: () {
-                        // controller.sortByName();
+                    child: PopupMenuButton<String>(
+                      color: AppColors.background,
+                      icon: Icon(
+                        Icons.sort,
+                        size: 25,
+                        color: AppColors.textSecondary,
+                      ),
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          value: 'garde',
+                          child: Text(
+                            "Validé",
+                            style: TextStyle(color: AppColors.textSecondary),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 'normal',
+                          child: Text(
+                            "Annulé",
+                            style: TextStyle(color: AppColors.textSecondary),
+                          ),
+                        ),
+                      ],
+                      onSelected: (value) async {
+                        // if (value == 'garde') {
+                        //   controller.listTitle.value =
+                        //       LocaleKeys.pharmacie_garde.tr;
+                        //   controller.isGardeMode.value = true;
+                        //   await controller.loadPharmaciesDeGarde();
+                        // } else if (value == 'normal') {
+                        //   controller.listTitle.value =
+                        //       LocaleKeys.liste_pharmacies.tr;
+                        //   controller.isGardeMode.value = false;
+                        //   controller.loadPharmacies(isRefresh: true);
+                        // }
                       },
-                      child: const Icon(Icons.import_export, size: 25),
                     ),
                   )
                 ],
@@ -127,144 +221,179 @@ class OrderpharmacienView extends GetView<OrderpharmacienController> {
                 ),
               ),
               const SizedBox(height: 10),
-              // Liste des commandes
-              Expanded(
-                child: ListView.builder(
-                  itemCount: controller.orders.length,
-                  itemBuilder: (context, index) {
-                    final order = controller.orders[index];
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            spreadRadius: 1,
-                            blurRadius: 6,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Material(
-                        elevation: 2,
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.white,
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.all(12),
-                          title: Text(
-                            'Commande #${order.id}',
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 6),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    const TextSpan(
-                                      text: 'Produits : ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black87,
-                                        fontSize: 13,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'paracetamol, diclore, fuvrer',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontStyle: FontStyle.italic,
-                                        color: Colors.black54,
-                                        fontSize: 13,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    const TextSpan(
-                                      text: 'Montant total : ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black87,
-                                        fontSize: 13,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: '23000 CFA',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black54,
-                                        fontSize: 13,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 8),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        width: 1,
-                                        color: Colors.green,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      "Valider",
-                                      style: TextStyle(
-                                        color: Colors.green,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 8),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        width: 1,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      "Annuler",
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+              controller.orders.isEmpty
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/no_data.png',
+                          fit: BoxFit.contain,
                         ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: CustomText(
+                            text: "Aucune commande disponible",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        )
+                      ],
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                        itemCount: controller.orders.length,
+                        itemBuilder: (context, index) {
+                          final order = controller.orders[index];
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Material(
+                              elevation: 2,
+                              borderRadius: BorderRadius.circular(12),
+                              color: Colors.white,
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(12),
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CustomText(
+                                      text: 'Commande #${order.id}',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    CustomText(
+                                      text: "Validé",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.green,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 6),
+                                    Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          const TextSpan(
+                                            text: 'Produits : ',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black87,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: order.orderDetails
+                                                .map((e) => e.productName)
+                                                .join(', '),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle: FontStyle.italic,
+                                              color: Colors.black54,
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          const TextSpan(
+                                            text: 'Montant total : ',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black87,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text:
+                                                "${order.amount.toString()} CFA",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black54,
+                                              fontSize: 13,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 8),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            border: Border.all(
+                                              width: 1,
+                                              color: Colors.green,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "Valider",
+                                            style: TextStyle(
+                                              color: Colors.green,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 8,
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 8),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            border: Border.all(
+                                              width: 1,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "Annuler",
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-              ),
+                    ),
             ],
           ),
         );

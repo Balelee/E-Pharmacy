@@ -1,37 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pharmix/app/data/enums/orderstatus.dart';
 import 'package:pharmix/app/data/models/order.dart';
+import 'package:pharmix/app/data/providers/product_provider.dart';
 
 class OrderpharmacienController extends GetxController {
-
+  final ProductProvider produitProvider = ProductProvider();
   final orders = <Order>[].obs;
+  final RxBool showToast = true.obs;
+
+
+    void loadOrdersData() async {
+    orders.value = await produitProvider.getOrdersCommand() ?? [];
+  }
 
   @override
   void onInit() {
     super.onInit();
-    fetchOrders(); 
+    loadOrdersData();
   }
 
-  void fetchOrders() {
-    // Simule ou récupère via API
-    orders.value = [
-      Order(
-        id: 1,
-        amount: "15000",
-        status: OrderStatus.traite,
-        statusColor: Colors.green,
-        orderDetails: [],
-      ),
-      Order(
-        id: 2,
-        amount: "8000",
-        status: OrderStatus.enattent,
-        statusColor: Colors.orange,
-        orderDetails: [],
-      ),
-    ];
-  }
   @override
   void onReady() {
     super.onReady();
