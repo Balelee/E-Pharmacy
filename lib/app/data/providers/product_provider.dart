@@ -1,4 +1,3 @@
-
 import 'package:pharmix/app/cummon/controllers/base_controller.dart';
 import 'package:pharmix/app/data/models/order.dart';
 import 'package:pharmix/app/data/models/product_filter.dart';
@@ -84,7 +83,7 @@ class ProductProvider with BaseController {
     }
   }
 
- Future<List<Searchproduct>> searchProductByName(
+  Future<List<Searchproduct>> searchProductByName(
     String query, {
     int page = 1,
     int limit = 20,
@@ -114,4 +113,24 @@ class ProductProvider with BaseController {
     }
   }
 
+  Future<Order?> updateOrderStatus({
+    required int orderId,
+    required String status,
+  }) async {
+    try {
+      final response = await ApiProvider.put(
+        auth: true,
+        apiURL: ApiRoutes.orderStatus.format({'orderId': orderId}),
+        data: {'orderStatus': status},
+      ).catchError(handleError);
+      if (response != null && response['data'] != null) {
+        return Order.fromJson(response['data']);
+      }
+      DialogHelper.showErrorSnackbar(message: "Échec de la mise à jour.");
+      return null;
+    } catch (e) {
+      DialogHelper.showErrorSnackbar(message: "Erreur: $e");
+      return null;
+    }
+  }
 }

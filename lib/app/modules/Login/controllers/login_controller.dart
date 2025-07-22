@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/auth_message.dart';
@@ -13,7 +12,7 @@ class LoginController extends GetxController {
 
   GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
 // form controllers
-  final phoneController = FormHelper.getController();
+  final emailphoneController = FormHelper.getController();
   final passwordController = FormHelper.getController();
   // Reactive variable to handle password visibility
   var isPasswordHidden = true.obs;
@@ -29,7 +28,7 @@ class LoginController extends GetxController {
     super.onInit();
     changeContent.value = SplashViewView();
     changeScreen();
-    phoneController.text = "53380701";
+    emailphoneController.text = "54738460";
     passwordController.text = "adminadmin";
   }
 
@@ -54,7 +53,7 @@ class LoginController extends GetxController {
   void login() async {
     if (!loginFormkey.currentState!.validate()) return;
     AuthMessage? authMessage = await authProvider.login(
-      phone: contryCode.value + phoneController.text.trim(),
+      phone: contryCode.value + emailphoneController.text.trim(),
       password: passwordController.text.trim(),
     );
     if (authMessage != null) {

@@ -7,9 +7,22 @@ class OrderpharmacienController extends GetxController {
   final orders = <Order>[].obs;
   final RxBool showToast = true.obs;
 
-
-    void loadOrdersData() async {
+  void loadOrdersData() async {
     orders.value = await produitProvider.getOrdersCommand() ?? [];
+  }
+
+  void updateOrderStatus(int orderId, String status) async {
+    final updatedOrder = await produitProvider.updateOrderStatus(
+      orderId: orderId,
+      status: status,
+    );
+    if (updatedOrder != null) {
+      int index = orders.indexWhere((order) => order.id == orderId);
+      if (index != -1) {
+        orders[index] = updatedOrder;
+        orders.refresh();
+      }
+    }
   }
 
   @override
@@ -27,5 +40,4 @@ class OrderpharmacienController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
 }

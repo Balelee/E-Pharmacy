@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/enums/orderstatus.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
@@ -273,12 +274,20 @@ class OrderpharmacienView extends GetView<OrderpharmacienController> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     CustomText(
-                                      text: "Validé",
+                                      text: order.status.label == "Traité"
+                                          ? "Validé"
+                                          : order.status.label == "Annulé"
+                                              ? "Annulé"
+                                              : "",
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color: Colors.green,
+                                        color: order.status.label == "Traité"
+                                            ? Colors.green
+                                            : order.status.label == "Annulé"
+                                                ? Colors.red
+                                                : Colors.transparent,
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 subtitle: Column(
@@ -341,51 +350,66 @@ class OrderpharmacienView extends GetView<OrderpharmacienController> {
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     const SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 8),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            border: Border.all(
-                                              width: 1,
-                                              color: Colors.green,
-                                            ),
-                                          ),
-                                          child: Text(
-                                            "Valider",
-                                            style: TextStyle(
-                                              color: Colors.green,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20, vertical: 8),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            border: Border.all(
-                                              width: 1,
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                          child: Text(
-                                            "Annuler",
-                                            style: TextStyle(
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                    order.status.label != "Traité" &&
+                                            order.status.label != "Annulé"
+                                        ? Row(
+                                            children: [
+                                              GestureDetector(
+                                                child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 20,
+                                                      vertical: 8),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    border: Border.all(
+                                                        width: 1,
+                                                        color: Colors.green),
+                                                  ),
+                                                  child: Text(
+                                                    "Valider",
+                                                    style: TextStyle(
+                                                        color: Colors.green),
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  controller.updateOrderStatus(
+                                                      order.id, "traite");
+                                                },
+                                              ),
+                                              SizedBox(width: 8),
+                                              GestureDetector(
+                                                child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 20,
+                                                      vertical: 8),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    border: Border.all(
+                                                        width: 1,
+                                                        color: Colors.red),
+                                                  ),
+                                                  child: Text(
+                                                    "Annuler",
+                                                    style: TextStyle(
+                                                        color: Colors.red),
+                                                  ),
+                                                ),
+                                                onTap: () {
+                                                  controller.updateOrderStatus(
+                                                      order.id, "annule");
+                                                },
+                                              ),
+                                            ],
+                                          )
+                                        : SizedBox.shrink()
                                   ],
                                 ),
                               ),

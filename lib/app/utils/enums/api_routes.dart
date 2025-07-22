@@ -12,7 +12,8 @@ enum ApiRoutes {
   pharmacies('pharmacies?page={pageKey}&q={query}'),
   tips('tips'),
   pillremember('pilrembers'),
-  getremenbers('pilrembers');
+  getremenbers('pilrembers'),
+  orderStatus('orders/{orderId}/status');
 
   final String path;
   const ApiRoutes(this.path);

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/modules/Login/controllers/login_controller.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/utils/validators.dart';
-import 'package:pharmix/app/widgets/country_code_box.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_icon.dart';
 import 'package:pharmix/app/widgets/custom_text_form_field.dart';
@@ -60,39 +58,36 @@ class LoginContentView extends GetView<LoginController> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: CustomTextFormField(
-                            keyboardType: TextInputType.phone,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            controller: controller.phoneController,
-                            labelText: LocaleKeys.phone.tr,
-                            prefix: contryCodeBox(
-                                selectedCode: controller.contryCode),
-                            validator: (value) {
-                              return Validators.validatePhoneNumber(value);
-                            },
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
+                          child: SizedBox(
+                            height: 50,
+                            child: CustomTextFormField(
+                              controller: controller.emailphoneController,
+                              labelText: "Email ou Téléphone",
+                              prefix: Icon(Icons.lock),
+                            ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20.0),
-                          child: CustomTextFormField(
-                            controller: controller.passwordController,
-                            labelText: LocaleKeys.password.tr,
-                            prefix: Icon(Icons.lock),
-                            obscureText: controller.isPasswordHidden.value,
-                            suffix: IconButton(
-                              icon: Icon(
-                                controller.isPasswordHidden.value
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
+                          padding: const EdgeInsets.symmetric(vertical: 15.0),
+                          child: SizedBox(
+                            height: 50,
+                            child: CustomTextFormField(
+                              controller: controller.passwordController,                              labelText: LocaleKeys.password.tr,
+                              prefix: Icon(Icons.lock),
+                              obscureText: controller.isPasswordHidden.value,
+                              suffix: IconButton(
+                                icon: Icon(
+                                  controller.isPasswordHidden.value
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                ),
+                                onPressed: controller.togglePasswordVisibility,
                               ),
-                              onPressed: controller.togglePasswordVisibility,
+                              validator: (value) {
+                                return Validators.validatePassword(value);
+                              },
                             ),
-                            validator: (value) {
-                              return Validators.validatePassword(value);
-                            },
                           ),
                         ),
                       ],
