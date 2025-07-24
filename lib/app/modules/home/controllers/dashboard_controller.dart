@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/models/tip.dart';
-import 'package:pharmix/app/data/models/user.dart';
 import 'package:pharmix/app/data/providers/tip_provider.dart';
 
 class DashboardController extends GetxController {
@@ -24,18 +23,6 @@ class DashboardController extends GetxController {
   String get userEmail => userController.user?.email ?? 'No email';
   String? get userAvatar => null;
 
-  var user = User(
-    id: 1,
-    username: "Issiaka Ouedraogo",
-    firstname: "Issiaka",
-    lastname: "OUEDRAOGO",
-    phone: "77890534",
-    birthdate: "17/03/2004",
-    birthplace: "Aboisso",
-    email: "issa@gmail.com",
-   
-  );
-
   // recuperer les conseils du jour
   Future<void> fetchTips() async {
     final Rtips = await tipProvider.loadTipsData();
@@ -45,7 +32,6 @@ class DashboardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    userController.updateUser(user);
     ever(userController.userRx, (_) => update());
     fetchTips();
   }

@@ -94,9 +94,6 @@ class EditProfilePage extends GetView<ProfileController> {
                       label: 'Téléphone', value: controller.userPhone),
                   const SizedBox(height: 12),
                   _buildTextField(label: 'Email', value: controller.userEmail),
-                  const SizedBox(height: 12),
-                  _buildTextField(
-                      label: 'Adresse', value: controller.userAdress),
                   const SizedBox(height: 24),
                   CustomButton.primaryButton(
                     onPressed: () {},
