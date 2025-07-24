@@ -1,6 +1,3 @@
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/base_controller.dart';
 import 'package:pharmix/app/data/models/auth_message.dart';
@@ -9,58 +6,41 @@ import 'package:pharmix/app/data/models/user.dart';
 import 'package:pharmix/app/data/providers/api_provider.dart';
 import 'package:pharmix/app/utils/enums/api_routes.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
-
 import '../repositories/user_repository.dart';
 
 class AuthProvider with BaseController {
-  Future<AuthMessage?> login({
-    required String phone,
+  Future<dynamic> login({
+    required String email,
     required String password,
-    ValueSetter? error,
   }) async {
     try {
       showLoading();
-      return await ApiProvider.post(
+      final data = {
+        'email': email,
+        'password': password,
+      };
+      print("Avant appel post");
+      final response = await ApiProvider.post(
         auth: false,
         apiURL: ApiRoutes.login.path,
-        data: {'phone': phone, 'password': password},
-      ).catchError(handleError).then((response) {
-        hideLoading();
-        if (response != null) {
-          AuthMessage authMessage = AuthMessage.fromJson(response['infos']);
-          return authMessage;
-        }
-        return null;
-      });
-    } catch (e) {
+        data: data,
+      
+      );
       hideLoading();
-      DialogHelper.showErrorSnackbar(message: "Login error: $e");
-      return null;
-    }
-  }
+      if (response != null) {
+        print(response['data']);
+        Token.saveAuthToken(response['data']['token']);
+        User user = User.fromJson(response['data']);
+        await Get.find<UserRepository>().saveUser(user);
+        return user;
+      }
 
-  Future<bool> verifyOtp({required String otp, required String phone}) async {
-    try {
-      showLoading();
-      return await ApiProvider.post(
-              auth: false,
-              apiURL: ApiRoutes.verifyOtp.path,
-              data: {'otp_code': otp, 'phone': phone})
-          .catchError(handleError)
-          .then((response) async{
-        hideLoading();
-        if (response != null) {
-          Token.saveAuthToken(response['data']['token']);
-          User user = User.fromJson(response['data']);
-          await Get.find<UserRepository>().saveUser(user);
-          return true;
-        }
-        return false;
-      });
+      return null;
     } catch (e) {
       hideLoading();
-      DialogHelper.showErrorSnackbar(message: "Verify otp error: $e");
-      return false;
+      handleError(e);
+      DialogHelper.showErrorSnackbar(message: "Erreur de connexion: $e");
+      return null;
     }
   }
 

@@ -181,32 +181,36 @@ class OrderpharmacienView extends GetView<OrderpharmacienController> {
                       ),
                       itemBuilder: (context) => [
                         PopupMenuItem(
-                          value: 'garde',
+                          value: 'traite',
                           child: Text(
-                            "Validé",
+                            "Commd validé",
                             style: TextStyle(color: AppColors.textSecondary),
                           ),
                         ),
                         PopupMenuItem(
-                          value: 'normal',
+                          value: 'annule',
                           child: Text(
-                            "Annulé",
+                            "Commd annulé",
+                            style: TextStyle(color: AppColors.textSecondary),
+                          ),
+                        ),
+                        PopupMenuItem(
+                          value: 'Tous',
+                          child: Text(
+                            "Tous",
                             style: TextStyle(color: AppColors.textSecondary),
                           ),
                         ),
                       ],
                       onSelected: (value) async {
-                        // if (value == 'garde') {
-                        //   controller.listTitle.value =
-                        //       LocaleKeys.pharmacie_garde.tr;
-                        //   controller.isGardeMode.value = true;
-                        //   await controller.loadPharmaciesDeGarde();
-                        // } else if (value == 'normal') {
-                        //   controller.listTitle.value =
-                        //       LocaleKeys.liste_pharmacies.tr;
-                        //   controller.isGardeMode.value = false;
-                        //   controller.loadPharmacies(isRefresh: true);
-                        // }
+                        if (value == 'traite') {
+                          await controller.fetchOrdersByStatus('traite');
+                        } else if (value == 'annule') {
+                          await controller.fetchOrdersByStatus('annule');
+                        } else {
+                          controller.selectedStatus.value = '';
+                          controller.loadOrdersData();
+                        }
                       },
                     ),
                   )
@@ -214,8 +218,12 @@ class OrderpharmacienView extends GetView<OrderpharmacienController> {
               ),
               const SizedBox(height: 25),
               CustomText(
-                text: "Liste des commandes",
-                style: TextStyle(
+                text: controller.selectedStatus.value == 'traite'
+                    ? "Liste des commandes validées"
+                    : controller.selectedStatus.value == 'annule'
+                        ? "Liste des commandes annulées"
+                        : "Liste des commandes",
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,

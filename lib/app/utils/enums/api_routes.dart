@@ -13,7 +13,9 @@ enum ApiRoutes {
   tips('tips'),
   pillremember('pilrembers'),
   getremenbers('pilrembers'),
-  orderStatus('orders/{orderId}/status');
+  orderStatus('orders/{orderId}/status'),
+  ordersValide('orders-valide'),
+  ordersAnnule('orders-annule');
 
   final String path;
   const ApiRoutes(this.path);

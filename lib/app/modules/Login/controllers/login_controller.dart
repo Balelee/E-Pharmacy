@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pharmix/app/data/models/auth_message.dart';
+import 'package:pharmix/app/data/models/user.dart';
 import 'package:pharmix/app/data/providers/auth_provider.dart';
 import 'package:pharmix/app/modules/Login/views/login_content_view.dart';
 import 'package:pharmix/app/modules/Login/views/splash_view_view.dart';
@@ -22,7 +22,6 @@ class LoginController extends GetxController {
   }
 
   Rx<Widget> changeContent = Rx<Widget>(Container());
-  RxString contryCode = '+226'.obs;
   @override
   void onInit() {
     super.onInit();
@@ -52,12 +51,12 @@ class LoginController extends GetxController {
 
   void login() async {
     if (!loginFormkey.currentState!.validate()) return;
-    AuthMessage? authMessage = await authProvider.login(
-      phone: contryCode.value + emailphoneController.text.trim(),
+    User? authMessage = await authProvider.login(
+      email: emailphoneController.text.trim(),
       password: passwordController.text.trim(),
     );
     if (authMessage != null) {
-      Get.toNamed(AppPages.OTP, arguments: authMessage);
+      Get.toNamed(AppPages.BASE, arguments: authMessage);
     }
   }
 }

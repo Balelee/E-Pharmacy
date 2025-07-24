@@ -73,7 +73,8 @@ class LoginContentView extends GetView<LoginController> {
                           child: SizedBox(
                             height: 50,
                             child: CustomTextFormField(
-                              controller: controller.passwordController,                              labelText: LocaleKeys.password.tr,
+                              controller: controller.passwordController,
+                              labelText: LocaleKeys.password.tr,
                               prefix: Icon(Icons.lock),
                               obscureText: controller.isPasswordHidden.value,
                               suffix: IconButton(
@@ -113,7 +114,6 @@ class LoginContentView extends GetView<LoginController> {
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: CustomButton.primaryButton(
                         onPressed: () {
-                          // Get.toNamed(AppPages.OTP);
                           controller.login();
                         },
                         buttonTitle: LocaleKeys.login.tr),

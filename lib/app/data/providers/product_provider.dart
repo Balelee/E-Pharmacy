@@ -133,4 +133,24 @@ class ProductProvider with BaseController {
       return null;
     }
   }
+
+  Future<List<Order>> getOrdersByStatus(String status) async {
+    try {
+      final String url = status == "traite"
+          ? ApiRoutes.ordersValide.path
+          : ApiRoutes.ordersAnnule.path;
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: url,
+      ).catchError(handleError);
+      if (response != null && response['data'] != null) {
+        final List<dynamic> data = response['data'];
+        return data.map((json) => Order.fromJson(json)).toList();
+      }
+      return [];
+    } catch (e) {
+      DialogHelper.showErrorSnackbar(message: "fetching error: $e");
+      return [];
+    }
+  }
 }

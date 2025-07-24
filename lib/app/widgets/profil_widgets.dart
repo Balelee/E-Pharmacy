@@ -97,7 +97,7 @@ class ProfileDetails extends StatelessWidget {
               '${user.firstname ?? ''} ${user.lastname ?? ''}',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            Text('@${user.firstname ?? ''} | Joined ${user.joinedAt ?? ''}',
+            Text('@${user.firstname ?? ''} | Joined ${user.firstname ?? ''}',
                 style: TextStyle(color: Colors.grey)),
             const SizedBox(height: 20),
             ProfileField(
@@ -123,7 +123,7 @@ class ProfileDetails extends StatelessWidget {
             ProfileField(
               field: 'address',
               label: 'Address',
-              value: user.address ?? '',
+              value: user.userStatus ?? '',
             ),
           ],
         ),

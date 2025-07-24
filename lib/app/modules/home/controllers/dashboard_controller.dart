@@ -25,16 +25,16 @@ class DashboardController extends GetxController {
   String? get userAvatar => null;
 
   var user = User(
-      id: 1,
-      username: "Issiaka Ouedraogo",
-      firstname: "Issiaka",
-      lastname: "OUEDRAOGO",
-      phone: "77890534",
-      birthdate: "17/03/2004",
-      birthplace: "Aboisso",
-      email: "issa@gmail.com",
-      address: "Ouagadougou, Belle ville",
-      joinedAt: 'April 2025');
+    id: 1,
+    username: "Issiaka Ouedraogo",
+    firstname: "Issiaka",
+    lastname: "OUEDRAOGO",
+    phone: "77890534",
+    birthdate: "17/03/2004",
+    birthplace: "Aboisso",
+    email: "issa@gmail.com",
+   
+  );
 
   // recuperer les conseils du jour
   Future<void> fetchTips() async {
