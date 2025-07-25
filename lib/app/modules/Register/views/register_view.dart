@@ -117,6 +117,7 @@ class RegisterView extends GetView<RegisterController> {
                               height: 50,
                               child: CustomTextFormField(
                                 labelText: "Nom d'utilisateur",
+                                controller: controller.usernameController,
                                 prefix: Icon(Icons.person),
                               ),
                             ),
@@ -131,6 +132,7 @@ class RegisterView extends GetView<RegisterController> {
                                   height: 50,
                                   child: CustomTextFormField(
                                     labelText: "Nom",
+                                    controller: controller.lastnameController,
                                     prefix: Icon(Icons.person),
                                   ),
                                 ),
@@ -139,6 +141,7 @@ class RegisterView extends GetView<RegisterController> {
                                   height: 50,
                                   child: CustomTextFormField(
                                     labelText: "Prénom(s)",
+                                    controller: controller.firstnameController,
                                     prefix: Icon(Icons.person),
                                   ),
                                 ),
@@ -151,6 +154,7 @@ class RegisterView extends GetView<RegisterController> {
                               height: 50,
                               child: CustomTextFormField(
                                 labelText: "Email",
+                                controller: controller.emailController,
                                 prefix: Icon(Icons.email),
                               ),
                             ),
@@ -161,6 +165,7 @@ class RegisterView extends GetView<RegisterController> {
                               height: 50,
                               child: CustomTextFormField(
                                 labelText: "Téléphone",
+                                controller: controller.phoneController,
                                 prefix: Icon(Icons.phone),
                                 keyboardType: TextInputType.phone,
                               ),
@@ -176,6 +181,7 @@ class RegisterView extends GetView<RegisterController> {
                                   height: 50,
                                   child: CustomTextFormField(
                                     labelText: "Date naissance",
+                                    controller: controller.birthdateController,
                                     prefix: Icon(Icons.calendar_month),
                                   ),
                                 ),
@@ -184,6 +190,7 @@ class RegisterView extends GetView<RegisterController> {
                                   height: 50,
                                   child: CustomTextFormField(
                                     labelText: "Lieu naissance",
+                                    controller: controller.birthplaceController,
                                     prefix: Icon(Icons.place),
                                   ),
                                 ),

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/base_controller.dart';
-import 'package:pharmix/app/data/models/auth_message.dart';
 import 'package:pharmix/app/data/models/token.dart';
 import 'package:pharmix/app/data/models/user.dart';
 import 'package:pharmix/app/data/providers/api_provider.dart';
@@ -38,22 +37,20 @@ class AuthProvider with BaseController {
     }
   }
 
-  Future<AuthMessage?> signUp(
-      {required String phone, required String password}) async {
+  Future<User?> signUp(User user) async {
     try {
       showLoading();
-      return await ApiProvider.post(
+      final response = await ApiProvider.post(
         auth: false,
         apiURL: ApiRoutes.register.path,
-        data: {'phone': phone, 'password': password},
-      ).catchError(handleError).then((response) {
-        hideLoading();
-        if (response != null) {
-          AuthMessage authMessage = AuthMessage.fromJson(response['infos']);
-          return authMessage;
-        }
-        return null;
-      });
+        data: user.toJson(),
+      ).catchError(handleError);
+      hideLoading();
+      if (response != null) {
+        final newUser = User.fromJson(response['data']);
+        return newUser;
+      }
+      return null;
     } catch (e) {
       hideLoading();
       DialogHelper.showErrorSnackbar(message: "Sign-up error: $e");

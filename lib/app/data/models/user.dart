@@ -1,5 +1,5 @@
 class User {
-  final int id;
+  final int? id;
   final String? username;
   final String? firstname;
   final String? lastname;
@@ -8,9 +8,10 @@ class User {
   final String? birthplace;
   final String? email;
   final String? userStatus;
+  final String? password;
 
   User({
-    required this.id,
+    this.id,
     required this.username,
     required this.firstname,
     required this.lastname,
@@ -19,19 +20,22 @@ class User {
     required this.birthplace,
     required this.email,
     this.userStatus,
+    required this.password,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-        id: json['id'],
-        username: json['userName'],
-        firstname: json['firstName'],
-        lastname: json['lastName'],
-        phone: json['phone'],
-        birthdate: json['birthDate'],
-        birthplace: json['birthPlace'],
-        email: json['email'],
-        userStatus: json['userType']);
+      id: json['id'],
+      username: json['userName'],
+      firstname: json['firstName'],
+      lastname: json['lastName'],
+      phone: json['phone'],
+      birthdate: json['birthDate'],
+      birthplace: json['birthPlace'],
+      email: json['email'],
+      userStatus: json['userType'],
+      password: json['password'],
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -44,7 +48,8 @@ class User {
       'birthDate': birthdate,
       'birthPlace': birthplace,
       'email': email,
-      'userType': userStatus
+      'userType': userStatus,
+      'password': password
     };
   }
 
@@ -59,14 +64,16 @@ class User {
       String? email,
       String? userStatus}) {
     return User(
-        id: id ?? this.id,
-        username: username ?? this.username,
-        firstname: firstname ?? this.firstname,
-        lastname: lastname ?? this.lastname,
-        phone: phone ?? this.phone,
-        birthdate: birthdate ?? this.birthdate,
-        birthplace: birthplace ?? this.birthplace,
-        email: email ?? this.email,
-        userStatus: userStatus ?? this.userStatus);
+      id: id ?? this.id,
+      username: username ?? this.username,
+      firstname: firstname ?? this.firstname,
+      lastname: lastname ?? this.lastname,
+      phone: phone ?? this.phone,
+      birthdate: birthdate ?? this.birthdate,
+      birthplace: birthplace ?? this.birthplace,
+      email: email ?? this.email,
+      userStatus: userStatus ?? this.userStatus,
+      password: password ?? this.password
+    );
   }
 }
