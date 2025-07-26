@@ -39,20 +39,17 @@ class AuthProvider with BaseController {
 
   Future<User?> signUp(User user) async {
     try {
-      showLoading();
       final response = await ApiProvider.post(
         auth: false,
         apiURL: ApiRoutes.register.path,
         data: user.toJson(),
       ).catchError(handleError);
-      hideLoading();
       if (response != null) {
         final newUser = User.fromJson(response['data']);
         return newUser;
       }
       return null;
     } catch (e) {
-      hideLoading();
       DialogHelper.showErrorSnackbar(message: "Sign-up error: $e");
       return null;
     }

@@ -182,6 +182,7 @@ class RegisterView extends GetView<RegisterController> {
                                   child: CustomTextFormField(
                                     labelText: "Date naissance",
                                     controller: controller.birthdateController,
+                                    inputFormatters: [controller.dateMask],
                                     prefix: Icon(Icons.calendar_month),
                                   ),
                                 ),
@@ -197,39 +198,39 @@ class RegisterView extends GetView<RegisterController> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: SizedBox(
-                              height: 50,
-                              child: CustomTextFormField(
-                                controller: controller.passwordController,
-                                labelText: LocaleKeys.password.tr,
-                                prefix: Icon(Icons.lock),
-                                obscureText: controller.isPasswordHidden.value,
-                                suffix: IconButton(
-                                  icon: Icon(
-                                    controller.isPasswordHidden.value
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                  ),
-                                  onPressed:
-                                      controller.togglePasswordVisibility,
+                          SizedBox(
+                            height: 8,
+                          ),
+                          SizedBox(
+                            height: 70,
+                            child: CustomTextFormField(
+                              controller: controller.passwordController,
+                              labelText: LocaleKeys.password.tr,
+                              prefix: Icon(Icons.lock),
+                              obscureText: controller.isPasswordHidden.value,
+                              suffix: IconButton(
+                                icon: Icon(
+                                  controller.isPasswordHidden.value
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                 ),
-                                validator: (value) {
-                                  return Validators.validatePassword(value);
-                                },
+                                onPressed: controller.togglePasswordVisibility,
                               ),
+                              validator: (value) {
+                                return Validators.validatePassword(value);
+                              },
+                              helperText: ' ', // réserve la place de l'erreur
+                              errorStyle: TextStyle(height: 0.8),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
-                      child: CustomButton.primaryButton(
-                          onPressed: () => controller.signUp(),
-                          buttonTitle: LocaleKeys.buttons_continuous.tr),
-                    ),
+                    CustomButton.primaryButton(
+                        onPressed: () {
+                          controller.signUp();
+                        },
+                        buttonTitle: LocaleKeys.buttons_continuous.tr),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

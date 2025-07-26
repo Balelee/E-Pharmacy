@@ -68,29 +68,30 @@ class LoginContentView extends GetView<LoginController> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15.0),
-                          child: SizedBox(
-                            height: 50,
-                            child: CustomTextFormField(
-                              controller: controller.passwordController,
-                              labelText: LocaleKeys.password.tr,
-                              prefix: Icon(Icons.lock),
-                              obscureText: controller.isPasswordHidden.value,
-                              suffix: IconButton(
-                                icon: Icon(
-                                  controller.isPasswordHidden.value
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                ),
-                                onPressed: controller.togglePasswordVisibility,
-                              ),
-                              validator: (value) {
-                                return Validators.validatePassword(value);
-                              },
-                            ),
-                          ),
+                        SizedBox(
+                          height: 8,
                         ),
+                        SizedBox(
+                          height: 70,
+                          child: CustomTextFormField(
+                            controller: controller.passwordController,
+                            labelText: LocaleKeys.password.tr,
+                            prefix: Icon(Icons.lock),
+                            obscureText: controller.isPasswordHidden.value,
+                            suffix: IconButton(
+                              icon: Icon(
+                                controller.isPasswordHidden.value
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              onPressed: controller.togglePasswordVisibility,
+                            ),
+                            validator: (value) =>
+                                Validators.validatePassword(value),
+                            helperText: ' ', // réserve la place de l'erreur
+                            errorStyle: TextStyle(height: 0.8),
+                          ),
+                        )
                       ],
                     ),
                   ),

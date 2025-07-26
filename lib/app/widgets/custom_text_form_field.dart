@@ -7,6 +7,8 @@ class CustomTextFormField extends StatelessWidget {
   final AutovalidateMode autovalidateMode;
   final String? labelText;
   final String? hintText;
+  final String? helperText;
+  final TextStyle? errorStyle;
   final TextInputType? keyboardType;
   final bool obscureText;
   final String? Function(String?)? validator;
@@ -37,7 +39,10 @@ class CustomTextFormField extends StatelessWidget {
       this.focusedBorder,
       this.isReadOnly = false,
       this.inputFormatters,
-      this.hintStyle});
+      this.hintStyle,
+      this.helperText,
+      this.errorStyle
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +62,8 @@ class CustomTextFormField extends StatelessWidget {
         prefixIcon: prefix,
         suffixIcon: suffix,
         hintStyle: hintStyle,
+        helperText: helperText ,
+        errorStyle: errorStyle,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:pharmix/app/data/models/user.dart';
 import 'package:pharmix/app/data/providers/auth_provider.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
@@ -10,6 +11,7 @@ import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 class RegisterController extends GetxController {
   GlobalKey<FormState> signUpFormkey = GlobalKey<FormState>();
   final AuthProvider authProvider = Get.put(AuthProvider());
+  final dateMask = MaskTextInputFormatter(mask: '##-##-####');
   // form controllers
   final phoneController = FormHelper.getController();
   final usernameController = FormHelper.getController();
@@ -65,14 +67,10 @@ class RegisterController extends GetxController {
       birthdate: birthdateController.text.trim(),
       birthplace: birthplaceController.text.trim(),
     );
-    DialogHelper.hideLoading();
     final newUser = await authProvider.signUp(user);
+    DialogHelper.hideLoading();
     if (newUser != null) {
-      if (newUser.userStatus == 'client') {
-        Get.toNamed(AppPages.BASE, arguments: newUser);
-      } else if (newUser.userStatus == 'pharmacien') {
-        Get.toNamed(AppPages.PHARMACIEN, arguments: newUser);
-      }
+      Get.toNamed(AppPages.LOGINCONTENT);
     }
   }
 }
