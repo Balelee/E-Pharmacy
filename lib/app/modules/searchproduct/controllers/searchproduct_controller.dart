@@ -6,6 +6,7 @@ import 'package:pharmix/app/data/providers/product_provider.dart';
 import 'package:pharmix/app/modules/home/controllers/cart_controller.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
+import 'package:pharmix/generated/locales.g.dart';
 
 class SearchproductController extends GetxController {
   final searchController = TextEditingController();
@@ -41,7 +42,7 @@ class SearchproductController extends GetxController {
     }
 
     DialogHelper.showLoading(
-      message: "Patienter...",
+      message: LocaleKeys.patienter.tr,
       noBkgColor: true,
       colorProgress: Colors.green,
       messageStyle: const TextStyle(fontWeight: FontWeight.bold),

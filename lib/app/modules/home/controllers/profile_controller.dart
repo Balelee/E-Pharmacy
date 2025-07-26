@@ -20,7 +20,7 @@ class ProfileController extends GetxController {
 
   String get userEmail => _userController.user?.email ?? 'No email';
   String get userPhone => _userController.user?.phone ?? 'No phone';
-  String get userAdress => _userController.user?.address ?? 'No adress';
+  String get userAdress => _userController.user?.userStatus ?? 'No adress';
   String get userbirthday => _userController.user?.birthdate ?? 'No birthday';
   String get userbirtplace =>
       _userController.user?.birthplace ?? 'No birthplace';
@@ -76,7 +76,7 @@ class ProfileController extends GetxController {
         lastname: field == 'lastname' ? value : currentUser.lastname,
         email: field == 'email' ? value : currentUser.email,
         phone: field == 'phone' ? value : currentUser.phone,
-        address: field == 'address' ? value : currentUser.address,
+        userStatus: field == 'address' ? value : currentUser.userStatus,
       );
 
       await _userController.updateUser(updatedUser).then((value) {

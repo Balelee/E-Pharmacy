@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pharmix/app/data/models/order.dart';
+import 'package:pharmix/app/data/enums/orderstatus.dart';
 
 class OrderCard extends StatelessWidget {
   final Order order;
@@ -32,7 +33,7 @@ class OrderCard extends StatelessWidget {
                     color: order.statusColor.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(order.status,
+                  child: Text(order.status.label,
                       style: TextStyle(
                           color: order.statusColor,
                           fontWeight: FontWeight.bold)),

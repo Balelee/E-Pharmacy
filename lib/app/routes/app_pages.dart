@@ -5,6 +5,8 @@ import '../modules/Login/views/login_content_view.dart';
 import '../modules/Login/views/login_view.dart';
 import '../modules/Register/bindings/register_binding.dart';
 import '../modules/Register/views/register_view.dart';
+import '../modules/address/bindings/address_binding.dart';
+import '../modules/address/views/address_view.dart';
 import '../modules/clinique/bindings/clinique_binding.dart';
 import '../modules/clinique/views/clinique_view.dart';
 import '../modules/detailProduit/bindings/detail_produit_binding.dart';
@@ -15,12 +17,20 @@ import '../modules/home/views/basket_view.dart';
 import '../modules/home/views/product_list_view.dart';
 import '../modules/orderDetail/bindings/order_detail_binding.dart';
 import '../modules/orderDetail/views/order_detail_view.dart';
+import '../modules/orderpharmacien/bindings/orderpharmacien_binding.dart';
+import '../modules/orderpharmacien/views/orderpharmacien_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/paiement/bindings/paiement_binding.dart';
+import '../modules/paiement/views/paiement_view.dart';
+import '../modules/pharmacien/bindings/pharmacien_binding.dart';
+import '../modules/pharmacien/views/pharmacien_view.dart';
 import '../modules/pharmacies/bindings/pharmacies_binding.dart';
 import '../modules/pharmacies/views/pharmacies_view.dart';
 import '../modules/rappelmedi/bindings/rappelmedi_binding.dart';
 import '../modules/rappelmedi/views/rappelmedi_view.dart';
+import '../modules/receiptpay/bindings/receiptpay_binding.dart';
+import '../modules/receiptpay/views/receiptpay_view.dart';
 import '../modules/searchproduct/bindings/searchproduct_binding.dart';
 import '../modules/searchproduct/views/searchproduct_view.dart';
 
@@ -40,6 +50,8 @@ class AppPages {
   static const RAPPELMEDI = Routes.RAPPELMEDI;
   static const ORDER_DETAIL = Routes.ORDER_DETAIL;
   static const SEARCHPRODUCT = Routes.SEARCHPRODUCT;
+  static const PHARMACIEN = Routes.PHARMACIEN;
+  static const ORDERPHARMACIEN = Routes.ORDERPHARMACIEN;
 
   static final routes = [
     GetPage(
@@ -106,6 +118,31 @@ class AppPages {
       name: _Paths.CLINIQUE,
       page: () => const CliniqueView(),
       binding: CliniqueBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAIEMENT,
+      page: () => const PaiementView(),
+      binding: PaiementBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDRESS,
+      page: () => const AddressView(),
+      binding: AddressBinding(),
+    ),
+    GetPage(
+      name: _Paths.RECEIPTPAY,
+      page: () => const ReceiptpayView(),
+      binding: ReceiptpayBinding(),
+    ),
+    GetPage(
+      name: _Paths.PHARMACIEN,
+      page: () => const PharmacienView(),
+      binding: PharmacienBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDERPHARMACIEN,
+      page: () => const OrderpharmacienView(),
+      binding: OrderpharmacienBinding(),
     ),
   ];
 }

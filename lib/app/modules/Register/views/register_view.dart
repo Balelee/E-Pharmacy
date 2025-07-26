@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/utils/constants/size_constant.dart';
 import 'package:pharmix/app/utils/validators.dart';
-import 'package:pharmix/app/widgets/country_code_box.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_icon.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
@@ -25,17 +23,16 @@ class RegisterView extends GetView<RegisterController> {
         body: Center(
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(
-                vertical: 16, horizontal: SizeConstant.haurizontalPadding),
+                vertical: 20, horizontal: SizeConstant.haurizontalPadding),
             child: Obx(
               () => SizedBox(
                 width: context.width,
-                // height: context.height,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 14.0),
+                      padding: const EdgeInsets.symmetric(vertical: 35.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -51,18 +48,15 @@ class RegisterView extends GetView<RegisterController> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: Center(
-                        child: CustomText(
-                          text: LocaleKeys.continue_with.tr.toUpperCase(),
-                          style: AppTextStyles.bodyText1,
-                          textAlign: TextAlign.center,
-                        ),
+                    Center(
+                      child: CustomText(
+                        text: LocaleKeys.continue_with.tr.toUpperCase(),
+                        style: AppTextStyles.bodyText1,
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -104,11 +98,10 @@ class RegisterView extends GetView<RegisterController> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Center(
                         child: CustomText(
-                          text:
-                              LocaleKeys.or_with_phone_number.tr.toUpperCase(),
+                          text: "OU AVEC VOS INFORTIONS PERSONNELLES",
                           style: AppTextStyles.bodyText1,
                           textAlign: TextAlign.center,
                         ),
@@ -120,22 +113,96 @@ class RegisterView extends GetView<RegisterController> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: CustomTextFormField(
-                              keyboardType: TextInputType.phone,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              controller: controller.phoneController,
-                              labelText: LocaleKeys.phone.tr,
-                              prefix: contryCodeBox(
-                                  selectedCode: controller.contryCode),
-                              validator: (value) {
-                                return Validators.validatePhoneNumber(value);
-                              },
+                            child: SizedBox(
+                              height: 50,
+                              child: CustomTextFormField(
+                                labelText: "Nom d'utilisateur",
+                                controller: controller.usernameController,
+                                prefix: Icon(Icons.person),
+                              ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: Get.width / 2.2,
+                                  height: 50,
+                                  child: CustomTextFormField(
+                                    labelText: "Nom",
+                                    controller: controller.lastnameController,
+                                    prefix: Icon(Icons.person),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: Get.width / 2.2,
+                                  height: 50,
+                                  child: CustomTextFormField(
+                                    labelText: "Prénom(s)",
+                                    controller: controller.firstnameController,
+                                    prefix: Icon(Icons.person),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: SizedBox(
+                              height: 50,
+                              child: CustomTextFormField(
+                                labelText: "Email",
+                                controller: controller.emailController,
+                                prefix: Icon(Icons.email),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: SizedBox(
+                              height: 50,
+                              child: CustomTextFormField(
+                                labelText: "Téléphone",
+                                controller: controller.phoneController,
+                                prefix: Icon(Icons.phone),
+                                keyboardType: TextInputType.phone,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: Get.width / 2.2,
+                                  height: 50,
+                                  child: CustomTextFormField(
+                                    labelText: "Date naissance",
+                                    controller: controller.birthdateController,
+                                    inputFormatters: [controller.dateMask],
+                                    prefix: Icon(Icons.calendar_month),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: Get.width / 2.2,
+                                  height: 50,
+                                  child: CustomTextFormField(
+                                    labelText: "Lieu naissance",
+                                    controller: controller.birthplaceController,
+                                    prefix: Icon(Icons.place),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          SizedBox(
+                            height: 70,
                             child: CustomTextFormField(
                               controller: controller.passwordController,
                               labelText: LocaleKeys.password.tr,
@@ -152,60 +219,33 @@ class RegisterView extends GetView<RegisterController> {
                               validator: (value) {
                                 return Validators.validatePassword(value);
                               },
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20.0),
-                            child: CustomTextFormField(
-                              controller: controller.confirmPasswordController,
-                              labelText: LocaleKeys.confirmPassword.tr,
-                              prefix: Icon(Icons.lock),
-                              obscureText:
-                                  controller.isConfirmPasswordHidden.value,
-                              suffix: IconButton(
-                                icon: Icon(
-                                  controller.isConfirmPasswordHidden.value
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                ),
-                                onPressed:
-                                    controller.toggleConfirmPasswordVisibility,
-                              ),
-                              validator: (value) {
-                                return Validators.validateConfirmPassword(
-                                    value: value,
-                                    passwordController:
-                                        controller.passwordController);
-                              },
+                              helperText: ' ', // réserve la place de l'erreur
+                              errorStyle: TextStyle(height: 0.8),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: CustomButton.primaryButton(
-                          onPressed: () => controller.signUp(),
-                          buttonTitle: LocaleKeys.buttons_continuous.tr),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomText(
-                            text: LocaleKeys.have_account.tr,
-                            style: AppTextStyles.bodyText3,
-                            textAlign: TextAlign.right,
-                          ),
-                          CustomButton.secondaryButton(
-                            buttonTitle: LocaleKeys.login.tr,
-                            onPressed: () {
-                              Get.toNamed(AppPages.LOGINCONTENT);
-                            },
-                          ),
-                        ],
-                      ),
+                    CustomButton.primaryButton(
+                        onPressed: () {
+                          controller.signUp();
+                        },
+                        buttonTitle: LocaleKeys.buttons_continuous.tr),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CustomText(
+                          text: LocaleKeys.have_account.tr,
+                          style: AppTextStyles.bodyText3,
+                          textAlign: TextAlign.right,
+                        ),
+                        CustomButton.secondaryButton(
+                          buttonTitle: LocaleKeys.login.tr,
+                          onPressed: () {
+                            Get.toNamed(AppPages.LOGINCONTENT);
+                          },
+                        ),
+                      ],
                     )
                   ],
                 ),

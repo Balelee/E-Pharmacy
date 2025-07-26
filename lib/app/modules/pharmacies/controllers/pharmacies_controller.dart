@@ -5,6 +5,7 @@ import 'package:pharmix/app/data/models/pharmacy.dart';
 import 'package:pharmix/app/data/providers/pharmacy_provider.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
+import 'package:pharmix/generated/locales.g.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PharmaciesController extends GetxController {
@@ -12,7 +13,7 @@ class PharmaciesController extends GetxController {
   final pharmacyProvider = PharmacyProvider();
   final TextEditingController searchController = TextEditingController();
   final RxString searchText = ''.obs;
-  final RxString listTitle = "Liste des pharmacies".obs;
+  final RxString listTitle = LocaleKeys.liste_pharmacies.tr.obs;
   final RxBool isGardeMode = false.obs;
   RxBool isNameAsc = true.obs;
   Rx<Color> iconColor = AppColors.textSecondary.obs;
@@ -21,7 +22,7 @@ class PharmaciesController extends GetxController {
   RxBool isLoadingMore = false.obs;
   ScrollController scrollController = ScrollController();
   RxBool hasSearched = false.obs;
-   final RxBool showToast = true.obs;
+  final RxBool showToast = true.obs;
 
   @override
   void onInit() {
@@ -76,7 +77,7 @@ class PharmaciesController extends GetxController {
 
     if (pageKey == 1) {
       DialogHelper.showLoading(
-        message: "Patienter...",
+        message: LocaleKeys.patienter.tr,
         noBkgColor: false,
         colorProgress: Colors.green,
         messageStyle: const TextStyle(fontWeight: FontWeight.bold),
@@ -109,7 +110,7 @@ class PharmaciesController extends GetxController {
 
   Future<void> loadPharmaciesDeGarde() async {
     DialogHelper.showLoading(
-      message: "Chargement pharmacies de garde...",
+      message: LocaleKeys.charger_mes_pharmacie.tr,
       noBkgColor: false,
       colorProgress: Colors.green,
       messageStyle: const TextStyle(fontWeight: FontWeight.bold),
@@ -121,7 +122,7 @@ class PharmaciesController extends GetxController {
       hasSearched.value = false;
       currentPage = 1;
     } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "Erreur: $e");
+      DialogHelper.showErrorSnackbar(message: "${LocaleKeys.error.tr}: $e");
     } finally {
       DialogHelper.hideLoading();
     }
@@ -137,7 +138,7 @@ class PharmaciesController extends GetxController {
     } else if (await canLaunchUrl(webUrl)) {
       await launchUrl(webUrl, mode: LaunchMode.externalApplication);
     } else {
-      Get.snackbar("Erreur", "Impossible d’ouvrir Google Maps.");
+      Get.snackbar(LocaleKeys.error.tr, LocaleKeys.impossible_open_map.tr);
     }
   }
 

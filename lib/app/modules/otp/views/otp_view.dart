@@ -101,7 +101,7 @@ class OtpView extends GetView<OtpController> {
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   child: CustomButton.primaryButton(
                       onPressed: () {
-                        controller.verifyOtp(phone: authMessage?.phone);
+                        // controller.verifyOtp(phone: authMessage?.phone);
                       },
                       buttonTitle: LocaleKeys.buttons_continuous.tr),
                 ),

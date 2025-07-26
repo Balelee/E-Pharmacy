@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/enums/orderstatus.dart';
 import 'package:pharmix/app/modules/home/controllers/cart_controller.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
@@ -38,20 +39,22 @@ class BasketView extends GetView<CartController> {
                     CustomText(text: "${controller.orders.length} commandes"),
               ),
               SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: controller.orders
-                      .map((order) => Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            child: GestureDetector(
-                              onTap: () => Get.toNamed(AppPages.ORDER_DETAIL,
-                                  arguments: order),
-                              child: OrderCard(order: order),
-                            ),
-                          ))
-                      .toList(),
-                ),
-              ),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: controller.orders
+                        .map((order) => Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              child: order.status.label == "Annulé"
+                                  ? OrderCard(order: order)
+                                  : GestureDetector(
+                                      onTap: () => Get.toNamed(
+                                          AppPages.ORDER_DETAIL,
+                                          arguments: order),
+                                      child: OrderCard(order: order),
+                                    ),
+                            ))
+                        .toList(),
+                  )),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
                 child: CustomText(

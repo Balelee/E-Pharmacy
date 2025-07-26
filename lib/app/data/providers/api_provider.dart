@@ -47,6 +47,30 @@ class ApiProvider {
     }
   }
 
+  static Future<dynamic> put({
+    required bool auth,
+    required String apiURL,
+    required Map<String, dynamic> data,
+    bool isPhone = false,
+  }) async {
+    try {
+      String token = !isPhone ? Token.getAuthToken() : Token.getPhoneToken();
+      var response = await http
+          .put(
+            Uri.parse(ApiClient.baseUrl + apiURL),
+            headers: ApiClient.headers(auth: auth, token: token),
+            body: jsonEncode(data),
+          )
+          .timeout(const Duration(seconds: timeOutDuration));
+      return ApiClient.processResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet connection', '');
+    } on TimeoutException {
+      throw ApiNotRespondingException('API not responded in time', '');
+    }
+  }
+
+
   static Future<dynamic> delete({
     bool auth = false,
     required String apiURL,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pharmix/app/data/enums/orderdetail.dart';
 
 class OrderDetail {
   final int id;
@@ -7,7 +8,7 @@ class OrderDetail {
   final String productName;
   final String quantity;
   final String priceUnitaire;
-  final String status;
+  final OrderDetailStatus status;
   final Color statusColor;
   final String? imageUrl;
 
@@ -32,7 +33,7 @@ class OrderDetail {
       quantity: json['quantity'].toString(),
       imageUrl: json['productImage'],
       priceUnitaire: (json['priceUnitaire'] as num).toString(),
-      status: json['orderDetailLabel'],
+      status: orderStatusFromString(json['orderDetailStatus']),
       statusColor: Color(int.parse(json['orderDetailColor'] ?? '0xFFF44336')),
     );
   }

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/enums/orderdetail.dart';
+import 'package:pharmix/app/data/enums/orderstatus.dart';
 import 'package:pharmix/app/data/models/order.dart';
+import 'package:pharmix/app/modules/address/views/address_view.dart';
+import 'package:pharmix/app/modules/paiement/views/paiement_view.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/utils/constants/app_constant.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
@@ -43,13 +48,34 @@ class OrderDetailView extends GetView<OrderDetailController> {
                   text: controller.deliveryAdress.value,
                   style: AppTextStyles.caption,
                 ),
-                trailing: CustomButton.secondaryButton(
-                  onPressed: () {},
-                  buttonTitle: "Editer",
-                  mainAxisSize: MainAxisSize.min,
-                  padding: EdgeInsets.all(0.0),
-                  textStyle: TextStyle(fontSize: 13),
-                ),
+                trailing: order.status.label == "En attente"
+                    ? SizedBox.shrink()
+                    : CustomButton.secondaryButton(
+                        onPressed: () {
+                          Get.bottomSheet(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20)),
+                            ),
+                            backgroundColor: AppColors.background,
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(16),
+                                  topRight: Radius.circular(16),
+                                ),
+                              ),
+                              child: AddressView(),
+                            ),
+                          );
+                        },
+                        buttonTitle: "Editer",
+                        mainAxisSize: MainAxisSize.min,
+                        padding: EdgeInsets.all(0.0),
+                        textStyle: TextStyle(fontSize: 13),
+                      ),
               ),
             ),
             Padding(
@@ -119,7 +145,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CustomText(
-                                text: orderItem.status.toString(),
+                                text: orderItem.status.label.toString(),
                                 style: AppTextStyles.bodyText1PrimaryBold
                                     .copyWith(color: orderItem.statusColor),
                               ),
@@ -190,17 +216,39 @@ class OrderDetailView extends GetView<OrderDetailController> {
                       style: AppTextStyles.bodyText1PrimaryBold),
                 ],
               ),
-              CustomButton.primaryButton(
-                onPressed: () {},
-                buttonTitle: "Payer maintenant",
-                textStyle: TextStyle(
-                  fontSize: 14,
-                  color: Get.theme.cardColor,
-                  fontWeight: FontWeight.bold,
-                ),
-                borderRadius: 8,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 0.0),
-              ),
+              order.status.label == "En attente"
+                  ? SizedBox.shrink()
+                  : CustomButton.primaryButton(
+                      onPressed: () {
+                        Get.bottomSheet(
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.vertical(top: Radius.circular(20)),
+                          ),
+                          backgroundColor: AppColors.background,
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                topRight: Radius.circular(16),
+                              ),
+                            ),
+                            child: PaiementView(),
+                          ),
+                        );
+                      },
+                      buttonTitle: "Payer maintenant",
+                      textStyle: TextStyle(
+                        fontSize: 14,
+                        color: Get.theme.cardColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      borderRadius: 8,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 0.0),
+                    )
             ],
           ),
         )

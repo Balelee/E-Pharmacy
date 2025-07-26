@@ -1,11 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pharmix/app/data/models/auth_message.dart';
+import 'package:pharmix/app/data/models/user.dart';
 import 'package:pharmix/app/data/providers/auth_provider.dart';
 import 'package:pharmix/app/modules/Login/views/login_content_view.dart';
 import 'package:pharmix/app/modules/Login/views/splash_view_view.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import '../../../utils/form_helper.dart';
 
 class LoginController extends GetxController {
@@ -13,7 +14,7 @@ class LoginController extends GetxController {
 
   GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
 // form controllers
-  final phoneController = FormHelper.getController();
+  final emailphoneController = FormHelper.getController();
   final passwordController = FormHelper.getController();
   // Reactive variable to handle password visibility
   var isPasswordHidden = true.obs;
@@ -23,13 +24,12 @@ class LoginController extends GetxController {
   }
 
   Rx<Widget> changeContent = Rx<Widget>(Container());
-  RxString contryCode = '+226'.obs;
   @override
   void onInit() {
     super.onInit();
     changeContent.value = SplashViewView();
     changeScreen();
-    phoneController.text = "53380701";
+    emailphoneController.text = "54738460";
     passwordController.text = "adminadmin";
   }
 
@@ -52,13 +52,22 @@ class LoginController extends GetxController {
   }
 
   void login() async {
+    DialogHelper.showLoading(
+        message: "Patienter...",
+        noBkgColor: false,
+        colorProgress: AppColors.primary);
     if (!loginFormkey.currentState!.validate()) return;
-    AuthMessage? authMessage = await authProvider.login(
-      phone: contryCode.value + phoneController.text.trim(),
+    User? authMessage = await authProvider.login(
+      email: emailphoneController.text.trim(),
       password: passwordController.text.trim(),
     );
+    DialogHelper.hideLoading();
     if (authMessage != null) {
-      Get.toNamed(AppPages.OTP, arguments: authMessage);
+      if (authMessage.userStatus == 'client') {
+        Get.toNamed(AppPages.BASE, arguments: authMessage);
+      } else if (authMessage.userStatus == 'pharmacien') {
+        Get.toNamed(AppPages.PHARMACIEN, arguments: authMessage);
+      }
     }
   }
 }
