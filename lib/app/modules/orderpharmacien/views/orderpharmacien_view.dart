@@ -209,7 +209,7 @@ class OrderpharmacienView extends GetView<OrderpharmacienController> {
                           await controller.fetchOrdersByStatus('annule');
                         } else {
                           controller.selectedStatus.value = '';
-                          controller.loadOrdersData();
+                          // controller.loadOrdersData();
                         }
                       },
                     ),

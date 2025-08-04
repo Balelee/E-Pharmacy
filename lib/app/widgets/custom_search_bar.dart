@@ -21,14 +21,14 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   final ImagePicker _picker = ImagePicker();
   Timer? _debounceTimer;
 
-  void _pickImage() async {
+  void pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.camera);
     if (image != null) {
       widget.onPhotoTaken?.call(image);
     }
   }
 
-  void _onSearch() {
+  void onSearch() {
     String query = _searchController.text.trim();
     if (query.isNotEmpty) {
       widget.onSearch?.call(query);
@@ -45,7 +45,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
 
     // Start a new timer
     _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-      _onSearch();
+      onSearch();
     });
   }
 

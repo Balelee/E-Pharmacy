@@ -47,13 +47,6 @@ class DetailProduitView extends GetView<ProductController> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: CustomText(
-                    text: " Stock: ${produit.stock}",
-                    style: AppTextStyles.bodyText1Hight,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: CustomText(
                     text: produit.description ?? '',
                     style: AppTextStyles.bodyText1,
                     overflow: TextOverflow.visible,

@@ -28,12 +28,15 @@ class SearchproductView extends GetView<SearchproductController> {
             Get.back();
           },
         ),
-        title: CustomText(
-          text: LocaleKeys.appbar_searproduct_msg.tr,
-          style: TextStyle(
-            fontSize: 18,
-            color: AppColors.background,
-            fontWeight: FontWeight.bold,
+        title: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: CustomText(
+            text: LocaleKeys.appbar_searproduct_msg.tr,
+            style: TextStyle(
+              fontSize: 18,
+              color: AppColors.background,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         actions: [

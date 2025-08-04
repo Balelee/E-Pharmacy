@@ -23,7 +23,6 @@ class AuthProvider with BaseController {
         data: data,
       );
       if (response != null) {
-        print(response['data']);
         Token.saveAuthToken(response['data']['token']);
         User user = User.fromJson(response['data']);
         await Get.find<UserRepository>().saveUser(user);

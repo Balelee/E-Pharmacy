@@ -6,9 +6,8 @@ import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:pharmix/generated/locales.g.dart';
 
 class ProfileController extends GetxController {
-  //TODO: Implement ProfileController
   final AuthProvider authProvider = Get.put(AuthProvider());
-  final UserController _userController = UserController.to;
+  final UserController _userController = Get.find<UserController>();
 
   RxBool isLoding = RxBool(false);
   RxString loadingMessage = RxString("");
@@ -104,6 +103,9 @@ class ProfileController extends GetxController {
           setLoading(loadMessage: '');
           await authProvider.logout().then((value) {
             if (value) {
+              if (Get.isRegistered<UserController>()) {
+                Get.delete<UserController>();
+              }
               Get.offAllNamed(AppPages.LOGINCONTENT);
             }
             stopLoading();

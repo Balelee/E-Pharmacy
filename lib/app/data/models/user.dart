@@ -9,6 +9,7 @@ class User {
   final String? email;
   final String? userStatus;
   final String? password;
+  final String? pharmacieName;
 
   User({
     this.id,
@@ -20,6 +21,7 @@ class User {
     required this.birthplace,
     required this.email,
     this.userStatus,
+    this.pharmacieName,
     required this.password,
   });
 
@@ -35,6 +37,7 @@ class User {
       email: json['email'],
       userStatus: json['userType'],
       password: json['password'],
+      pharmacieName: json['pharmacieName'],
     );
   }
 
@@ -49,7 +52,8 @@ class User {
       'birthPlace': birthplace,
       'email': email,
       'userType': userStatus,
-      'password': password
+      'password': password,
+      'pharmacieName': pharmacieName,
     };
   }
 
@@ -62,18 +66,19 @@ class User {
       String? birthdate,
       String? birthplace,
       String? email,
-      String? userStatus}) {
+      String? userStatus,
+      String? pharmacieName}) {
     return User(
-      id: id ?? this.id,
-      username: username ?? this.username,
-      firstname: firstname ?? this.firstname,
-      lastname: lastname ?? this.lastname,
-      phone: phone ?? this.phone,
-      birthdate: birthdate ?? this.birthdate,
-      birthplace: birthplace ?? this.birthplace,
-      email: email ?? this.email,
-      userStatus: userStatus ?? this.userStatus,
-      password: password ?? this.password
-    );
+        id: id ?? this.id,
+        username: username ?? this.username,
+        firstname: firstname ?? this.firstname,
+        lastname: lastname ?? this.lastname,
+        phone: phone ?? this.phone,
+        birthdate: birthdate ?? this.birthdate,
+        birthplace: birthplace ?? this.birthplace,
+        email: email ?? this.email,
+        userStatus: userStatus ?? this.userStatus,
+        password: password ?? this.password,
+        pharmacieName: pharmacieName ?? this.pharmacieName);
   }
 }

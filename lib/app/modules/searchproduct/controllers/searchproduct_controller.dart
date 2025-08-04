@@ -23,13 +23,12 @@ class SearchproductController extends GetxController {
   RxBool hasMore = true.obs;
   final RxBool showToast = true.obs;
   final scrollController = ScrollController();
-
   Timer? debounce;
 
   void onSearchChanged(String query) {
     searchText.value = query;
     if (debounce?.isActive ?? false) debounce!.cancel();
-    debounce = Timer(const Duration(milliseconds: 500), () {
+    debounce = Timer(const Duration(milliseconds: 800), () {
       searchProduct(query.trim());
     });
   }

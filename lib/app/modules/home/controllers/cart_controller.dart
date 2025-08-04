@@ -29,7 +29,6 @@ class CartController extends GetxController {
 
   void storeCommand() async {
     var data = {
-      "user_id": 2,
       "total_price": totalPrice,
       "items": panierList
           .map((item) => {

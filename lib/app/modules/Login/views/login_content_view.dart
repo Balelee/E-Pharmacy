@@ -88,7 +88,7 @@ class LoginContentView extends GetView<LoginController> {
                             ),
                             validator: (value) =>
                                 Validators.validatePassword(value),
-                            helperText: ' ', // réserve la place de l'erreur
+                            helperText: ' ',
                             errorStyle: TextStyle(height: 0.8),
                           ),
                         )

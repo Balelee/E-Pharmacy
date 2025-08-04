@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/repositories/user_repository.dart';
 import 'package:pharmix/app/modules/home/controllers/profile_controller.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
@@ -71,7 +72,11 @@ class EditProfilePage extends GetView<ProfileController> {
                   ),
                   const SizedBox(height: 8),
                   _buildTextField(
-                      label: 'Nom complet', value: controller.userName),
+                    label: controller.userAdress == 'client'
+                        ? 'Nom complet'
+                        : 'Nom du pharmacien',
+                    value: controller.userName,
+                  ),
                   const SizedBox(height: 12),
                   Row(
                     children: [
@@ -102,14 +107,20 @@ class EditProfilePage extends GetView<ProfileController> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0),
                     child: GestureDetector(
-                      onTap: () => controller.logOut(),
+                      onTap: () {
+                        Get.lazyPut(() => UserRepository());
+                        controller.logOut();
+                      },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 0.0, horizontal: 0.0),
+                          vertical: 0.0,
+                          horizontal: 0.0,
+                        ),
                         decoration: BoxDecoration(
                           color: Get.theme.canvasColor,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(15.0)),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(15.0),
+                          ),
                         ),
                         child: Obx(
                           () => ListTile(
@@ -120,7 +131,8 @@ class EditProfilePage extends GetView<ProfileController> {
                             ),
                             trailing: controller.isLoding.value
                                 ? LoadingIndicator(
-                                    color: Get.theme.primaryColor)
+                                    color: Get.theme.primaryColor,
+                                  )
                                 : null,
                           ),
                         ),

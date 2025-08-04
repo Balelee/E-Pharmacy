@@ -1,6 +1,5 @@
 import 'package:pharmix/app/cummon/controllers/base_controller.dart';
 import 'package:pharmix/app/data/models/order.dart';
-import 'package:pharmix/app/data/models/product_filter.dart';
 import 'package:pharmix/app/data/models/searchproduct.dart';
 import 'package:pharmix/app/data/providers/api_provider.dart';
 import 'package:pharmix/app/utils/enums/api_routes.dart';
@@ -31,7 +30,7 @@ class ProductProvider with BaseController {
       showLoading();
       final response = await ApiProvider.post(
         auth: true,
-        apiURL: ApiRoutes.ordersProduct.path,
+        apiURL: ApiRoutes.ordersProductbyUser.path,
         data: data,
       ).catchError(handleError);
       hideLoading();
@@ -51,7 +50,7 @@ class ProductProvider with BaseController {
     try {
       final response = await ApiProvider.get(
         auth: true,
-        apiURL: ApiRoutes.ordersProduct.path,
+        apiURL: ApiRoutes.ordersProductbyUser.path,
       ).catchError(handleError);
       if (response != null && response['data'] != null) {
         final List<dynamic> data = response['data'];
@@ -61,25 +60,6 @@ class ProductProvider with BaseController {
     } catch (e) {
       DialogHelper.showErrorSnackbar(message: "fetching error: $e");
       return null;
-    }
-  }
-
-  Future<List<ProductFilter>> loadFilterProductsData() async {
-    try {
-      final response = await ApiProvider.get(
-        auth: true,
-        apiURL: ApiRoutes.filterProduct.path,
-      ).catchError(handleError);
-      if (response != null && response['data'] != null) {
-        List<dynamic> data = response['data'];
-        List<ProductFilter> filterProduct =
-            data.map((json) => ProductFilter.fromJson(json)).toList();
-        return filterProduct;
-      }
-      return [];
-    } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "fetching error: $e");
-      return [];
     }
   }
 
