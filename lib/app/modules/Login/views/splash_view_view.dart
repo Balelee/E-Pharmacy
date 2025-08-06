@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/modules/Login/controllers/login_controller.dart';

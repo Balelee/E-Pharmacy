@@ -80,17 +80,6 @@ class OrderpharmacienView extends GetView<OrderpharmacienController> {
         ],
       ),
       body: Obx(() {
-        if (controller.orders.isEmpty) {
-          return const Center(
-              child: SizedBox(
-            width: 25,
-            height: 25,
-            child: CircularProgressIndicator(
-              strokeWidth: 3,
-              color: Colors.green,
-            ),
-          ));
-        }
         return Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
@@ -209,7 +198,7 @@ class OrderpharmacienView extends GetView<OrderpharmacienController> {
                           await controller.fetchOrdersByStatus('annule');
                         } else {
                           controller.selectedStatus.value = '';
-                          // controller.loadOrdersData();
+                          controller.loadOrdersData();
                         }
                       },
                     ),
@@ -241,7 +230,7 @@ class OrderpharmacienView extends GetView<OrderpharmacienController> {
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: CustomText(
-                            text: "Aucune commande disponible",
+                            text: "Aucune commande en attente disponible",
                             style: TextStyle(fontSize: 12),
                           ),
                         )

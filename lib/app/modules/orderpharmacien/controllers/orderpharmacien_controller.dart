@@ -10,9 +10,9 @@ class OrderpharmacienController extends GetxController {
   final RxBool showToast = true.obs;
   final RxString selectedStatus = ''.obs;
 
-  // void loadOrdersData() async {
-  //   orders.value = await produitProvider.getOrdersCommand() ?? [];
-  // }
+  void loadOrdersData() async {
+    orders.value = await produitProvider.getOrdersPharmacies() ?? [];
+  }
 
   void updateOrderStatus(int orderId, String status) async {
     final updatedOrder = await produitProvider.updateOrderStatus(
@@ -47,7 +47,7 @@ class OrderpharmacienController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // loadOrdersData();
+    loadOrdersData();
   }
 
   @override

@@ -8,6 +8,7 @@ enum ApiRoutes {
   searchProduct(
       'products/search-product?query={query}&page={page}&limit={limit}'),
   ordersProductbyUser('orders'),
+  orderspharmacies('orders-pharmacien'),
   pharmacies('pharmacies?page={pageKey}&q={query}'),
   tips('tips'),
   pillremember('pilrembers'),
