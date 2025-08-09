@@ -41,9 +41,9 @@ class SocketController extends GetxController {
   }
 
   Future<void> initialSoketSubcription() async {
-    listenToNewProductAdding();
-    listenToProductUpdated();
-    listenToProductDeleted();
+    // listenToNewProductAdding();
+    // listenToProductUpdated();
+    // listenToProductDeleted();
   }
 
   void ecouter(

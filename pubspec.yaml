@@ -58,6 +58,10 @@ dependencies:
   flutter_local_notifications: ^19.3.0
   timezone: ^0.10.1
   mask_text_input_formatter: ^2.9.0
+  geolocator: ^14.0.0
+
+dependency_overrides: 
+  geolocator_android: 4.6.1
 
 dev_dependencies:
   flutter_test:
