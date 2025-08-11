@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
+import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/models/user.dart';
 import 'package:pharmix/app/data/providers/auth_provider.dart';
@@ -15,6 +16,7 @@ import '../../../utils/form_helper.dart';
 
 class LoginController extends GetxController {
   final AuthProvider authProvider = Get.put(AuthProvider());
+   SocketController socketController = Get.find<SocketController>();
   GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
   final emailphoneController = FormHelper.getController();
   final passwordController = FormHelper.getController();
@@ -68,11 +70,14 @@ class LoginController extends GetxController {
       }
       Get.put(UserController(Get.find<UserRepository>()));
       Get.put(ProfileController());
-      await UserController.to.login(user);
+      await UserController.to.affectToCurrentUser(user);
       NavigationController.to.currentIndex.value = 0;
       if (user.userStatus == 'client') {
+          await socketController.connectToSocket(user: user);
         Get.toNamed(AppPages.BASE, arguments: user);
       } else if (user.userStatus == 'pharmacien') {
+          await socketController.connectToSocket(user: user);
+          
         Get.toNamed(AppPages.PHARMACIEN, arguments: user);
       }
     }

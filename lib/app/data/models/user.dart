@@ -1,3 +1,5 @@
+import 'package:pharmix/app/data/models/pharmacy.dart';
+
 class User {
   final int? id;
   final String? username;
@@ -9,7 +11,7 @@ class User {
   final String? email;
   final String? userStatus;
   final String? password;
-  final String? pharmacieName;
+  final Pharmacy? pharmacie;
 
   User({
     this.id,
@@ -21,7 +23,7 @@ class User {
     required this.birthplace,
     required this.email,
     this.userStatus,
-    this.pharmacieName,
+    this.pharmacie,
     required this.password,
   });
 
@@ -37,7 +39,9 @@ class User {
       email: json['email'],
       userStatus: json['userType'],
       password: json['password'],
-      pharmacieName: json['pharmacieName'],
+      pharmacie: json['pharmacie'] != null
+          ? Pharmacy.fromJson(json['pharmacie'])
+          : null,
     );
   }
 
@@ -53,7 +57,7 @@ class User {
       'email': email,
       'userType': userStatus,
       'password': password,
-      'pharmacieName': pharmacieName,
+      'pharmacie': pharmacie?.toJson(),
     };
   }
 
@@ -79,6 +83,6 @@ class User {
         email: email ?? this.email,
         userStatus: userStatus ?? this.userStatus,
         password: password ?? this.password,
-        pharmacieName: pharmacieName ?? this.pharmacieName);
+        pharmacie: pharmacie ?? this.pharmacie);
   }
 }

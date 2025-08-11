@@ -33,7 +33,6 @@ class ProductController extends GetxController {
     pagingController = PagingController(firstPageKey: 1);
     pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey: pageKey).then((onValue) async {
-        await socketController.connectToSocket();
       });
     });
   }
