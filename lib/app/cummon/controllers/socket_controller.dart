@@ -11,7 +11,7 @@ class SocketController extends GetxController {
   void listenToNewOrderAdding({required int pharmacieId}) async {
     // ProductController productController = Get.find<ProductController>();
     ecouter(
-        channel: 'pharmacy.$pharmacieId',
+        channel: 'private-pharmacy.$pharmacieId',
         event: 'produit.demande',
         action: (e) {
           print("donnees recus $e");
