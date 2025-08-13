@@ -58,6 +58,7 @@ class PharmacienController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    loadOrdersData();
   }
 
   @override

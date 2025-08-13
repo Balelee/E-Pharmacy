@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
 import 'package:pharmix/app/data/enums/orderstatus.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/utils/helpers/bottomSheet_helper.dart';
+import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
 import 'package:pharmix/generated/locales.g.dart';
@@ -13,6 +15,7 @@ class PharmacienView extends GetView<PharmacienController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Obx(
         () => PageView(
           controller: NavigationController.to.pageController,
@@ -256,13 +259,24 @@ class PharmacienView extends GetView<PharmacienController> {
                                   SizedBox(
                                     height: 16,
                                   ),
-                                  Text(
-                                    "Commande recentes",
-                                    style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xFF202938),
-                                    ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Commande recentes",
+                                        style: const TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF202938),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () =>
+                                            controller.loadOrdersData(),
+                                        child: Icon(Icons.refresh),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -291,13 +305,22 @@ class PharmacienView extends GetView<PharmacienController> {
                                         ],
                                       ),
                                     )
-                                  : Expanded(
-                                      child: ListView.builder(
-                                        itemCount: controller.orders.length,
-                                        itemBuilder: (context, index) {
-                                          final order =
-                                              controller.orders[index];
-                                          return Container(
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount: controller.orders.length,
+                                      itemBuilder: (context, index) {
+                                        final order = controller.orders[index];
+                                        return GestureDetector(
+                                          onTap: () {
+                                            if (Get.isBottomSheetOpen ==
+                                                false) {
+                                              BottomsheetHelper
+                                                  .commandeDetailBottomSheet(
+                                                      order: order);
+                                            }
+                                          },
+                                          child: Container(
                                             margin: const EdgeInsets.only(
                                                 bottom: 12),
                                             decoration: BoxDecoration(
@@ -335,15 +358,7 @@ class PharmacienView extends GetView<PharmacienController> {
                                                               FontWeight.bold),
                                                     ),
                                                     CustomText(
-                                                      text: order.status
-                                                                  .label ==
-                                                              "Traité"
-                                                          ? "Validé"
-                                                          : order.status
-                                                                      .label ==
-                                                                  "Annulé"
-                                                              ? "Annulé"
-                                                              : "",
+                                                      text: order.status.label,
                                                       style: TextStyle(
                                                         fontSize: 12,
                                                         color: order.status
@@ -354,8 +369,7 @@ class PharmacienView extends GetView<PharmacienController> {
                                                                         .label ==
                                                                     "Annulé"
                                                                 ? Colors.red
-                                                                : Colors
-                                                                    .transparent,
+                                                                : Colors.blue,
                                                       ),
                                                     ),
                                                   ],
@@ -369,7 +383,7 @@ class PharmacienView extends GetView<PharmacienController> {
                                                       TextSpan(
                                                         children: [
                                                           const TextSpan(
-                                                            text: 'Produits : ',
+                                                            text: 'Client : ',
                                                             style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
@@ -380,11 +394,7 @@ class PharmacienView extends GetView<PharmacienController> {
                                                             ),
                                                           ),
                                                           TextSpan(
-                                                            text: order
-                                                                .orderDetails
-                                                                .map((e) => e
-                                                                    .productName)
-                                                                .join(', '),
+                                                            text: '-------',
                                                             style:
                                                                 const TextStyle(
                                                               fontWeight:
@@ -441,96 +451,43 @@ class PharmacienView extends GetView<PharmacienController> {
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                     ),
-                                                    const SizedBox(height: 10),
-                                                    order.status.label !=
-                                                                "Traité" &&
-                                                            order.status
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    CustomButton.primaryButton(
+                                                        height: 30,
+                                                        elevation: 0.0,
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                vertical: 0.0),
+                                                        onPressed: () {
+                                                          if (Get.isBottomSheetOpen ==
+                                                              false) {
+                                                            BottomsheetHelper
+                                                                .commandeDetailBottomSheet(
+                                                                    order:
+                                                                        order);
+                                                          }
+                                                        },
+                                                        buttonTitle: order
+                                                                    .status
                                                                     .label !=
-                                                                "Annulé"
-                                                        ? Row(
-                                                            children: [
-                                                              GestureDetector(
-                                                                child:
-                                                                    Container(
-                                                                  padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                      horizontal:
-                                                                          20,
-                                                                      vertical:
-                                                                          8),
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(8),
-                                                                    border: Border.all(
-                                                                        width:
-                                                                            1,
-                                                                        color: Colors
-                                                                            .green),
-                                                                  ),
-                                                                  child: Text(
-                                                                    "Valider",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .green),
-                                                                  ),
-                                                                ),
-                                                                onTap: () {
-                                                                  controller.updateOrderStatus(
-                                                                      order.id,
-                                                                      "traite");
-                                                                },
-                                                              ),
-                                                              SizedBox(
-                                                                  width: 8),
-                                                              GestureDetector(
-                                                                child:
-                                                                    Container(
-                                                                  padding: const EdgeInsets
-                                                                      .symmetric(
-                                                                      horizontal:
-                                                                          20,
-                                                                      vertical:
-                                                                          8),
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(8),
-                                                                    border: Border.all(
-                                                                        width:
-                                                                            1,
-                                                                        color: Colors
-                                                                            .red),
-                                                                  ),
-                                                                  child: Text(
-                                                                    "Annuler",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .red),
-                                                                  ),
-                                                                ),
-                                                                onTap: () {
-                                                                  controller.updateOrderStatus(
-                                                                      order.id,
-                                                                      "annule");
-                                                                },
-                                                              ),
-                                                            ],
-                                                          )
-                                                        : SizedBox.shrink()
+                                                                "Traité"
+                                                            ? "Traiter"
+                                                            : "Déja traité",
+                                                        backgroundColor: order
+                                                                    .status
+                                                                    .label !=
+                                                                "Traité"
+                                                            ? AppColors.success
+                                                            : Colors.grey)
                                                   ],
                                                 ),
                                               ),
                                             ),
-                                          );
-                                        },
-                                      ),
+                                          ),
+                                        );
+                                      },
                                     ),
                             ],
                           ),

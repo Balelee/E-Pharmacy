@@ -14,42 +14,46 @@ class CustomButton {
     required String buttonTitle,
     TextStyle? textStyle,
     double? fontSize,
+    double? height,
     FontWeight? textFontWeight,
     double? elevation,
     Color? textColor,
     double? borderRadius,
   }) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        overlayColor: Colors.black,
-        backgroundColor: backgroundColor ?? AppColors.primary,
-        padding: padding ??
-            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? 12.0),
-        ),
-        elevation: elevation ?? 2.0,
-      ),
-      child: child ??
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: mainAxisSize,
-            children: [
-              if (leadingIcon != null) ...[
-                leadingIcon,
-                const SizedBox(width: 8.0),
-              ],
-              Text(
-                buttonTitle,
-                style: textStyle ?? AppTextStyles.buttonTextStyle,
-              ),
-              if (trailingIcon != null) ...[
-                const SizedBox(width: 8.0),
-                trailingIcon,
-              ],
-            ],
+    return SizedBox(
+      height: height ?? 45,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          overlayColor: Colors.black,
+          backgroundColor: backgroundColor ?? AppColors.primary,
+          padding: padding ??
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius ?? 12.0),
           ),
+          elevation: elevation ?? 2.0,
+        ),
+        child: child ??
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: mainAxisSize,
+              children: [
+                if (leadingIcon != null) ...[
+                  leadingIcon,
+                  const SizedBox(width: 8.0),
+                ],
+                Text(
+                  buttonTitle,
+                  style: textStyle ?? AppTextStyles.buttonTextStyle,
+                ),
+                if (trailingIcon != null) ...[
+                  const SizedBox(width: 8.0),
+                  trailingIcon,
+                ],
+              ],
+            ),
+      ),
     );
   }
 
