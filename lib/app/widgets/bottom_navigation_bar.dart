@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
-import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -10,7 +9,6 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       final nav = NavigationController.to;
-      final usercontr = UserController.to;
       return Theme(
         data: Theme.of(context).copyWith(
           splashColor: Colors.transparent,
@@ -26,9 +24,7 @@ class BottomNavBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: usercontr.user?.userStatus == "client"
-                  ? "Vous"
-                  : "Pharmacien",
+              label: "Vous"
             ),
           ],
           onTap: (index) {
