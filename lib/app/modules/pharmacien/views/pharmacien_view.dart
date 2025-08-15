@@ -107,7 +107,10 @@ class PharmacienView extends GetView<PharmacienController> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              right: 22, left: 22, top: 3),
+                            right: 22,
+                            left: 22,
+                            top: 3,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -132,60 +135,17 @@ class PharmacienView extends GetView<PharmacienController> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Expanded(
-                                        child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: AppColors.background,
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.green
-                                                    .withOpacity(0.2),
-                                                spreadRadius: 2,
-                                                blurRadius: 6,
-                                                offset: const Offset(0, 1),
-                                              ),
-                                            ],
-                                          ),
-                                          child: TextField(
-                                            cursorHeight: 15,
-                                            onChanged: (value) {
-                                              // controller.onSearchChanged(value);
-                                            },
-                                            decoration: InputDecoration(
-                                              hintText:
-                                                  'Rechercher une commande...',
-                                              hintStyle: const TextStyle(
-                                                color: AppColors.textSecondary,
-                                                fontSize: 13,
-                                              ),
-                                              prefixIcon: const Padding(
-                                                padding:
-                                                    EdgeInsets.only(top: 5.0),
-                                                child: Icon(Icons.search,
-                                                    color: Colors.green),
-                                              ),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                                borderSide: BorderSide.none,
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                                borderSide: BorderSide.none,
-                                              ),
-                                            ),
-                                          ),
+                                      Text(
+                                        "Commande recentes",
+                                        style: const TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF202938),
                                         ),
                                       ),
-                                      const SizedBox(width: 10),
-                                      // Bouton de tri
                                       Container(
-                                        width: 50,
-                                        height: 50,
+                                        width: 45,
+                                        height: 45,
                                         decoration: BoxDecoration(
                                           color: AppColors.background,
                                           borderRadius:
@@ -256,34 +216,12 @@ class PharmacienView extends GetView<PharmacienController> {
                                       )
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 16,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Commande recentes",
-                                        style: const TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF202938),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () =>
-                                            controller.loadOrdersData(),
-                                        child: Icon(Icons.refresh),
-                                      ),
-                                    ],
-                                  ),
                                 ],
                               ),
                               SizedBox(
                                 height: controller.orders.isEmpty
                                     ? Get.height / 5
-                                    : 20,
+                                    : 0,
                               ),
                               controller.orders.isEmpty
                                   ? Center(
@@ -357,19 +295,33 @@ class PharmacienView extends GetView<PharmacienController> {
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
-                                                    CustomText(
-                                                      text: order.status.label,
-                                                      style: TextStyle(
-                                                        fontSize: 12,
-                                                        color: order.status
-                                                                    .label ==
-                                                                "Traité"
-                                                            ? Colors.green
-                                                            : order.status
-                                                                        .label ==
-                                                                    "Annulé"
-                                                                ? Colors.red
-                                                                : Colors.blue,
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.all(8),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors
+                                                            .blue.shade100,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                      child: CustomText(
+                                                        text:
+                                                            order.status.label,
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color: order.status
+                                                                      .label ==
+                                                                  "Traité"
+                                                              ? Colors.green
+                                                              : order.status
+                                                                          .label ==
+                                                                      "Annulé"
+                                                                  ? Colors.red
+                                                                  : Colors.blue,
+                                                        ),
                                                       ),
                                                     ),
                                                   ],
