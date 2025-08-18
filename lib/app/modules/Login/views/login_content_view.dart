@@ -64,7 +64,7 @@ class LoginContentView extends GetView<LoginController> {
                             child: CustomTextFormField(
                               controller: controller.emailphoneController,
                               labelText: "Email ou Téléphone",
-                              prefix: Icon(Icons.lock),
+                              prefix: Icon(Icons.phone),
                             ),
                           ),
                         ),
