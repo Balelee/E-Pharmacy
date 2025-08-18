@@ -11,7 +11,7 @@ class OrderpharmacienController extends GetxController {
   final RxString selectedStatus = ''.obs;
 
   void loadOrdersData() async {
-    orders.value = await produitProvider.getOrdersCommand() ?? [];
+    orders.value = await produitProvider.getOrdersPharmacies() ?? [];
   }
 
   void updateOrderStatus(int orderId, String status) async {

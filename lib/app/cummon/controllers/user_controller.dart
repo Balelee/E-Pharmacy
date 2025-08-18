@@ -24,7 +24,7 @@ class UserController extends GetxController {
     userRx.value = await _userRepo.getUser();
   }
 
-  Future<void> login(User user) async {
+  Future<void> affectToCurrentUser(User user) async {
     await _userRepo.saveUser(user);
     userRx.value = user;
   }

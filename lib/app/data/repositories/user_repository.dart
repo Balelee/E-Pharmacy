@@ -12,7 +12,7 @@ class UserRepository {
   }
 
   Future<User?> getUser() async {
-    final userJson = StorageHelper.get(_userKey);
+    final userJson = await StorageHelper.get(_userKey);
     if (userJson != null) {
       return User.fromJson(userJson);
     }
@@ -24,6 +24,6 @@ class UserRepository {
   }
 
   Future<bool> hasUser() async {
-    return StorageHelper.get(_userKey) != null;
+    return await StorageHelper.get(_userKey) != null;
   }
 }

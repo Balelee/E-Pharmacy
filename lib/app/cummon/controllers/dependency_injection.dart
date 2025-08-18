@@ -7,8 +7,8 @@ import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
 import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/repositories/user_repository.dart';
-import 'package:pharmix/app/modules/home/controllers/cart_controller.dart';
 import 'package:pharmix/app/modules/home/controllers/product_controller.dart';
+import 'package:pharmix/app/modules/home/controllers/profile_controller.dart';
 import 'package:pharmix/app/modules/paiement/controllers/paiement_controller.dart';
 import 'package:pharmix/app/modules/searchproduct/controllers/searchproduct_controller.dart';
 import 'package:pharmix/app/utils/services/localization_service.dart';
@@ -22,12 +22,11 @@ class DependencieInjection {
     Get.put(LocalizationService());
     Get.put(LanguageController());
     Get.put(SocketController());
-    Get.put(CartController());
     Get.put(PaiementController());
     Get.lazyPut(() => UserRepository());
-    Get.lazyPut(() => UserController(Get.find<UserRepository>()));
+    Get.put(UserController(UserRepository()));
+    Get.lazyPut(() => ProfileController());
     Get.lazyPut<SearchproductController>(() => SearchproductController());
-    Get.lazyPut<CartController>(() => CartController());
     Get.lazyPut<ProductController>(() => ProductController());
   }
 }

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -10,10 +8,22 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Obx(
-      () => Center(
-        child: controller.changeContent.value,
+      body: Obx(
+        () => AnimatedSwitcher(
+          duration: const Duration(seconds: 2),
+          child: controller.changeContent.value,
+          transitionBuilder: (child, animation) {
+            final offsetAnimation = Tween<Offset>(
+              begin: const Offset(1.0, 0.0),
+              end: Offset.zero,
+            ).animate(animation);
+            return SlideTransition(
+              position: offsetAnimation,
+              child: child,
+            );
+          },
+        ),
       ),
-    ));
+    );
   }
 }

@@ -2,20 +2,16 @@ class Product {
   final int? id;
   final String name;
   final String? description;
-  final int? stock;
   final double price;
   final String? category;
-  final String? pharmacieName;
   final String? imageUrl;
 
   Product({
     this.id,
     required this.name,
     this.description,
-    this.stock,
     required this.price,
     this.category,
-    this.pharmacieName,
     this.imageUrl,
   });
 
@@ -25,10 +21,8 @@ class Product {
       id: json['id'],
       name: json['productName'],
       description: json['description'],
-      stock: json['stock'] ?? 0,
       price: (json['price'] as num).toDouble(),
       category: json['productType'],
-      pharmacieName: json['pharmacieName'],
       imageUrl: json['productImage'],
     );
   }
@@ -39,10 +33,8 @@ class Product {
       'id': id,
       'name': name,
       'description': description,
-      'stock': stock,
       'price': price,
       'category': category,
-      'pharmacieName': pharmacieName,
       'imageUrl': imageUrl,
     };
   }

@@ -4,11 +4,11 @@ enum ApiRoutes {
   logout('users/logout'),
   resendOtp('phones/resend-otp'),
   verifyOtp('users/verifyOtp'),
-  filterProduct('filterProduct'),
   products('products?page={pageKey}&q={query}&filter={filter}'),
   searchProduct(
       'products/search-product?query={query}&page={page}&limit={limit}'),
-  ordersProduct('orders'),
+  ordersProductbyUser('orders'),
+  orderspharmacies('orders-pharmacien'),
   pharmacies('pharmacies?page={pageKey}&q={query}'),
   tips('tips'),
   pillremember('pilrembers'),

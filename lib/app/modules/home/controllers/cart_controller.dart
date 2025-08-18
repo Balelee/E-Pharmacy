@@ -1,3 +1,4 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/cart_item.dart';
 import 'package:pharmix/app/data/models/order.dart';
@@ -27,10 +28,44 @@ class CartController extends GetxController {
     super.onClose();
   }
 
+  Future<Position?> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Vérifie si la localisation est activée
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Les services de localisation sont désactivés
+      return Future.error('Les services de localisation sont désactivés.');
+    }
+
+    // Vérifie la permission
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Permission de localisation refusée');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Les permissions sont refusées pour toujours, ouvrir paramètres
+      return Future.error(
+          'Permission de localisation refusée en permanence. Activez-la dans les paramètres.');
+    }
+
+    // Si tout est OK → récupère la position
+    return await Geolocator.getCurrentPosition();
+  }
+
   void storeCommand() async {
+    Position? position = await determinePosition();
+    double lat = position?.latitude ?? 0;
+    double lng = position?.longitude ?? 0;
     var data = {
-      "user_id": 2,
       "total_price": totalPrice,
+      "lat": lat,
+      "lng": lng,
       "items": panierList
           .map((item) => {
                 "product_id": item.product.id,

@@ -17,14 +17,14 @@ class BottomNavBar extends StatelessWidget {
         ),
         child: BottomNavigationBar(
           backgroundColor: AppColors.background,
-          items: const [
+          items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Accueil',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: 'Vous',
+              label: "Vous"
             ),
           ],
           onTap: (index) {

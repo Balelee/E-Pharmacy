@@ -38,7 +38,6 @@ class DashboardController extends GetxController {
 
   @override
   void onReady() {
-    // TODO: implement onReady
     super.onReady();
   }
 

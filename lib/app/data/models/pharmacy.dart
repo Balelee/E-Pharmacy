@@ -52,7 +52,7 @@ class Pharmacy {
 
     return Pharmacy(
       id: json['id'],
-      pharmacienId: json['pharmacien_id'],
+      pharmacienId: json['pharmacien_id'].toString(),
       pharmacieName: json['pharmacieName'],
       adresse: json['adresse'],
       phone: json['phone'],
@@ -74,4 +74,24 @@ class Pharmacy {
       return null;
     }
   }
+
+Map<String, dynamic> toJson() {
+  return {
+    'id': id,
+    'pharmacien_id': pharmacienId,
+    'pharmacieName': pharmacieName,
+    'adresse': adresse,
+    'phone': phone,
+    'is_on_duty': isOnDuty,
+    'is_open_now': isOpenNow,
+    'latitude': latitude,
+    'longitude': longitude,
+    'opening_hours': openingHours.map((oh) => {
+      'day': oh.day,
+      'opening_time': oh.openingTime,
+      'closing_time': oh.closingTime,
+    }).toList(),
+  };
+}
+
 }

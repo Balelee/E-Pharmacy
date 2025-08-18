@@ -8,7 +8,6 @@ import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/utils/constants/size_constant.dart';
-import 'package:pharmix/app/widgets/category_filter.dart';
 import 'package:pharmix/app/widgets/custom_search_bar.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/generated/locales.g.dart';
@@ -71,7 +70,7 @@ class ProductListView extends GetView<ProductController> {
                   child: Row(
                     children: [
                       CustomText(
-                        text: "Filtrer par pharmacie",
+                        text: "Liste des produits disponibles",
                         style: AppTextStyles.bodyText1Bold.copyWith(
                             color: Get.theme.textTheme.bodyLarge?.color
                                 ?.withOpacity(0.4)),
@@ -79,10 +78,6 @@ class ProductListView extends GetView<ProductController> {
                       ),
                     ],
                   )),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4.0),
-                child: CategoryFilterWidget(),
-              ),
               Expanded(
                 child: PagedGridView<int, Product>(
                   pagingController: controller.pagingController,
@@ -127,25 +122,6 @@ class ProductListView extends GetView<ProductController> {
                                       color: AppColors.primary),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(
-                                  produit.pharmacieName!,
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      fontStyle: FontStyle.italic),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(
-                                  "Stock: ${produit.stock}",
-                                  style: const TextStyle(fontSize: 12),
                                 ),
                               ),
                               Padding(

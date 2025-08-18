@@ -30,13 +30,9 @@ class ProductController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (productFilters.isEmpty) {
-      loadProductFilters();
-    }
     pagingController = PagingController(firstPageKey: 1);
     pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey: pageKey).then((onValue) async {
-        await socketController.connectToSocket();
       });
     });
   }
@@ -44,9 +40,7 @@ class ProductController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    if (productFilters.isEmpty) {
-      loadProductFilters();
-    }
+    
   }
 
   @override
@@ -56,11 +50,7 @@ class ProductController extends GetxController {
     pagingController.dispose();
   }
 
-  void loadProductFilters() async {
-    productFilters.value = await produitProvider.loadFilterProductsData();
-    productFilters.insert(0, ProductFilter(filter: '', label: "All"));
-    selectedCategory.value = productFilters.first;
-  }
+ 
 
   void updateCategory(ProductFilter category) {
     selectedCategory.value = category;
