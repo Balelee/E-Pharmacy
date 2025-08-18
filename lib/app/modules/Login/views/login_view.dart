@@ -10,7 +10,7 @@ class LoginView extends GetView<LoginController> {
     return Scaffold(
       body: Obx(
         () => AnimatedSwitcher(
-          duration: const Duration(seconds: 3),
+          duration: const Duration(seconds: 2),
           child: controller.changeContent.value,
           transitionBuilder: (child, animation) {
             final offsetAnimation = Tween<Offset>(
