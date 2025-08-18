@@ -6,12 +6,23 @@ import 'package:pharmix/app/themes/app_colors.dart';
 class BottomsheetHelper {
   static Future<Widget?> commandeDetailBottomSheet({required Order order}) {
     final details = order.orderDetails.map((e) {
+      final quantity = RxInt(int.tryParse(e.quantity.toString()) ?? 1);
+      final customPrice = RxString(e.priceUnitaire.toString());
+      final total = RxDouble(
+        (double.tryParse(customPrice.value) ?? 0.0) * quantity.value,
+      );
+      final quantityController =
+          TextEditingController(text: quantity.value.toString());
+      final priceController = TextEditingController(text: customPrice.value);
       return {
         "productName": e.productName,
-        "price": e.priceUnitaire,
-        "quantity": e.quantity,
+        "price": double.tryParse(e.priceUnitaire.toString()) ?? 0.0,
+        "quantity": quantity,
         "available": RxBool(false),
-        "customPrice": RxString(e.priceUnitaire.toString()),
+        "customPrice": customPrice,
+        "total": total,
+        "quantityController": quantityController,
+        "priceController": priceController,
       };
     }).toList();
 
@@ -26,7 +37,6 @@ class BottomsheetHelper {
         ),
         child: Column(
           children: [
-            // 📌 Poignée de drag
             Container(
               width: 40,
               height: 5,
@@ -36,14 +46,12 @@ class BottomsheetHelper {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-
-            // 📌 Header
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const SizedBox(width: 40), // pour équilibrer avec l'icône
+                  const SizedBox(width: 40),
                   const Text(
                     "Détails de la commande",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -56,146 +64,153 @@ class BottomsheetHelper {
               ),
             ),
             const Divider(height: 1),
-
-            // 📌 Liste des produits
             Expanded(
-              child: ListView.separated(
-                padding: const EdgeInsets.all(16),
-                itemCount: details.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 12),
-                itemBuilder: (context, index) {
-                  final item = details[index];
-                  return Obx(() {
-                    final available = item["available"] as RxBool;
-                    final customPrice = item["customPrice"] as RxString;
-                    final quantity =
-                        int.tryParse(item["quantity"].toString()) ?? 0;
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => FocusScope.of(Get.context!).unfocus(),
+                child: ListView.separated(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: details.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 12),
+                  itemBuilder: (context, index) {
+                    final item = details[index];
+                    return Obx(() {
+                      final available = item["available"] as RxBool;
+                      final customPrice = item["customPrice"] as RxString;
+                      final quantity = item["quantity"] as RxInt;
+                      final total = item["total"] as RxDouble;
+                      final quantityController =
+                          item["quantityController"] as TextEditingController;
+                      final priceController =
+                          item["priceController"] as TextEditingController;
 
-                    final unitPrice = double.tryParse(customPrice.value) ??
-                        item["price"] as double;
-                    final totalPrice = unitPrice * quantity;
-
-                    return Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 6,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Nom du produit + quantité
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  item["productName"].toString(),
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
+                      return Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              blurRadius: 6,
+                              spreadRadius: 2,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item["productName"].toString(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 14),
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                ChoiceChip(
+                                  label: const Text("Oui"),
+                                  selected: available.value,
+                                  selectedColor: Colors.green[100],
+                                  backgroundColor: Colors.grey[100],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                  ),
+                                  onSelected: (_) => available.value = true,
+                                  labelStyle: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: available.value
+                                        ? Colors.green
+                                        : Colors.black54,
                                   ),
                                 ),
-                              ),
-                              Text(
-                                "Qté: $quantity",
-                                style: const TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 14,
+                                const SizedBox(width: 10),
+                                ChoiceChip(
+                                  label: Text("Non"),
+                                  selected: !available.value,
+                                  selectedColor: Colors.red[100],
+                                  backgroundColor: Colors.grey[100],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ),
+                                  ),
+                                  onSelected: (_) => available.value = false,
+                                  labelStyle: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: !available.value
+                                        ? Colors.red
+                                        : Colors.black54,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-
-                          // Oui / Non en mode Chip moderne
-                          Row(
-                            children: [
-                              ChoiceChip(
-                                label: const Text("Oui"),
-                                selected: available.value,
-                                selectedColor: Colors.green[100],
-                                backgroundColor: Colors.grey[100],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                onSelected: (_) => available.value = true,
-                                labelStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: available.value
-                                      ? Colors.green
-                                      : Colors.black54,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              ChoiceChip(
-                                label: const Text("Non"),
-                                selected: !available.value,
-                                selectedColor: Colors.red[100],
-                                backgroundColor: Colors.grey[100],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                onSelected: (_) => available.value = false,
-                                labelStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: !available.value
-                                      ? Colors.red
-                                      : Colors.black54,
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(height: 10),
-
-                          // Prix et total
-                          if (available.value) ...[
-                            TextField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                labelText: "Prix unitaire (CFA)",
-                                filled: true,
-                                fillColor: Colors.grey[50],
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                  borderSide: BorderSide.none,
-                                ),
-                                prefixIcon: const Icon(Icons.money,
-                                    color: Colors.green),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 8),
-                              ),
-                              onChanged: (value) => customPrice.value = value,
-                              controller: TextEditingController(
-                                  text: customPrice.value),
+                              ],
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              "Total: ${totalPrice.toStringAsFixed(0)} CFA",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                                color: Colors.blue,
+                            const SizedBox(height: 10),
+                            if (available.value) ...[
+                              TextField(
+                                keyboardType: TextInputType.number,
+                                controller: priceController,
+                                decoration: InputDecoration(
+                                  labelText: "Prix unitaire (CFA)",
+                                  filled: true,
+                                  fillColor: Colors.grey[50],
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  prefixIcon: const Icon(Icons.money,
+                                      color: Colors.green),
+                                ),
+                                onChanged: (value) {
+                                  customPrice.value = value;
+                                  final unit =
+                                      double.tryParse(customPrice.value) ?? 0.0;
+                                  total.value = unit * quantity.value;
+                                },
                               ),
-                            ),
-                          ]
-                        ],
-                      ),
-                    );
-                  });
-                },
+                              const SizedBox(height: 10),
+                              TextField(
+                                keyboardType: TextInputType.number,
+                                controller: quantityController,
+                                decoration: InputDecoration(
+                                  labelText: "Quantité",
+                                  filled: true,
+                                  fillColor: Colors.grey[50],
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  prefixIcon: const Icon(
+                                      Icons.format_list_numbered,
+                                      color: Colors.green),
+                                ),
+                                onChanged: (value) {
+                                  quantity.value = int.tryParse(value) ?? 1;
+                                  final unit =
+                                      double.tryParse(customPrice.value) ?? 0.0;
+                                  total.value = unit * quantity.value;
+                                },
+                              ),
+                              const SizedBox(height: 4),
+                              Obx(() => Text(
+                                    "Total: ${total.value.toStringAsFixed(0)} CFA",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: Colors.blue),
+                                  )),
+                            ],
+                          ],
+                        ),
+                      );
+                    });
+                  },
+                ),
               ),
             ),
-
-            // 📌 Bouton valider
             Container(
               padding: const EdgeInsets.all(16),
               child: SizedBox(
@@ -207,13 +222,13 @@ class BottomsheetHelper {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    elevation: 2,
                   ),
                   onPressed: () {
                     final result = details.map((d) {
                       final available = d["available"] as RxBool;
                       final customPrice = d["customPrice"] as RxString;
-                      final quantity = int.tryParse(d["quantity"].toString());
+                      final quantity = (d["quantity"] as RxInt).value;
+                      final total = (d["total"] as RxDouble).value;
 
                       return {
                         "productName": d["productName"],
@@ -222,11 +237,7 @@ class BottomsheetHelper {
                         "price": available.value
                             ? double.tryParse(customPrice.value) ?? d["price"]
                             : null,
-                        "total": available.value
-                            ? (double.tryParse(customPrice.value) ??
-                                    d["price"] as double) *
-                                quantity!
-                            : null,
+                        "total": available.value ? total : null,
                       };
                     }).toList();
 

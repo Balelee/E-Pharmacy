@@ -30,8 +30,8 @@ class LoginContentView extends GetView<LoginController> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 16.0, horizontal: 0),
                     child: Image.asset(
-                      'assets/images/sflogo.png',
-                      width: 180,
+                      'assets/images/app-icone.png',
+                      width: 45,
                       fit: BoxFit.contain,
                     ),
                   ),

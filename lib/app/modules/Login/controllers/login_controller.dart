@@ -16,13 +16,23 @@ import '../../../utils/form_helper.dart';
 
 class LoginController extends GetxController {
   final AuthProvider authProvider = Get.put(AuthProvider());
-   SocketController socketController = Get.find<SocketController>();
+  SocketController socketController = Get.find<SocketController>();
   GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
   final emailphoneController = FormHelper.getController();
   final passwordController = FormHelper.getController();
   var isPasswordHidden = true.obs;
+  var isReady = false.obs;
   void togglePasswordVisibility() {
     isPasswordHidden.value = !isPasswordHidden.value;
+  }
+
+  Future<void> preloadLogo() async {
+    await precacheImage(
+      const AssetImage('assets/images/app-icone.png'),
+      size: const Size(45, 45),
+      Get.context!,
+    );
+    isReady.value = true;
   }
 
   Rx<Widget> changeContent = Rx<Widget>(Container());
@@ -31,10 +41,11 @@ class LoginController extends GetxController {
     super.onInit();
     changeContent.value = SplashViewView();
     changeScreen();
-    emailphoneController.text = "75572006";
-    passwordController.text = "00000000";
-    // emailphoneController.text = "54738460";
-    // passwordController.text = "adminadmin";
+    // emailphoneController.text = "75572006";
+    // passwordController.text = "00000000";
+    emailphoneController.text = "54738460";
+    passwordController.text = "adminadmin";
+    preloadLogo();
   }
 
   @override
@@ -75,11 +86,11 @@ class LoginController extends GetxController {
       await UserController.to.affectToCurrentUser(user);
       NavigationController.to.currentIndex.value = 0;
       if (user.userStatus == 'client') {
-          await socketController.connectToSocket(user: user);
+        await socketController.connectToSocket(user: user);
         Get.toNamed(AppPages.BASE, arguments: user);
       } else if (user.userStatus == 'pharmacien') {
-          await socketController.connectToSocket(user: user);
-          
+        await socketController.connectToSocket(user: user);
+
         Get.toNamed(AppPages.PHARMACIEN, arguments: user);
       }
     }

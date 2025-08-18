@@ -465,7 +465,36 @@ class PharmacienView extends GetView<PharmacienController> {
             backgroundColor: AppColors.background,
             items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart),
+                icon: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    const Icon(Icons.shopping_cart),
+                    Positioned(
+                      right: -6,
+                      top: -3,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 16,
+                          minHeight: 16,
+                        ),
+                        child: CustomText(
+                          text: controller.orders.length.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 label: 'Commande',
               ),
               BottomNavigationBarItem(
