@@ -21,8 +21,8 @@ class Order {
     return Order(
       id: json['id'],
       amount: json['priceTotal'].toString(),
-      status: orderStatusFromString(json['orderStatus']),
-      statusColor: Color(int.parse(json['orderStatusColor'] ?? '0xFFF44336')),
+      status: orderStatusFromString(json['status']),
+      statusColor: Color(int.parse(json['statusColor'] ?? '0xFFF44336')),
       orderDetails: (json['details'] as List)
           .map((item) => OrderDetail.fromJson(item))
           .toList(),

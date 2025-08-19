@@ -260,8 +260,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                     backgroundColor: avatarColor,
                                     radius: 25,
                                     child: Text(
-                                      controller
-                                          .getInitials(pharmacy.pharmacieName),
+                                      controller.getInitials(pharmacy.name),
                                       style: const TextStyle(
                                         color: AppColors.background,
                                         fontWeight: FontWeight.bold,
@@ -279,7 +278,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             CustomText(
-                                              text: pharmacy.pharmacieName,
+                                              text: pharmacy.name,
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,

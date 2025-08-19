@@ -17,6 +17,15 @@ class SocketController extends GetxController {
           print("donnees recus $e");
         });
   }
+  void listenToMyOrderTraitement({required int orderId}) async {
+    // ProductController productController = Get.find<ProductController>();
+    ecouter(
+        channel: 'private-client.$orderId',
+        event: 'commande.statut',
+        action: (e) {
+          print("donnees traité $e");
+        });
+  }
 
   void listenToProductUpdated() async {
     ecouter(
