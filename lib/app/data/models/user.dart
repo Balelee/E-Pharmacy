@@ -9,7 +9,7 @@ class User {
   final String? birthdate;
   final String? birthplace;
   final String? email;
-  final String? userStatus;
+  final String? type;
   final String? password;
   final Pharmacy? pharmacie;
 
@@ -22,7 +22,7 @@ class User {
     required this.birthdate,
     required this.birthplace,
     required this.email,
-    this.userStatus,
+    this.type,
     this.pharmacie,
     required this.password,
   });
@@ -37,7 +37,7 @@ class User {
       birthdate: json['birthDate'],
       birthplace: json['birthPlace'],
       email: json['email'],
-      userStatus: json['userType'],
+      type: json['type'],
       password: json['password'],
       pharmacie: json['pharmacie'] != null
           ? Pharmacy.fromJson(json['pharmacie'])
@@ -55,7 +55,7 @@ class User {
       'birthDate': birthdate,
       'birthPlace': birthplace,
       'email': email,
-      'userType': userStatus,
+      'userType': type,
       'password': password,
       'pharmacie': pharmacie?.toJson(),
     };
@@ -70,8 +70,8 @@ class User {
       String? birthdate,
       String? birthplace,
       String? email,
-      String? userStatus,
-      String? pharmacieName}) {
+      String? type,
+      String? name}) {
     return User(
         id: id ?? this.id,
         username: username ?? this.username,
@@ -81,7 +81,7 @@ class User {
         birthdate: birthdate ?? this.birthdate,
         birthplace: birthplace ?? this.birthplace,
         email: email ?? this.email,
-        userStatus: userStatus ?? this.userStatus,
+        type: type ?? this.type,
         password: password ?? this.password,
         pharmacie: pharmacie ?? this.pharmacie);
   }

@@ -76,7 +76,7 @@ class CartController extends GetxController {
     };
     orders.value = await produitProvider.storeCommand(data: data).then((data) {
       panierList.clear();
-
+// executer le socket ici
       return data ?? [];
     });
   }

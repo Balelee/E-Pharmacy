@@ -46,7 +46,7 @@ class PharmacienView extends GetView<PharmacienController> {
                               ),
                             ),
                             Text(
-                              "${controller.user.user?.pharmacie?.pharmacieName}",
+                              "${controller.user.user?.pharmacie?.name}",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleLarge

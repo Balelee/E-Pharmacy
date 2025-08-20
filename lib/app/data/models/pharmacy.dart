@@ -23,7 +23,7 @@ class OpeningHour {
 class Pharmacy {
   final int id;
   final String pharmacienId;
-  final String pharmacieName;
+  final String name;
   final String adresse;
   final String phone;
   final int isOnDuty;
@@ -35,7 +35,7 @@ class Pharmacy {
   Pharmacy({
     required this.id,
     required this.pharmacienId,
-    required this.pharmacieName,
+    required this.name,
     required this.adresse,
     required this.phone,
     required this.isOnDuty,
@@ -53,7 +53,7 @@ class Pharmacy {
     return Pharmacy(
       id: json['id'],
       pharmacienId: json['pharmacien_id'].toString(),
-      pharmacieName: json['pharmacieName'],
+      name: json['name'],
       adresse: json['adresse'],
       phone: json['phone'],
       isOnDuty: json['is_on_duty'],
@@ -75,23 +75,24 @@ class Pharmacy {
     }
   }
 
-Map<String, dynamic> toJson() {
-  return {
-    'id': id,
-    'pharmacien_id': pharmacienId,
-    'pharmacieName': pharmacieName,
-    'adresse': adresse,
-    'phone': phone,
-    'is_on_duty': isOnDuty,
-    'is_open_now': isOpenNow,
-    'latitude': latitude,
-    'longitude': longitude,
-    'opening_hours': openingHours.map((oh) => {
-      'day': oh.day,
-      'opening_time': oh.openingTime,
-      'closing_time': oh.closingTime,
-    }).toList(),
-  };
-}
-
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'pharmacien_id': pharmacienId,
+      'name': name,
+      'adresse': adresse,
+      'phone': phone,
+      'is_on_duty': isOnDuty,
+      'is_open_now': isOpenNow,
+      'latitude': latitude,
+      'longitude': longitude,
+      'opening_hours': openingHours
+          .map((oh) => {
+                'day': oh.day,
+                'opening_time': oh.openingTime,
+                'closing_time': oh.closingTime,
+              })
+          .toList(),
+    };
+  }
 }

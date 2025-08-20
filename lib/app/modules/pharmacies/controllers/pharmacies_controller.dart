@@ -144,9 +144,8 @@ class PharmaciesController extends GetxController {
 
   void sortByName() {
     isNameAsc.value = !isNameAsc.value;
-    pharmacies.sort((a, b) => isNameAsc.value
-        ? a.pharmacieName.compareTo(b.pharmacieName)
-        : b.pharmacieName.compareTo(a.pharmacieName));
+    pharmacies.sort((a, b) =>
+        isNameAsc.value ? a.name.compareTo(b.name) : b.name.compareTo(a.name));
     iconColor.value = iconColor.value == AppColors.textSecondary
         ? Colors.green
         : AppColors.textSecondary;

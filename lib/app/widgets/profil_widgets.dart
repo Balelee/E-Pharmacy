@@ -123,7 +123,7 @@ class ProfileDetails extends StatelessWidget {
             ProfileField(
               field: 'address',
               label: 'Address',
-              value: user.userStatus ?? '',
+              value: user.type ?? '',
             ),
           ],
         ),

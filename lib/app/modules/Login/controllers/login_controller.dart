@@ -85,10 +85,10 @@ class LoginController extends GetxController {
       Get.put(ProfileController());
       await UserController.to.affectToCurrentUser(user);
       NavigationController.to.currentIndex.value = 0;
-      if (user.userStatus == 'client') {
+      if (user.type == 'client') {
         await socketController.connectToSocket(user: user);
         Get.toNamed(AppPages.BASE, arguments: user);
-      } else if (user.userStatus == 'pharmacien') {
+      } else if (user.type == 'pharmacien') {
         await socketController.connectToSocket(user: user);
 
         Get.toNamed(AppPages.PHARMACIEN, arguments: user);

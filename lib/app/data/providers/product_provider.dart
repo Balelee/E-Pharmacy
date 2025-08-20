@@ -118,7 +118,7 @@ class ProductProvider with BaseController {
       final response = await ApiProvider.put(
         auth: true,
         apiURL: ApiRoutes.orderStatus.format({'orderId': orderId}),
-        data: {'orderStatus': status},
+        data: {'status': status},
       ).catchError(handleError);
       if (response != null && response['data'] != null) {
         return Order.fromJson(response['data']);
