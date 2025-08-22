@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/ClientOrderList/bindings/client_order_list_binding.dart';
+import '../modules/ClientOrderList/views/client_order_list_view.dart';
 import '../modules/Login/bindings/login_binding.dart';
 import '../modules/Login/views/login_content_view.dart';
 import '../modules/Login/views/login_view.dart';
@@ -17,8 +19,6 @@ import '../modules/home/views/basket_view.dart';
 import '../modules/home/views/product_list_view.dart';
 import '../modules/orderDetail/bindings/order_detail_binding.dart';
 import '../modules/orderDetail/views/order_detail_view.dart';
-import '../modules/orderpharmacien/bindings/orderpharmacien_binding.dart';
-import '../modules/orderpharmacien/views/orderpharmacien_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/paiement/bindings/paiement_binding.dart';
@@ -52,6 +52,7 @@ class AppPages {
   static const SEARCHPRODUCT = Routes.SEARCHPRODUCT;
   static const PHARMACIEN = Routes.PHARMACIEN;
   static const ORDERPHARMACIEN = Routes.ORDERPHARMACIEN;
+  static const CLIENT_ORDER_LIST = Routes.CLIENT_ORDER_LIST;
 
   static final routes = [
     GetPage(
@@ -139,10 +140,11 @@ class AppPages {
       page: () => const PharmacienView(),
       binding: PharmacienBinding(),
     ),
+  
     GetPage(
-      name: _Paths.ORDERPHARMACIEN,
-      page: () => const OrderpharmacienView(),
-      binding: OrderpharmacienBinding(),
+      name: _Paths.CLIENT_ORDER_LIST,
+      page: () => const ClientOrderListView(),
+      binding: ClientOrderListBinding(),
     ),
   ];
 }

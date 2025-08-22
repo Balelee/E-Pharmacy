@@ -33,28 +33,23 @@ class BasketView extends GetView<CartController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
-                child:
-                    CustomText(text: "${controller.orders.length} commandes"),
-              ),
-              SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: controller.orders
-                        .map((order) => Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
-                              child: order.status.label == "Annulé"
-                                  ? OrderCard(order: order)
-                                  : GestureDetector(
-                                      onTap: () => Get.toNamed(
-                                          AppPages.ORDER_DETAIL,
-                                          arguments: order),
-                                      child: OrderCard(order: order),
-                                    ),
-                            ))
-                        .toList(),
-                  )),
+              // SingleChildScrollView(
+              //     scrollDirection: Axis.horizontal,
+              //     child: Row(
+              //       children: controller.orders
+              //           .map((order) => Padding(
+              //                 padding: EdgeInsets.symmetric(horizontal: 8),
+              //                 child: order.status.label == "Annulé"
+              //                     ? OrderCard(order: order)
+              //                     : GestureDetector(
+              //                         onTap: () => Get.toNamed(
+              //                             AppPages.ORDER_DETAIL,
+              //                             arguments: order),
+              //                         child: OrderCard(order: order),
+              //                       ),
+              //               ))
+              //           .toList(),
+              //     )),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
                 child: CustomText(
