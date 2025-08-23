@@ -1,4 +1,5 @@
 import 'package:pharmix/app/cummon/controllers/base_controller.dart';
+import 'package:pharmix/app/data/models/auxiliaire_order.dart';
 import 'package:pharmix/app/data/models/order.dart';
 import 'package:pharmix/app/data/models/searchproduct.dart';
 import 'package:pharmix/app/data/providers/api_provider.dart';
@@ -63,7 +64,7 @@ class ProductProvider with BaseController {
     }
   }
 
-  Future<List<Order>?> getOrdersPharmacies() async {
+  Future<List<AuxiliaireOrder>?> getOrdersPharmacies() async {
     try {
       final response = await ApiProvider.get(
         auth: true,
@@ -71,7 +72,7 @@ class ProductProvider with BaseController {
       ).catchError(handleError);
       if (response != null && response['data'] != null) {
         final List<dynamic> data = response['data'];
-        return data.map((json) => Order.fromJson(json)).toList();
+        return data.map((json) => AuxiliaireOrder.fromJson(json)).toList();
       }
       return null;
     } catch (e) {
@@ -131,7 +132,7 @@ class ProductProvider with BaseController {
     }
   }
 
-  Future<List<Order>> getOrdersByStatus(String status) async {
+  Future<List<AuxiliaireOrder>> getOrdersByStatus(String status) async {
     try {
       final String url = status == "traite"
           ? ApiRoutes.ordersValide.path
@@ -142,7 +143,7 @@ class ProductProvider with BaseController {
       ).catchError(handleError);
       if (response != null && response['data'] != null) {
         final List<dynamic> data = response['data'];
-        return data.map((json) => Order.fromJson(json)).toList();
+        return data.map((json) => AuxiliaireOrder.fromJson(json)).toList();
       }
       return [];
     } catch (e) {

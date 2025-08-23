@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/models/auxiliaire_order.dart';
 import 'package:pharmix/app/data/models/order.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/utils/helpers/bottomSheet_helper.dart';
@@ -7,7 +8,7 @@ import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 
 class OrderAuxiliaireItemWidget extends StatelessWidget {
-  final Order order;
+  final AuxiliaireOrder order;
   const OrderAuxiliaireItemWidget({super.key, required this.order});
 
   @override
@@ -78,7 +79,7 @@ class OrderAuxiliaireItemWidget extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: '-------',
+                        text:order.clientPhone,
                         style: const TextStyle(
                           fontWeight: FontWeight.normal,
                           fontStyle: FontStyle.italic,
