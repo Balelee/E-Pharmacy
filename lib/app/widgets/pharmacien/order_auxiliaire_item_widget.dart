@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/auxiliaire_order.dart';
-import 'package:pharmix/app/data/models/order.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/utils/helpers/bottomSheet_helper.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
@@ -9,14 +8,15 @@ import 'package:pharmix/app/widgets/custom_text.dart';
 
 class OrderAuxiliaireItemWidget extends StatelessWidget {
   final AuxiliaireOrder order;
-  const OrderAuxiliaireItemWidget({super.key, required this.order});
+   dynamic Function(List<Map<String, Object?>>) onValidate;
+   OrderAuxiliaireItemWidget({super.key, required this.order,required this.onValidate});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         if (Get.isBottomSheetOpen == false) {
-          BottomsheetHelper.commandeDetailBottomSheet(order: order);
+          BottomsheetHelper.commandeDetailBottomSheet(order: order,onValidate: onValidate);
         }
       },
       child: Container(
@@ -129,7 +129,7 @@ class OrderAuxiliaireItemWidget extends StatelessWidget {
                     onPressed: () {
                       if (Get.isBottomSheetOpen == false) {
                         BottomsheetHelper.commandeDetailBottomSheet(
-                            order: order);
+                            order: order,onValidate: onValidate);
                       }
                     },
                     buttonTitle: "Traiter",

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/modules/pharmacien/controllers/pharmacien_controller.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
 import 'package:pharmix/app/widgets/pharmacien/order_auxiliaire_item_widget.dart';
@@ -11,41 +12,44 @@ class OrderAuxiliaireListWidget extends GetView<PharmacienController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (controller.showToast.value)
-            CustomToast(
-              icon: Icons.info_outline,
-              message:
-                  "Cher auxiliaire, Merci de vérifier chaque commande client afin de valider ou annuler selon la situation.",
-              backgroundColor: AppColors.success,
-              onClose: () => controller.showToast.value = false,
-            ),
-          const SizedBox(height: 20),
-          _buildHeader(context),
-          const SizedBox(height: 10),
-          Obx(() {
-            if (controller.orders.isEmpty) {
-              return Center(
-                child: Column(
-                  children: const [
-                    CircularProgressIndicator(color: Colors.green),
-                    SizedBox(height: 5),
-                    CustomText(text: "Aucune commande récente"),
-                  ],
+      child: Obx(
+        () => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (controller.showToast.value)
+              CustomToast(
+                icon: Icons.info_outline,
+                message:
+                    "Cher auxiliaire, Merci de vérifier chaque commande client afin de valider ou annuler selon la situation.",
+                backgroundColor: AppColors.success,
+                onClose: () => controller.showToast.value = false,
+              ),
+            _buildHeader(context),
+            Obx(() {
+              if (controller.orders.isEmpty) {
+                return Center(
+                  child: CustomText(
+                    text: "Aucune commande récente",
+                    style: AppTextStyles.caption,
+                  ),
+                );
+              }
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: controller.orders.length,
+                itemBuilder: (context, index) => OrderAuxiliaireItemWidget(
+                  order: controller.orders[index],
+                  onValidate: (p0) {
+                    controller.storeOrderResponse(
+                        orderId: controller.orders[index].id,
+                        data: {'items': p0});
+                  },
                 ),
               );
-            }
-            return ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: controller.orders.length,
-              itemBuilder: (context, index) =>
-                  OrderAuxiliaireItemWidget(order: controller.orders[index]),
-            );
-          }),
-        ],
+            }),
+          ],
+        ),
       ),
     );
   }

@@ -4,7 +4,9 @@ import 'package:pharmix/app/data/models/order.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 
 class BottomsheetHelper {
-  static Future<Widget?> commandeDetailBottomSheet({required Order order}) {
+  static Future<Widget?> commandeDetailBottomSheet(
+      {required Order order,
+      required Function(List<Map<String, Object?>> result) onValidate}) {
     final details = order.orderDetails.map((e) {
       final quantity = RxInt(int.tryParse(e.quantity.toString()) ?? 1);
       final customPrice = RxString(e.priceUnitaire.toString());
@@ -237,13 +239,13 @@ class BottomsheetHelper {
                         "available": available.value,
                         "quantity": quantity,
                         "price": available.value
-                            ? double.tryParse(customPrice.value) ?? d["price"]
-                            : d["price"],
-                        "total": available.value ? total : d["total"],
+                            ? double.tryParse(customPrice.value) ??
+                                (d["price"] as double)
+                            : (d["price"] as double),
+                        "total": total,
                       };
                     }).toList();
-
-                    print("Résultat final: $result");
+                    onValidate.call(result);
                     Get.back();
                   },
                   child: const Text(

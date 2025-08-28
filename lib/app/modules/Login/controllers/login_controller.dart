@@ -41,10 +41,10 @@ class LoginController extends GetxController {
     super.onInit();
     changeContent.value = SplashViewView();
     changeScreen();
-    emailphoneController.text = "54738460";
-    passwordController.text = "adminadmin";
     emailphoneController.text = "75572006";
     passwordController.text = "00000000";
+    emailphoneController.text = "54738460";
+    passwordController.text = "adminadmin";
     preloadLogo();
   }
 
@@ -61,7 +61,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> changeScreen() async {
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(seconds: 3), () {
       changeContent.value = LoginContentView();
     });
   }
