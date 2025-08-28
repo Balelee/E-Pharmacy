@@ -48,7 +48,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                   text: controller.deliveryAdress.value,
                   style: AppTextStyles.caption,
                 ),
-                trailing: order.status.label == "En attente"
+                trailing: order.status == "enattente"
                     ? SizedBox.shrink()
                     : CustomButton.secondaryButton(
                         onPressed: () {
@@ -145,7 +145,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CustomText(
-                                text: orderItem.status.label.toString(),
+                                text: orderItem.statusLabel,
                                 style: AppTextStyles.bodyText1PrimaryBold
                                     .copyWith(color: orderItem.statusColor),
                               ),
@@ -216,7 +216,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                       style: AppTextStyles.bodyText1PrimaryBold),
                 ],
               ),
-              order.status.label == "En attente"
+              order.status == "enattente"
                   ? SizedBox.shrink()
                   : CustomButton.primaryButton(
                       onPressed: () {

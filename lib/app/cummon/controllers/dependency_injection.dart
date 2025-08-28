@@ -10,6 +10,7 @@ import 'package:pharmix/app/data/repositories/user_repository.dart';
 import 'package:pharmix/app/modules/home/controllers/product_controller.dart';
 import 'package:pharmix/app/modules/home/controllers/profile_controller.dart';
 import 'package:pharmix/app/modules/paiement/controllers/paiement_controller.dart';
+import 'package:pharmix/app/modules/pharmacien/controllers/pharmacien_controller.dart';
 import 'package:pharmix/app/modules/searchproduct/controllers/searchproduct_controller.dart';
 import 'package:pharmix/app/utils/services/localization_service.dart';
 
@@ -21,6 +22,7 @@ class DependencieInjection {
     Get.put(NavigationController());
     Get.put(LocalizationService());
     Get.put(LanguageController());
+    Get.lazyPut(() => PharmacienController());
     Get.put(SocketController());
     Get.put(PaiementController());
     Get.lazyPut(() => UserRepository());

@@ -5,7 +5,8 @@ import 'package:pharmix/app/data/models/order_detail.dart';
 class Order {
   final int id;
   final String amount;
-  final OrderStatus status;
+  final String status;
+  final String statusLabel;
   final Color statusColor;
   final List<OrderDetail> orderDetails;
 
@@ -13,6 +14,7 @@ class Order {
     required this.id,
     required this.amount,
     required this.status,
+    required this.statusLabel,
     required this.statusColor,
     required this.orderDetails,
   });
@@ -21,7 +23,8 @@ class Order {
     return Order(
       id: json['id'],
       amount: json['priceTotal'].toString(),
-      status: orderStatusFromString(json['status']),
+      statusLabel: json['statusLabel'],
+      status: json['status'],
       statusColor: Color(int.parse(json['statusColor'] ?? '0xFFF44336')),
       orderDetails: (json['details'] as List)
           .map((item) => OrderDetail.fromJson(item))

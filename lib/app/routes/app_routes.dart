@@ -22,6 +22,7 @@ abstract class Routes {
   static const RECEIPTPAY = _Paths.RECEIPTPAY;
   static const PHARMACIEN = _Paths.PHARMACIEN;
   static const ORDERPHARMACIEN = _Paths.ORDERPHARMACIEN;
+  static const CLIENT_ORDER_LIST = _Paths.CLIENT_ORDER_LIST;
 }
 
 abstract class _Paths {
@@ -45,4 +46,5 @@ abstract class _Paths {
   static const RECEIPTPAY = '/receiptpay';
   static const PHARMACIEN = '/pharmacien';
   static const ORDERPHARMACIEN = '/orderpharmacien';
+  static const CLIENT_ORDER_LIST = '/client-order-list';
 }

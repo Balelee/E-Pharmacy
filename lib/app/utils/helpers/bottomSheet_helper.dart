@@ -15,6 +15,7 @@ class BottomsheetHelper {
           TextEditingController(text: quantity.value.toString());
       final priceController = TextEditingController(text: customPrice.value);
       return {
+        "id": e.id,
         "productName": e.productName,
         "price": double.tryParse(e.priceUnitaire.toString()) ?? 0.0,
         "quantity": quantity,
@@ -231,13 +232,14 @@ class BottomsheetHelper {
                       final total = (d["total"] as RxDouble).value;
 
                       return {
+                        "id": d["id"],
                         "productName": d["productName"],
                         "available": available.value,
                         "quantity": quantity,
                         "price": available.value
                             ? double.tryParse(customPrice.value) ?? d["price"]
-                            : null,
-                        "total": available.value ? total : null,
+                            : d["price"],
+                        "total": available.value ? total : d["total"],
                       };
                     }).toList();
 

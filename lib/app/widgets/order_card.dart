@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pharmix/app/data/models/order.dart';
-import 'package:pharmix/app/data/enums/orderstatus.dart';
 
-class OrderCard extends StatelessWidget {
+class ClientOrderCard extends StatelessWidget {
   final Order order;
 
-  const OrderCard({Key? key, required this.order}) : super(key: key);
+  const ClientOrderCard({Key? key, required this.order}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class OrderCard extends StatelessWidget {
                     color: order.statusColor.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(order.status.label,
+                  child: Text(order.statusLabel,
                       style: TextStyle(
                           color: order.statusColor,
                           fontWeight: FontWeight.bold)),

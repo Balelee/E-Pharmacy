@@ -42,11 +42,40 @@ class ProductListView extends GetView<ProductController> {
           actions: [
             Padding(
                 padding: const EdgeInsets.only(right: 15.0),
-                child: Icon(
-                  Icons.shop,
-                  color: AppColors.background,
+                child: InkWell(
+                  onTap: () => Get.toNamed(AppPages.CLIENT_ORDER_LIST),
+                  child: Icon(
+                    Icons.receipt_long,
+                    color: AppColors.background,
+                  ),
                 )),
           ],
+          bottom: PreferredSize(
+            preferredSize: Size(context.width, 40),
+            child: Container(
+              color: Colors.white70,
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(Icons.receipt_long, color: AppColors.primary),
+                  CustomText(
+                    text: "Vous avez 3 commandes",
+                    color: AppColors.primary,
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Get.toNamed(AppPages.CLIENT_ORDER_LIST);
+                    },
+                    icon: Icon(
+                      Icons.visibility,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(

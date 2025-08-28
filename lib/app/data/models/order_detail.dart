@@ -8,7 +8,8 @@ class OrderDetail {
   final String productName;
   final String quantity;
   final String priceUnitaire;
-  final OrderDetailStatus status;
+  final String status;
+  final String statusLabel;
   final Color statusColor;
   final String? imageUrl;
 
@@ -20,6 +21,7 @@ class OrderDetail {
     required this.quantity,
     required this.priceUnitaire,
     required this.status,
+    required this.statusLabel,
     required this.statusColor,
     required this.imageUrl,
   });
@@ -33,8 +35,9 @@ class OrderDetail {
       quantity: json['quantity'].toString(),
       imageUrl: json['productImage'],
       priceUnitaire: (json['priceUnitaire'] as num).toString(),
-      status: orderStatusFromString(json['orderDetailStatus']),
-      statusColor: Color(int.parse(json['orderDetailColor'] ?? '0xFFF44336')),
+      statusLabel:json['statusLabel'],
+      status:json['status'],
+      statusColor: Color(int.parse(json['statusColor'] ?? '0xFFF44336')),
     );
   }
 
@@ -47,7 +50,7 @@ class OrderDetail {
       'quantity': quantity,
       'priceUnitaire': priceUnitaire,
       'imageUrl': imageUrl,
-      'orderDetailStatus': status,
+    
     };
   }
 }

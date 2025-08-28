@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:laravel_echo_null/laravel_echo_null.dart';
 import 'package:pharmix/app/core/websocket/echo_service.dart';
+import 'package:pharmix/app/data/models/auxiliaire_order.dart';
 import 'package:pharmix/app/data/models/user.dart';
+import 'package:pharmix/app/modules/pharmacien/controllers/pharmacien_controller.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:pusher_client_socket/pusher_client_socket.dart' as pusher;
 
@@ -9,14 +11,19 @@ class SocketController extends GetxController {
   Echo<pusher.PusherClient, PusherChannel>? echo;
 
   void listenToNewOrderAdding({required int pharmacieId}) async {
-    // ProductController productController = Get.find<ProductController>();
+    PharmacienController pharmacienController =
+        Get.find<PharmacienController>();
     ecouter(
         channel: 'private-pharmacy.$pharmacieId',
         event: 'produit.demande',
         action: (e) {
-          print("donnees recus $e");
+          if (e != null) {
+            AuxiliaireOrder order = AuxiliaireOrder.fromJson(e['order']);
+            pharmacienController.orders.add(order);
+          }
         });
   }
+
   void listenToMyOrderTraitement({required int orderId}) async {
     // ProductController productController = Get.find<ProductController>();
     ecouter(
