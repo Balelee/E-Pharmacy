@@ -4,6 +4,7 @@ import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/data/models/cart_item.dart';
 import 'package:pharmix/app/data/models/paginated_transaction.dart';
 import 'package:pharmix/app/data/models/product_filter.dart';
+import 'package:pharmix/app/modules/clientFeedBackOrder/controllers/client_feed_back_order_controller.dart';
 import 'package:pharmix/app/modules/home/controllers/cart_controller.dart';
 
 import '../../../data/models/product.dart';
@@ -11,6 +12,8 @@ import '../../../data/providers/product_provider.dart';
 
 class ProductController extends GetxController {
   CartController cartController = Get.find<CartController>();
+  ClientFeedBackOrderController clientFeedBackOrderController =
+      Get.find<ClientFeedBackOrderController>();
   SocketController socketController = Get.find<SocketController>();
   var produits = <Product>[].obs;
 
@@ -32,15 +35,19 @@ class ProductController extends GetxController {
     super.onInit();
     pagingController = PagingController(firstPageKey: 1);
     pagingController.addPageRequestListener((pageKey) {
-      _fetchPage(pageKey: pageKey).then((onValue) async {
-      });
+      _fetchPage(pageKey: pageKey).then((onValue) async {});
     });
   }
+
+  RxInt order_length = RxInt(0);
 
   @override
   void onReady() {
     super.onReady();
-    
+  }
+
+  void getOderLength() {
+    order_length.value = clientFeedBackOrderController.orders.length;
   }
 
   @override
@@ -49,8 +56,6 @@ class ProductController extends GetxController {
     _isDisposed.value = true;
     pagingController.dispose();
   }
-
- 
 
   void updateCategory(ProductFilter category) {
     selectedCategory.value = category;
