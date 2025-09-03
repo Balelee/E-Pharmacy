@@ -6,6 +6,7 @@ import 'package:pharmix/app/utils/helpers/bottomSheet_helper.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 
+// ignore: must_be_immutable
 class OrderAuxiliaireItemWidget extends StatelessWidget {
   final AuxiliaireOrder order;
    dynamic Function(List<Map<String, Object?>>) onValidate;

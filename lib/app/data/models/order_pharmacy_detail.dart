@@ -1,7 +1,10 @@
+import 'package:pharmix/app/data/models/order_detail.dart';
+
 class OrderPharmacyDetail {
   final int id;
   final int orderDetailId;
   final bool available;
+  final OrderDetail? orderDetails;
   final int quantity;
   final double price;
   final double total;
@@ -12,6 +15,7 @@ class OrderPharmacyDetail {
     required this.available,
     required this.quantity,
     required this.price,
+    this.orderDetails,
     required this.total,
   });
 
@@ -22,6 +26,7 @@ class OrderPharmacyDetail {
       available: json['available'],
       quantity: int.parse(json['quantity'].toString()),
       price: (json['price'] as num).toDouble(),
+      orderDetails: OrderDetail.fromJson(json['details']),
       total: (json['total'] as num).toDouble(),
     );
   }

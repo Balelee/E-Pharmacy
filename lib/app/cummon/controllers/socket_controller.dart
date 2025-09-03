@@ -29,6 +29,7 @@ class SocketController extends GetxController {
   void listenToMyOrderTraitement({required int orderId}) async {
     ClientFeedBackOrderController clientFeedBackOrderController =
         Get.find<ClientFeedBackOrderController>();
+    clientFeedBackOrderController.startProcessingOrder();
     ecouter(
         channel: 'private-client.$orderId',
         event: 'commande.statut',
@@ -65,7 +66,7 @@ class SocketController extends GetxController {
 
   Future<void> initialSoketSubcription({required User user}) async {
     if (user.pharmacie != null) {
-      listenToNewOrderAdding(pharmacieId: user.pharmacie!.id);
+      listenToNewOrderAdding(pharmacieId: user.pharmacie!.id ?? 0);
     }
     // listenToProductUpdated();
     // listenToProductDeleted();

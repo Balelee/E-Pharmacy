@@ -260,7 +260,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                     backgroundColor: avatarColor,
                                     radius: 25,
                                     child: Text(
-                                      controller.getInitials(pharmacy.name),
+                                      controller.getInitials(pharmacy.name?? ''),
                                       style: const TextStyle(
                                         color: AppColors.background,
                                         fontWeight: FontWeight.bold,
@@ -278,7 +278,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             CustomText(
-                                              text: pharmacy.name,
+                                              text: pharmacy.name ?? "",
                                               style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
@@ -295,13 +295,13 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                                   ))
                                             else
                                               CustomText(
-                                                text: pharmacy.isOpenNow
+                                                text: pharmacy.isOpenNow!
                                                     ? LocaleKeys.ouvert.tr
                                                     : LocaleKeys.fermer.tr,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.bold,
-                                                  color: pharmacy.isOpenNow
+                                                  color: pharmacy.isOpenNow!
                                                       ? Colors.green.shade300
                                                       : AppColors.error,
                                                 ),
@@ -310,7 +310,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                         ),
                                         const SizedBox(height: 4),
                                         CustomText(
-                                          text: pharmacy.adresse,
+                                          text: pharmacy.adresse ?? "",
                                           style: const TextStyle(
                                             fontSize: 13,
                                             color: Colors.grey,
@@ -363,7 +363,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                                     size: 20,
                                                   ),
                                                   CustomText(
-                                                    text: pharmacy.phone,
+                                                    text: pharmacy.phone ?? "",
                                                     style: const TextStyle(
                                                       fontSize: 13,
                                                       color: Colors.grey,

@@ -26,7 +26,7 @@ class OrderDetailController extends GetxController {
   double get totalCommande => order.value?.orderDetails.fold(
       0,
       (sum, item) =>
-          sum! + (int.parse(item.priceUnitaire) * int.parse(item.quantity)))??0.0;
+          sum! + (int.parse(item.priceUnitaire.toString()) * int.parse(item.quantity.toString())))??0.0;
 
   double fraisLivraison = 2050;
   double get totalPrice => totalCommande + fraisLivraison;

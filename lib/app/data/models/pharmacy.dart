@@ -21,28 +21,28 @@ class OpeningHour {
 }
 
 class Pharmacy {
-  final int id;
-  final String pharmacienId;
-  final String name;
-  final String adresse;
-  final String phone;
-  final int isOnDuty;
-  final bool isOpenNow;
+  final int? id;
+  final String? pharmacienId;
+  final String? name;
+  final String? adresse;
+  final String? phone;
+  final int? isOnDuty;
+  final bool? isOpenNow;
   final String? latitude;
   final String? longitude;
-  final List<OpeningHour> openingHours;
+  final List<OpeningHour>? openingHours;
 
   Pharmacy({
-    required this.id,
-    required this.pharmacienId,
-    required this.name,
-    required this.adresse,
-    required this.phone,
-    required this.isOnDuty,
-    required this.isOpenNow,
+    this.id,
+    this.pharmacienId,
+    this.name,
+    this.adresse,
+    this.phone,
+    this.isOnDuty,
+    this.isOpenNow,
     this.latitude,
     this.longitude,
-    required this.openingHours,
+    this.openingHours,
   });
 
   factory Pharmacy.fromJson(Map<String, dynamic> json) {
@@ -67,7 +67,7 @@ class Pharmacy {
   OpeningHour? getOpeningHoursForToday() {
     final currentDay = DateFormat('EEEE', 'fr_FR').format(DateTime.now());
     try {
-      return openingHours.firstWhere(
+      return openingHours?.firstWhere(
         (hours) => hours.day.toLowerCase() == currentDay.toLowerCase(),
       );
     } catch (e) {
@@ -87,7 +87,7 @@ class Pharmacy {
       'latitude': latitude,
       'longitude': longitude,
       'opening_hours': openingHours
-          .map((oh) => {
+          ?.map((oh) => {
                 'day': oh.day,
                 'opening_time': oh.openingTime,
                 'closing_time': oh.closingTime,

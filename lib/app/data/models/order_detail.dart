@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:pharmix/app/data/enums/orderdetail.dart';
 
 class OrderDetail {
-  final int id;
-  final int orderId;
-  final int productId;
-  final String productName;
-  final String quantity;
-  final String priceUnitaire;
-  final String status;
-  final String statusLabel;
-  final Color statusColor;
+  final int? id;
+  final int? orderId;
+  final int? productId;
+  final String? productName;
+  final String? quantity;
+  final String? priceUnitaire;
+  final String? status;
+  final String? statusLabel;
+  final Color? statusColor;
   final String? imageUrl;
 
   OrderDetail({
-    required this.id,
-    required this.orderId,
-    required this.productId,
-    required this.productName,
-    required this.quantity,
-    required this.priceUnitaire,
-    required this.status,
-    required this.statusLabel,
-    required this.statusColor,
-    required this.imageUrl,
+    this.id,
+    this.orderId,
+    this.productId,
+    this.productName,
+    this.quantity,
+    this.priceUnitaire,
+    this.status,
+    this.statusLabel,
+    this.statusColor,
+    this.imageUrl,
   });
 
   factory OrderDetail.fromJson(Map<String, dynamic> json) {
