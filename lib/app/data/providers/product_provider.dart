@@ -25,7 +25,7 @@ class ProductProvider with BaseController {
     }
   }
 
-  Future<List<Order>?> storeCommand(
+  Future<Map<String, dynamic>?> storeCommand(
       {required Map<String, dynamic> data}) async {
     try {
       showLoading();
@@ -35,9 +35,9 @@ class ProductProvider with BaseController {
         data: data,
       ).catchError(handleError);
       hideLoading();
-      if (response != null && response['data'] != null) {
-        final List<dynamic> data = response['data'];
-        return data.map((json) => Order.fromJson(json)).toList();
+      if (response != null) {
+  
+        return response as Map<String,dynamic>;
       }
       return null;
     } catch (e) {

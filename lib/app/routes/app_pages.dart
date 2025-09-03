@@ -9,6 +9,8 @@ import '../modules/Register/bindings/register_binding.dart';
 import '../modules/Register/views/register_view.dart';
 import '../modules/address/bindings/address_binding.dart';
 import '../modules/address/views/address_view.dart';
+import '../modules/clientFeedBackOrder/bindings/client_feed_back_order_binding.dart';
+import '../modules/clientFeedBackOrder/views/client_feed_back_order_view.dart';
 import '../modules/clinique/bindings/clinique_binding.dart';
 import '../modules/clinique/views/clinique_view.dart';
 import '../modules/detailProduit/bindings/detail_produit_binding.dart';
@@ -53,6 +55,7 @@ class AppPages {
   static const PHARMACIEN = Routes.PHARMACIEN;
   static const ORDERPHARMACIEN = Routes.ORDERPHARMACIEN;
   static const CLIENT_ORDER_LIST = Routes.CLIENT_ORDER_LIST;
+  static const CLIENT_FEED_BACK_ORDER = Routes.CLIENT_FEED_BACK_ORDER;
 
   static final routes = [
     GetPage(
@@ -140,11 +143,15 @@ class AppPages {
       page: () => const PharmacienView(),
       binding: PharmacienBinding(),
     ),
-  
     GetPage(
       name: _Paths.CLIENT_ORDER_LIST,
       page: () => const ClientOrderListView(),
       binding: ClientOrderListBinding(),
+    ),
+    GetPage(
+      name: _Paths.CLIENT_FEED_BACK_ORDER,
+      page: () => const ClientFeedBackOrderView(),
+      binding: ClientFeedBackOrderBinding(),
     ),
   ];
 }

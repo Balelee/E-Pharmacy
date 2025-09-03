@@ -7,6 +7,7 @@ import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
 import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/repositories/user_repository.dart';
+import 'package:pharmix/app/modules/clientFeedBackOrder/controllers/client_feed_back_order_controller.dart';
 import 'package:pharmix/app/modules/home/controllers/product_controller.dart';
 import 'package:pharmix/app/modules/home/controllers/profile_controller.dart';
 import 'package:pharmix/app/modules/paiement/controllers/paiement_controller.dart';
@@ -30,5 +31,6 @@ class DependencieInjection {
     Get.lazyPut(() => ProfileController());
     Get.lazyPut<SearchproductController>(() => SearchproductController());
     Get.lazyPut<ProductController>(() => ProductController());
+    Get.put(ClientFeedBackOrderController());
   }
 }

@@ -1,8 +1,10 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/data/models/cart_item.dart';
 import 'package:pharmix/app/data/models/order.dart';
 import 'package:pharmix/app/data/providers/product_provider.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
 
 class CartController extends GetxController {
   final ProductProvider produitProvider = ProductProvider();
@@ -74,10 +76,14 @@ class CartController extends GetxController {
               })
           .toList(),
     };
-    orders.value = await produitProvider.storeCommand(data: data).then((data) {
+    await produitProvider.storeCommand(data: data).then((response) {
       panierList.clear();
-// executer le socket ici
-      return data ?? [];
+      if (response != null) {
+        Get.find<SocketController>()
+            .listenToMyOrderTraitement(orderId: response['order_id']);
+
+        Get.toNamed(AppPages.CLIENT_FEED_BACK_ORDER);
+      }
     });
   }
 

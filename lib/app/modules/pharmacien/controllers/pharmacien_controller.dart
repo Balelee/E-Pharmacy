@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/models/auxiliaire_order.dart';
+import 'package:pharmix/app/data/providers/auxilliaire_provider.dart';
 import 'package:pharmix/app/data/providers/product_provider.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 
 class PharmacienController extends GetxController {
+  AuxilliaireProvider auxilliaireProvider = AuxilliaireProvider();
   RxInt notificationCount = RxInt(3);
   final RxBool showToast = true.obs;
   final ScrollController scrollController = ScrollController();
@@ -15,7 +17,7 @@ class PharmacienController extends GetxController {
   var currentIndex = 0.obs;
   final pageController = PageController(initialPage: 0);
   final ProductProvider produitProvider = ProductProvider();
-  final RxList<AuxiliaireOrder>orders = <AuxiliaireOrder>[].obs;
+  final RxList<AuxiliaireOrder> orders = <AuxiliaireOrder>[].obs;
   final RxString selectedStatus = ''.obs;
   void changePage(int index) {
     currentIndex.value = index;
@@ -24,8 +26,6 @@ class PharmacienController extends GetxController {
   void loadOrdersData() async {
     orders.value = await produitProvider.getOrdersPharmacies() ?? [];
   }
-
-
 
   Future<void> fetchOrdersByStatus(String status) async {
     DialogHelper.showLoading(
@@ -46,7 +46,9 @@ class PharmacienController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // loadOrdersData();
+    if (orders.isEmpty) {
+      loadOrdersData();
+    }
   }
 
   @override
@@ -57,5 +59,11 @@ class PharmacienController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  Future<void> storeOrderResponse(
+      {required int orderId, required Map<String, dynamic> data}) async {
+    var response =
+        await auxilliaireProvider.storeResponse(orderId: orderId, data: data);
   }
 }
