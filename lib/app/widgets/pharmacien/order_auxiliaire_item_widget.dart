@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/auxiliaire_order.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/utils/helpers/bottomSheet_helper.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 
 class OrderAuxiliaireItemWidget extends StatelessWidget {
   final AuxiliaireOrder order;
-   dynamic Function(List<Map<String, Object?>>) onValidate;
-   OrderAuxiliaireItemWidget({super.key, required this.order,required this.onValidate});
+  dynamic Function(List<Map<String, Object?>>) onValidate;
+  OrderAuxiliaireItemWidget(
+      {super.key, required this.order, required this.onValidate});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         if (Get.isBottomSheetOpen == false) {
-          BottomsheetHelper.commandeDetailBottomSheet(order: order,onValidate: onValidate);
+          BottomsheetHelper.commandeDetailBottomSheet(
+              order: order, onValidate: onValidate);
         }
       },
       child: Container(
@@ -38,7 +41,7 @@ class OrderAuxiliaireItemWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           color: Colors.white,
           child: ListTile(
-            contentPadding: const EdgeInsets.all(12),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -79,12 +82,12 @@ class OrderAuxiliaireItemWidget extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text:order.clientPhone,
+                        text: order.clientPhone,
                         style: const TextStyle(
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
                           color: Colors.black54,
-                          fontSize: 10,
+                          fontSize: 13,
                         ),
                       ),
                     ],
@@ -129,18 +132,30 @@ class OrderAuxiliaireItemWidget extends StatelessWidget {
                     onPressed: () {
                       if (Get.isBottomSheetOpen == false) {
                         BottomsheetHelper.commandeDetailBottomSheet(
-                            order: order,onValidate: onValidate);
+                            order: order, onValidate: onValidate);
                       }
                     },
                     buttonTitle: "Traiter",
-                    backgroundColor: AppColors.success)
+                    backgroundColor: AppColors.success),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomText(
+                      text: order.date ?? '',
+                      style: AppTextStyles.caption
+                          .copyWith(fontStyle: FontStyle.italic),
+                    )
+                  ],
+                ),
               ],
             ),
           ),
         ),
       ),
     );
-
-   
   }
 }

@@ -245,8 +245,8 @@ class BottomsheetHelper {
                         "total": total,
                       };
                     }).toList();
-                    onValidate.call(result);
                     Get.back();
+                    onValidate.call(result);
                   },
                   child: const Text(
                     "Valider",

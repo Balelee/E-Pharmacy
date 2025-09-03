@@ -4,6 +4,7 @@ import 'package:pharmix/app/data/models/order_detail.dart';
 
 class AuxiliaireOrder extends Order {
   final String? clientPhone;
+  final String? date;
 
   AuxiliaireOrder({
     required super.id,
@@ -13,6 +14,7 @@ class AuxiliaireOrder extends Order {
     required super.statusColor,
     required super.orderDetails,
     this.clientPhone,
+    this.date,
   });
 
   factory AuxiliaireOrder.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class AuxiliaireOrder extends Order {
           .map((item) => OrderDetail.fromJson(item))
           .toList(),
       clientPhone: json['client_phone'],
+      date: json['date'],
     );
   }
 }

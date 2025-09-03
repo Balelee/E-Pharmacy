@@ -17,12 +17,15 @@ class OrderAuxiliaireListWidget extends GetView<PharmacienController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (controller.showToast.value)
-              CustomToast(
-                icon: Icons.info_outline,
-                message:
-                    "Cher auxiliaire, Merci de vérifier chaque commande client afin de valider ou annuler selon la situation.",
-                backgroundColor: AppColors.success,
-                onClose: () => controller.showToast.value = false,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: CustomToast(
+                  icon: Icons.info_outline,
+                  message:
+                      "Cher auxiliaire, Merci de vérifier chaque commande client afin de valider ou annuler selon la situation.",
+                  backgroundColor: AppColors.success,
+                  onClose: () => controller.showToast.value = false,
+                ),
               ),
             _buildHeader(context),
             Obx(() {
@@ -41,6 +44,8 @@ class OrderAuxiliaireListWidget extends GetView<PharmacienController> {
                 itemBuilder: (context, index) => OrderAuxiliaireItemWidget(
                   order: controller.orders[index],
                   onValidate: (p0) {
+                    // Future.delayed(Duration(milliseconds: 300), () {
+                    // });
                     controller.storeOrderResponse(
                         orderId: controller.orders[index].id,
                         data: {'items': p0});
