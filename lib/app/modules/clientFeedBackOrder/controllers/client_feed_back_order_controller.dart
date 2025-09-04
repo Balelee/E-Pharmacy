@@ -1,15 +1,19 @@
 import 'dart:async';
-
 import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/order_detail.dart';
 import 'package:pharmix/app/data/models/order_pharmacy.dart';
 import 'package:pharmix/app/data/models/order_pharmacy_detail.dart';
 import 'package:pharmix/app/data/models/pharmacy.dart';
+import 'package:pharmix/app/modules/home/controllers/cart_controller.dart';
+import 'package:pharmix/app/utils/helpers/Location_helper.dart';
 
 class ClientFeedBackOrderController extends GetxController {
   final orders = <OrderPharmacy>[].obs;
   RxBool isProcessing = false.obs;
   RxInt processingSeconds = 0.obs;
+  CartController cartController = Get.put(CartController());
+  RxMap<int, double> distances = <int, double>{}.obs;
+  LocationHelper locationHelper = LocationHelper();
 
   Timer? timer;
   final List<String> processingMessages = [
@@ -28,6 +32,8 @@ class ClientFeedBackOrderController extends GetxController {
         pharmacy: Pharmacy(
           id: 1,
           name: "Camille",
+          latitude: "12.37579",
+          longitude: "-1.47883",
         ),
         details: [
           OrderPharmacyDetail(
@@ -49,6 +55,8 @@ class ClientFeedBackOrderController extends GetxController {
         pharmacy: Pharmacy(
           id: 1,
           name: "Benia",
+          latitude: "12.37579",
+          longitude: "-1.47883",
         ),
         details: [
           OrderPharmacyDetail(
@@ -77,10 +85,27 @@ class ClientFeedBackOrderController extends GetxController {
     orders.value = oderLoad;
   }
 
+  void getUserPosition() async {
+    final userPosition = await locationHelper.allowPermission();
+    await Future.wait(orders.map((order) async {
+      final pharmacy = order.pharmacy;
+      final latitude = double.tryParse(pharmacy.latitude.toString()) ?? 0.0;
+      final longitude = double.tryParse(pharmacy.longitude.toString()) ?? 0.0;
+      final distanceKm = await locationHelper.calculateDistanceKm(
+        userPosition?.latitude ?? 0,
+        userPosition?.longitude ?? 0,
+        latitude,
+        longitude,
+      );
+      distances[order.id] = distanceKm;
+    }));
+  }
+
   @override
   void onInit() {
     super.onInit();
     loadOrder();
+    getUserPosition();
     // startProcessingOrder();
   }
 

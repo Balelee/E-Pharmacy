@@ -156,14 +156,20 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                               color: AppColors.error,
                                             ),
                                             const SizedBox(width: 4),
-                                            CustomText(
-                                              text: "Situé: 2km",
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold,
-                                                color: AppColors.error,
-                                              ),
-                                            ),
+                                            Obx(() {
+                                              final distance = controller
+                                                      .distances[order.id] ??
+                                                  0.0;
+                                              return CustomText(
+                                                text:
+                                                    "Situé: ${distance.toStringAsFixed(1)} km",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppColors.error,
+                                                ),
+                                              );
+                                            }),
                                           ],
                                         ),
                                       ),
