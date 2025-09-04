@@ -10,6 +10,7 @@ class ClientFeedBackOrderController extends GetxController {
   final orders = <OrderPharmacy>[].obs;
   RxBool isProcessing = false.obs;
   RxInt processingSeconds = 0.obs;
+
   Timer? timer;
   final List<String> processingMessages = [
     "Les pharmacies proches examinent votre commande.",
@@ -30,20 +31,21 @@ class ClientFeedBackOrderController extends GetxController {
         ),
         details: [
           OrderPharmacyDetail(
-              id: 2,
-              orderDetailId: 4,
-              available: true,
-              quantity: 2,
-              price: 1000,
-              total: 2000,
-              orderDetails: OrderDetail(productName: "Paracetamol"))
+            id: 2,
+            orderDetailId: 4,
+            available: true,
+            quantity: 2,
+            price: 1000,
+            total: 2000,
+            orderDetails: OrderDetail(productName: "Paracetamol"),
+          )
         ],
       ),
       OrderPharmacy(
         id: 1,
         orderId: 23,
         pharmacyId: 12,
-        status: "enattente",
+        status: "expiré",
         pharmacy: Pharmacy(
           id: 1,
           name: "Benia",
@@ -56,7 +58,9 @@ class ClientFeedBackOrderController extends GetxController {
             quantity: 1,
             price: 1200,
             total: 1200,
-            orderDetails: OrderDetail(productName: "Doliprane"),
+            orderDetails: OrderDetail(
+              productName: "Doliprane",
+            ),
           ),
           OrderPharmacyDetail(
             id: 2,
