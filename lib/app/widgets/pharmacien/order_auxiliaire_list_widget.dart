@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pharmix/app/modules/pharmacien/controllers/pharmacien_controller.dart';
+import 'package:pharmix/app/modules/pharmacy/pharmacien/controllers/pharmacien_controller.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';

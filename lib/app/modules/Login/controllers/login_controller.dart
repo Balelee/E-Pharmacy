@@ -8,7 +8,7 @@ import 'package:pharmix/app/data/providers/auth_provider.dart';
 import 'package:pharmix/app/data/repositories/user_repository.dart';
 import 'package:pharmix/app/modules/Login/views/login_content_view.dart';
 import 'package:pharmix/app/modules/Login/views/splash_view_view.dart';
-import 'package:pharmix/app/modules/home/controllers/profile_controller.dart';
+import 'package:pharmix/app/modules/client/home/controllers/profile_controller.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
