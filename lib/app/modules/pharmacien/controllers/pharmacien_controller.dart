@@ -46,14 +46,14 @@ class PharmacienController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (orders.isEmpty) {
-      loadOrdersData();
-    }
   }
 
   @override
   void onReady() {
     super.onReady();
+    if (orders.isEmpty) {
+      loadOrdersData();
+    }
   }
 
   @override

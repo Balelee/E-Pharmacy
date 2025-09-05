@@ -2,7 +2,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/data/models/cart_item.dart';
-import 'package:pharmix/app/data/models/order.dart';
 import 'package:pharmix/app/data/providers/product_provider.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/utils/helpers/Location_helper.dart';
@@ -12,8 +11,6 @@ class CartController extends GetxController {
   var panierList = <CartItem>[].obs;
   LocationHelper locationHelper = LocationHelper();
 
-  RxList<Order> orders = RxList<Order>([]);
-
   @override
   void onInit() {
     super.onInit();
@@ -22,9 +19,7 @@ class CartController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    if (orders.isEmpty) {
-      loadOrdersData();
-    }
+   
   }
 
   @override
@@ -57,10 +52,6 @@ class CartController extends GetxController {
         Get.toNamed(AppPages.CLIENT_FEED_BACK_ORDER);
       }
     });
-  }
-
-  void loadOrdersData() async {
-    orders.value = await produitProvider.getOrdersCommand() ?? [];
   }
 
   void incrementQuantity(int productId) {

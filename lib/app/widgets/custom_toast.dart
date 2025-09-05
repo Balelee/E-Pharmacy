@@ -61,7 +61,7 @@ class CustomToast extends StatelessWidget {
             child: GestureDetector(
               onTap: onClose,
               child: Container(
-                padding: const EdgeInsets.all(4),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: AppColors.background,
                   shape: BoxShape.circle,

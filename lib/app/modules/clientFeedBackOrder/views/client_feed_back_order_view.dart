@@ -238,7 +238,7 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                                   children: [
                                                     CustomText(
                                                       text:
-                                                          '${item.orderDetails?.productName}',
+                                                          '${item.orderDetail?.productName}',
                                                       style: AppTextStyles
                                                           .bodyText1Bold,
                                                       overflow:

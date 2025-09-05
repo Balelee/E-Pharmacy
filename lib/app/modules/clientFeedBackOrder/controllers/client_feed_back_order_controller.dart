@@ -36,7 +36,6 @@ class ClientFeedBackOrderController extends GetxController {
       OrderPharmacy(
         id: 1,
         orderId: 12,
-        pharmacyId: 1,
         status: "enattente",
         pharmacy: Pharmacy(
           id: 1,
@@ -47,19 +46,17 @@ class ClientFeedBackOrderController extends GetxController {
         details: [
           OrderPharmacyDetail(
             id: 2,
-            orderDetailId: 4,
             available: true,
             quantity: 2,
             price: 1000,
             total: 2000,
-            orderDetails: OrderDetail(productName: "Paracetamol"),
+            orderDetail: OrderDetail(productName: "Paracetamol"),
           )
         ],
       ),
       OrderPharmacy(
         id: 2,
         orderId: 23,
-        pharmacyId: 12,
         status: "expiré",
         pharmacy: Pharmacy(
           id: 1,
@@ -70,23 +67,21 @@ class ClientFeedBackOrderController extends GetxController {
         details: [
           OrderPharmacyDetail(
             id: 2,
-            orderDetailId: 4,
             available: true,
             quantity: 1,
             price: 1200,
             total: 1200,
-            orderDetails: OrderDetail(
+            orderDetail: OrderDetail(
               productName: "Doliprane",
             ),
           ),
           OrderPharmacyDetail(
             id: 2,
-            orderDetailId: 4,
             available: true,
             quantity: 1,
             price: 2500,
             total: 2500,
-            orderDetails: OrderDetail(productName: "Fivrerr"),
+            orderDetail: OrderDetail(productName: "Fivrerr"),
           )
         ],
       ),
@@ -123,9 +118,7 @@ class ClientFeedBackOrderController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    loadOrder();
     startTrackingUser();
-    // startProcessingOrder();
   }
 
   @override

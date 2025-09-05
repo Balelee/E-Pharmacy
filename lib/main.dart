@@ -24,7 +24,7 @@ void main() async {
     GetMaterialApp(
       debugShowCheckedModeBanner: Env.debugMode,
       title: Env.appName,
-      initialRoute: AppPages.CLIENT_FEED_BACK_ORDER,
+      initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       locale: LocalizationService.to.getCurrentLocale(),
       translationsKeys: AppTranslation.translations,
