@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/utils/helpers/map_helper.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
 import 'package:pharmix/generated/locales.g.dart';
@@ -382,7 +383,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                                 final lng = pharmacy.longitude;
                                                 if (lat != null &&
                                                     lng != null) {
-                                                  controller.openMap(lat, lng);
+                                                  MapHelper.openMap(lat, lng);
                                                 }
                                               },
                                               icon: const Icon(

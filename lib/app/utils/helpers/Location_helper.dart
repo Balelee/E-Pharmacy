@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:geolocator/geolocator.dart';
 
 class LocationHelper {
+  StreamSubscription<Position>? positionStream;
+  
   Future<Position?> allowPermission() async {
     bool serviceEnabled;
     LocationPermission permission;

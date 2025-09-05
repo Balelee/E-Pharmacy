@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/helpers/map_helper.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import '../controllers/client_feed_back_order_controller.dart';
 
@@ -139,39 +140,48 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          color:
-                                              AppColors.error.withOpacity(0.1),
-                                          borderRadius:
-                                              BorderRadius.circular(20),
+                                      GestureDetector(
+                                        child: Container(
+                                          padding: const EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.error
+                                                .withOpacity(0.1),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(
+                                                Icons.location_on,
+                                                size: 13,
+                                                color: AppColors.error,
+                                              ),
+                                              const SizedBox(width: 4),
+                                              Obx(() {
+                                                final distance = controller
+                                                        .distances[order.id] ??
+                                                    0.0;
+                                                return CustomText(
+                                                  text:
+                                                      "Situé: ${controller.formatDistance(distance)}",
+                                                  style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: AppColors.error,
+                                                  ),
+                                                );
+                                              }),
+                                            ],
+                                          ),
                                         ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              Icons.location_on,
-                                              size: 13,
-                                              color: AppColors.error,
-                                            ),
-                                            const SizedBox(width: 4),
-                                            Obx(() {
-                                              final distance = controller
-                                                      .distances[order.id] ??
-                                                  0.0;
-                                              return CustomText(
-                                                text:
-                                                    "Situé: ${distance.toStringAsFixed(1)} km",
-                                                style: TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: AppColors.error,
-                                                ),
-                                              );
-                                            }),
-                                          ],
-                                        ),
+                                        onTap: () {
+                                          final lat = order.pharmacy.latitude;
+                                          final lng = order.pharmacy.longitude;
+                                          if (lat != null && lng != null) {
+                                            MapHelper.openMap(lat, lng);
+                                          }
+                                        },
                                       ),
                                     ],
                                   ),

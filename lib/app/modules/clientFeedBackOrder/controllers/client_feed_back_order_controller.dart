@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/order_detail.dart';
 import 'package:pharmix/app/data/models/order_pharmacy.dart';
@@ -22,6 +23,14 @@ class ClientFeedBackOrderController extends GetxController {
     "Préparation en cours, merci de patienter.",
   ];
 
+  String formatDistance(double km) {
+    if (km < 1) {
+      return "${(km * 1000).toInt()} m";
+    } else {
+      return "${km.toStringAsFixed(1)} km";
+    }
+  }
+
   void loadOrder() {
     var oderLoad = [
       OrderPharmacy(
@@ -31,9 +40,9 @@ class ClientFeedBackOrderController extends GetxController {
         status: "enattente",
         pharmacy: Pharmacy(
           id: 1,
-          name: "Camille",
-          latitude: "12.37579",
-          longitude: "-1.47883",
+          name: "Sainte Trinité",
+          latitude: "12.36863",
+          longitude: "-1.48844",
         ),
         details: [
           OrderPharmacyDetail(
@@ -48,13 +57,13 @@ class ClientFeedBackOrderController extends GetxController {
         ],
       ),
       OrderPharmacy(
-        id: 1,
+        id: 2,
         orderId: 23,
         pharmacyId: 12,
         status: "expiré",
         pharmacy: Pharmacy(
           id: 1,
-          name: "Benia",
+          name: "Camille",
           latitude: "12.37579",
           longitude: "-1.47883",
         ),
@@ -85,27 +94,37 @@ class ClientFeedBackOrderController extends GetxController {
     orders.value = oderLoad;
   }
 
-  void getUserPosition() async {
-    final userPosition = await locationHelper.allowPermission();
-    await Future.wait(orders.map((order) async {
-      final pharmacy = order.pharmacy;
-      final latitude = double.tryParse(pharmacy.latitude.toString()) ?? 0.0;
-      final longitude = double.tryParse(pharmacy.longitude.toString()) ?? 0.0;
-      final distanceKm = await locationHelper.calculateDistanceKm(
-        userPosition?.latitude ?? 0,
-        userPosition?.longitude ?? 0,
-        latitude,
-        longitude,
-      );
-      distances[order.id] = distanceKm;
-    }));
+  void startTrackingUser() async {
+    await locationHelper.allowPermission();
+    locationHelper.positionStream = Geolocator.getPositionStream(
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.best,
+        distanceFilter: 5,
+      ),
+    ).listen((userPosition) async {
+      for (final order in orders) {
+        final pharmacy = order.pharmacy;
+        final latitude = double.tryParse(pharmacy.latitude.toString()) ?? 0.0;
+        final longitude = double.tryParse(pharmacy.longitude.toString()) ?? 0.0;
+
+        final distanceKm = await locationHelper.calculateDistanceKm(
+          userPosition.latitude,
+          userPosition.longitude,
+          latitude,
+          longitude,
+        );
+
+        distances[order.id] = distanceKm;
+      }
+      distances.refresh();
+    });
   }
 
   @override
   void onInit() {
     super.onInit();
     loadOrder();
-    getUserPosition();
+    startTrackingUser();
     // startProcessingOrder();
   }
 
@@ -117,6 +136,7 @@ class ClientFeedBackOrderController extends GetxController {
   @override
   void onClose() {
     timer?.cancel();
+    locationHelper.positionStream?.cancel();
     super.onClose();
   }
 
