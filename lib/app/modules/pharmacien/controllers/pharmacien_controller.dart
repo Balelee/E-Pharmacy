@@ -63,7 +63,14 @@ class PharmacienController extends GetxController {
 
   Future<void> storeOrderResponse(
       {required int orderId, required Map<String, dynamic> data}) async {
-    var response =
+    bool response =
         await auxilliaireProvider.storeResponse(orderId: orderId, data: data);
+
+    if (response) {
+      final index = orders.indexWhere((order) => order.id == orderId);
+      if (index != -1) {
+        orders.removeAt(index);
+      }
+    }
   }
 }

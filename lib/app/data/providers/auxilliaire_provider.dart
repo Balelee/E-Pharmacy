@@ -3,7 +3,7 @@ import 'package:pharmix/app/data/providers/api_provider.dart';
 import 'package:pharmix/app/utils/enums/api_routes.dart';
 
 class AuxilliaireProvider with BaseController {
-  Future<void> storeResponse(
+  Future<bool> storeResponse(
       {required int orderId, required Map<String, dynamic> data}) async {
     try {
       showLoading();
@@ -15,10 +15,12 @@ class AuxilliaireProvider with BaseController {
       hideLoading();
 
       if (response != null) {
-        print(response);
+        return true;
       }
+      return false;
     } catch (e) {
       hideLoading();
+      return false;
     }
   }
 }
