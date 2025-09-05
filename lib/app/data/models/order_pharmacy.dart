@@ -1,10 +1,12 @@
 import 'package:pharmix/app/data/models/order_pharmacy_detail.dart';
+import 'package:pharmix/app/data/models/pharmacy.dart';
 
 class OrderPharmacy {
   final int id;
   final int orderId;
   final int pharmacyId;
   final String status;
+  final Pharmacy pharmacy;
   final List<OrderPharmacyDetail> details;
 
   OrderPharmacy({
@@ -12,6 +14,7 @@ class OrderPharmacy {
     required this.orderId,
     required this.pharmacyId,
     required this.status,
+    required this.pharmacy,
     required this.details,
   });
 
@@ -21,6 +24,7 @@ class OrderPharmacy {
       orderId: int.parse(json['order_id'].toString()),
       pharmacyId: int.parse(json['pharmacy_id'].toString()),
       status: json['status'],
+      pharmacy: Pharmacy.fromJson(json['pharmacy']),
       details: (json['details'] as List)
           .map((item) => OrderPharmacyDetail.fromJson(item))
           .toList(),

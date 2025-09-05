@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pharmix/app/data/enums/orderdetail.dart';
-import 'package:pharmix/app/data/enums/orderstatus.dart';
 import 'package:pharmix/app/data/models/order.dart';
 import 'package:pharmix/app/modules/address/views/address_view.dart';
 import 'package:pharmix/app/modules/paiement/views/paiement_view.dart';
@@ -126,7 +124,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 CustomText(
-                                  text: orderItem.productName,
+                                  text: orderItem.productName?? "",
                                   style: AppTextStyles.bodyText2,
                                 ),
                                 Padding(
@@ -145,7 +143,7 @@ class OrderDetailView extends GetView<OrderDetailController> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CustomText(
-                                text: orderItem.statusLabel,
+                                text: orderItem.statusLabel ?? "",
                                 style: AppTextStyles.bodyText1PrimaryBold
                                     .copyWith(color: orderItem.statusColor),
                               ),

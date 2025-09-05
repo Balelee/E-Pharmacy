@@ -6,7 +6,6 @@ import 'package:pharmix/app/data/providers/pharmacy_provider.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:pharmix/generated/locales.g.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PharmaciesController extends GetxController {
   RxList<Pharmacy> pharmacies = <Pharmacy>[].obs;
@@ -128,24 +127,10 @@ class PharmaciesController extends GetxController {
     }
   }
 
-  void openMap(String lat, String lng) async {
-    final googleMapsUrl = Uri.parse("comgooglemaps://?q=$lat,$lng");
-    final webUrl =
-        Uri.parse("https://www.google.com/maps/search/?api=1&query=$lat,$lng");
-
-    if (await canLaunchUrl(googleMapsUrl)) {
-      await launchUrl(googleMapsUrl);
-    } else if (await canLaunchUrl(webUrl)) {
-      await launchUrl(webUrl, mode: LaunchMode.externalApplication);
-    } else {
-      Get.snackbar(LocaleKeys.error.tr, LocaleKeys.impossible_open_map.tr);
-    }
-  }
-
   void sortByName() {
     isNameAsc.value = !isNameAsc.value;
     pharmacies.sort((a, b) =>
-        isNameAsc.value ? a.name.compareTo(b.name) : b.name.compareTo(a.name));
+        isNameAsc.value ? a.name!.compareTo(b.name!) : b.name!.compareTo(a.name!));
     iconColor.value = iconColor.value == AppColors.textSecondary
         ? Colors.green
         : AppColors.textSecondary;

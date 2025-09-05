@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:pharmix/app/data/enums/orderstatus.dart';
 import 'package:pharmix/app/modules/home/controllers/cart_controller.dart';
-import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/utils/constants/size_constant.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
-import 'package:pharmix/app/widgets/order_card.dart';
 import 'package:pharmix/app/widgets/quantity_selector.dart';
 
 class BasketView extends GetView<CartController> {
