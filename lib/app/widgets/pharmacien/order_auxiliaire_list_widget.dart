@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pharmix/app/modules/pharmacy/pharmacien/controllers/pharmacien_controller.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/enums/order_status_enum.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
 import 'package:pharmix/app/widgets/pharmacien/order_auxiliaire_item_widget.dart';
@@ -44,8 +45,6 @@ class OrderAuxiliaireListWidget extends GetView<PharmacienController> {
                 itemBuilder: (context, index) => OrderAuxiliaireItemWidget(
                   order: controller.orders[index],
                   onValidate: (p0) {
-                    // Future.delayed(Duration(milliseconds: 300), () {
-                    // });
                     controller.storeOrderResponse(
                         orderId: controller.orders[index].id,
                         data: {'items': p0});
@@ -82,7 +81,7 @@ class OrderAuxiliaireListWidget extends GetView<PharmacienController> {
               ),
             ],
           ),
-          child: PopupMenuButton<String>(
+          child: PopupMenuButton<OrderStatusEnum>(
             padding: EdgeInsets.zero,
             color: AppColors.background,
             icon: Icon(
@@ -92,36 +91,30 @@ class OrderAuxiliaireListWidget extends GetView<PharmacienController> {
             ),
             itemBuilder: (context) => [
               PopupMenuItem(
-                value: 'traite',
+                value: OrderStatusEnum.traite,
                 child: Text(
-                  "Commd validé",
+                  OrderStatusEnum.traite.label,
                   style: TextStyle(color: AppColors.textSecondary),
                 ),
               ),
               PopupMenuItem(
-                value: 'annule',
+                value: OrderStatusEnum.annule,
                 child: Text(
-                  "Commd annulé",
+                  OrderStatusEnum.annule.label,
                   style: TextStyle(color: AppColors.textSecondary),
                 ),
               ),
               PopupMenuItem(
-                value: 'Tous',
+                value: OrderStatusEnum.enattente,
                 child: Text(
-                  "Tous les commandes",
+                  OrderStatusEnum.enattente.label,
                   style: TextStyle(color: AppColors.textSecondary),
                 ),
               ),
             ],
             onSelected: (value) async {
-              if (value == 'traite') {
-                await controller.fetchOrdersByStatus('traite');
-              } else if (value == 'annule') {
-                await controller.fetchOrdersByStatus('annule');
-              } else {
-                controller.selectedStatus.value = '';
-                controller.loadOrdersData();
-              }
+              controller.selectedOrderStatus.value = value;
+              controller.loadOrdersData();
             },
           ),
         )

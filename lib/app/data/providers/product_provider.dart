@@ -4,6 +4,7 @@ import 'package:pharmix/app/data/models/order.dart';
 import 'package:pharmix/app/data/models/searchproduct.dart';
 import 'package:pharmix/app/data/providers/api_provider.dart';
 import 'package:pharmix/app/utils/enums/api_routes.dart';
+import 'package:pharmix/app/utils/enums/order_status_enum.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 
 class ProductProvider with BaseController {
@@ -36,8 +37,7 @@ class ProductProvider with BaseController {
       ).catchError(handleError);
       hideLoading();
       if (response != null) {
-  
-        return response as Map<String,dynamic>;
+        return response as Map<String, dynamic>;
       }
       return null;
     } catch (e) {
@@ -47,28 +47,13 @@ class ProductProvider with BaseController {
     }
   }
 
-  Future<List<Order>?> getOrdersCommand() async {
+  Future<List<AuxiliaireOrder>?> getOrdersPharmacies(
+      {OrderStatusEnum orderStatus = OrderStatusEnum.enattente}) async {
     try {
       final response = await ApiProvider.get(
         auth: true,
-        apiURL: ApiRoutes.ordersProductbyUser.path,
-      ).catchError(handleError);
-      if (response != null && response['data'] != null) {
-        final List<dynamic> data = response['data'];
-        return data.map((json) => Order.fromJson(json)).toList();
-      }
-      return null;
-    } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "fetching error: $e");
-      return null;
-    }
-  }
-
-  Future<List<AuxiliaireOrder>?> getOrdersPharmacies() async {
-    try {
-      final response = await ApiProvider.get(
-        auth: true,
-        apiURL: ApiRoutes.orderspharmacies.path,
+        apiURL:
+            ApiRoutes.orderspharmacies.format({'status': orderStatus.value}),
       ).catchError(handleError);
       if (response != null && response['data'] != null) {
         final List<dynamic> data = response['data'];
