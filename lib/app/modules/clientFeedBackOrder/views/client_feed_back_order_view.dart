@@ -160,17 +160,31 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                               const SizedBox(width: 4),
                                               Obx(() {
                                                 final distance = controller
-                                                        .distances[order.id] ??
-                                                    0.0;
-                                                return CustomText(
-                                                  text:
-                                                      "Situé: ${controller.formatDistance(distance)}",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: AppColors.error,
-                                                  ),
-                                                );
+                                                    .distances[order.id];
+                                                if (distance == null) {
+                                                  return SizedBox(
+                                                    width: 10,
+                                                    height: 10,
+                                                    child:
+                                                        const CircularProgressIndicator(
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      strokeWidth: 3,
+                                                      color: AppColors.error,
+                                                    ),
+                                                  );
+                                                } else {
+                                                  return CustomText(
+                                                    text:
+                                                        "Situé: ${controller.formatDistance(distance)}",
+                                                    style: TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: AppColors.error,
+                                                    ),
+                                                  );
+                                                }
                                               }),
                                             ],
                                           ),
