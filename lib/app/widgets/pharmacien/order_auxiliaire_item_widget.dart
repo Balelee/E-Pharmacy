@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/auxiliaire_order.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/enums/order_status_enum.dart';
 import 'package:pharmix/app/utils/helpers/bottomSheet_helper.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
@@ -16,11 +17,15 @@ class OrderAuxiliaireItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool canProcess = order.status == OrderStatusEnum.enattente.value;
+
     return GestureDetector(
       onTap: () {
-        if (Get.isBottomSheetOpen == false) {
-          BottomsheetHelper.commandeDetailBottomSheet(
-              order: order, onValidate: onValidate);
+        if (canProcess) {
+          if (Get.isBottomSheetOpen == false) {
+            BottomsheetHelper.commandeDetailBottomSheet(
+                order: order, onValidate: onValidate);
+          }
         }
       },
       child: Container(
@@ -126,18 +131,21 @@ class OrderAuxiliaireItemWidget extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                CustomButton.primaryButton(
-                    height: 30,
-                    elevation: 0.0,
-                    padding: EdgeInsets.symmetric(vertical: 0.0),
-                    onPressed: () {
-                      if (Get.isBottomSheetOpen == false) {
-                        BottomsheetHelper.commandeDetailBottomSheet(
-                            order: order, onValidate: onValidate);
-                      }
-                    },
-                    buttonTitle: "Traiter",
-                    backgroundColor: AppColors.success),
+                canProcess
+                    ? CustomButton.primaryButton(
+                        height: 30,
+                        elevation: 0.0,
+                        padding: EdgeInsets.symmetric(vertical: 0.0),
+                        onPressed: () {
+                          if (Get.isBottomSheetOpen == false) {
+                            BottomsheetHelper.commandeDetailBottomSheet(
+                                order: order, onValidate: onValidate);
+                          }
+                        },
+                        buttonTitle: "Traiter",
+                        backgroundColor: AppColors.success,
+                      )
+                    : SizedBox.shrink(),
                 SizedBox(
                   height: 5,
                 ),

@@ -5,6 +5,7 @@ import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/models/auxiliaire_order.dart';
 import 'package:pharmix/app/data/providers/auxilliaire_provider.dart';
 import 'package:pharmix/app/data/providers/product_provider.dart';
+import 'package:pharmix/app/utils/enums/order_status_enum.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 
 class PharmacienController extends GetxController {
@@ -23,37 +24,23 @@ class PharmacienController extends GetxController {
     currentIndex.value = index;
   }
 
-  void loadOrdersData() async {
-    orders.value = await produitProvider.getOrdersPharmacies() ?? [];
-  }
+  Rx<OrderStatusEnum> selectedOrderStatus=Rx(OrderStatusEnum.enattente);
 
-  Future<void> fetchOrdersByStatus(String status) async {
-    DialogHelper.showLoading(
-        message: "Patienter...",
-        noBkgColor: false,
-        colorProgress: Colors.green);
-    try {
-      selectedStatus.value = status;
-      final result = await produitProvider.getOrdersByStatus(status);
-      orders.assignAll(result);
-      DialogHelper.hideLoading();
-    } catch (e) {
-      DialogHelper.hideLoading();
-      print("Erreur lors de la récupération des commandes : $e");
-    }
+  void loadOrdersData() async {
+    orders.value = await produitProvider.getOrdersPharmacies(orderStatus: selectedOrderStatus.value) ?? [];
   }
 
   @override
   void onInit() {
     super.onInit();
+    if (orders.isEmpty) {
+      loadOrdersData();
+    }
   }
 
   @override
   void onReady() {
     super.onReady();
-    if (orders.isEmpty) {
-      loadOrdersData();
-    }
   }
 
   @override
