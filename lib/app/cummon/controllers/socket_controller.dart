@@ -4,8 +4,8 @@ import 'package:pharmix/app/core/websocket/echo_service.dart';
 import 'package:pharmix/app/data/models/auxiliaire_order.dart';
 import 'package:pharmix/app/data/models/order_pharmacy.dart';
 import 'package:pharmix/app/data/models/user.dart';
-import 'package:pharmix/app/modules/clientFeedBackOrder/controllers/client_feed_back_order_controller.dart';
-import 'package:pharmix/app/modules/pharmacien/controllers/pharmacien_controller.dart';
+import 'package:pharmix/app/modules/client/clientFeedBackOrder/controllers/client_feed_back_order_controller.dart';
+import 'package:pharmix/app/modules/pharmacy/pharmacien/controllers/pharmacien_controller.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:pusher_client_socket/pusher_client_socket.dart' as pusher;
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pharmix/app/modules/home/controllers/cart_controller.dart';
+import 'package:pharmix/app/modules/client/home/controllers/cart_controller.dart';
 
 class QuantitySelector extends StatelessWidget {
   final int productId;

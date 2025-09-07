@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pharmix/app/modules/home/controllers/product_controller.dart';
+import 'package:pharmix/app/modules/client/home/controllers/product_controller.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 
 class CategoryFilterWidget extends StatelessWidget {
