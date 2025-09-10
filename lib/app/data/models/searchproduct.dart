@@ -1,5 +1,3 @@
-
-
 import 'package:pharmix/app/data/models/product.dart';
 
 class Searchproduct {
@@ -16,7 +14,7 @@ class Searchproduct {
   factory Searchproduct.fromJson(Map<String, dynamic> json) {
     return Searchproduct(
       id: json['id'],
-      productName: json['productName'],
+      productName: json['name'],
       price: double.tryParse(json['price'].toString()) ?? 0.0,
     );
   }

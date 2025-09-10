@@ -24,6 +24,7 @@ class SearchproductController extends GetxController {
   final RxBool showToast = true.obs;
   final scrollController = ScrollController();
   Timer? debounce;
+  var isSearching = false.obs;
 
   void onSearchChanged(String query) {
     searchText.value = query;
@@ -36,10 +37,12 @@ class SearchproductController extends GetxController {
   void searchProduct(String query, {int page = 1}) async {
     if (query.isEmpty) {
       products.clear();
+      isSearching.value = false;
       DialogHelper.hideLoading();
       return;
     }
 
+    isSearching.value = true;
     DialogHelper.showLoading(
       message: LocaleKeys.patienter.tr,
       noBkgColor: true,
@@ -58,6 +61,7 @@ class SearchproductController extends GetxController {
     } catch (e) {
       products.clear();
     } finally {
+      isSearching.value = false;
       DialogHelper.hideLoading();
     }
   }
