@@ -43,6 +43,28 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
             onPressed: () {},
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(25),
+          child: Obx(() {
+            var totalPharCount = controller.totalPharfeedbackOrder.value;
+            return totalPharCount >= 1
+                ? Container(
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    decoration: BoxDecoration(color: AppColors.info),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: CustomText(
+                        text:
+                            "${totalPharCount.toString()} ${totalPharCount == 1 ? 'pharmacie a' : 'pharmacies ont'} recus votre requette",
+                        overflow: TextOverflow.visible,
+                        style: AppTextStyles.caption.copyWith(
+                            fontSize: 13.0, color: AppColors.secondary),
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink();
+          }),
+        ),
       ),
       body: Obx(() {
         return AnimatedSwitcher(
