@@ -23,6 +23,9 @@ class ClientFeedBackOrderController extends GetxController {
     "Préparation en cours, merci de patienter.",
   ];
 
+  RxInt totalPharfeedbackOrder = RxInt(0);
+  RxInt get successPhaReponse => RxInt(orders.length);
+
   String formatDistance(double km) {
     if (km < 1) {
       return "${(km * 1000).toInt()} m";
@@ -36,6 +39,7 @@ class ClientFeedBackOrderController extends GetxController {
       OrderPharmacy(
         id: 1,
         orderId: 12,
+        treated_count: 2,
         status: "enattente",
         pharmacy: Pharmacy(
           id: 1,
@@ -57,6 +61,7 @@ class ClientFeedBackOrderController extends GetxController {
       OrderPharmacy(
         id: 2,
         orderId: 23,
+        treated_count: 4,
         status: "expiré",
         pharmacy: Pharmacy(
           id: 1,
@@ -86,7 +91,9 @@ class ClientFeedBackOrderController extends GetxController {
         ],
       ),
     ].obs;
+
     orders.value = oderLoad;
+    totalPharfeedbackOrder.value = orders.last.treated_count;
   }
 
   void startTrackingUser() async {
@@ -144,6 +151,7 @@ class ClientFeedBackOrderController extends GetxController {
 
   void addOrder(OrderPharmacy orderPharmacy) {
     orders.insert(0, orderPharmacy);
+    totalPharfeedbackOrder.value = orderPharmacy.treated_count;
     isProcessing.value = false;
     timer?.cancel();
   }

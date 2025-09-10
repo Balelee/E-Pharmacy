@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/utils/helpers/map_helper.dart';
@@ -13,6 +14,14 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary,
+        leading: BackButton(
+          onPressed: () {
+            Get.toNamed(
+              AppPages.PRODUIT_LIST,
+            );
+          },
+          color: Colors.white,
+        ),
         title: Obx(
           () => CustomText(
             text: controller.isProcessing.value
@@ -34,6 +43,28 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
             onPressed: () {},
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(25),
+          child: Obx(() {
+            var totalPharCount = controller.totalPharfeedbackOrder.value;
+            return totalPharCount >= 1
+                ? Container(
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    decoration: BoxDecoration(color: AppColors.info),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: CustomText(
+                        text:
+                            "${totalPharCount.toString()} ${totalPharCount == 1 ? 'pharmacie a' : 'pharmacies ont'} recus votre requette",
+                        overflow: TextOverflow.visible,
+                        style: AppTextStyles.caption.copyWith(
+                            fontSize: 13.0, color: AppColors.secondary),
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink();
+          }),
+        ),
       ),
       body: Obx(() {
         return AnimatedSwitcher(
@@ -117,86 +148,119 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 if (order.status.toLowerCase() != 'expiré')
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                  Column(
                                     children: [
-                                      Container(
-                                        width: Get.width / 2,
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          color: Colors.amber.shade100,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: CustomText(
-                                          text:
-                                              "Pharmacie ${order.pharmacy.name.toString()}",
-                                          overflow: TextOverflow.visible,
-                                          style: const TextStyle(
-                                            fontSize: 13,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        child: Container(
-                                          padding: const EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.error
-                                                .withOpacity(0.1),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Icon(
-                                                Icons.location_on,
-                                                size: 13,
-                                                color: AppColors.error,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: Get.width / 2,
+                                            padding: const EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                              color: Colors.amber.shade100,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: CustomText(
+                                              text:
+                                                  "Pharmacie ${order.pharmacy.name.toString()}",
+                                              overflow: TextOverflow.visible,
+                                              style: const TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
                                               ),
-                                              const SizedBox(width: 4),
-                                              Obx(() {
-                                                final distance = controller
-                                                    .distances[order.id];
-                                                if (distance == null) {
-                                                  return SizedBox(
-                                                    width: 10,
-                                                    height: 10,
-                                                    child:
-                                                        const CircularProgressIndicator(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      strokeWidth: 3,
-                                                      color: AppColors.error,
-                                                    ),
-                                                  );
-                                                } else {
-                                                  return CustomText(
-                                                    text:
-                                                        "Situé: ${controller.formatDistance(distance)}",
-                                                    style: TextStyle(
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: AppColors.error,
-                                                    ),
-                                                  );
-                                                }
-                                              }),
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                        onTap: () {
-                                          final lat = order.pharmacy.latitude;
-                                          final lng = order.pharmacy.longitude;
-                                          if (lat != null && lng != null) {
-                                            MapHelper.openMap(lat, lng);
-                                          }
-                                        },
+                                          GestureDetector(
+                                            child: Container(
+                                              padding: const EdgeInsets.all(10),
+                                              decoration: BoxDecoration(
+                                                color: AppColors.error
+                                                    .withOpacity(0.1),
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Icon(
+                                                    Icons.location_on,
+                                                    size: 13,
+                                                    color: AppColors.error,
+                                                  ),
+                                                  const SizedBox(width: 4),
+                                                  Obx(() {
+                                                    final distance = controller
+                                                        .distances[order.id];
+                                                    if (distance == null) {
+                                                      return SizedBox(
+                                                        width: 10,
+                                                        height: 10,
+                                                        child:
+                                                            const CircularProgressIndicator(
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          strokeWidth: 3,
+                                                          color:
+                                                              AppColors.error,
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      return CustomText(
+                                                        text:
+                                                            "Situé: ${controller.formatDistance(distance)}",
+                                                        style: TextStyle(
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              AppColors.error,
+                                                        ),
+                                                      );
+                                                    }
+                                                  }),
+                                                ],
+                                              ),
+                                            ),
+                                            onTap: () {
+                                              final lat =
+                                                  order.pharmacy.latitude;
+                                              final lng =
+                                                  order.pharmacy.longitude;
+                                              if (lat != null && lng != null) {
+                                                MapHelper.openMap(lat, lng);
+                                              }
+                                            },
+                                          ),
+                                        ],
                                       ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 5.0),
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.phone,
+                                              color: Colors.blue,
+                                              size: 14,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              child: CustomText(
+                                                text: order.pharmacy.phone ??
+                                                    'inconnu',
+                                                style: AppTextStyles.caption
+                                                    .copyWith(fontSize: 13),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 const SizedBox(height: 3),
@@ -204,12 +268,13 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                   childrenPadding: const EdgeInsets.all(3),
                                   initiallyExpanded: true,
                                   shape: Border.all(color: Colors.transparent),
+                                  tilePadding: EdgeInsets.all(0.0),
                                   title: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       CustomText(
-                                        text: 'Commande #${order.id}',
+                                        text: 'Requette n°${order.orderId}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
@@ -225,8 +290,9 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                         ),
                                         child: Text(
                                           order.status.toUpperCase(),
-                                          style: AppTextStyles.caption
-                                              .copyWith(color: Colors.white),
+                                          style: AppTextStyles.caption.copyWith(
+                                              color: Colors.white,
+                                              fontSize: 10),
                                         ),
                                       ),
                                     ],
@@ -236,7 +302,6 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const SizedBox(height: 8),
                                         ...order.details.map((item) => Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
