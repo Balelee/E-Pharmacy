@@ -1,18 +1,18 @@
 import 'package:get/get.dart';
 
-import '../modules/client/ClientOrderList/bindings/client_order_list_binding.dart';
-import '../modules/client/ClientOrderList/views/client_order_list_view.dart';
 import '../modules/Login/bindings/login_binding.dart';
 import '../modules/Login/views/login_content_view.dart';
 import '../modules/Login/views/login_view.dart';
+import '../modules/admin/adminhome/bindings/adminhome_binding.dart';
+import '../modules/admin/adminhome/views/adminhome_view.dart';
+import '../modules/client/ClientOrderList/bindings/client_order_list_binding.dart';
+import '../modules/client/ClientOrderList/views/client_order_list_view.dart';
 import '../modules/client/Register/bindings/register_binding.dart';
 import '../modules/client/Register/views/register_view.dart';
 import '../modules/client/address/bindings/address_binding.dart';
 import '../modules/client/address/views/address_view.dart';
 import '../modules/client/clientFeedBackOrder/bindings/client_feed_back_order_binding.dart';
 import '../modules/client/clientFeedBackOrder/views/client_feed_back_order_view.dart';
-import '../modules/clinique/bindings/clinique_binding.dart';
-import '../modules/clinique/views/clinique_view.dart';
 import '../modules/client/detailProduit/bindings/detail_produit_binding.dart';
 import '../modules/client/detailProduit/views/detail_produit_view.dart';
 import '../modules/client/home/bindings/home_binding.dart';
@@ -25,16 +25,18 @@ import '../modules/client/otp/bindings/otp_binding.dart';
 import '../modules/client/otp/views/otp_view.dart';
 import '../modules/client/paiement/bindings/paiement_binding.dart';
 import '../modules/client/paiement/views/paiement_view.dart';
-import '../modules/pharmacy/pharmacien/bindings/pharmacien_binding.dart';
-import '../modules/pharmacy/pharmacien/views/pharmacien_view.dart';
-import '../modules/pharmacy/pharmacies/bindings/pharmacies_binding.dart';
-import '../modules/pharmacy/pharmacies/views/pharmacies_view.dart';
 import '../modules/client/rappelmedi/bindings/rappelmedi_binding.dart';
 import '../modules/client/rappelmedi/views/rappelmedi_view.dart';
 import '../modules/client/receiptpay/bindings/receiptpay_binding.dart';
 import '../modules/client/receiptpay/views/receiptpay_view.dart';
 import '../modules/client/searchproduct/bindings/searchproduct_binding.dart';
 import '../modules/client/searchproduct/views/searchproduct_view.dart';
+import '../modules/clinique/bindings/clinique_binding.dart';
+import '../modules/clinique/views/clinique_view.dart';
+import '../modules/pharmacy/pharmacien/bindings/pharmacien_binding.dart';
+import '../modules/pharmacy/pharmacien/views/pharmacien_view.dart';
+import '../modules/pharmacy/pharmacies/bindings/pharmacies_binding.dart';
+import '../modules/pharmacy/pharmacies/views/pharmacies_view.dart';
 
 part 'app_routes.dart';
 
@@ -56,6 +58,7 @@ class AppPages {
   static const ORDERPHARMACIEN = Routes.ORDERPHARMACIEN;
   static const CLIENT_ORDER_LIST = Routes.CLIENT_ORDER_LIST;
   static const CLIENT_FEED_BACK_ORDER = Routes.CLIENT_FEED_BACK_ORDER;
+  static const ADMINHOME = Routes.ADMINHOME;
 
   static final routes = [
     GetPage(
@@ -152,6 +155,11 @@ class AppPages {
       name: _Paths.CLIENT_FEED_BACK_ORDER,
       page: () => const ClientFeedBackOrderView(),
       binding: ClientFeedBackOrderBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADMINHOME,
+      page: () => const AdminhomeView(),
+      binding: AdminhomeBinding(),
     ),
   ];
 }

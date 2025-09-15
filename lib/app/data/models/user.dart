@@ -1,31 +1,34 @@
 import 'package:pharmix/app/data/models/pharmacy.dart';
 
 class User {
-  final int? id;
-  final String? username;
-  final String? firstname;
-  final String? lastname;
-  final String? phone;
-  final String? birthdate;
-  final String? birthplace;
-  final String? email;
-  final String? type;
-  final String? password;
-  final Pharmacy? pharmacie;
+  int? id;
+  String? username;
+  String? firstname;
+  String? lastname;
+  String? phone;
+  String? birthdate;
+  String? birthplace;
+  String? email;
+  String? type;
+  String? password;
+  Pharmacy? pharmacie;
+  String? status;
+  String? statusLabel;
 
-  User({
-    this.id,
-    required this.username,
-    required this.firstname,
-    required this.lastname,
-    required this.phone,
-    required this.birthdate,
-    required this.birthplace,
-    required this.email,
-    this.type,
-    this.pharmacie,
-    required this.password,
-  });
+  User(
+      {this.id,
+      this.username,
+      this.firstname,
+      this.lastname,
+      this.phone,
+      this.birthdate,
+      this.birthplace,
+      this.email,
+      this.type,
+      this.pharmacie,
+      this.password,
+      this.status,
+      this.statusLabel});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -42,6 +45,8 @@ class User {
       pharmacie: json['pharmacie'] != null
           ? Pharmacy.fromJson(json['pharmacie'])
           : null,
+      status: json['status'],
+      statusLabel: json['status_label'],
     );
   }
 
@@ -85,4 +90,11 @@ class User {
         password: password ?? this.password,
         pharmacie: pharmacie ?? this.pharmacie);
   }
+
+  String get fullName => "${firstname ?? ''} ${lastname ?? ''}".trim();
+  String? get role => type;
+  String? get pharmacyName => pharmacie?.name;
+  bool get isActif => status == "actif" ? true : false;
+
+ 
 }

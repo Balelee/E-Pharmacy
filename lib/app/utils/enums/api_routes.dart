@@ -10,6 +10,7 @@ enum ApiRoutes {
   ordersProductbyUser('orders'),
   orderspharmacies('orders-pharmacien?status={status}'),
   pharmacies('pharmacies?page={pageKey}&q={query}'),
+  adminUsers('admin/users'),
   tips('tips'),
   pillremember('pilrembers'),
   getremenbers('pilrembers'),
@@ -17,7 +18,6 @@ enum ApiRoutes {
   ordersValide('orders-valide'),
   ordersAnnule('orders-annule'),
   orderResponse("orders/{orderId}/pharmacies/response");
-
 
   final String path;
   const ApiRoutes(this.path);

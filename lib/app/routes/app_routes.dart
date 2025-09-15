@@ -24,6 +24,7 @@ abstract class Routes {
   static const ORDERPHARMACIEN = _Paths.ORDERPHARMACIEN;
   static const CLIENT_ORDER_LIST = _Paths.CLIENT_ORDER_LIST;
   static const CLIENT_FEED_BACK_ORDER = _Paths.CLIENT_FEED_BACK_ORDER;
+  static const ADMINHOME = _Paths.ADMINHOME;
 }
 
 abstract class _Paths {
@@ -49,4 +50,5 @@ abstract class _Paths {
   static const ORDERPHARMACIEN = '/orderpharmacien';
   static const CLIENT_ORDER_LIST = '/client-order-list';
   static const CLIENT_FEED_BACK_ORDER = '/client-feed-back-order';
+  static const ADMINHOME = '/adminhome';
 }
