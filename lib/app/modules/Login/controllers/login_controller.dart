@@ -41,12 +41,12 @@ class LoginController extends GetxController {
     super.onInit();
     changeContent.value = SplashViewView();
     changeScreen();
-    // emailphoneController.text = "54738460";
-    // passwordController.text = "adminadmin";
-    emailphoneController.text = "+22675572009";
-    passwordController.text = "000000001";
-    emailphoneController.text = "75572006";
-    passwordController.text = "00000000";
+    emailphoneController.text = "54738460";
+    passwordController.text = "adminadmin";
+    // emailphoneController.text = "+22675572009";
+    // passwordController.text = "000000001";
+    // emailphoneController.text = "75572006";
+    // passwordController.text = "00000000";
     preloadLogo();
   }
 
@@ -94,6 +94,8 @@ class LoginController extends GetxController {
         await socketController.connectToSocket(user: user);
 
         Get.toNamed(AppPages.PHARMACIEN, arguments: user);
+      } else {
+        Get.toNamed(AppPages.ADMINHOME, arguments: user);
       }
     }
   }
