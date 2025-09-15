@@ -22,4 +22,20 @@ class AdminProvider with BaseController {
       return [];
     }
   }
+
+  Future<bool> updateUserData(
+      {required String userId, required Map<String, Object?> data}) async {
+    try {
+      final response = await ApiProvider.put(
+              auth: true,
+              data: data,
+              apiURL: ApiRoutes.adminUpdateUsers.format({"user": userId}))
+          .catchError(handleError);
+
+      return (response != null && response['data'] != null);
+    } catch (e) {
+      DialogHelper.showErrorSnackbar(message: "fetching error: $e");
+      return false;
+    }
+  }
 }

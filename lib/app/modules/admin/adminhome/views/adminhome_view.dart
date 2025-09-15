@@ -110,7 +110,9 @@ class AdminhomeView extends GetView<AdminhomeController> {
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
                               isExpanded: true,
-                              value: controller.roles.contains(user.role)
+                              value: controller.roles
+                                      .map((f) => f['value'])
+                                      .contains(user.role)
                                   ? user.role
                                   : null,
                               hint: const CustomText(
@@ -119,9 +121,9 @@ class AdminhomeView extends GetView<AdminhomeController> {
                               ),
                               items: controller.roles
                                   .map((role) => DropdownMenuItem(
-                                        value: role,
+                                        value: role['value'],
                                         child: CustomText(
-                                          text: role,
+                                          text: role['label']!,
                                           style: const TextStyle(fontSize: 11),
                                         ),
                                       ))
@@ -138,7 +140,7 @@ class AdminhomeView extends GetView<AdminhomeController> {
                           flex: 2,
                           child: SearchableDropdown<Pharmacy>.paginated(
                             searchHintText: "Recherche...",
-                            trailingClearIcon: Icon(Icons.arrow_drop_down),
+                            // trailingClearIcon: Icon(Icons.arrow_drop_down),
                             trailingIcon: const Icon(Icons.arrow_drop_down),
                             hintText: const CustomText(
                               text: "Sélectionner",
@@ -147,6 +149,11 @@ class AdminhomeView extends GetView<AdminhomeController> {
                             isDialogExpanded: true,
                             margin: const EdgeInsets.symmetric(horizontal: 8),
                             requestItemCount: 10,
+                            initialValue: user.pharmacie != null
+                                ? SearchableDropdownMenuItem(
+                                    label: user.pharmacie!.name!,
+                                    child: Text(user.pharmacie!.name!))
+                                : null,
                             paginatedRequest:
                                 (int pageKey, String? searchKey) async {
                               final pharmacies = await controller
@@ -169,9 +176,8 @@ class AdminhomeView extends GetView<AdminhomeController> {
                                   .toList();
                             },
                             onChanged: (Pharmacy? value) {
-                              if (value != null) {
+                           
                                 controller.assignPharmacy(user, value);
-                              }
                             },
                           ),
                         ),
@@ -208,7 +214,19 @@ class AdminhomeView extends GetView<AdminhomeController> {
                                           size: 33,
                                           color: AppColors.primary,
                                         ),
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          var data = {
+                                            'userId': user.id,
+                                            'status': user.status,
+                                            'pharmacy_id':
+                                                user.pharmacie?.id.toString(),
+                                            'type': user.type,
+                                          };
+
+                                          controller.updateUserData(
+                                              userId: user.id.toString(),
+                                              data: data);
+                                        },
                                       ),
                                     ],
                                   ),

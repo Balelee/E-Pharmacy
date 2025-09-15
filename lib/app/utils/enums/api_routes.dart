@@ -11,6 +11,7 @@ enum ApiRoutes {
   orderspharmacies('orders-pharmacien?status={status}'),
   pharmacies('pharmacies?page={pageKey}&q={query}'),
   adminUsers('admin/users'),
+  adminUpdateUsers('admin/users/{user}'),
   tips('tips'),
   pillremember('pilrembers'),
   getremenbers('pilrembers'),

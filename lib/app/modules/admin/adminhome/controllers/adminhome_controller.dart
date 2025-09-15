@@ -8,10 +8,11 @@ class AdminhomeController extends GetxController {
   RxList<User> users = <User>[].obs;
   AdminProvider adminProvider = AdminProvider();
   PharmacyProvider pharmacieProvider = PharmacyProvider();
-  var roles = <String>[
-    "Pharmacien",
-    "Client",
-    "Admin",
+
+  RxList<Map<String, String>> roles = <Map<String, String>>[
+    {'value': "pharmacien", 'label': "Pharmacien"},
+    {'value': "client", 'label': "Client"},
+    {'value': "admin", 'label': "Admin"},
   ].obs;
   RxList<Pharmacy> pharmacies = <Pharmacy>[].obs;
 
@@ -23,11 +24,7 @@ class AdminhomeController extends GetxController {
 
   Future<void> loadUsers() async {
     final allUsers = await adminProvider.fetchUsers();
-    for (var u in allUsers) {
-      if (u.role != null) {
-        u.type = u.role!.capitalizeFirst;
-      }
-    }
+
     users.assignAll(allUsers);
   }
 
@@ -36,7 +33,7 @@ class AdminhomeController extends GetxController {
     users.refresh();
   }
 
-  void assignPharmacy(User user, Pharmacy pharmacy) {
+  void assignPharmacy(User user, Pharmacy? pharmacy) {
     user.pharmacie = pharmacy;
     users.refresh();
   }
@@ -44,5 +41,11 @@ class AdminhomeController extends GetxController {
   void toggleUserStatus(User user, String status) {
     user.status = status;
     users.refresh();
+  }
+
+  void updateUserData(
+      {required String userId, required Map<String, Object?> data}) async {
+    await adminProvider.updateUserData(userId: userId, data: data);
+    print(data);
   }
 }
