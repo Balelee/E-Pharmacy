@@ -3,6 +3,7 @@ import 'package:pharmix/app/data/models/pharmacy.dart';
 import 'package:pharmix/app/data/models/user.dart';
 import 'package:pharmix/app/data/providers/adminProvider/admin_provider.dart';
 import 'package:pharmix/app/data/providers/pharmacy_provider.dart';
+import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 
 class AdminhomeController extends GetxController {
   RxList<User> users = <User>[].obs;
@@ -22,8 +23,8 @@ class AdminhomeController extends GetxController {
     loadUsers();
   }
 
-  Future<void> loadUsers() async {
-    final allUsers = await adminProvider.fetchUsers();
+  Future<void> loadUsers({bool isLoading=false}) async {
+    final allUsers = await adminProvider.fetchUsers(isLoading: isLoading);
 
     users.assignAll(allUsers);
   }
@@ -45,7 +46,16 @@ class AdminhomeController extends GetxController {
 
   void updateUserData(
       {required String userId, required Map<String, Object?> data}) async {
-    await adminProvider.updateUserData(userId: userId, data: data);
-    print(data);
+    bool isUpdated =
+        await adminProvider.updateUserData(userId: userId, data: data);
+
+    if (isUpdated) {
+      print("isUpdated $isUpdated");
+      if (Get.isOverlaysOpen == false) {
+        DialogHelper.showSuccessSnackbar(
+            message: "Donnée mis a jour", seconds: 2);
+      }
+      loadUsers();
+    }
   }
 }

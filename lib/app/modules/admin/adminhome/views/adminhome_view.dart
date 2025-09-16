@@ -57,12 +57,20 @@ class AdminhomeView extends GetView<AdminhomeController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomText(
-                text: "Gestion des utilisateurs",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const CustomText(
+                    text: "Gestion des utilisateurs",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () => controller.loadUsers(isLoading: true),
+                      icon: Icon(Icons.refresh))
+                ],
               ),
               const SizedBox(height: 25),
               Container(
@@ -176,8 +184,7 @@ class AdminhomeView extends GetView<AdminhomeController> {
                                   .toList();
                             },
                             onChanged: (Pharmacy? value) {
-                           
-                                controller.assignPharmacy(user, value);
+                              controller.assignPharmacy(user, value);
                             },
                           ),
                         ),

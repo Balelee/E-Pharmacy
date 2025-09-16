@@ -13,15 +13,13 @@ class AuthProvider with BaseController {
     required String password,
   }) async {
     try {
-      final data = {
-        'email': email,
-        'password': password,
-      };
+      showLoading();
       final response = await ApiProvider.post(
         auth: false,
         apiURL: ApiRoutes.login.path,
-        data: data,
-      );
+        data: {'email': email, 'password': password},
+      ).catchError(handleError);
+      hideLoading();
       if (response != null) {
         Token.saveAuthToken(response['data']['token']);
         User user = User.fromJson(response['data']);
@@ -30,7 +28,7 @@ class AuthProvider with BaseController {
       }
       return null;
     } catch (e) {
-      handleError(e);
+      hideLoading();
       DialogHelper.showErrorSnackbar(message: "Erreur de connexion: $e");
       return null;
     }

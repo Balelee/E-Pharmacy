@@ -43,10 +43,12 @@ class LoginController extends GetxController {
     changeScreen();
     emailphoneController.text = "54738460";
     passwordController.text = "adminadmin";
-    // emailphoneController.text = "+22675572009";
-    // passwordController.text = "000000001";
-    // emailphoneController.text = "75572006";
-    // passwordController.text = "00000000";
+    emailphoneController.text = "+22675572009";
+    passwordController.text = "000000001";
+    emailphoneController.text = "74572004";
+    passwordController.text = "00000002";
+    emailphoneController.text = "75572006";
+    passwordController.text = "00000000";
     preloadLogo();
   }
 
@@ -69,16 +71,13 @@ class LoginController extends GetxController {
   }
 
   void login() async {
-    DialogHelper.showLoading(
-        message: "Patienter...",
-        noBkgColor: false,
-        colorProgress: AppColors.primary);
+   
     if (!loginFormkey.currentState!.validate()) return;
     User? user = await authProvider.login(
       email: emailphoneController.text.trim(),
       password: passwordController.text.trim(),
     );
-    DialogHelper.hideLoading();
+
     if (user != null) {
       if (Get.isRegistered<UserController>()) {
         Get.delete<UserController>();
@@ -87,15 +86,18 @@ class LoginController extends GetxController {
       Get.put(ProfileController());
       await UserController.to.affectToCurrentUser(user);
       NavigationController.to.currentIndex.value = 0;
-      if (user.type == 'client') {
-        await socketController.connectToSocket(user: user);
-        Get.toNamed(AppPages.BASE, arguments: user);
-      } else if (user.type == 'pharmacien') {
-        await socketController.connectToSocket(user: user);
-
-        Get.toNamed(AppPages.PHARMACIEN, arguments: user);
-      } else {
-        Get.toNamed(AppPages.ADMINHOME, arguments: user);
+      switch (user.type) {
+        case 'client':
+          await socketController.connectToSocket(user: user);
+          Get.toNamed(AppPages.BASE, arguments: user);
+          break;
+        case 'pharmacien':
+          await socketController.connectToSocket(user: user);
+          Get.toNamed(AppPages.PHARMACIEN, arguments: user);
+        case 'admin':
+          Get.toNamed(AppPages.ADMINHOME, arguments: user);
+          break;
+        default:
       }
     }
   }
