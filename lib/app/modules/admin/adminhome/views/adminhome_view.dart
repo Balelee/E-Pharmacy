@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/pharmacy.dart';
+import 'package:pharmix/app/data/repositories/user_repository.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
+import 'package:pharmix/app/widgets/loding_indicator.dart';
 import 'package:searchable_paginated_dropdown/searchable_paginated_dropdown.dart';
 import '../controllers/adminhome_controller.dart';
 
@@ -22,12 +25,32 @@ class AdminhomeView extends GetView<AdminhomeController> {
             color: Colors.white,
           ),
         ),
-        leading: BackButton(
-          color: Colors.white,
-          onPressed: () {
-            Get.back();
-          },
-        ),
+        automaticallyImplyLeading: false,
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Get.lazyPut(() => UserRepository());
+              controller.logOut();
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 0.0,
+                horizontal: 10.0,
+              ),
+              decoration: BoxDecoration(),
+              child: Obx(
+                () => controller.isLoding.value
+                    ? LoadingIndicator(
+                        color: Get.theme.primaryColor,
+                      )
+                    : Icon(
+                        Icons.logout,
+                        color: Colors.white,
+                      ),
+              ),
+            ),
+          ),
+        ],
       ),
       body: Obx(() {
         if (controller.users.isEmpty) {

@@ -51,9 +51,11 @@ class AuthProvider with BaseController {
       return null;
     }
   }
+  
 
   Future<bool> logout() async {
     try {
+
       return await ApiProvider.post(
         auth: true,
         apiURL: ApiRoutes.logout.path,
