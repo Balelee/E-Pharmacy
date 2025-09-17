@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/modules/Login/controllers/login_controller.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
-import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/utils/validators.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
-import 'package:pharmix/app/widgets/custom_icon.dart';
 import 'package:pharmix/app/widgets/custom_text_form_field.dart';
 import '../../../../generated/locales.g.dart';
 import '../../../themes/app_text_styles.dart';
@@ -95,81 +93,81 @@ class LoginContentView extends GetView<LoginController> {
                       ],
                     ),
                   ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.end,
+                  //     children: [
+                  //       CustomText(
+                  //         text: LocaleKeys.forgot_password.tr,
+                  //         style: TextStyle(
+                  //             fontSize: 14.0,
+                  //             color: AppColors.primary,
+                  //             fontWeight: FontWeight.bold),
+                  //         textAlign: TextAlign.right,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        CustomText(
-                          text: LocaleKeys.forgot_password.tr,
-                          style: TextStyle(
-                              fontSize: 14.0,
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.right,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    padding: const EdgeInsets.symmetric(vertical: 15.0),
                     child: CustomButton.primaryButton(
                         onPressed: () {
                           controller.login();
                         },
                         buttonTitle: LocaleKeys.login.tr),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: Center(
-                      child: CustomText(
-                        text: LocaleKeys.or_continue_with.tr.toUpperCase(),
-                        style: AppTextStyles.bodyText1,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomButton.primaryButton(
-                          onPressed: () {},
-                          buttonTitle: "",
-                          backgroundColor: AppColors.secondary,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 0.0, vertical: 14.0),
-                          elevation: 0.0,
-                          child: CustomIcon.socialMedia(
-                              localPath: 'assets/images/google.svg'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: CustomButton.primaryButton(
-                            onPressed: () {},
-                            buttonTitle: "",
-                            backgroundColor: AppColors.secondary,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 0.0, vertical: 14.0),
-                            elevation: 0.0,
-                            child: CustomIcon.socialMedia(
-                                localPath: 'assets/images/apple.svg'),
-                          ),
-                        ),
-                        CustomButton.primaryButton(
-                          onPressed: () {},
-                          buttonTitle: "",
-                          backgroundColor: AppColors.secondary,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 0.0, vertical: 14.0),
-                          elevation: 0.0,
-                          child: CustomIcon.socialMedia(
-                              localPath: 'assets/images/facebook.svg'),
-                        )
-                      ],
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  //   child: Center(
+                  //     child: CustomText(
+                  //       text: LocaleKeys.or_continue_with.tr.toUpperCase(),
+                  //       style: AppTextStyles.bodyText1,
+                  //       textAlign: TextAlign.center,
+                  //     ),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       CustomButton.primaryButton(
+                  //         onPressed: () {},
+                  //         buttonTitle: "",
+                  //         backgroundColor: AppColors.secondary,
+                  //         padding: EdgeInsets.symmetric(
+                  //             horizontal: 0.0, vertical: 14.0),
+                  //         elevation: 0.0,
+                  //         child: CustomIcon.socialMedia(
+                  //             localPath: 'assets/images/google.svg'),
+                  //       ),
+                  //       Padding(
+                  //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  //         child: CustomButton.primaryButton(
+                  //           onPressed: () {},
+                  //           buttonTitle: "",
+                  //           backgroundColor: AppColors.secondary,
+                  //           padding: EdgeInsets.symmetric(
+                  //               horizontal: 0.0, vertical: 14.0),
+                  //           elevation: 0.0,
+                  //           child: CustomIcon.socialMedia(
+                  //               localPath: 'assets/images/apple.svg'),
+                  //         ),
+                  //       ),
+                  //       CustomButton.primaryButton(
+                  //         onPressed: () {},
+                  //         buttonTitle: "",
+                  //         backgroundColor: AppColors.secondary,
+                  //         padding: EdgeInsets.symmetric(
+                  //             horizontal: 0.0, vertical: 14.0),
+                  //         elevation: 0.0,
+                  //         child: CustomIcon.socialMedia(
+                  //             localPath: 'assets/images/facebook.svg'),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Row(

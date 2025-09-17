@@ -153,17 +153,17 @@ class DashboardView extends GetView<DashboardController> {
                                   label: 'Pharmacies dispo',
                                   color: Colors.teal,
                                 ),
-                                ServiceCard(
-                                  onTap: () {
-                                    Get.toNamed(Routes.CLINIQUE);
-                                  },
-                                  leading: Image.asset(
-                                    "assets/images/store.png",
-                                    width: 35,
-                                  ),
-                                  label: 'Cliniques/Labo',
-                                  color: Colors.blue,
-                                ),
+                                // ServiceCard(
+                                //   onTap: () {
+                                //     Get.toNamed(Routes.CLINIQUE);
+                                //   },
+                                //   leading: Image.asset(
+                                //     "assets/images/store.png",
+                                //     width: 35,
+                                //   ),
+                                //   label: 'Cliniques/Labo',
+                                //   color: Colors.blue,
+                                // ),
                                 ServiceCard(
                                   onTap: () {
                                     Get.toNamed(AppPages.RAPPELMEDI);
