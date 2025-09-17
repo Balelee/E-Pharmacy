@@ -71,19 +71,21 @@ class LoginController extends GetxController {
   }
 
   Future<void> checkLoginStatus() async {
-    final userRepo = Get.find<UserRepository>();
-    final hasUser = await userRepo.hasUser();
-    if (hasUser) {
-      final user = await userRepo.getUser();
-      final token = Token.getAuthToken();
-      if (user != null && token.isNotEmpty) {
-        _redirectUser(user);
-        return;
-      }
-    } else {
-      changeContent.value = LoginContentView();
+  final userRepo = Get.find<UserRepository>();
+  final hasUser = await userRepo.hasUser();
+
+  if (hasUser) {
+    final user = await userRepo.getUser();
+    final token = Token.getAuthToken();
+
+    if (user != null && token.isNotEmpty) {
+      _redirectUser(user);
+      return;
     }
   }
+  changeContent.value = LoginContentView();
+}
+
 
   void login() async {
     if (!loginFormkey.currentState!.validate()) return;
