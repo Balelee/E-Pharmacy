@@ -60,7 +60,7 @@ class User {
       'birthDate': birthdate,
       'birthPlace': birthplace,
       'email': email,
-      'userType': type,
+      'type': type,
       'password': password,
       'pharmacie': pharmacie?.toJson(),
     };
@@ -95,6 +95,4 @@ class User {
   String? get role => type;
   String? get pharmacyName => pharmacie?.name;
   bool get isActif => status == "actif" ? true : false;
-
- 
 }

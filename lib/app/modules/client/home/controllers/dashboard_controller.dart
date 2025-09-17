@@ -12,7 +12,7 @@ class DashboardController extends GetxController {
 
   // Reactive values
   final ScrollController scrollController = ScrollController();
-  RxInt notificationCount = RxInt(3);
+  RxInt notificationCount = RxInt(0);
 
   // Computed user properties
   String get userName =>

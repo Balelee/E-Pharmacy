@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/providers/auth_provider.dart';
+import 'package:pharmix/app/data/repositories/user_repository.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:pharmix/generated/locales.g.dart';
@@ -106,8 +107,10 @@ class ProfileController extends GetxController {
               if (Get.isRegistered<UserController>()) {
                 Get.delete<UserController>();
               }
+              Get.find<UserRepository>().clearUser();
               Get.offAllNamed(AppPages.LOGINCONTENT);
             }
+
             stopLoading();
           });
         });

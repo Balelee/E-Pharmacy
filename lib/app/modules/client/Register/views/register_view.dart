@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
-import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/utils/constants/size_constant.dart';
 import 'package:pharmix/app/utils/validators.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
-import 'package:pharmix/app/widgets/custom_icon.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_text_form_field.dart';
 import 'package:pharmix/generated/locales.g.dart';
@@ -48,60 +46,60 @@ class RegisterView extends GetView<RegisterController> {
                         ],
                       ),
                     ),
-                    Center(
-                      child: CustomText(
-                        text: LocaleKeys.continue_with.tr.toUpperCase(),
-                        style: AppTextStyles.bodyText1,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomButton.primaryButton(
-                            onPressed: () {},
-                            buttonTitle: "",
-                            backgroundColor: AppColors.secondary,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 0.0, vertical: 14.0),
-                            elevation: 0.0,
-                            child: CustomIcon.socialMedia(
-                                localPath: 'assets/images/google.svg'),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
-                            child: CustomButton.primaryButton(
-                              onPressed: () {},
-                              buttonTitle: "",
-                              backgroundColor: AppColors.secondary,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 0.0, vertical: 14.0),
-                              elevation: 0.0,
-                              child: CustomIcon.socialMedia(
-                                  localPath: 'assets/images/apple.svg'),
-                            ),
-                          ),
-                          CustomButton.primaryButton(
-                            onPressed: () {},
-                            buttonTitle: "",
-                            backgroundColor: AppColors.secondary,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 0.0, vertical: 14.0),
-                            elevation: 0.0,
-                            child: CustomIcon.socialMedia(
-                                localPath: 'assets/images/facebook.svg'),
-                          )
-                        ],
-                      ),
-                    ),
+                    // Center(
+                    //   child: CustomText(
+                    //     text: LocaleKeys.continue_with.tr.toUpperCase(),
+                    //     style: AppTextStyles.bodyText1,
+                    //     textAlign: TextAlign.center,
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       CustomButton.primaryButton(
+                    //         onPressed: () {},
+                    //         buttonTitle: "",
+                    //         backgroundColor: AppColors.secondary,
+                    //         padding: EdgeInsets.symmetric(
+                    //             horizontal: 0.0, vertical: 14.0),
+                    //         elevation: 0.0,
+                    //         child: CustomIcon.socialMedia(
+                    //             localPath: 'assets/images/google.svg'),
+                    //       ),
+                    //       Padding(
+                    //         padding:
+                    //             const EdgeInsets.symmetric(horizontal: 10.0),
+                    //         child: CustomButton.primaryButton(
+                    //           onPressed: () {},
+                    //           buttonTitle: "",
+                    //           backgroundColor: AppColors.secondary,
+                    //           padding: EdgeInsets.symmetric(
+                    //               horizontal: 0.0, vertical: 14.0),
+                    //           elevation: 0.0,
+                    //           child: CustomIcon.socialMedia(
+                    //               localPath: 'assets/images/apple.svg'),
+                    //         ),
+                    //       ),
+                    //       CustomButton.primaryButton(
+                    //         onPressed: () {},
+                    //         buttonTitle: "",
+                    //         backgroundColor: AppColors.secondary,
+                    //         padding: EdgeInsets.symmetric(
+                    //             horizontal: 0.0, vertical: 14.0),
+                    //         elevation: 0.0,
+                    //         child: CustomIcon.socialMedia(
+                    //             localPath: 'assets/images/facebook.svg'),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Center(
                         child: CustomText(
-                          text: "OU AVEC VOS INFORTIONS PERSONNELLES",
+                          text: "VOS INFORTIONS PERSONNELLES",
                           style: AppTextStyles.bodyText1,
                           textAlign: TextAlign.center,
                         ),
