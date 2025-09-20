@@ -164,7 +164,7 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                             ),
                                             child: CustomText(
                                               text:
-                                                  "Pharmacie ${order.pharmacy.name.toString()}",
+                                                  "Pharmacie ${order.pharmacy!.name.toString()}",
                                               overflow: TextOverflow.visible,
                                               style: const TextStyle(
                                                 fontSize: 13,
@@ -227,9 +227,9 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                             ),
                                             onTap: () {
                                               final lat =
-                                                  order.pharmacy.latitude;
+                                                  order.pharmacy!.latitude;
                                               final lng =
-                                                  order.pharmacy.longitude;
+                                                  order.pharmacy!.longitude;
                                               if (lat != null && lng != null) {
                                                 MapHelper.openMap(lat, lng);
                                               }
@@ -252,7 +252,7 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                                   const EdgeInsets.symmetric(
                                                       horizontal: 8.0),
                                               child: CustomText(
-                                                text: order.pharmacy.phone ??
+                                                text: order.pharmacy!.phone ??
                                                     'inconnu',
                                                 style: AppTextStyles.caption
                                                     .copyWith(fontSize: 13),
@@ -302,7 +302,7 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        ...order.details.map((item) => Padding(
+                                        ...order.details!.map((item) => Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
                                                       vertical: 6),
@@ -389,7 +389,7 @@ class ClientFeedBackOrderView extends GetView<ClientFeedBackOrderController> {
                                                 vertical: 8.0),
                                             child: CustomText(
                                               text:
-                                                  'Total: ${order.details.fold<double>(0, (sum, e) => sum + e.total).toStringAsFixed(0)} FCFA',
+                                                  'Total: ${order.details!.fold<double>(0, (sum, e) => sum + e.total).toStringAsFixed(0)} FCFA',
                                               style: AppTextStyles.heading3
                                                   .copyWith(
                                                       fontSize: 17.0,

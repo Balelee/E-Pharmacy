@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/models/auxiliaire_order.dart';
+import 'package:pharmix/app/data/models/order_pharmacy.dart';
 import 'package:pharmix/app/data/providers/auxilliaire_provider.dart';
 import 'package:pharmix/app/data/providers/product_provider.dart';
 import 'package:pharmix/app/utils/enums/order_status_enum.dart';
-import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 
 class PharmacienController extends GetxController {
   AuxilliaireProvider auxilliaireProvider = AuxilliaireProvider();
@@ -19,21 +19,37 @@ class PharmacienController extends GetxController {
   final pageController = PageController(initialPage: 0);
   final ProductProvider produitProvider = ProductProvider();
   final RxList<AuxiliaireOrder> orders = <AuxiliaireOrder>[].obs;
+  final RxList<OrderPharmacy> unwaitingsOrders = <OrderPharmacy>[].obs;
   final RxString selectedStatus = ''.obs;
+  final RxBool isLoading = false.obs;
   void changePage(int index) {
     currentIndex.value = index;
   }
 
-  Rx<OrderStatusEnum> selectedOrderStatus=Rx(OrderStatusEnum.enattente);
+  Rx<OrderPharmacyStatusEnum> selectedOrderStatus =
+      Rx(OrderPharmacyStatusEnum.enattente);
 
   void loadOrdersData() async {
-    orders.value = await produitProvider.getOrdersPharmacies(orderStatus: selectedOrderStatus.value) ?? [];
+    switch (selectedOrderStatus.value) {
+      case OrderPharmacyStatusEnum.enattente:
+        orders.value = await produitProvider.getOrdersPharmacies(
+                orderPharmacyStatus: selectedOrderStatus.value,isLoading: isLoading.value) ??
+            [];
+        break;
+      case OrderPharmacyStatusEnum.traite || OrderPharmacyStatusEnum.refused:
+        unwaitingsOrders.value = await produitProvider.getOrdersTRPharmacies(
+                orderPharmacyStatus: selectedOrderStatus.value) ??
+            [];
+        print(unwaitingsOrders.length);
+        break;
+      default:
+    }
   }
 
   @override
   void onInit() {
     super.onInit();
-    if (orders.isEmpty) {
+    if (orders.isEmpty || unwaitingsOrders.isEmpty) {
       loadOrdersData();
     }
   }

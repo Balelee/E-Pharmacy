@@ -1,123 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/modules/pharmacy/pharmacien/controllers/pharmacien_controller.dart';
-import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/utils/enums/order_status_enum.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
-import 'package:pharmix/app/widgets/custom_toast.dart';
 import 'package:pharmix/app/widgets/pharmacien/order_auxiliaire_item_widget.dart';
+import 'package:pharmix/app/widgets/pharmacien/unwaitingOrders_auxiliaire_item_widget.dart';
 
 class OrderAuxiliaireListWidget extends GetView<PharmacienController> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-      child: Obx(
-        () => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (controller.showToast.value)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: CustomToast(
-                  icon: Icons.info_outline,
-                  message:
-                      "Cher auxiliaire, Merci de vérifier chaque commande client afin de valider ou annuler selon la situation.",
-                  backgroundColor: AppColors.success,
-                  onClose: () => controller.showToast.value = false,
-                ),
-              ),
-            _buildHeader(context),
-            Obx(() {
-              if (controller.orders.isEmpty) {
-                return Center(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: controller.orders.isEmpty
+          ? MainAxisAlignment.center
+          : MainAxisAlignment.start,
+      children: [
+        Obx(() {
+          if (controller.selectedOrderStatus.value ==
+                  OrderPharmacyStatusEnum.traite ||
+              controller.selectedOrderStatus.value ==
+                  OrderPharmacyStatusEnum.refused) {
+            if (controller.unwaitingsOrders.isEmpty) {
+              return SizedBox(
+                height: context.height / 1.7,
+                child: Center(
                   child: CustomText(
-                    text: "Aucune commande récente",
+                    text:
+                        "Aucune donnée ${controller.selectedOrderStatus.value.label}",
                     style: AppTextStyles.caption,
                   ),
-                );
-              }
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: controller.orders.length,
-                itemBuilder: (context, index) => OrderAuxiliaireItemWidget(
-                  order: controller.orders[index],
-                  onValidate: (p0) {
-                    controller.storeOrderResponse(
-                        orderId: controller.orders[index].id,
-                        data: {'items': p0});
-                  },
                 ),
               );
-            }),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text(
-          "Commandes récentes",
-          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
-        ),
-        Container(
-          width: 45,
-          height: 45,
-          decoration: BoxDecoration(
-            color: AppColors.background,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.green.withOpacity(0.2),
-                spreadRadius: 2,
-                blurRadius: 6,
-                offset: Offset(0, 1),
+            }
+            return UnwaitingordersAuxiliaireItemWidget(
+              unwaitingorders: controller.unwaitingsOrders.value,
+              onValidate: (p0) {},
+            );
+          }
+          if (controller.orders.isEmpty) {
+            return SizedBox(
+              height: context.height / 1.7,
+              child: Center(
+                child: CustomText(
+                  text: "Aucune donnée disponible",
+                  style: AppTextStyles.caption,
+                ),
               ),
-            ],
-          ),
-          child: PopupMenuButton<OrderStatusEnum>(
-            padding: EdgeInsets.zero,
-            color: AppColors.background,
-            icon: Icon(
-              Icons.sort,
-              size: 25,
-              color: AppColors.textSecondary,
+            );
+          }
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: controller.orders.length,
+            itemBuilder: (context, index) => OrderAuxiliaireItemWidget(
+              order: controller.orders[index],
+              onValidate: (p0) {
+                controller.storeOrderResponse(
+                    orderId: controller.orders[index].id, data: {'items': p0});
+              },
             ),
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: OrderStatusEnum.traite,
-                child: Text(
-                  OrderStatusEnum.traite.label,
-                  style: TextStyle(color: AppColors.textSecondary),
-                ),
-              ),
-              PopupMenuItem(
-                value: OrderStatusEnum.annule,
-                child: Text(
-                  OrderStatusEnum.annule.label,
-                  style: TextStyle(color: AppColors.textSecondary),
-                ),
-              ),
-              PopupMenuItem(
-                value: OrderStatusEnum.enattente,
-                child: Text(
-                  OrderStatusEnum.enattente.label,
-                  style: TextStyle(color: AppColors.textSecondary),
-                ),
-              ),
-            ],
-            onSelected: (value) async {
-              controller.selectedOrderStatus.value = value;
-              controller.loadOrdersData();
-            },
-          ),
-        )
+          );
+        })
       ],
     );
   }

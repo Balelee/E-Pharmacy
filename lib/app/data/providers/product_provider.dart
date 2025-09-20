@@ -1,6 +1,7 @@
 import 'package:pharmix/app/cummon/controllers/base_controller.dart';
 import 'package:pharmix/app/data/models/auxiliaire_order.dart';
 import 'package:pharmix/app/data/models/order.dart';
+import 'package:pharmix/app/data/models/order_pharmacy.dart';
 import 'package:pharmix/app/data/models/searchproduct.dart';
 import 'package:pharmix/app/data/providers/api_provider.dart';
 import 'package:pharmix/app/utils/enums/api_routes.dart';
@@ -48,19 +49,47 @@ class ProductProvider with BaseController {
   }
 
   Future<List<AuxiliaireOrder>?> getOrdersPharmacies(
-      {OrderStatusEnum orderStatus = OrderStatusEnum.enattente}) async {
+      {OrderPharmacyStatusEnum orderPharmacyStatus =
+          OrderPharmacyStatusEnum.enattente,
+      bool isLoading = false}) async {
     try {
+      isLoading ? showLoading() : null;
       final response = await ApiProvider.get(
         auth: true,
-        apiURL:
-            ApiRoutes.orderspharmacies.format({'status': orderStatus.value}),
+        apiURL: ApiRoutes.orderspharmacies
+            .format({'status': orderPharmacyStatus.value}),
       ).catchError(handleError);
+      hideLoading();
       if (response != null && response['data'] != null) {
         final List<dynamic> data = response['data'];
         return data.map((json) => AuxiliaireOrder.fromJson(json)).toList();
       }
       return null;
     } catch (e) {
+      hideLoading();
+      DialogHelper.showErrorSnackbar(message: "fetching error: $e");
+      return null;
+    }
+  }
+
+  Future<List<OrderPharmacy>?> getOrdersTRPharmacies(
+      {OrderPharmacyStatusEnum orderPharmacyStatus =
+          OrderPharmacyStatusEnum.traite}) async {
+    try {
+      showLoading();
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.ordersTRpharmacies
+            .format({'status': orderPharmacyStatus.value}),
+      ).catchError(handleError);
+      hideLoading();
+      if (response != null && response['data'] != null) {
+        final List<dynamic> data = response['data'];
+        return data.map((json) => OrderPharmacy.fromJson(json)).toList();
+      }
+      return null;
+    } catch (e) {
+      hideLoading();
       DialogHelper.showErrorSnackbar(message: "fetching error: $e");
       return null;
     }

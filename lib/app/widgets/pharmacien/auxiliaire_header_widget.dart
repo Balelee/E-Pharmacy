@@ -11,7 +11,7 @@ class AuxiliaireHeaderWidget extends GetView<PharmacienController> {
   Widget build(BuildContext context) {
     return Container(
       height: context.height / 7,
-      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
       color: AppColors.background,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

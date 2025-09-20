@@ -42,12 +42,12 @@ class LoginController extends GetxController {
     changeScreen();
     // emailphoneController.text = "54738460";
     // passwordController.text = "adminadmin";
-    // emailphoneController.text = "+22675572009";
-    // passwordController.text = "000000001";
+    emailphoneController.text = "+22675572009";
+    passwordController.text = "000000001";
     // emailphoneController.text = "74572004";
     // passwordController.text = "00000002";
-    emailphoneController.text = "75572006";
-    passwordController.text = "00000000";
+    // emailphoneController.text = "75572006";
+    // passwordController.text = "00000000";
     preloadLogo();
   }
 
@@ -71,21 +71,20 @@ class LoginController extends GetxController {
   }
 
   Future<void> checkLoginStatus() async {
-  final userRepo = Get.find<UserRepository>();
-  final hasUser = await userRepo.hasUser();
+    final userRepo = Get.find<UserRepository>();
+    final hasUser = await userRepo.hasUser();
 
-  if (hasUser) {
-    final user = await userRepo.getUser();
-    final token = Token.getAuthToken();
+    if (hasUser) {
+      final user = await userRepo.getUser();
+      final token = Token.getAuthToken();
 
-    if (user != null && token.isNotEmpty) {
-      _redirectUser(user);
-      return;
+      if (user != null && token.isNotEmpty) {
+        _redirectUser(user);
+        return;
+      }
     }
+    changeContent.value = LoginContentView();
   }
-  changeContent.value = LoginContentView();
-}
-
 
   void login() async {
     if (!loginFormkey.currentState!.validate()) return;
