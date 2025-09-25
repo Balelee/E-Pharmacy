@@ -4,12 +4,18 @@ import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/models/auxiliaire_order.dart';
 import 'package:pharmix/app/data/models/order_pharmacy.dart';
+import 'package:pharmix/app/data/providers/auth_provider.dart';
 import 'package:pharmix/app/data/providers/auxilliaire_provider.dart';
 import 'package:pharmix/app/data/providers/product_provider.dart';
+import 'package:pharmix/app/data/repositories/user_repository.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/utils/enums/order_status_enum.dart';
+import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
+import 'package:pharmix/generated/locales.g.dart';
 
 class PharmacienController extends GetxController {
   AuxilliaireProvider auxilliaireProvider = AuxilliaireProvider();
+  final AuthProvider authProvider = Get.put(AuthProvider());
   RxInt notificationCount = RxInt(3);
   final RxBool showToast = true.obs;
   final ScrollController scrollController = ScrollController();
@@ -33,7 +39,8 @@ class PharmacienController extends GetxController {
     switch (selectedOrderStatus.value) {
       case OrderPharmacyStatusEnum.enattente:
         orders.value = await produitProvider.getOrdersPharmacies(
-                orderPharmacyStatus: selectedOrderStatus.value,isLoading: isLoading.value) ??
+                orderPharmacyStatus: selectedOrderStatus.value,
+                isLoading: isLoading.value) ??
             [];
         break;
       case OrderPharmacyStatusEnum.traite || OrderPharmacyStatusEnum.refused:
@@ -75,5 +82,46 @@ class PharmacienController extends GetxController {
         orders.removeAt(index);
       }
     }
+  }
+
+  RxBool isLoding = RxBool(false);
+  RxString loadingMessage = RxString("");
+
+  void setLoading({String loadMessage = "Loading..."}) {
+    isLoding.value = true;
+    loadingMessage.value = loadMessage;
+  }
+
+  void stopLoading() {
+    isLoding.value = false;
+    loadingMessage.value = "Loading...";
+  }
+
+  void logOut() {
+    DialogHelper.confirmationDialog(
+        title: LocaleKeys.confirm_title.tr,
+        message: LocaleKeys.logout_message.tr,
+        onCancel: () {
+          if (Get.isDialogOpen ?? false) {
+            Get.back();
+          }
+        },
+        onConfirm: () async {
+          if (Get.isDialogOpen ?? false) {
+            Get.back();
+          }
+          setLoading(loadMessage: '');
+          await authProvider.logout().then((value) {
+            if (value) {
+              if (Get.isRegistered<UserController>()) {
+                Get.delete<UserController>();
+              }
+              Get.find<UserRepository>().clearUser();
+              Get.offAllNamed(AppPages.LOGINCONTENT);
+            }
+
+            stopLoading();
+          });
+        });
   }
 }

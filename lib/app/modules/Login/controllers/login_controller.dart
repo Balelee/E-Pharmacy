@@ -42,8 +42,8 @@ class LoginController extends GetxController {
     changeScreen();
     // emailphoneController.text = "54738460";
     // passwordController.text = "adminadmin";
-    emailphoneController.text = "+22675572009";
-    passwordController.text = "000000001";
+    // emailphoneController.text = "+22675572009";
+    // passwordController.text = "000000001";
     // emailphoneController.text = "74572004";
     // passwordController.text = "00000002";
     // emailphoneController.text = "75572006";
