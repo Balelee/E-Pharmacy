@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/models/pharmacy.dart';
 import 'package:pharmix/app/data/models/user.dart';
@@ -13,7 +14,7 @@ import 'package:pharmix/generated/locales.g.dart';
 class AdminhomeController extends GetxController {
   RxList<User> users = <User>[].obs;
   AdminProvider adminProvider = AdminProvider();
-   final AuthProvider authProvider = Get.put(AuthProvider());
+  final AuthProvider authProvider = Get.put(AuthProvider());
   PharmacyProvider pharmacieProvider = PharmacyProvider();
 
   RxList<Map<String, String>> roles = <Map<String, String>>[
@@ -29,7 +30,7 @@ class AdminhomeController extends GetxController {
     loadUsers();
   }
 
-  Future<void> loadUsers({bool isLoading=false}) async {
+  Future<void> loadUsers({bool isLoading = false}) async {
     final allUsers = await adminProvider.fetchUsers(isLoading: isLoading);
 
     users.assignAll(allUsers);
@@ -65,10 +66,10 @@ class AdminhomeController extends GetxController {
     }
   }
 
-    RxBool isLoding = RxBool(false);
+  RxBool isLoding = RxBool(false);
   RxString loadingMessage = RxString("");
 
-    void setLoading({String loadMessage = "Loading..."}) {
+  void setLoading({String loadMessage = "Loading..."}) {
     isLoding.value = true;
     loadingMessage.value = loadMessage;
   }
@@ -78,7 +79,7 @@ class AdminhomeController extends GetxController {
     loadingMessage.value = "Loading...";
   }
 
-   void logOut() {
+  void logOut() {
     DialogHelper.confirmationDialog(
         title: LocaleKeys.confirm_title.tr,
         message: LocaleKeys.logout_message.tr,

@@ -1,5 +1,6 @@
 // lib/app/data/repositories/user_repository.dart
 
+import 'package:pharmix/app/data/models/token.dart';
 import 'package:pharmix/app/data/models/user.dart';
 
 import '../../utils/helpers/storage_helper.dart';
@@ -20,6 +21,7 @@ class UserRepository {
   }
 
   Future<void> clearUser() async {
+     Token.clearAuthToken();
     await StorageHelper.delete(_userKey);
   }
 

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/providers/auth_provider.dart';
 import 'package:pharmix/app/data/repositories/user_repository.dart';
@@ -107,7 +108,16 @@ class ProfileController extends GetxController {
               if (Get.isRegistered<UserController>()) {
                 Get.delete<UserController>();
               }
+              SocketController socketController = Get.find<SocketController>();
+
               Get.find<UserRepository>().clearUser();
+              var channels =
+                  socketController.echo!.connector.channels.values.toList();
+              for (var chanel in channels) {
+                socketController.echo!.connector.leaveChannel(chanel.name);
+              }
+              socketController.echo!.connector.disconnect();
+              socketController.echo = null;
               Get.offAllNamed(AppPages.LOGINCONTENT);
             }
 

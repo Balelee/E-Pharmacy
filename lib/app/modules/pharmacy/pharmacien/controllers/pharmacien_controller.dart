@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
+import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/models/auxiliaire_order.dart';
 import 'package:pharmix/app/data/models/order_pharmacy.dart';
@@ -116,7 +117,15 @@ class PharmacienController extends GetxController {
               if (Get.isRegistered<UserController>()) {
                 Get.delete<UserController>();
               }
+              SocketController socketController = Get.find<SocketController>();
               Get.find<UserRepository>().clearUser();
+              var channels =
+                  socketController.echo!.connector.channels.values.toList();
+              for (var chanel in channels) {
+                socketController.echo!.connector.leaveChannel(chanel.name);
+              }
+              socketController.echo!.connector.disconnect();
+              socketController.echo = null;
               Get.offAllNamed(AppPages.LOGINCONTENT);
             }
 
