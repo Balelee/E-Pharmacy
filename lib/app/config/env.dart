@@ -13,5 +13,5 @@ class Env {
 
   static String get developement => ".env";
   static String get production => ".env.production";
-  static bool get isLocal => true;
+  static bool get isLocal => false;
 }
