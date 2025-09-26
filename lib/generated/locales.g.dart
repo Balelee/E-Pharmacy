@@ -31,6 +31,7 @@ class LocaleKeys {
   static const quotien = 'quotien';
   static const hebdomadaire = 'hebdomadaire';
   static const mensuel = 'mensuel';
+  static const field_required = 'field_required';
   static const msg_require_email = 'msg_require_email';
   static const min_password_msg = 'min_password_msg';
   static const valid_email_msg = 'valid_email_msg';
@@ -176,8 +177,9 @@ class Locales {
     'quotien': 'Daily',
     'hebdomadaire': 'Weekly',
     'mensuel': 'Monthly',
+    'field_required': 'Feild is required',
     'msg_require_email': 'Email is required',
-    'min_password_msg': 'Password must be at least 6 characters',
+    'min_password_msg': 'Password must be at least 8 characters',
     'valid_email_msg': 'Enter a valid email',
     'msg_require_password': 'Password is required',
     'msg_phone_require': 'Phone number is required',
@@ -325,6 +327,7 @@ class Locales {
     'quotien': 'Quotidien',
     'hebdomadaire': 'Hebdomadaire',
     'mensuel': 'Mensuel',
+    'field_required': 'Champ obligatoire',
     'msg_require_email': 'Email obligatoire',
     'min_password_msg': 'Le mot de passe doit contenir au moins 8 caractères',
     'valid_email_msg': 'Entrer votre email valide',

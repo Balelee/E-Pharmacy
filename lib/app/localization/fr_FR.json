@@ -19,6 +19,7 @@
   "quotien": "Quotidien",
   "hebdomadaire": "Hebdomadaire",
   "mensuel": "Mensuel",
+  "field_required": "Champ obligatoire",
   "msg_require_email": "Email obligatoire",
   "min_password_msg": "Le mot de passe doit contenir au moins 8 caractères",
   "valid_email_msg": "Entrer votre email valide",

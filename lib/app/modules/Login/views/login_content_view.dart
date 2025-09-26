@@ -58,11 +58,15 @@ class LoginContentView extends GetView<LoginController> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16.0),
                           child: SizedBox(
-                            height: 50,
+                            height: 70,
                             child: CustomTextFormField(
                               controller: controller.emailphoneController,
                               labelText: LocaleKeys.email_phone_title.tr,
                               prefix: Icon(Icons.phone),
+                              validator: (p0) {
+                                final error = Validators.validateSimpleText(p0);
+                                return error;
+                              },
                             ),
                           ),
                         ),
@@ -84,8 +88,10 @@ class LoginContentView extends GetView<LoginController> {
                               ),
                               onPressed: controller.togglePasswordVisibility,
                             ),
-                            validator: (value) =>
-                                Validators.validatePassword(value),
+                            validator: (p0) {
+                              final error = Validators.validatePassword(p0);
+                              return error;
+                            },
                             helperText: ' ',
                             errorStyle: TextStyle(height: 0.8),
                           ),

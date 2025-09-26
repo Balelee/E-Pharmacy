@@ -19,6 +19,7 @@
   "quotien": "Daily",
   "hebdomadaire": "Weekly",
   "mensuel": "Monthly",
+  "field_required": "Feild is required",
   "msg_require_email": "Email is required",
   "min_password_msg": "Password must be at least 8 characters",
   "valid_email_msg": "Enter a valid email",

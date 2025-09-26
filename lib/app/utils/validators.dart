@@ -4,6 +4,14 @@ import 'package:pharmix/app/utils/constants/app_constant.dart';
 import 'package:pharmix/generated/locales.g.dart';
 
 class Validators {
+   // Simple test validator
+  static String? validateSimpleText(String? value) {
+    if (value == null || value.isEmpty) {
+      return LocaleKeys.field_required.tr;
+    }
+
+    return null;
+  }
   // Email validator
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
