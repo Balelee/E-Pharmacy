@@ -5,6 +5,7 @@ import 'package:pharmix/app/data/repositories/user_repository.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/loding_indicator.dart';
+import 'package:pharmix/generated/locales.g.dart';
 import 'package:searchable_paginated_dropdown/searchable_paginated_dropdown.dart';
 import '../controllers/adminhome_controller.dart';
 
@@ -99,21 +100,21 @@ class AdminhomeView extends GetView<AdminhomeController> {
                 padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     CustomText(
-                      text: "Nom",
+                      text: LocaleKeys.nom.tr,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     CustomText(
-                      text: "Rôle",
+                      text: LocaleKeys.rule.tr,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     CustomText(
-                      text: "Pharmacie",
+                      text: LocaleKeys.pharmacy.tr,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     CustomText(
-                      text: "Actions",
+                      text: LocaleKeys.actions.tr,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -145,8 +146,8 @@ class AdminhomeView extends GetView<AdminhomeController> {
                                       .contains(user.role)
                                   ? user.role
                                   : null,
-                              hint: const CustomText(
-                                text: "Sélectionner",
+                              hint:CustomText(
+                                text:LocaleKeys.select.tr,
                                 style: TextStyle(fontSize: 10),
                               ),
                               items: controller.roles
@@ -169,11 +170,11 @@ class AdminhomeView extends GetView<AdminhomeController> {
                         Expanded(
                           flex: 2,
                           child: SearchableDropdown<Pharmacy>.paginated(
-                            searchHintText: "Recherche...",
+                            searchHintText: LocaleKeys.recherche_global.tr,
                             // trailingClearIcon: Icon(Icons.arrow_drop_down),
                             trailingIcon: const Icon(Icons.arrow_drop_down),
-                            hintText: const CustomText(
-                              text: "Sélectionner",
+                            hintText: CustomText(
+                              text: LocaleKeys.select.tr,
                               style: TextStyle(fontSize: 11),
                             ),
                             isDialogExpanded: true,

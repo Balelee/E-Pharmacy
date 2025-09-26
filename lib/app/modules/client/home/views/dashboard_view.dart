@@ -111,7 +111,8 @@ class DashboardView extends GetView<DashboardController> {
                               onPressed: () {
                                 Get.toNamed(AppPages.SEARCHPRODUCT);
                               },
-                              buttonTitle: "Recherche prix de médicament",
+                              buttonTitle:
+                                  LocaleKeys.recherche_product_title.tr,
                               textStyle: TextStyle(
                                 fontSize: 16,
                                 color: AppColors.background,
@@ -139,7 +140,7 @@ class DashboardView extends GetView<DashboardController> {
                                     "assets/images/shop1.png",
                                     width: 35,
                                   ),
-                                  label: 'Achat produit',
+                                  label: LocaleKeys.rech_dispo.tr,
                                   color: Colors.blue,
                                 ),
                                 ServiceCard(
@@ -150,7 +151,7 @@ class DashboardView extends GetView<DashboardController> {
                                     "assets/images/store.png",
                                     width: 35,
                                   ),
-                                  label: 'Pharmacies dispo',
+                                  label: LocaleKeys.pharmacy_dispo.tr,
                                   color: Colors.teal,
                                 ),
                                 // ServiceCard(
@@ -172,7 +173,7 @@ class DashboardView extends GetView<DashboardController> {
                                     Icons.access_alarm,
                                     color: Colors.purple.shade500,
                                   ),
-                                  label: 'Rappel medicament',
+                                  label: LocaleKeys.reminber_product.tr,
                                   color: Colors.purple.shade500,
                                 ),
                               ],

@@ -295,7 +295,7 @@ class SearchproductView extends GetView<SearchproductController> {
                                                 ),
                                                 const SizedBox(width: 8),
                                                 Text(
-                                                  "${medicament.price.toStringAsFixed(0)} CFA",
+                                                  "${medicament.price.toStringAsFixed(0)} ${LocaleKeys.devise.tr}",
                                                   style: const TextStyle(
                                                     fontSize: 16,
                                                     color: Colors.green,

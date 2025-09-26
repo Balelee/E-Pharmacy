@@ -32,7 +32,7 @@ class ProductListView extends GetView<ProductController> {
             },
           ),
           title: CustomText(
-            text: "Boutique des produits",
+            text: LocaleKeys.product_catalogue.tr,
             style: TextStyle(
               fontSize: 18,
               color: AppColors.background,
@@ -61,7 +61,8 @@ class ProductListView extends GetView<ProductController> {
                   Icon(Icons.receipt_long, color: AppColors.primary),
                   Obx(
                     () => CustomText(
-                      text: "Vous avez ${controller.order_length} commandes",
+                      text:
+                          "${LocaleKeys.first_msg_order_basket.tr} ${controller.order_length} ${LocaleKeys.final_msg_order_basket.tr}",
                       color: AppColors.primary,
                     ),
                   ),
@@ -102,7 +103,7 @@ class ProductListView extends GetView<ProductController> {
                   child: Row(
                     children: [
                       CustomText(
-                        text: "Liste des produits disponibles",
+                        text: LocaleKeys.list_product_msg.tr,
                         style: AppTextStyles.bodyText1Bold.copyWith(
                             color: Get.theme.textTheme.bodyLarge?.color
                                 ?.withOpacity(0.4)),
@@ -166,7 +167,7 @@ class ProductListView extends GetView<ProductController> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     CustomText(
-                                      text: "${produit.price} F",
+                                      text: "${produit.price} ${LocaleKeys.devise.tr}",
                                       style: AppTextStyles.bodyText1Bold,
                                     ),
                                     GestureDetector(

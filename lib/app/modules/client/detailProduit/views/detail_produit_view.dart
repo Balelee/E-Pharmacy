@@ -8,6 +8,7 @@ import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/utils/constants/size_constant.dart';
 import 'package:pharmix/app/widgets/custom_button.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
+import 'package:pharmix/generated/locales.g.dart';
 
 class DetailProduitView extends GetView<ProductController> {
   DetailProduitView({super.key});
@@ -18,7 +19,7 @@ class DetailProduitView extends GetView<ProductController> {
       appBar: AppBar(
         backgroundColor: Get.theme.scaffoldBackgroundColor,
         title: CustomText(
-          text: "Détail du produit",
+          text: LocaleKeys.detail_product.tr,
           style: AppTextStyles.heading3,
         ),
         centerTitle: false,
@@ -65,12 +66,12 @@ class DetailProduitView extends GetView<ProductController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomText(
-                  text: "Prix",
+                  text: LocaleKeys.price.tr,
                   style: AppTextStyles.bodyText1,
                   overflow: TextOverflow.visible,
                 ),
                 CustomText(
-                  text: "${produit.price} F",
+                  text: "${produit.price} ${LocaleKeys.devise.tr}",
                   style: AppTextStyles.bodyText1Bold,
                   overflow: TextOverflow.visible,
                 ),
@@ -83,7 +84,7 @@ class DetailProduitView extends GetView<ProductController> {
                   controller.addToCart(produit);
                   Get.back();
                 },
-                buttonTitle: "Ajouter au panier",
+                buttonTitle: LocaleKeys.add_basket.tr,
                 textStyle: TextStyle(fontSize: 12, color: AppColors.secondary))
           ],
         ),

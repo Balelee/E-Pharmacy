@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:pharmix/app/modules/pharmacy/pharmacien/controllers/pharmacien_controller.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/utils/enums/order_status_enum.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/custom_toast.dart';
 import 'package:pharmix/app/widgets/pharmacien/auxiliaire_header_widget.dart';
 import 'package:pharmix/app/widgets/pharmacien/order_auxiliaire_list_widget.dart';
+import 'package:pharmix/generated/locales.g.dart';
 
 class OrderAuxiliaireView extends GetView<PharmacienController> {
   const OrderAuxiliaireView({super.key});
@@ -25,8 +27,7 @@ class OrderAuxiliaireView extends GetView<PharmacienController> {
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: CustomToast(
                     icon: Icons.info_outline,
-                    message:
-                        "Cher auxiliaire, Merci de vérifier chaque commande client afin de valider ou annuler selon la situation.",
+                    message: LocaleKeys.toast_auxi_info.tr,
                     backgroundColor: AppColors.success,
                     onClose: () => controller.showToast.value = false,
                   ),
@@ -46,8 +47,8 @@ class OrderAuxiliaireView extends GetView<PharmacienController> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          "Commandes récentes",
+        CustomText(
+          text: LocaleKeys.order_recente.tr,
           style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
         ),
         Container(

@@ -51,12 +51,12 @@ class RegisterController extends GetxController {
   }
 
   void signUp() async {
+    if (!signUpFormkey.currentState!.validate()) return;
     DialogHelper.showLoading(
       message: "Patienter...",
       noBkgColor: false,
       colorProgress: AppColors.primary,
     );
-    if (!signUpFormkey.currentState!.validate()) return;
     final user = User(
       phone: phoneController.text.trim(),
       password: passwordController.text.trim(),

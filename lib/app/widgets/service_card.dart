@@ -30,12 +30,12 @@ class ServiceCard extends StatelessWidget {
               ),
               child: leading,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             Text(
               label,
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 14,
+                fontSize: 13,
               ),
             ),
           ],

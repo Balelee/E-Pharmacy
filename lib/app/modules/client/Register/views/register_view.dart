@@ -99,7 +99,7 @@ class RegisterView extends GetView<RegisterController> {
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Center(
                         child: CustomText(
-                          text: "VOS INFORTIONS PERSONNELLES",
+                          text: LocaleKeys.info_perso.tr,
                           style: AppTextStyles.bodyText1,
                           textAlign: TextAlign.center,
                         ),
@@ -114,7 +114,7 @@ class RegisterView extends GetView<RegisterController> {
                             child: SizedBox(
                               height: 50,
                               child: CustomTextFormField(
-                                labelText: "Nom d'utilisateur",
+                                labelText: LocaleKeys.username.tr,
                                 controller: controller.usernameController,
                                 prefix: Icon(Icons.person),
                               ),
@@ -129,7 +129,7 @@ class RegisterView extends GetView<RegisterController> {
                                   width: Get.width / 2.2,
                                   height: 50,
                                   child: CustomTextFormField(
-                                    labelText: "Nom",
+                                    labelText: LocaleKeys.nom.tr,
                                     controller: controller.lastnameController,
                                     prefix: Icon(Icons.person),
                                   ),
@@ -138,7 +138,7 @@ class RegisterView extends GetView<RegisterController> {
                                   width: Get.width / 2.2,
                                   height: 50,
                                   child: CustomTextFormField(
-                                    labelText: "Prénom(s)",
+                                    labelText: LocaleKeys.prenom.tr,
                                     controller: controller.firstnameController,
                                     prefix: Icon(Icons.person),
                                   ),
@@ -146,27 +146,26 @@ class RegisterView extends GetView<RegisterController> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: SizedBox(
-                              height: 50,
-                              child: CustomTextFormField(
-                                labelText: "Email",
-                                controller: controller.emailController,
-                                prefix: Icon(Icons.email),
-                              ),
+                          SizedBox(
+                            height: 70,
+                            child: CustomTextFormField(
+                              labelText: LocaleKeys.Email.tr,
+                              controller: controller.emailController,
+                              prefix: Icon(Icons.email),
+                              validator: (value) {
+                                return Validators.validateEmail(value);
+                              },
+                              helperText: ' ', // réserve la place de l'erreur
+                              errorStyle: TextStyle(height: 0.3),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: SizedBox(
-                              height: 50,
-                              child: CustomTextFormField(
-                                labelText: "Téléphone",
-                                controller: controller.phoneController,
-                                prefix: Icon(Icons.phone),
-                                keyboardType: TextInputType.phone,
-                              ),
+                          SizedBox(
+                            height: 50,
+                            child: CustomTextFormField(
+                              labelText: LocaleKeys.phone.tr,
+                              controller: controller.phoneController,
+                              prefix: Icon(Icons.phone),
+                              keyboardType: TextInputType.phone,
                             ),
                           ),
                           Padding(
@@ -178,7 +177,7 @@ class RegisterView extends GetView<RegisterController> {
                                   width: Get.width / 2.2,
                                   height: 50,
                                   child: CustomTextFormField(
-                                    labelText: "Date naissance",
+                                    labelText: LocaleKeys.birth_date.tr,
                                     controller: controller.birthdateController,
                                     inputFormatters: [controller.dateMask],
                                     prefix: Icon(Icons.calendar_month),
@@ -188,7 +187,7 @@ class RegisterView extends GetView<RegisterController> {
                                   width: Get.width / 2.2,
                                   height: 50,
                                   child: CustomTextFormField(
-                                    labelText: "Lieu naissance",
+                                    labelText: LocaleKeys.place_date.tr,
                                     controller: controller.birthplaceController,
                                     prefix: Icon(Icons.place),
                                   ),
@@ -228,7 +227,7 @@ class RegisterView extends GetView<RegisterController> {
                         onPressed: () {
                           controller.signUp();
                         },
-                        buttonTitle: LocaleKeys.buttons_continuous.tr),
+                        buttonTitle: LocaleKeys.inscrire.tr),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

@@ -6,6 +6,7 @@ import 'package:pharmix/app/utils/enums/order_status_enum.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import 'package:pharmix/app/widgets/pharmacien/order_auxiliaire_item_widget.dart';
 import 'package:pharmix/app/widgets/pharmacien/unwaitingOrders_auxiliaire_item_widget.dart';
+import 'package:pharmix/generated/locales.g.dart';
 
 class OrderAuxiliaireListWidget extends GetView<PharmacienController> {
   @override
@@ -27,7 +28,7 @@ class OrderAuxiliaireListWidget extends GetView<PharmacienController> {
                 child: Center(
                   child: CustomText(
                     text:
-                        "Aucune donnée ${controller.selectedOrderStatus.value.label}",
+                        "${LocaleKeys.no_data.tr} ${controller.selectedOrderStatus.value.label}",
                     style: AppTextStyles.caption,
                   ),
                 ),
@@ -43,7 +44,7 @@ class OrderAuxiliaireListWidget extends GetView<PharmacienController> {
               height: context.height / 1.7,
               child: Center(
                 child: CustomText(
-                  text: "Aucune donnée disponible",
+                  text: LocaleKeys.no_data_available.tr,
                   style: AppTextStyles.caption,
                 ),
               ),

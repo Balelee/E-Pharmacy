@@ -26,7 +26,7 @@ class LoginContentView extends GetView<LoginController> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 0),
+                        vertical: 12.0, horizontal: 0),
                     child: Image.asset(
                       'assets/images/app-icone.png',
                       width: 45,
@@ -56,18 +56,18 @@ class LoginContentView extends GetView<LoginController> {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 20.0),
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
                           child: SizedBox(
                             height: 50,
                             child: CustomTextFormField(
                               controller: controller.emailphoneController,
-                              labelText: "Email ou Téléphone",
+                              labelText: LocaleKeys.email_phone_title.tr,
                               prefix: Icon(Icons.phone),
                             ),
                           ),
                         ),
                         SizedBox(
-                          height: 8,
+                          height: 2,
                         ),
                         SizedBox(
                           height: 70,
@@ -110,7 +110,7 @@ class LoginContentView extends GetView<LoginController> {
                   //   ),
                   // ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15.0),
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
                     child: CustomButton.primaryButton(
                         onPressed: () {
                           controller.login();

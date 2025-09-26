@@ -31,6 +31,45 @@ class LocaleKeys {
   static const quotien = 'quotien';
   static const hebdomadaire = 'hebdomadaire';
   static const mensuel = 'mensuel';
+  static const msg_require_email = 'msg_require_email';
+  static const min_password_msg = 'min_password_msg';
+  static const valid_email_msg = 'valid_email_msg';
+  static const msg_require_password = 'msg_require_password';
+  static const msg_phone_require = 'msg_phone_require';
+  static const email_phone_title = 'email_phone_title';
+  static const info_perso = 'info_perso';
+  static const username = 'username';
+  static const nom = 'nom';
+  static const prenom = 'prenom';
+  static const Email = 'Email';
+  static const birth_date = 'birth_date';
+  static const place_date = 'place_date';
+  static const recherche_product_title = 'recherche_product_title';
+  static const rech_dispo = 'rech_dispo';
+  static const pharmacy_dispo = 'pharmacy_dispo';
+  static const reminber_product = 'reminber_product';
+  static const attribute_role = 'attribute_role';
+  static const no_user_found = 'no_user_found';
+  static const manage_user = 'manage_user';
+  static const rule = 'rule';
+  static const pharmacy = 'pharmacy';
+  static const actions = 'actions';
+  static const select = 'select';
+  static const recherche_global = 'recherche_global';
+  static const product_catalogue = 'product_catalogue';
+  static const first_msg_order_basket = 'first_msg_order_basket';
+  static const final_msg_order_basket = 'final_msg_order_basket';
+  static const list_product_msg = 'list_product_msg';
+  static const devise = 'devise';
+  static const price = 'price';
+  static const detail_product = 'detail_product';
+  static const add_basket = 'add_basket';
+  static const toast_auxi_info = 'toast_auxi_info';
+  static const order_recente = 'order_recente';
+  static const final_welcome_title = 'final_welcome_title';
+  static const no_data = 'no_data';
+  static const no_data_available = 'no_data_available';
+  static const inscrire = 'inscrire';
   static const msg_prise_tile = 'msg_prise_tile';
   static const msg_body_prise = 'msg_body_prise';
   static const success_msg_snackber = 'success_msg_snackber';
@@ -137,6 +176,45 @@ class Locales {
     'quotien': 'Daily',
     'hebdomadaire': 'Weekly',
     'mensuel': 'Monthly',
+    'msg_require_email': 'Email is required',
+    'min_password_msg': 'Password must be at least 6 characters',
+    'valid_email_msg': 'Enter a valid email',
+    'msg_require_password': 'Password is required',
+    'msg_phone_require': 'Phone number is required',
+    'email_phone_title': 'Email or Phone number',
+    'info_perso': 'YOUR PERSONAL INFORMATION',
+    'username': 'Username',
+    'nom': 'Lastname',
+    'prenom': 'Firstname',
+    'Email': 'Email',
+    'birth_date': 'Birth date',
+    'place_date': 'Birth place',
+    'recherche_product_title': 'Search product price',
+    'rech_dispo': 'Check availability',
+    'pharmacy_dispo': 'Available pharmacies',
+    'reminber_product': 'Product reminder',
+    'attribute_role': 'Assign roles & pharmacies',
+    'no_user_found': 'No user found',
+    'manage_user': 'User management',
+    'rule': 'Role',
+    'pharmacy': 'Pharmacy',
+    'actions': 'Actions',
+    'select': 'Select',
+    'recherche_global': 'Search...',
+    'product_catalogue': 'Product catalog',
+    'first_msg_order_basket': 'You have',
+    'final_msg_order_basket': 'orders',
+    'list_product_msg': 'Available products list',
+    'devise': 'EUR',
+    'price': 'Price',
+    'detail_product': 'Product details',
+    'add_basket': 'Add to cart',
+    'toast_auxi_info': 'Please review each order to validate or cancel.',
+    'order_recente': 'Recent orders',
+    'final_welcome_title': 'in pharmacy',
+    'no_data': 'No data',
+    'no_data_available': 'No data available',
+    'inscrire': 'Register',
     'msg_prise_tile': 'Medication Reminder',
     'msg_body_prise': 'It\'s time to take your medication',
     'success_msg_snackber': 'Reminder saved successfully',
@@ -247,6 +325,46 @@ class Locales {
     'quotien': 'Quotidien',
     'hebdomadaire': 'Hebdomadaire',
     'mensuel': 'Mensuel',
+    'msg_require_email': 'Email obligatoire',
+    'min_password_msg': 'Le mot de passe doit contenir au moins 8 caractères',
+    'valid_email_msg': 'Entrer votre email valide',
+    'msg_require_password': 'Mot de passe obligatoire',
+    'msg_phone_require': 'Numéro de téléphone est obligatoire',
+    'email_phone_title': 'Email ou Téléphone',
+    'info_perso': 'VOS INFORMATIONS PERSONNELLES',
+    'username': 'Nom d\'utilisateur',
+    'nom': 'Nom',
+    'prenom': 'Prénom(s)',
+    'Email': 'Email',
+    'birth_date': 'Date naissance',
+    'place_date': 'Lieu naissance',
+    'recherche_product_title': 'Recherche prix de médicament',
+    'rech_dispo': 'Rech de disponibilité',
+    'pharmacy_dispo': 'Pharmacies dispo',
+    'reminber_product': 'Rappel medicament',
+    'attribute_role': 'Attribuer rôles & pharmacies',
+    'no_user_found': 'Aucun utilisateur trouvé',
+    'manage_user': 'Gestion des utilisateurs',
+    'rule': 'Rôle',
+    'pharmacy': 'Pharmacie',
+    'actions': 'Actions',
+    'select': 'Sélectionner',
+    'recherche_global': 'Recherche...',
+    'product_catalogue': 'Catalogue des produits',
+    'first_msg_order_basket': 'Vous avez',
+    'final_msg_order_basket': 'commandes',
+    'list_product_msg': 'Liste des produits disponibles',
+    'devise': 'CFA',
+    'price': 'Prix',
+    'detail_product': 'Détail du produit',
+    'add_basket': 'Ajouter au panier',
+    'toast_auxi_info':
+        'Cher auxiliaire, Merci de vérifier chaque commande client afin de valider ou annuler selon la situation.',
+    'order_recente': 'Commandes récentes',
+    'final_welcome_title': 'dans pharmacie',
+    'no_data': 'Aucune donnée',
+    'no_data_available': 'Aucune donnée disponible',
+    'inscrire': 'S\'inscrire',
     'msg_prise_tile': 'Prise de votre médicament',
     'msg_body_prise': 'Il est temps de prendre votre médicament',
     'success_msg_snackber': ' Rappel enregistré avec succès',
