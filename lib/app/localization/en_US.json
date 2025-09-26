@@ -20,7 +20,7 @@
   "hebdomadaire": "Weekly",
   "mensuel": "Monthly",
   "msg_require_email": "Email is required",
-  "min_password_msg": "Password must be at least 6 characters",
+  "min_password_msg": "Password must be at least 8 characters",
   "valid_email_msg": "Enter a valid email",
   "msg_require_password": "Password is required",
   "msg_phone_require": "Phone number is required",
