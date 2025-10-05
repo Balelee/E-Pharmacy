@@ -12,6 +12,16 @@ import 'package:pusher_client_socket/pusher_client_socket.dart' as pusher;
 class SocketController extends GetxController {
   Echo<pusher.PusherClient, PusherChannel>? echo;
 
+  void listenToNewLoggining({required int userId}) async {
+    ecouter(
+        channel: 'private-user.$userId',
+        event: 'user.logged_in',
+        action: (e) {
+          print("double authentification");
+          print(e);
+        });
+  }
+
   void listenToNewOrderAdding({required int pharmacieId}) async {
     PharmacienController pharmacienController =
         Get.find<PharmacienController>();
@@ -68,6 +78,7 @@ class SocketController extends GetxController {
     if (user.pharmacie != null) {
       listenToNewOrderAdding(pharmacieId: user.pharmacie!.id ?? 0);
     }
+      listenToNewLoggining(userId: user.id!);
     // listenToProductUpdated();
     // listenToProductDeleted();
   }

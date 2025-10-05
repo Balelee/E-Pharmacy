@@ -14,6 +14,7 @@ class ApiClient {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'accept-language': lang ?? 'fr',
+      'User-Agent': 'MyApp/1.0.0 (Flutter; Android)',
     };
     if (auth) {
       header['Authorization'] = 'Bearer $token';
