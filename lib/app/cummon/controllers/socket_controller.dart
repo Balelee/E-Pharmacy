@@ -1,16 +1,42 @@
 import 'package:get/get.dart';
 import 'package:laravel_echo_null/laravel_echo_null.dart';
 import 'package:pharmix/app/core/websocket/echo_service.dart';
+import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/models/auxiliaire_order.dart';
 import 'package:pharmix/app/data/models/order_pharmacy.dart';
 import 'package:pharmix/app/data/models/user.dart';
+import 'package:pharmix/app/data/providers/auth_provider.dart';
+import 'package:pharmix/app/data/repositories/user_repository.dart';
 import 'package:pharmix/app/modules/client/clientFeedBackOrder/controllers/client_feed_back_order_controller.dart';
 import 'package:pharmix/app/modules/pharmacy/pharmacien/controllers/pharmacien_controller.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:pusher_client_socket/pusher_client_socket.dart' as pusher;
 
 class SocketController extends GetxController {
   Echo<pusher.PusherClient, PusherChannel>? echo;
+  final AuthProvider authProvider = AuthProvider();
+
+  void _logoutUser() async {
+    await authProvider.logout().then((value) {
+      if (value) {
+        if (Get.isRegistered<UserController>()) {
+          Get.delete<UserController>();
+        }
+        SocketController socketController = Get.find<SocketController>();
+
+        Get.find<UserRepository>().clearUser();
+        var channels =
+            socketController.echo!.connector.channels.values.toList();
+        for (var chanel in channels) {
+          socketController.echo!.connector.leaveChannel(chanel.name);
+        }
+        socketController.echo!.connector.disconnect();
+        socketController.echo = null;
+        Get.offAllNamed(AppPages.LOGINCONTENT);
+      }
+    });
+  }
 
   void listenToNewLoggining({required int userId}) async {
     ecouter(
@@ -19,6 +45,23 @@ class SocketController extends GetxController {
         action: (e) {
           print("double authentification");
           print(e);
+
+          if (Get.isDialogOpen == true) {
+            Get.back();
+            DialogHelper.showConfirmationDialog(
+                title: "Tentative d'auth",
+                message: "${e['message']} par ${e['user']['name']} ",
+                onConfirm: () {
+                  _logoutUser();
+                });
+            return;
+          }
+          DialogHelper.showConfirmationDialog(
+              title: "Tentative d'auth",
+              message: "${e['message']} par ${e['user']['name']} ",
+              onConfirm: () {
+                _logoutUser();
+              });
         });
   }
 
@@ -78,7 +121,7 @@ class SocketController extends GetxController {
     if (user.pharmacie != null) {
       listenToNewOrderAdding(pharmacieId: user.pharmacie!.id ?? 0);
     }
-      listenToNewLoggining(userId: user.id!);
+    listenToNewLoggining(userId: user.id!);
     // listenToProductUpdated();
     // listenToProductDeleted();
   }

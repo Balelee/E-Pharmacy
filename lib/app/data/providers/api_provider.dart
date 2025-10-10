@@ -15,7 +15,7 @@ class ApiProvider {
       String token = !isPhone ? Token.getAuthToken() : Token.getPhoneToken();
       var response = await http
           .get(Uri.parse(ApiClient.baseUrl + apiURL),
-              headers: ApiClient.headers(auth: auth, token: token))
+              headers: await ApiClient.headers(auth: auth, token: token))
           .timeout(const Duration(seconds: timeOutDuration));
       return ApiClient.processResponse(response);
     } on SocketException {
@@ -36,7 +36,7 @@ class ApiProvider {
       var response = await http
           .post(Uri.parse(ApiClient.baseUrl + apiURL),
               body: jsonEncode(data),
-              headers: ApiClient.headers(auth: auth, token: token))
+              headers:await ApiClient.headers(auth: auth, token: token))
           .timeout(const Duration(seconds: timeOutDuration));
 
       return ApiClient.processResponse(response);
@@ -58,7 +58,7 @@ class ApiProvider {
       var response = await http
           .put(
             Uri.parse(ApiClient.baseUrl + apiURL),
-            headers: ApiClient.headers(auth: auth, token: token),
+            headers:await ApiClient.headers(auth: auth, token: token),
             body: jsonEncode(data),
           )
           .timeout(const Duration(seconds: timeOutDuration));
@@ -80,7 +80,7 @@ class ApiProvider {
       String token = !isPhone ? Token.getAuthToken() : Token.getPhoneToken();
       var response = await http
           .delete(Uri.parse(ApiClient.baseUrl + apiURL),
-              headers: ApiClient.headers(auth: auth, token: token))
+              headers:await ApiClient.headers(auth: auth, token: token))
           .timeout(const Duration(seconds: timeOutDuration));
       return ApiClient.processResponse(response);
     } on SocketException {
