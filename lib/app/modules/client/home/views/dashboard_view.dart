@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/core/network/api_client.dart';
+import 'package:pharmix/app/data/models/device_info.dart';
 import 'package:pharmix/app/modules/client/home/controllers/dashboard_controller.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
@@ -47,42 +49,49 @@ class DashboardView extends GetView<DashboardController> {
                         ),
                       ],
                     ),
-                    Stack(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const Color(0x1A202938),
-                            ),
-                            borderRadius: BorderRadius.circular(999),
-                          ),
-                          child: const Icon(Icons.notifications_outlined,
-                              size: 20),
-                        ),
-                        Positioned(
-                          right: 0,
-                          top: 0,
-                          child: Container(
-                            width: 21,
-                            height: 21,
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.all(1),
+                    GestureDetector(
+                      onTap: () async {
+                        var data = DeviceInfo.getDeviceInfo();
+
+                        print(data.toJson());
+                      },
+                      child: Stack(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(60),
+                              border: Border.all(
+                                color: const Color(0x1A202938),
+                              ),
+                              borderRadius: BorderRadius.circular(999),
                             ),
-                            child: Text(
-                              textAlign: TextAlign.center,
-                              controller.notificationCount.value.toString(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
+                            child: const Icon(Icons.notifications_outlined,
+                                size: 20),
+                          ),
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: Container(
+                              width: 21,
+                              height: 21,
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.all(1),
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(60),
+                              ),
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                controller.notificationCount.value.toString(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

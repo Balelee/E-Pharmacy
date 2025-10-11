@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -6,6 +9,7 @@ import 'package:pharmix/app/cummon/controllers/language_controller.dart';
 import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
 import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
+import 'package:pharmix/app/data/models/device_info.dart';
 import 'package:pharmix/app/data/repositories/user_repository.dart';
 import 'package:pharmix/app/modules/client/clientFeedBackOrder/controllers/client_feed_back_order_controller.dart';
 import 'package:pharmix/app/modules/client/home/controllers/product_controller.dart';
@@ -32,5 +36,22 @@ class DependencieInjection {
     Get.lazyPut<SearchproductController>(() => SearchproductController());
     Get.lazyPut<ProductController>(() => ProductController());
     Get.put(ClientFeedBackOrderController());
+  }
+
+  static Future<void> saveDeviceInfo() async {
+    final deviceInfo = DeviceInfoPlugin();
+    String model = 'Inconnu';
+    String brand = 'Inconnu';
+
+    if (Platform.isAndroid) {
+      final info = await deviceInfo.androidInfo;
+      model = info.model;
+      brand = info.brand;
+    } else if (Platform.isIOS) {
+      final info = await deviceInfo.iosInfo;
+      model = info.utsname.machine;
+      brand = 'Apple';
+    }
+    DeviceInfo.saveDeviceInfo(deviceInfos: {'brand': brand, 'model': model});
   }
 }

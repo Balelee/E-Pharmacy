@@ -50,7 +50,7 @@ class SocketController extends GetxController {
             Get.back();
             DialogHelper.showConfirmationDialog(
                 title: "Tentative d'auth",
-                message: "${e['message']} par ${e['user']['name']} ",
+                message: "${e['message']} par l'appareil ${e['device']} ",
                 onConfirm: () {
                   _logoutUser();
                 });
