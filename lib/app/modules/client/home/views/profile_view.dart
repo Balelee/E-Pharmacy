@@ -18,6 +18,7 @@ class EditProfilePage extends GetView<ProfileController> {
       body: Obx(
         () => SafeArea(
           child: SingleChildScrollView(
+            controller: ScrollController(),
             child: Padding(
               padding: const EdgeInsets.only(
                 left: 24,

@@ -1,26 +1,26 @@
 import 'package:get/get.dart';
+import 'package:pharmix/app/modules/client/clientFeedBackRequest/bindings/client_feed_back_request_binding.dart';
+import 'package:pharmix/app/modules/client/clientFeedBackRequest/views/client_feed_back_request_view.dart';
+import 'package:pharmix/app/modules/client/requestDetail/bindings/request_detail_binding.dart';
+import 'package:pharmix/app/modules/client/requestDetail/views/request_detail_view.dart';
 
 import '../modules/Login/bindings/login_binding.dart';
 import '../modules/Login/views/login_content_view.dart';
 import '../modules/Login/views/login_view.dart';
 import '../modules/admin/adminhome/bindings/adminhome_binding.dart';
 import '../modules/admin/adminhome/views/adminhome_view.dart';
-import '../modules/client/ClientOrderList/bindings/client_order_list_binding.dart';
-import '../modules/client/ClientOrderList/views/client_order_list_view.dart';
+import '../modules/client/ClientRequestList/bindings/client_request_list_binding.dart';
+import '../modules/client/ClientRequestList/views/client_request_list_view.dart';
 import '../modules/client/Register/bindings/register_binding.dart';
 import '../modules/client/Register/views/register_view.dart';
 import '../modules/client/address/bindings/address_binding.dart';
 import '../modules/client/address/views/address_view.dart';
-import '../modules/client/clientFeedBackOrder/bindings/client_feed_back_order_binding.dart';
-import '../modules/client/clientFeedBackOrder/views/client_feed_back_order_view.dart';
 import '../modules/client/detailProduit/bindings/detail_produit_binding.dart';
 import '../modules/client/detailProduit/views/detail_produit_view.dart';
 import '../modules/client/home/bindings/home_binding.dart';
 import '../modules/client/home/views/base_view.dart';
 import '../modules/client/home/views/basket_view.dart';
 import '../modules/client/home/views/product_list_view.dart';
-import '../modules/client/orderDetail/bindings/order_detail_binding.dart';
-import '../modules/client/orderDetail/views/order_detail_view.dart';
 import '../modules/client/otp/bindings/otp_binding.dart';
 import '../modules/client/otp/views/otp_view.dart';
 import '../modules/client/paiement/bindings/paiement_binding.dart';
@@ -103,8 +103,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ORDER_DETAIL,
-      page: () => OrderDetailView(),
-      binding: OrderDetailBinding(),
+      page: () => RequestDetailView(),
+      binding: RequestDetailBinding(),
     ),
     GetPage(
       name: _Paths.SEARCHPRODUCT,
@@ -148,13 +148,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CLIENT_ORDER_LIST,
-      page: () => const ClientOrderListView(),
-      binding: ClientOrderListBinding(),
+      page: () => const ClientRequestListView(),
+      binding: ClientRequestListBinding(),
     ),
     GetPage(
       name: _Paths.CLIENT_FEED_BACK_ORDER,
-      page: () => const ClientFeedBackOrderView(),
-      binding: ClientFeedBackOrderBinding(),
+      page: () => const ClientFeedBackRequestView(),
+      binding: ClientFeedBackRequestBinding(),
     ),
     GetPage(
       name: _Paths.ADMINHOME,

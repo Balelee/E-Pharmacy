@@ -19,7 +19,6 @@ class CartController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-   
   }
 
   @override
@@ -27,7 +26,7 @@ class CartController extends GetxController {
     super.onClose();
   }
 
-  void storeCommand() async {
+  void newRequest() async {
     Position? position = await locationHelper.allowPermission();
     double lat = position?.latitude ?? 0;
     double lng = position?.longitude ?? 0;
@@ -43,11 +42,11 @@ class CartController extends GetxController {
               })
           .toList(),
     };
-    await produitProvider.storeCommand(data: data).then((response) {
+    await produitProvider.newRequest(data: data).then((response) {
       panierList.clear();
       if (response != null) {
         Get.find<SocketController>()
-            .listenToMyOrderTraitement(orderId: response['order_id']);
+            .listenToMyRequestTraitement(requestId: response['request_id']);
 
         Get.toNamed(AppPages.CLIENT_FEED_BACK_ORDER);
       }

@@ -62,7 +62,7 @@ class ProductListView extends GetView<ProductController> {
                   Obx(
                     () => CustomText(
                       text:
-                          "${LocaleKeys.first_msg_order_basket.tr} ${controller.order_length} ${LocaleKeys.final_msg_order_basket.tr}",
+                          "${LocaleKeys.first_msg_request_basket.tr} ${controller.request_length} ${LocaleKeys.final_msg_request_basket.tr}",
                       color: AppColors.primary,
                     ),
                   ),
@@ -167,7 +167,8 @@ class ProductListView extends GetView<ProductController> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     CustomText(
-                                      text: "${produit.price} ${LocaleKeys.devise.tr}",
+                                      text:
+                                          "${produit.price} ${LocaleKeys.devise.tr}",
                                       style: AppTextStyles.bodyText1Bold,
                                     ),
                                     GestureDetector(

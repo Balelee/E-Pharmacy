@@ -11,7 +11,7 @@ import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
 import 'package:pharmix/app/data/models/device_info.dart';
 import 'package:pharmix/app/data/repositories/user_repository.dart';
-import 'package:pharmix/app/modules/client/clientFeedBackOrder/controllers/client_feed_back_order_controller.dart';
+import 'package:pharmix/app/modules/client/clientFeedBackRequest/controllers/client_feed_back_request_controller.dart';
 import 'package:pharmix/app/modules/client/home/controllers/product_controller.dart';
 import 'package:pharmix/app/modules/client/home/controllers/profile_controller.dart';
 import 'package:pharmix/app/modules/client/paiement/controllers/paiement_controller.dart';
@@ -35,7 +35,7 @@ class DependencieInjection {
     Get.lazyPut(() => ProfileController());
     Get.lazyPut<SearchproductController>(() => SearchproductController());
     Get.lazyPut<ProductController>(() => ProductController());
-    Get.put(ClientFeedBackOrderController());
+    Get.put(ClientFeedBackRequestController());
   }
 
   static Future<void> saveDeviceInfo() async {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pharmix/app/data/models/order.dart';
+import 'package:pharmix/app/data/models/request.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 
 class BottomsheetHelper {
   static Future<Widget?> commandeDetailBottomSheet(
-      {required Order order,
+      {required Request request,
       required Function(List<Map<String, Object?>> result) onValidate}) {
-    final details = order.orderDetails.map((e) {
+    final details = request.requestDetails.map((e) {
       final quantity = RxInt(int.tryParse(e.quantity.toString()) ?? 1);
       final customPrice = RxString(e.priceUnitaire.toString());
       final total = RxDouble(

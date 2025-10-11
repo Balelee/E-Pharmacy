@@ -2,12 +2,12 @@ import 'package:get/get.dart';
 import 'package:laravel_echo_null/laravel_echo_null.dart';
 import 'package:pharmix/app/core/websocket/echo_service.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
-import 'package:pharmix/app/data/models/auxiliaire_order.dart';
-import 'package:pharmix/app/data/models/order_pharmacy.dart';
+import 'package:pharmix/app/data/models/auxiliaire_request.dart';
+import 'package:pharmix/app/data/models/request_pharmacy.dart';
 import 'package:pharmix/app/data/models/user.dart';
 import 'package:pharmix/app/data/providers/auth_provider.dart';
 import 'package:pharmix/app/data/repositories/user_repository.dart';
-import 'package:pharmix/app/modules/client/clientFeedBackOrder/controllers/client_feed_back_order_controller.dart';
+import 'package:pharmix/app/modules/client/clientFeedBackRequest/controllers/client_feed_back_request_controller.dart';
 import 'package:pharmix/app/modules/pharmacy/pharmacien/controllers/pharmacien_controller.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
@@ -65,7 +65,7 @@ class SocketController extends GetxController {
         });
   }
 
-  void listenToNewOrderAdding({required int pharmacieId}) async {
+  void listenToNewRequestAdding({required int pharmacieId}) async {
     PharmacienController pharmacienController =
         Get.find<PharmacienController>();
     ecouter(
@@ -73,22 +73,24 @@ class SocketController extends GetxController {
         event: 'produit.demande',
         action: (e) {
           if (e != null) {
-            AuxiliaireOrder order = AuxiliaireOrder.fromJson(e['order']);
-            pharmacienController.orders.add(order);
+            AuxiliaireRequest request =
+                AuxiliaireRequest.fromJson(e['request']);
+            pharmacienController.requests.add(request);
           }
         });
   }
 
-  void listenToMyOrderTraitement({required int orderId}) async {
-    ClientFeedBackOrderController clientFeedBackOrderController =
-        Get.find<ClientFeedBackOrderController>();
-    clientFeedBackOrderController.startProcessingOrder();
+  void listenToMyRequestTraitement({required int requestId}) async {
+    ClientFeedBackRequestController clientFeedBackRequestController =
+        Get.find<ClientFeedBackRequestController>();
+    clientFeedBackRequestController.startProcessingRequest();
     ecouter(
-        channel: 'private-client.$orderId',
+        channel: 'private-client.$requestId',
         event: 'commande.statut',
         action: (e) {
-          final orderPharmacy = OrderPharmacy.fromJson(e['orderPharmacy']);
-          clientFeedBackOrderController.addOrder(orderPharmacy);
+          final requestPharmacy =
+              RequestPharmacy.fromJson(e['requestPharmacy']);
+          clientFeedBackRequestController.addRequest(requestPharmacy);
         });
   }
 
@@ -119,7 +121,7 @@ class SocketController extends GetxController {
 
   Future<void> initialSoketSubcription({required User user}) async {
     if (user.pharmacie != null) {
-      listenToNewOrderAdding(pharmacieId: user.pharmacie!.id ?? 0);
+      listenToNewRequestAdding(pharmacieId: user.pharmacie!.id ?? 0);
     }
     listenToNewLoggining(userId: user.id!);
     // listenToProductUpdated();

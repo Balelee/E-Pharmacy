@@ -41,8 +41,7 @@ class CustomTextFormField extends StatelessWidget {
       this.inputFormatters,
       this.hintStyle,
       this.helperText,
-      this.errorStyle
-      });
+      this.errorStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +61,7 @@ class CustomTextFormField extends StatelessWidget {
         prefixIcon: prefix,
         suffixIcon: suffix,
         hintStyle: hintStyle,
-        helperText: helperText ,
+        helperText: helperText,
         errorStyle: errorStyle,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),

@@ -261,7 +261,8 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                     backgroundColor: avatarColor,
                                     radius: 25,
                                     child: Text(
-                                      controller.getInitials(pharmacy.name?? ''),
+                                      controller
+                                          .getInitials(pharmacy.name ?? ''),
                                       style: const TextStyle(
                                         color: AppColors.background,
                                         fontWeight: FontWeight.bold,

@@ -58,15 +58,15 @@ class LocaleKeys {
   static const select = 'select';
   static const recherche_global = 'recherche_global';
   static const product_catalogue = 'product_catalogue';
-  static const first_msg_order_basket = 'first_msg_order_basket';
-  static const final_msg_order_basket = 'final_msg_order_basket';
+  static const first_msg_request_basket = 'first_msg_request_basket';
+  static const final_msg_request_basket = 'final_msg_request_basket';
   static const list_product_msg = 'list_product_msg';
   static const devise = 'devise';
   static const price = 'price';
   static const detail_product = 'detail_product';
   static const add_basket = 'add_basket';
   static const toast_auxi_info = 'toast_auxi_info';
-  static const order_recente = 'order_recente';
+  static const request_recente = 'request_recente';
   static const final_welcome_title = 'final_welcome_title';
   static const no_data = 'no_data';
   static const no_data_available = 'no_data_available';
@@ -158,7 +158,7 @@ class Locales {
   static const en_US = {
     'app_name': 'E-Pharmacy',
     'slogan':
-        'Find and order your medicines safely from home, in just a few clicks!',
+        'Find and request your medicines safely from home, in just a few clicks!',
     'login': 'Login',
     'login_description': 'Enter your credentials to log in.',
     'phone': 'Phone',
@@ -204,15 +204,15 @@ class Locales {
     'select': 'Select',
     'recherche_global': 'Search...',
     'product_catalogue': 'Product catalog',
-    'first_msg_order_basket': 'You have',
-    'final_msg_order_basket': 'orders',
+    'first_msg_request_basket': 'You have',
+    'final_msg_request_basket': 'requests',
     'list_product_msg': 'Available products list',
     'devise': 'EUR',
     'price': 'Price',
     'detail_product': 'Product details',
     'add_basket': 'Add to cart',
-    'toast_auxi_info': 'Please review each order to validate or cancel.',
-    'order_recente': 'Recent orders',
+    'toast_auxi_info': 'Please review each request to validate or cancel.',
+    'request_recente': 'Recent requests',
     'final_welcome_title': 'in pharmacy',
     'no_data': 'No data',
     'no_data_available': 'No data available',
@@ -354,8 +354,8 @@ class Locales {
     'select': 'Sélectionner',
     'recherche_global': 'Recherche...',
     'product_catalogue': 'Catalogue des produits',
-    'first_msg_order_basket': 'Vous avez',
-    'final_msg_order_basket': 'commandes',
+    'first_msg_request_basket': 'Vous avez',
+    'final_msg_request_basket': 'commandes',
     'list_product_msg': 'Liste des produits disponibles',
     'devise': 'CFA',
     'price': 'Prix',
@@ -363,7 +363,7 @@ class Locales {
     'add_basket': 'Ajouter au panier',
     'toast_auxi_info':
         'Cher auxiliaire, Merci de vérifier chaque commande client afin de valider ou annuler selon la situation.',
-    'order_recente': 'Commandes récentes',
+    'request_recente': 'Commandes récentes',
     'final_welcome_title': 'dans pharmacie',
     'no_data': 'Aucune donnée',
     'no_data_available': 'Aucune donnée disponible',

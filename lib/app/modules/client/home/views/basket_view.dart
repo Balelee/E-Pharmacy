@@ -32,16 +32,16 @@ class BasketView extends GetView<CartController> {
               // SingleChildScrollView(
               //     scrollDirection: Axis.horizontal,
               //     child: Row(
-              //       children: controller.orders
-              //           .map((order) => Padding(
+              //       children: controller.requests
+              //           .map((request) => Padding(
               //                 padding: EdgeInsets.symmetric(horizontal: 8),
-              //                 child: order.status.label == "Annulé"
-              //                     ? OrderCard(order: order)
+              //                 child: request.status.label == "Annulé"
+              //                     ? RequestCard(request: request)
               //                     : GestureDetector(
               //                         onTap: () => Get.toNamed(
               //                             AppPages.ORDER_DETAIL,
-              //                             arguments: order),
-              //                         child: OrderCard(order: order),
+              //                             arguments: request),
+              //                         child: RequestCard(request: request),
               //                       ),
               //               ))
               //           .toList(),
@@ -132,7 +132,7 @@ class BasketView extends GetView<CartController> {
               controller.panierList.isNotEmpty
                   ? CustomButton.primaryButton(
                       onPressed: () {
-                        controller.storeCommand();
+                        controller.newRequest();
                       },
                       buttonTitle: "Demander la disponibilité",
                       textStyle: TextStyle(

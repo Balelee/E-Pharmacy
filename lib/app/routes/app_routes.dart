@@ -38,7 +38,7 @@ abstract class _Paths {
   static const BASKET = '/basket';
   static const DETAIL_PRODUIT = '/detail-produit';
   static const TRACKER_PERIOD = '/tracker-period';
-  static const ORDER_DETAIL = '/order-detail';
+  static const ORDER_DETAIL = '/request-detail';
   static const SEARCHPRODUCT = '/searchproduct';
   static const PHARMACIES = '/pharmacies';
   static const RAPPELMEDI = '/rappelmedi';
@@ -47,8 +47,8 @@ abstract class _Paths {
   static const ADDRESS = '/address';
   static const RECEIPTPAY = '/receiptpay';
   static const PHARMACIEN = '/pharmacien';
-  static const ORDERPHARMACIEN = '/orderpharmacien';
-  static const CLIENT_ORDER_LIST = '/client-order-list';
-  static const CLIENT_FEED_BACK_ORDER = '/client-feed-back-order';
+  static const ORDERPHARMACIEN = '/requestpharmacien';
+  static const CLIENT_ORDER_LIST = '/client-request-list';
+  static const CLIENT_FEED_BACK_ORDER = '/client-feed-back-request';
   static const ADMINHOME = '/adminhome';
 }

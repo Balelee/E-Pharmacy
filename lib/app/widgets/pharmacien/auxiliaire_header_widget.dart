@@ -23,7 +23,8 @@ class AuxiliaireHeaderWidget extends GetView<PharmacienController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text("${LocaleKeys.welcome.tr} ${LocaleKeys.final_welcome_title.tr}",
+              Text(
+                  "${LocaleKeys.welcome.tr} ${LocaleKeys.final_welcome_title.tr}",
                   style:
                       const TextStyle(fontSize: 10, color: Color(0xFF202938))),
               Text(
