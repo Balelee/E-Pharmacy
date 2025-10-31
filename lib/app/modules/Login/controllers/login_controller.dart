@@ -46,8 +46,8 @@ class LoginController extends GetxController {
     // passwordController.text = "000000001";
     // emailphoneController.text = "74572004";
     // passwordController.text = "00000002";
-    // emailphoneController.text = "75572006";
-    // passwordController.text = "00000000";
+    emailphoneController.text = "75572006";
+    passwordController.text = "00000000";
     preloadLogo();
   }
 
