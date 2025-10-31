@@ -156,7 +156,7 @@ class PharmaciesView extends GetView<PharmaciesController> {
                           controller.listTitle.value =
                               LocaleKeys.liste_pharmacies.tr;
                           controller.isGardeMode.value = false;
-                          controller.loadPharmacies(isRefresh: true);
+                          controller.loadPharmacies();
                         }
                       },
                     ),
@@ -196,7 +196,8 @@ class PharmaciesView extends GetView<PharmaciesController> {
                         color: controller.iconColor.value,
                       ),
                       onTap: () {
-                        controller.sortByName();
+                        controller.sortPharmacies(byDistance: true);
+                        ();
                       },
                     ),
                   )
@@ -261,7 +262,8 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                     backgroundColor: avatarColor,
                                     radius: 25,
                                     child: Text(
-                                      controller.getInitials(pharmacy.name?? ''),
+                                      controller
+                                          .getInitials(pharmacy.name ?? ''),
                                       style: const TextStyle(
                                         color: AppColors.background,
                                         fontWeight: FontWeight.bold,
@@ -377,33 +379,40 @@ class PharmaciesView extends GetView<PharmaciesController> {
                                                     "tel:${pharmacy.phone}"));
                                               },
                                             ),
-                                            OutlinedButton.icon(
-                                              onPressed: () async {
-                                                final lat = pharmacy.latitude;
-                                                final lng = pharmacy.longitude;
-                                                if (lat != null &&
-                                                    lng != null) {
-                                                  MapHelper.openMap(lat, lng);
-                                                }
-                                              },
-                                              icon: const Icon(
-                                                  Icons.map_rounded,
-                                                  size: 16),
-                                              label: Text(
-                                                  LocaleKeys.localisation.tr),
-                                              style: OutlinedButton.styleFrom(
-                                                foregroundColor: Colors.green,
-                                                side: const BorderSide(
-                                                  color: Colors.green,
+                                            Obx(
+                                              () => OutlinedButton.icon(
+                                                onPressed: () async {
+                                                  final lat = pharmacy.latitude;
+                                                  final lng =
+                                                      pharmacy.longitude;
+                                                  if (lat != null &&
+                                                      lng != null) {
+                                                    MapHelper.openMap(lat, lng);
+                                                  }
+                                                },
+                                                icon: const Icon(
+                                                    Icons.map_rounded,
+                                                    size: 16),
+                                                label: Text(
+                                                  'Situé: ${controller.formatDistance(controller.distances[pharmacy.id])}',
+                                                  style: const TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
                                                 ),
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(30),
-                                                ),
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                  horizontal: 10,
-                                                  vertical: 10,
+                                                style: OutlinedButton.styleFrom(
+                                                  foregroundColor: Colors.green,
+                                                  side: const BorderSide(
+                                                      color: Colors.green),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30),
+                                                  ),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 10),
                                                 ),
                                               ),
                                             ),
