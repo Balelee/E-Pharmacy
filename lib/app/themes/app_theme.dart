@@ -7,7 +7,7 @@ class AppTheme {
     hintColor: Colors.green,
     scaffoldBackgroundColor: AppColors.background,
     appBarTheme: AppBarTheme(backgroundColor: AppColors.background),
-    cardTheme: CardTheme(color: AppColors.secondary),
+    cardTheme: CardThemeData(color: AppColors.secondary),
     canvasColor: AppColors.secondary,
     textTheme: TextTheme(
       bodyLarge: TextStyle(fontSize: 16, color: Colors.black),
@@ -19,7 +19,7 @@ class AppTheme {
     primaryColor: Colors.black,
     hintColor: Colors.orange,
     scaffoldBackgroundColor: AppColors.background,
-    cardTheme: CardTheme(color: AppColors.secondary),
+    cardTheme: CardThemeData(color: AppColors.secondary),
     canvasColor: AppColors.secondary,
     textTheme: TextTheme(
       bodyLarge: TextStyle(fontSize: 16, color: Colors.white),

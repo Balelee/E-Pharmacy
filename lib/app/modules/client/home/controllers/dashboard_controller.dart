@@ -15,10 +15,6 @@ class DashboardController extends GetxController {
   RxInt notificationCount = RxInt(0);
 
   // Computed user properties
-  String get userName =>
-      userController.user?.username ??
-      '${userController.user?.firstname ?? ''} ${userController.user?.lastname ?? ''}'
-          .trim();
 
   String get userEmail => userController.user?.email ?? 'No email';
   String? get userAvatar => null;

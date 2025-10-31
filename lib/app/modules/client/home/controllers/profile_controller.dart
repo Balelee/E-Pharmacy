@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
+import 'package:pharmix/app/data/models/user.dart';
 import 'package:pharmix/app/data/providers/auth_provider.dart';
 import 'package:pharmix/app/data/repositories/user_repository.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/utils/form_helper.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:pharmix/generated/locales.g.dart';
 
@@ -11,20 +14,23 @@ class ProfileController extends GetxController {
   final AuthProvider authProvider = Get.put(AuthProvider());
   final UserController _userController = Get.find<UserController>();
 
+  GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
+  late TextEditingController phoneController = TextEditingController();
+  late TextEditingController emailController = TextEditingController();
+  late TextEditingController placeOfBirthController = TextEditingController();
+  late TextEditingController dateOfBirthController = TextEditingController();
+
+  late TextEditingController firstNameController = TextEditingController();
+  late TextEditingController lastNameController = TextEditingController();
+
   RxBool isLoding = RxBool(false);
+  RxBool isEditting = RxBool(false);
   RxString loadingMessage = RxString("");
 
-  String get userName =>
-      _userController.user?.username ??
-      '${_userController.user?.firstname ?? ''} ${_userController.user?.lastname ?? ''}'
-          .trim();
-
-  String get userEmail => _userController.user?.email ?? 'No email';
-  String get userPhone => _userController.user?.phone ?? 'No phone';
+  String get userName => _userController.user?.fullName ?? "";
   String get userAdress => _userController.user?.type ?? 'No adress';
-  String get userbirthday => _userController.user?.birthdate ?? 'No birthday';
-  String get userbirtplace =>
-      _userController.user?.birthplace ?? 'No birthplace';
+  String get userEmail => _userController.user?.email ?? 'No adress';
+
   String? get userAvatar => null;
 
   final RxString _editingField = RxString('');
@@ -35,13 +41,10 @@ class ProfileController extends GetxController {
     _editingField.value = field;
   }
 
-  Future<void> cancelEditing() async {
-    _editingField.value = '';
-  }
-
   @override
   void onInit() {
     super.onInit();
+    _setInitialValues();
   }
 
   @override
@@ -54,6 +57,29 @@ class ProfileController extends GetxController {
     super.onClose();
   }
 
+  void setIsEditting() {
+    isEditting.value = true;
+  }
+
+  void cancelEditting() {
+    isEditting.value = false;
+    _setInitialValues();
+  }
+
+  void _setInitialValues() {
+    lastNameController = FormHelper.getController(
+        value: _userController.user?.lastname ?? '---------');
+    firstNameController = FormHelper.getController(
+        value: _userController.user?.firstname ?? '---------');
+    emailController = FormHelper.getController(value: userEmail);
+    phoneController = FormHelper.getController(
+        value: _userController.user?.phone ?? '---------');
+    placeOfBirthController = FormHelper.getController(
+        value: _userController.user?.birthplace ?? '---------');
+    dateOfBirthController = FormHelper.getController(
+        value: _userController.user?.birthdate ?? '---------');
+  }
+
   void setLoading({String loadMessage = "Loading..."}) {
     isLoding.value = true;
     loadingMessage.value = loadMessage;
@@ -64,28 +90,28 @@ class ProfileController extends GetxController {
     loadingMessage.value = "Loading...";
   }
 
-  Future<void> updateField({
-    required String field,
-    required String value,
-  }) async {
-    try {
-      final currentUser = _userController.user;
-      if (currentUser == null) return;
+  void updateData() async {
+    var data = {
+      "lastName": lastNameController.text,
+      "firstName": firstNameController.text,
+      "birthDate": dateOfBirthController.text,
+      "birthPlace": placeOfBirthController.text,
+      "email": emailController.text,
+      "phone": phoneController.text
+    };
+    if (_userController.user?.id != null) {
+      User? updatedUser = await authProvider.updateUser(
+          data: data, userId: _userController.user!.id.toString());
 
-      final updatedUser = currentUser.copyWith(
-        firstname: field == 'firstname' ? value : currentUser.firstname,
-        lastname: field == 'lastname' ? value : currentUser.lastname,
-        email: field == 'email' ? value : currentUser.email,
-        phone: field == 'phone' ? value : currentUser.phone,
-        type: field == 'address' ? value : currentUser.type,
-      );
-
-      await _userController.updateUser(updatedUser).then((value) {
-        _editingField.value = '';
-        Get.snackbar('Success', '$field updated successfully');
-      });
-    } catch (e) {
-      Get.snackbar('Error', 'Failed to update $field: ${e.toString()}');
+      if (updatedUser != null) {
+        await _userController.updateUser(updatedUser);
+        cancelEditting();
+        DialogHelper.showSuccessSnackbar(
+            message: "Vos informations ont été mises à jour avec succès");
+      } else {
+        DialogHelper.showErrorSnackbar(
+            message: "Impossible de mettre à jour vos informations");
+      }
     }
   }
 

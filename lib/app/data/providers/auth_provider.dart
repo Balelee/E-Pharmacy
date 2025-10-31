@@ -34,6 +34,29 @@ class AuthProvider with BaseController {
     }
   }
 
+  Future<User?> updateUser(
+      {required String userId, required Map<String, dynamic> data}) async {
+    try {
+      showLoading();
+      final response = await ApiProvider.put(
+        auth: true,
+        apiURL: ApiRoutes.updateUser.format({"user": userId}),
+        data: data,
+      ).catchError(handleError);
+      hideLoading();
+      if (response != null) {
+        User user = User.fromJson(response['data']);
+        await Get.find<UserRepository>().saveUser(user);
+        return user;
+      }
+      return null;
+    } catch (e) {
+      hideLoading();
+      DialogHelper.showErrorSnackbar(message: "Erreur de connexion: $e");
+      return null;
+    }
+  }
+
   Future<User?> signUp(User user) async {
     try {
       final response = await ApiProvider.post(
@@ -51,11 +74,9 @@ class AuthProvider with BaseController {
       return null;
     }
   }
-  
 
   Future<bool> logout() async {
     try {
-
       return await ApiProvider.post(
         auth: true,
         apiURL: ApiRoutes.logout.path,

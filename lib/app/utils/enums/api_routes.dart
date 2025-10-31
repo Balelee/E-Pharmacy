@@ -2,6 +2,7 @@ enum ApiRoutes {
   login('users/login'),
   register('users/register'),
   logout('users/logout'),
+  updateUser('users/{user}'),
   resendOtp('phones/resend-otp'),
   verifyOtp('users/verifyOtp'),
   products('products?page={pageKey}&q={query}&filter={filter}'),

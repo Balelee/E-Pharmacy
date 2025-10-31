@@ -32,7 +32,6 @@ class DependencieInjection {
     Get.put(PaiementController());
     Get.put<UserRepository>(UserRepository(), permanent: true);
     Get.put(UserController(Get.find<UserRepository>()), permanent: true);
-    Get.lazyPut(() => ProfileController());
     Get.lazyPut<SearchproductController>(() => SearchproductController());
     Get.lazyPut<ProductController>(() => ProductController());
     Get.put(ClientFeedBackRequestController());

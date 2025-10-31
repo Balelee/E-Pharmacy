@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pharmix/app/core/network/api_client.dart';
 import 'package:pharmix/app/data/models/device_info.dart';
 import 'package:pharmix/app/modules/client/home/controllers/dashboard_controller.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
@@ -40,7 +39,7 @@ class DashboardView extends GetView<DashboardController> {
                           ),
                         ),
                         Text(
-                          controller.userName,
+                          controller.userController.user?.firstname ?? "",
                           style:
                               Theme.of(context).textTheme.titleLarge?.copyWith(
                                     fontWeight: FontWeight.w600,

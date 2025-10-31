@@ -45,7 +45,9 @@ class CustomButton {
                 ],
                 Text(
                   buttonTitle,
-                  style: textStyle ?? AppTextStyles.buttonTextStyle,
+                  style: textStyle ??
+                      AppTextStyles.buttonTextStyle.copyWith(
+                          color: textColor ?? null, fontSize: fontSize ?? null),
                 ),
                 if (trailingIcon != null) ...[
                   const SizedBox(width: 8.0),
@@ -89,7 +91,9 @@ class CustomButton {
           ],
           Text(
             buttonTitle,
-            style: textStyle ?? AppTextStyles.secondaryButtonTextStyle,
+            style: textStyle ??
+                AppTextStyles.secondaryButtonTextStyle
+                    .copyWith(color: textColor ?? null),
           ),
           if (trailingIcon != null) ...[
             const SizedBox(width: 8.0),
