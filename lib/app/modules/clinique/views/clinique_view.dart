@@ -25,7 +25,7 @@ class CliniqueView extends GetView<CliniqueController> {
           },
         ),
         title: CustomText(
-          text:  LocaleKeys.appbar_clinique_title.tr,
+          text: LocaleKeys.appbar_clinique_title.tr,
           style: TextStyle(
             fontSize: 18,
             color: AppColors.background,
@@ -50,13 +50,12 @@ class CliniqueView extends GetView<CliniqueController> {
               controller.showToast.value
                   ? CustomToast(
                       icon: Icons.info_outline,
-                      message:
-                          LocaleKeys.toast_clinique.tr,
+                      message: LocaleKeys.toast_clinique.tr,
                       action: CustomButton.primaryButton(
                         padding:
                             EdgeInsets.symmetric(vertical: 3, horizontal: 10),
                         onPressed: () {},
-                        buttonTitle:  LocaleKeys.ajouter.tr,
+                        buttonTitle: LocaleKeys.ajouter.tr,
                         textStyle: TextStyle(
                           fontSize: 12,
                           color: AppColors.background,
@@ -94,7 +93,7 @@ class CliniqueView extends GetView<CliniqueController> {
                         onChanged: (value) =>
                             controller.searchText.value = value.trim(),
                         decoration: InputDecoration(
-                          hintText:  LocaleKeys.search_clinique_title.tr,
+                          hintText: LocaleKeys.search_clinique_title.tr,
                           hintStyle: const TextStyle(
                             color: AppColors.textSecondary,
                             fontSize: 13,
@@ -144,25 +143,27 @@ class CliniqueView extends GetView<CliniqueController> {
                         PopupMenuItem(
                           value: 'clinic',
                           child: Text(
-                             LocaleKeys.clinique.tr,
+                            LocaleKeys.clinique.tr,
                             style: TextStyle(color: AppColors.textSecondary),
                           ),
                         ),
                         PopupMenuItem(
                           value: 'labo',
                           child: Text(
-                             LocaleKeys.laboratoire.tr,
+                            LocaleKeys.laboratoire.tr,
                             style: TextStyle(color: AppColors.textSecondary),
                           ),
                         ),
                       ],
                       onSelected: (value) async {
                         if (value == 'clinic') {
-                          controller.listTitle.value =  LocaleKeys.liste_clinique.tr;
+                          controller.listTitle.value =
+                              LocaleKeys.liste_clinique.tr;
                           controller.isGardeMode.value = true;
                           // await controller.loadPharmaciesDeGarde();
                         } else if (value == 'labo') {
-                          controller.listTitle.value =  LocaleKeys.list_laboratoire.tr;
+                          controller.listTitle.value =
+                              LocaleKeys.list_laboratoire.tr;
                           controller.isGardeMode.value = false;
                           // controller.loadPharmacies(isRefresh: true);
                         }
@@ -227,8 +228,7 @@ class CliniqueView extends GetView<CliniqueController> {
                                 fit: BoxFit.contain,
                               ),
                               CustomText(
-                                text:
-                                    LocaleKeys.introuvable_clinique.tr,
+                                text: LocaleKeys.introuvable_clinique.tr,
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: AppColors.textSecondary,
@@ -360,7 +360,8 @@ class CliniqueView extends GetView<CliniqueController> {
                                               icon: const Icon(
                                                   Icons.map_rounded,
                                                   size: 16),
-                                              label: Text(LocaleKeys.localisation.tr),
+                                              label: Text(
+                                                  LocaleKeys.localisation.tr),
                                               style: OutlinedButton.styleFrom(
                                                 foregroundColor:
                                                     AppColors.primary,

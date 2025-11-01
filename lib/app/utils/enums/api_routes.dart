@@ -2,24 +2,23 @@ enum ApiRoutes {
   login('users/login'),
   register('users/register'),
   logout('users/logout'),
+  updateUser('users/{user}'),
   resendOtp('phones/resend-otp'),
   verifyOtp('users/verifyOtp'),
   products('products?page={pageKey}&q={query}&filter={filter}'),
   searchProduct(
       'products/search-product?query={query}&page={page}&limit={limit}'),
-  ordersProductbyUser('orders'),
-  orderspharmacies('orders-w-pharmacien?status={status}'),
-  ordersTRpharmacies('orders-tr-pharmacien?status={status}'),
+  getUserRequests('requests'),
+  newUserRequests('requests'),
+  requestspharmacies('requests-w-pharmacien?status={status}'),
+  requestsTRpharmacies('requests-tr-pharmacien?status={status}'),
   pharmacies('pharmacies?page={pageKey}&q={query}'),
   adminUsers('admin/users'),
   adminUpdateUsers('admin/users/{user}'),
   tips('tips'),
   pillremember('pilrembers'),
   getremenbers('pilrembers'),
-  orderStatus('orders/{orderId}/status'),
-  ordersValide('orders-valide'),
-  ordersAnnule('orders-annule'),
-  orderResponse("orders/{orderId}/pharmacies/response");
+  requestResponse("requests/{requestId}/pharmacies/response");
 
   final String path;
   const ApiRoutes(this.path);

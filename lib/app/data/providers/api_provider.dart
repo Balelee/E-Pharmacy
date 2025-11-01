@@ -15,7 +15,7 @@ class ApiProvider {
       String token = !isPhone ? Token.getAuthToken() : Token.getPhoneToken();
       var response = await http
           .get(Uri.parse(ApiClient.baseUrl + apiURL),
-              headers: ApiClient.headers(auth: auth, token: token))
+              headers:  ApiClient.headers(auth: auth, token: token))
           .timeout(const Duration(seconds: timeOutDuration));
       return ApiClient.processResponse(response);
     } on SocketException {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pharmix/app/data/models/order.dart';
+import 'package:pharmix/app/data/models/request.dart';
 
-class ClientOrderCard extends StatelessWidget {
-  final Order order;
+class ClientRequestCard extends StatelessWidget {
+  final Request request;
 
-  const ClientOrderCard({Key? key, required this.order}) : super(key: key);
+  const ClientRequestCard({Key? key, required this.request}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,22 +19,22 @@ class ClientOrderCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Commande ${order.id}", style: TextStyle(color: Colors.grey)),
+          Text("Commande ${request.id}", style: TextStyle(color: Colors.grey)),
           Row(
             children: [
-              Text(order.amount,
+              Text(request.amount,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: order.statusColor.withOpacity(0.2),
+                    color: request.statusColor.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(order.statusLabel,
+                  child: Text(request.statusLabel,
                       style: TextStyle(
-                          color: order.statusColor,
+                          color: request.statusColor,
                           fontWeight: FontWeight.bold)),
                 ),
               ),

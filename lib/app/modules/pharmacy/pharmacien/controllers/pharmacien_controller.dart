@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
 import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/cummon/controllers/user_controller.dart';
-import 'package:pharmix/app/data/models/auxiliaire_order.dart';
-import 'package:pharmix/app/data/models/order_pharmacy.dart';
+import 'package:pharmix/app/data/models/auxiliaire_request.dart';
+import 'package:pharmix/app/data/models/request_pharmacy.dart';
 import 'package:pharmix/app/data/providers/auth_provider.dart';
 import 'package:pharmix/app/data/providers/auxilliaire_provider.dart';
 import 'package:pharmix/app/data/providers/product_provider.dart';
 import 'package:pharmix/app/data/repositories/user_repository.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
-import 'package:pharmix/app/utils/enums/order_status_enum.dart';
+import 'package:pharmix/app/data/enums/request_status_enum.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 import 'package:pharmix/generated/locales.g.dart';
 
@@ -25,30 +25,32 @@ class PharmacienController extends GetxController {
   var currentIndex = 0.obs;
   final pageController = PageController(initialPage: 0);
   final ProductProvider produitProvider = ProductProvider();
-  final RxList<AuxiliaireOrder> orders = <AuxiliaireOrder>[].obs;
-  final RxList<OrderPharmacy> unwaitingsOrders = <OrderPharmacy>[].obs;
+  final RxList<AuxiliaireRequest> requests = <AuxiliaireRequest>[].obs;
+  final RxList<RequestPharmacy> unwaitingsRequests = <RequestPharmacy>[].obs;
   final RxString selectedStatus = ''.obs;
   final RxBool isLoading = false.obs;
   void changePage(int index) {
     currentIndex.value = index;
   }
 
-  Rx<OrderPharmacyStatusEnum> selectedOrderStatus =
-      Rx(OrderPharmacyStatusEnum.enattente);
+  Rx<RequestPharmacyStatusEnum> selectedRequestStatus =
+      Rx(RequestPharmacyStatusEnum.enattente);
 
-  void loadOrdersData() async {
-    switch (selectedOrderStatus.value) {
-      case OrderPharmacyStatusEnum.enattente:
-        orders.value = await produitProvider.getOrdersPharmacies(
-                orderPharmacyStatus: selectedOrderStatus.value,
+  void loadRequestsData() async {
+    switch (selectedRequestStatus.value) {
+      case RequestPharmacyStatusEnum.enattente:
+        requests.value = await produitProvider.getRequestPharmacies(
+                requestPharmacyStatus: selectedRequestStatus.value,
                 isLoading: isLoading.value) ??
             [];
         break;
-      case OrderPharmacyStatusEnum.traite || OrderPharmacyStatusEnum.refused:
-        unwaitingsOrders.value = await produitProvider.getOrdersTRPharmacies(
-                orderPharmacyStatus: selectedOrderStatus.value) ??
-            [];
-        print(unwaitingsOrders.length);
+      case RequestPharmacyStatusEnum.traite ||
+            RequestPharmacyStatusEnum.refused:
+        unwaitingsRequests.value =
+            await produitProvider.getRequestsTRPharmacies(
+                    requestPharmacyStatus: selectedRequestStatus.value) ??
+                [];
+        print(unwaitingsRequests.length);
         break;
       default:
     }
@@ -57,8 +59,8 @@ class PharmacienController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (orders.isEmpty || unwaitingsOrders.isEmpty) {
-      loadOrdersData();
+    if (requests.isEmpty || unwaitingsRequests.isEmpty) {
+      loadRequestsData();
     }
   }
 
@@ -72,15 +74,15 @@ class PharmacienController extends GetxController {
     super.onClose();
   }
 
-  Future<void> storeOrderResponse(
-      {required int orderId, required Map<String, dynamic> data}) async {
-    bool response =
-        await auxilliaireProvider.storeResponse(orderId: orderId, data: data);
+  Future<void> storeRequestResponse(
+      {required int requestId, required Map<String, dynamic> data}) async {
+    bool response = await auxilliaireProvider.storeResponse(
+        requestId: requestId, data: data);
 
     if (response) {
-      final index = orders.indexWhere((order) => order.id == orderId);
+      final index = requests.indexWhere((request) => request.id == requestId);
       if (index != -1) {
-        orders.removeAt(index);
+        requests.removeAt(index);
       }
     }
   }

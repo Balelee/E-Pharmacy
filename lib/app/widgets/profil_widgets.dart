@@ -174,16 +174,16 @@ class ProfileField extends StatelessWidget {
                   IconButton(
                     icon: Icon(Icons.check, color: Colors.green),
                     onPressed: () async {
-                      await profileController.updateField(
-                        field: field,
-                        value: controller.text,
-                      );
+                      // await profileController.updateField(
+                      //   field: field,
+                      //   value: controller.text,
+                      // );
                     },
                   ),
-                  IconButton(
-                    icon: Icon(Icons.close, color: Colors.red),
-                    onPressed: profileController.cancelEditing,
-                  ),
+                  // IconButton(
+                  //   icon: Icon(Icons.close, color: Colors.red),
+                  //   // onPressed: profileController.cancelEditing,
+                  // ),
                 ],
               )
             else

@@ -4,7 +4,7 @@ class CustomCard extends StatelessWidget {
   final String title;
   final String description;
   final Color backgroundColor;
- final void Function()? onTap;
+  final void Function()? onTap;
 
   const CustomCard({
     Key? key,
@@ -17,7 +17,7 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:onTap ,
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(16.0),
         margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),

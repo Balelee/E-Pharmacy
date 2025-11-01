@@ -4,7 +4,7 @@ import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/data/models/cart_item.dart';
 import 'package:pharmix/app/data/models/paginated_transaction.dart';
 import 'package:pharmix/app/data/models/product_filter.dart';
-import 'package:pharmix/app/modules/client/clientFeedBackOrder/controllers/client_feed_back_order_controller.dart';
+import 'package:pharmix/app/modules/client/clientFeedBackRequest/controllers/client_feed_back_request_controller.dart';
 import 'package:pharmix/app/modules/client/home/controllers/cart_controller.dart';
 
 import '../../../../data/models/product.dart';
@@ -12,8 +12,8 @@ import '../../../../data/providers/product_provider.dart';
 
 class ProductController extends GetxController {
   CartController cartController = Get.find<CartController>();
-  ClientFeedBackOrderController clientFeedBackOrderController =
-      Get.find<ClientFeedBackOrderController>();
+  ClientFeedBackRequestController clientFeedBackRequestController =
+      Get.find<ClientFeedBackRequestController>();
   SocketController socketController = Get.find<SocketController>();
   var produits = <Product>[].obs;
 
@@ -39,7 +39,7 @@ class ProductController extends GetxController {
     });
   }
 
-  RxInt order_length = RxInt(0);
+  RxInt request_length = RxInt(0);
 
   @override
   void onReady() {
@@ -47,7 +47,7 @@ class ProductController extends GetxController {
   }
 
   void getOderLength() {
-    order_length.value = clientFeedBackOrderController.orders.length;
+    request_length.value = clientFeedBackRequestController.requests.length;
   }
 
   @override

@@ -97,6 +97,7 @@ class LoginController extends GetxController {
       if (Get.isRegistered<UserController>()) {
         Get.delete<UserController>();
       }
+
       Get.put(UserController(Get.find<UserRepository>()));
       Get.put(ProfileController());
       await UserController.to.affectToCurrentUser(user);

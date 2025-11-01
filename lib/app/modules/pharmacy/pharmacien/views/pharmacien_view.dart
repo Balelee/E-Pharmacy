@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/cummon/controllers/navigation_controller.dart';
-import 'package:pharmix/app/modules/pharmacy/pharmacien/views/order_auxiliaire_view.dart';
+import 'package:pharmix/app/modules/pharmacy/pharmacien/views/request_auxiliaire_view.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/widgets/custom_text.dart';
 import '../controllers/pharmacien_controller.dart';
@@ -19,7 +19,7 @@ class PharmacienView extends GetView<PharmacienController> {
           NavigationController.to.currentIndex.value = index;
         },
         children: [
-          OrderAuxiliaireView(),
+          RequestAuxiliaireView(),
           Center(child: Text("Historique")),
           Center(child: Text("Paiement")),
         ],
@@ -54,7 +54,7 @@ class PharmacienView extends GetView<PharmacienController> {
                           minHeight: 16,
                         ),
                         child: CustomText(
-                          text: controller.orders.length.toString(),
+                          text: controller.requests.length.toString(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 10,
