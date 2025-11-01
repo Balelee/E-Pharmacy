@@ -14,7 +14,7 @@ class ProfileController extends GetxController {
   final AuthProvider authProvider = Get.put(AuthProvider());
   final UserController _userController = Get.find<UserController>();
 
-  GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
+  GlobalKey<FormState> updateProfileFormkey = GlobalKey<FormState>();
   late TextEditingController phoneController = TextEditingController();
   late TextEditingController emailController = TextEditingController();
   late TextEditingController placeOfBirthController = TextEditingController();
@@ -91,6 +91,7 @@ class ProfileController extends GetxController {
   }
 
   void updateData() async {
+    if (!updateProfileFormkey.currentState!.validate()) return;
     var data = {
       "lastName": lastNameController.text,
       "firstName": firstNameController.text,

@@ -30,6 +30,7 @@ class Pharmacy {
   final bool? isOpenNow;
   final String? latitude;
   final String? longitude;
+  final String? distance;
   final List<OpeningHour>? openingHours;
 
   Pharmacy({
@@ -43,6 +44,7 @@ class Pharmacy {
     this.latitude,
     this.longitude,
     this.openingHours,
+    this.distance,
   });
 
   factory Pharmacy.fromJson(Map<String, dynamic> json) {
@@ -60,6 +62,7 @@ class Pharmacy {
       isOpenNow: json['is_open_now'],
       latitude: json['latitude'],
       longitude: json['longitude'],
+      distance: json['distance'],
       openingHours: hoursList,
     );
   }

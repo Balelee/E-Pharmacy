@@ -10,8 +10,8 @@ import 'package:pharmix/app/utils/helpers/Location_helper.dart';
 class ClientFeedBackRequestController extends GetxController {
   final ProductProvider produitProvider = ProductProvider();
   final requests = <RequestPharmacy>[].obs;
-  RxList<RequestTypeModel> requestStatus = RxList([]);
-  Rxn<RequestTypeModel> selectedStatus = Rxn();
+  RxList<TypeModel> requestStatus = RxList([]);
+  Rxn<TypeModel> selectedStatus = Rxn();
   RxBool isProcessing = false.obs;
   RxInt processingSeconds = 0.obs;
   CartController cartController = Get.put(CartController());
@@ -52,7 +52,7 @@ class ClientFeedBackRequestController extends GetxController {
     _isDisposed.value = true;
   }
 
-  void updateRequestStatus(RequestTypeModel status) async {
+  void updateRequestStatus(TypeModel status) async {
     selectedStatus.value = status;
     await produitProvider.fetchClientRequests(
         pageKey: 1, filter: selectedStatus.value?.filter);
@@ -62,9 +62,9 @@ class ClientFeedBackRequestController extends GetxController {
 
   void loadTransactionsTypes() async {
     requestStatus.value = [
-      RequestTypeModel(label: "En attente", filter: 'attente', count: 3),
-      RequestTypeModel(label: "Traités", filter: 'traite', count: 8),
-      RequestTypeModel(label: "Annulées", filter: 'canceled', count: 3)
+      TypeModel(label: "En attente", filter: 'attente', count: 3),
+      TypeModel(label: "Traités", filter: 'traite', count: 8),
+      TypeModel(label: "Annulées", filter: 'canceled', count: 3)
     ];
     selectedStatus.value = requestStatus.first;
   }

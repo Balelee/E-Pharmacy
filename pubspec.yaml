@@ -45,7 +45,7 @@ dependencies:
   quickalert: ^1.1.0
   image_picker: ^1.1.2
   percent_indicator: ^4.2.4
-  infinite_scroll_pagination: ^4.1.0
+  infinite_scroll_pagination: ^5.1.1
   badges: ^3.1.2
   pusher_client_socket: ^0.0.2+7
   laravel_echo_null: ^0.0.8+8

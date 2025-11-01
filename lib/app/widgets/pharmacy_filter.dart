@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/request_type.dart';
-import 'package:pharmix/app/modules/client/clientFeedBackRequest/controllers/client_feed_back_request_controller.dart';
+import 'package:pharmix/app/modules/pharmacy/pharmacies/controllers/pharmacies_controller.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 
-class RequestFilterWidget extends StatelessWidget {
-  final ClientFeedBackRequestController controller = Get.find<ClientFeedBackRequestController>();
+class PharmacyFilterWidget extends StatelessWidget {
+  final PharmaciesController controller = Get.find<PharmaciesController>();
 
-  RequestFilterWidget({super.key});
+  PharmacyFilterWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class RequestFilterWidget extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: Row(
           children:
-              controller.requestStatus.map((TypeModel status) {
+              controller.pharmacyStatus.map((TypeModel status) {
             bool isSelected = controller.selectedStatus.value == status;
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -69,7 +69,7 @@ class RequestFilterWidget extends StatelessWidget {
                 showCheckmark: false,
                 onSelected: (bool selected) {
                   if (selected) {
-                    controller.updateRequestStatus(status);
+                    controller.updatePharmacyStatus(status);
                   }
                 },
               ),

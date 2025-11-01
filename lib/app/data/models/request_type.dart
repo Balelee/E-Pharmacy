@@ -1,16 +1,16 @@
-class RequestTypeModel {
+class TypeModel {
   final String? label;
   final String? filter;
   final int? count;
 
-  RequestTypeModel({
+  TypeModel({
     required this.label,
     required this.filter,
     required this.count,
   });
 
-  factory RequestTypeModel.fromJson(Map<String, dynamic> json) {
-    return RequestTypeModel(
+  factory TypeModel.fromJson(Map<String, dynamic> json) {
+    return TypeModel(
       label: json['label'],
       filter: json['filter'],
       count: json['count'],

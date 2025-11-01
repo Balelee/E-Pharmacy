@@ -12,7 +12,8 @@ enum ApiRoutes {
   newUserRequests('requests'),
   requestspharmacies('requests-w-pharmacien?status={status}'),
   requestsTRpharmacies('requests-tr-pharmacien?status={status}'),
-  pharmacies('pharmacies?page={pageKey}&q={query}'),
+  pharmacies(
+      'pharmacies?page={pageKey}&q={query}&lat={lat}&lng={lng}&is_on_duty={is_on_duty}'),
   adminUsers('admin/users'),
   adminUpdateUsers('admin/users/{user}'),
   tips('tips'),
