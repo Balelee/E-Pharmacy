@@ -47,6 +47,8 @@ class CartController extends GetxController {
       if (response != null) {
         Get.find<SocketController>()
             .listenToMyRequestTraitement(requestId: response['request_id']);
+        Get.find<SocketController>()
+            .listenToMyRequestTraitement(requestId: response['request_id']);
 
         Get.toNamed(AppPages.CLIENT_FEED_BACK_ORDER);
       }

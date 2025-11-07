@@ -93,6 +93,7 @@ class ProductListView extends GetView<ProductController> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4.0),
                 child: CustomSearchBar(
+                  searchLabel: "Rechercher un médicament...",
                   onSearch: (query) {
                     controller.fetchResearchData(label: query);
                   },

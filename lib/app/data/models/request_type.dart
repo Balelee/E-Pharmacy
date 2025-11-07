@@ -23,4 +23,6 @@ class TypeModel {
       'count': count,
     };
   }
+
+  
 }

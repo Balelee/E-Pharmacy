@@ -92,6 +92,12 @@ class SocketController extends GetxController {
               RequestPharmacy.fromJson(e['requestPharmacy']);
           clientFeedBackRequestController.addRequest(requestPharmacy);
         });
+    ecouter(
+        channel: 'private-pharmacy-count.$requestId',
+        event: 'commande.traitement.count',
+        action: (e) {
+          print("commande.traitement.count $e");
+        });
   }
 
   void listenToProductUpdated() async {

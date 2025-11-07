@@ -19,26 +19,31 @@ class ServiceCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
-                shape: BoxShape.circle,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: leading,
               ),
-              child: leading,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              label,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
+              const SizedBox(height: 10),
+              Text(
+                label,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -7,8 +7,15 @@ import 'package:pharmix/app/themes/app_text_styles.dart';
 class CustomSearchBar extends StatefulWidget {
   final Function(String?)? onSearch;
   final Function(XFile?)? onPhotoTaken;
+  final String searchLabel;
+  final double borderRadius;
 
-  const CustomSearchBar({Key? key, this.onSearch, this.onPhotoTaken})
+  const CustomSearchBar(
+      {Key? key,
+      this.onSearch,
+      this.onPhotoTaken,
+      this.searchLabel = "Recherche",
+      this.borderRadius = 30})
       : super(key: key);
 
   @override
@@ -20,7 +27,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   final TextEditingController _searchController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   Timer? _debounceTimer;
-
+  bool _showCancel = false;
   void pickImage() async {
     final XFile? image = await _picker.pickImage(source: ImageSource.camera);
     if (image != null) {
@@ -39,6 +46,13 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
 
   void _onSearchChanged() {
     // Cancel the previous timer if it exists
+    setState(() {
+      if (_searchController.text.isNotEmpty) {
+        _showCancel = true;
+      } else {
+        _showCancel = false;
+      }
+    });
     if (_debounceTimer?.isActive ?? false) {
       _debounceTimer?.cancel();
     }
@@ -53,6 +67,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   void dispose() {
     _debounceTimer?.cancel();
     _searchController.dispose();
+    _showCancel = true;
     super.dispose();
   }
 
@@ -62,7 +77,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0.0),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(widget.borderRadius),
       ),
       child: Row(
         children: [
@@ -73,13 +88,18 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
           Expanded(
             child: TextField(
               controller: _searchController,
-              decoration: const InputDecoration(
-                  hintText: "Rechercher un médicament...",
+              decoration: InputDecoration(
+                  hintText: widget.searchLabel,
                   border: InputBorder.none,
                   hintStyle: AppTextStyles.bodyText2),
               onChanged: (value) => _onSearchChanged(),
             ),
           ),
+          if (_showCancel)
+            IconButton(
+              icon: Icon(Icons.cancel, color: Get.theme.primaryColor),
+              onPressed: () => {_searchController.clear(), _onSearchChanged()},
+            ),
         ],
       ),
     );

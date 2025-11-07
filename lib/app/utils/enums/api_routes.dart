@@ -14,6 +14,8 @@ enum ApiRoutes {
   requestsTRpharmacies('requests-tr-pharmacien?status={status}'),
   pharmacies(
       'pharmacies?page={pageKey}&q={query}&lat={lat}&lng={lng}&is_on_duty={is_on_duty}'),
+  pharmacyCategories(
+      'pharmacies/categories'),
   adminUsers('admin/users'),
   adminUpdateUsers('admin/users/{user}'),
   tips('tips'),

@@ -18,7 +18,6 @@ class PharmaciesController extends GetxController {
   final RxInt currentPage = 1.obs;
 
   final TextEditingController searchController = TextEditingController();
-  final RxString searchText = ''.obs;
   final RxString listTitle = LocaleKeys.liste_pharmacies.tr.obs;
   final locationHelper = LocationHelper();
   final RxBool isGardeMode = false.obs;
@@ -37,17 +36,16 @@ class PharmaciesController extends GetxController {
     AppColors.primary,
     Colors.orange,
     AppColors.error,
-    Colors.purple,
+    Colors.purple
   ];
 
   RxList<TypeModel> pharmacyStatus = RxList([]);
   Rxn<TypeModel> selectedStatus = Rxn();
-// Taille de page utilisée pour décider du dernier page
-  static const int _pageSize = 10;
   bool _isFetching = false;
   bool _hasLoadedFirstPage = false;
   late final PagingController<int, Pharmacy> pagingController;
-
+  RxnString query = RxnString(null);
+  final RxBool _isDisposed = RxBool(false);
   @override
   void onInit() {
     super.onInit();
@@ -55,18 +53,30 @@ class PharmaciesController extends GetxController {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await getUserLocation();
     });
-    loadPharmaciesTypes();
-    debounce(searchText, (value) {
-      hasSearched.value = value.isNotEmpty;
-
-      pagingController.refresh();
-    }, time: const Duration(milliseconds: 500));
+    if (pharmacyStatus.isEmpty) {
+      loadPharmaciesTypes();
+    }
 
     _initPagingController();
   }
 
+  void fetchResearchData({required String? label}) async {
+    query.value = label;
+    _performSearch();
+  }
+
+  Future<void> _performSearch() async {
+    if (!_isDisposed.value) {
+      _hasLoadedFirstPage = false;
+      _isFetching = false;
+      pagingController.cancel();
+      pagingController.refresh();
+    }
+  }
+
   @override
   void onClose() {
+    _isDisposed.value = true;
     searchController.dispose();
     super.onClose();
   }
@@ -75,20 +85,15 @@ class PharmaciesController extends GetxController {
 
   void updatePharmacyStatus(TypeModel status) async {
     selectedStatus.value = status;
-
     // Réinitialiser les indicateurs avant de recharger
     _hasLoadedFirstPage = false;
     _isFetching = false;
-
     pagingController.cancel();
     pagingController.refresh();
   }
 
   void loadPharmaciesTypes() async {
-    pharmacyStatus.value = [
-      TypeModel(label: "Tous", filter: '0', count: 208),
-      TypeModel(label: "De gardes", filter: '1', count: 8),
-    ];
+    pharmacyStatus.value = await pharmacyProvider.loadPharmacieCategories();
     selectedStatus.value = pharmacyStatus.first;
   }
 
@@ -104,7 +109,6 @@ class PharmaciesController extends GetxController {
     print(selectedStatus.value?.filter);
     await getUserLocation();
     if (_hasLoadedFirstPage && pageKey == 1) {
-   
       return [];
     }
 
@@ -112,7 +116,7 @@ class PharmaciesController extends GetxController {
     _isFetching = true;
     final newItems = await pharmacyProvider.fetchPharmacies(
         pageKey: pageKey,
-        query: searchText.value,
+        query: query.value,
         userPosition: userPosition.value,
         isOnDuty: int.parse(selectedStatus.value?.filter ?? "0"));
 
@@ -140,29 +144,6 @@ class PharmaciesController extends GetxController {
       userPosition.value = position;
       // await updateDistancesAndSort();
     });
-  }
-
-  void sortPharmacies({bool byDistance = false}) {
-    if (byDistance) {
-      isDistanceAsc.value = !isDistanceAsc.value;
-      pharmacies.sort((a, b) {
-        final distA = distances[a.id] ?? double.infinity;
-        final distB = distances[b.id] ?? double.infinity;
-        return isDistanceAsc.value
-            ? distA.compareTo(distB)
-            : distB.compareTo(distA);
-      });
-    } else {
-      isNameAsc.value = !isNameAsc.value;
-      pharmacies.sort((a, b) => isNameAsc.value
-          ? a.name!.compareTo(b.name!)
-          : b.name!.compareTo(a.name!));
-    }
-
-    iconColor.value = iconColor.value == Colors.green
-        ? AppColors.textSecondary
-        : Colors.green;
-    pharmacies.refresh();
   }
 
   String getInitials(String name) {
