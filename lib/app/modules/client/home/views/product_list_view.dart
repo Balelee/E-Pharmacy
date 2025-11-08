@@ -43,7 +43,7 @@ class ProductListView extends GetView<ProductController> {
             Padding(
                 padding: const EdgeInsets.only(right: 15.0),
                 child: InkWell(
-                  onTap: () => Get.toNamed(AppPages.CLIENT_FEED_BACK_ORDER),
+                  onTap: () => Get.toNamed(AppPages.CLIENT_ORDER_LIST),
                   child: Icon(
                     Icons.receipt_long,
                     color: AppColors.background,
@@ -69,7 +69,7 @@ class ProductListView extends GetView<ProductController> {
                   IconButton(
                     onPressed: () {
                       controller.getOderLength();
-                      Get.toNamed(AppPages.CLIENT_FEED_BACK_ORDER);
+                      Get.toNamed(AppPages.CLIENT_ORDER_LIST);
                     },
                     icon: Icon(
                       Icons.visibility,

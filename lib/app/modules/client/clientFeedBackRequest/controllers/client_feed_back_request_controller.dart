@@ -34,9 +34,7 @@ class ClientFeedBackRequestController extends GetxController {
   void onInit() {
     super.onInit();
     startTrackingUser();
-    if (requestStatus.isEmpty) {
-      loadTransactionsTypes();
-    }
+  
   }
 
   @override
@@ -60,14 +58,7 @@ class ClientFeedBackRequestController extends GetxController {
     if (!_isDisposed.value) {}
   }
 
-  void loadTransactionsTypes() async {
-    requestStatus.value = [
-      TypeModel(label: "En attente", filter: 'attente', count: 3),
-      TypeModel(label: "Traités", filter: 'traite', count: 8),
-      TypeModel(label: "Annulées", filter: 'canceled', count: 3)
-    ];
-    selectedStatus.value = requestStatus.first;
-  }
+ 
 
   String formatDistance(double km) {
     if (km < 1) {

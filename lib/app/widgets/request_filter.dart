@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/request_type.dart';
-import 'package:pharmix/app/modules/client/clientFeedBackRequest/controllers/client_feed_back_request_controller.dart';
+import 'package:pharmix/app/modules/client/ClientRequestList/controllers/client_request_list_controller.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 
 class RequestFilterWidget extends StatelessWidget {
-  final ClientFeedBackRequestController controller = Get.find<ClientFeedBackRequestController>();
+  final ClientRequestListController controller = Get.find<ClientRequestListController>();
 
   RequestFilterWidget({super.key});
 
