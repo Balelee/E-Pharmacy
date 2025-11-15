@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:pharmix/app/cummon/controllers/base_controller.dart';
 import 'package:pharmix/app/data/models/request.dart';
+import 'package:pharmix/app/data/models/request_type.dart';
 import 'package:pharmix/app/data/providers/api_provider.dart';
 import 'package:pharmix/app/utils/enums/api_routes.dart';
 import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
@@ -43,6 +45,44 @@ class RequestProvider with BaseController {
       hideLoading();
       DialogHelper.showErrorSnackbar(message: "fetching error: $e");
       return null;
+    }
+  }
+
+  Future<void> cancelRequest({
+    required String requestId,
+    ValueSetter<String>? message,
+  }) async {
+    try {
+      showLoading();
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.cancelUserRequests.format({"requestId": requestId}),
+      ).catchError(handleError);
+      hideLoading();
+      if (response != null) {
+        if (message != null) {
+          message(response["message"]);
+        }
+      }
+    } catch (e) {
+      hideLoading();
+    }
+  }
+
+  Future<List<TypeModel>> loadRequestStatus() async {
+    try {
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.requestStats.path,
+      ).catchError(handleError);
+      if (response != null) {
+        final List<dynamic> data = response['data'];
+        return data.map((json) => TypeModel.fromJson(json)).toList();
+      }
+      return [];
+    } catch (e) {
+      hideLoading();
+      return [];
     }
   }
 }

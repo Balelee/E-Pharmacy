@@ -10,6 +10,8 @@ enum ApiRoutes {
       'products/search-product?query={query}&page={page}&limit={limit}'),
   getUserRequests('requests?query={query}&page={pageKey}&filter={filter}'),
   newUserRequests('requests'),
+  cancelUserRequests('requests/{requestId}/cancel'),
+  requestStats('requests/stats'),
   requestspharmacies('requests-w-pharmacien?status={status}'),
   requestsTRpharmacies('requests-tr-pharmacien?status={status}'),
   pharmacies(

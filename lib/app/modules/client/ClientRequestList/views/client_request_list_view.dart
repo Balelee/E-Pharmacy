@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pharmix/app/data/models/request.dart';
 import 'package:pharmix/app/modules/client/ClientRequestList/controllers/client_request_list_controller.dart';
+import 'package:pharmix/app/routes/app_pages.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
 import 'package:pharmix/app/themes/app_text_styles.dart';
 import 'package:pharmix/app/utils/constants/app_constant.dart';
@@ -44,11 +45,15 @@ class ClientRequestListView extends GetView<ClientRequestListController> {
                   state: state,
                   fetchNextPage: fetchNextPage,
                   builderDelegate: PagedChildBuilderDelegate<Request>(
-                    itemBuilder: (context, pharmacy, index) {
+                    itemBuilder: (context, request, index) {
                       return RequestCard(
-                        request: pharmacy,
+                        request: request,
+                        onTap: () {
+                          Get.toNamed(AppPages.CLIENT_FEED_BACK_ORDER);
+                        },
                         onCancel: () {
-                          // controller.cancelRequest(pharmacy.id);
+                          controller.cancelRequest(
+                              requestId: request.id.toString());
                         },
                       );
                     },
@@ -61,25 +66,23 @@ class ClientRequestListView extends GetView<ClientRequestListController> {
                     firstPageErrorIndicatorBuilder: (_) =>
                         Center(child: Text('Erreur: ')),
                     invisibleItemsThreshold: 5,
-                    noItemsFoundIndicatorBuilder: (context) => Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/images/no_data.png',
-                            width: Get.width / 4,
-                            fit: BoxFit.contain,
+                    noItemsFoundIndicatorBuilder: (context) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/no_data.png',
+                          width: Get.width / 4,
+                          fit: BoxFit.contain,
+                        ),
+                        CustomText(
+                          text: LocaleKeys.introuvable_pharmacie_msg.tr,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: AppColors.textSecondary,
+                            fontStyle: FontStyle.italic,
                           ),
-                          CustomText(
-                            text: LocaleKeys.introuvable_pharmacie_msg.tr,
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: AppColors.textSecondary,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                   ),
                 );

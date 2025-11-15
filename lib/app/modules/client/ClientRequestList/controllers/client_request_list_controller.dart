@@ -3,6 +3,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pharmix/app/data/models/request.dart';
 import 'package:pharmix/app/data/models/request_type.dart';
 import 'package:pharmix/app/data/providers/request_provider.dart';
+import 'package:pharmix/app/utils/helpers/dialog_helper.dart';
 
 class ClientRequestListController extends GetxController {
   final requestProvider = RequestProvider();
@@ -11,12 +12,11 @@ class ClientRequestListController extends GetxController {
   Rxn<TypeModel> selectedStatus = Rxn();
   bool _isFetching = false;
   bool _hasLoadedFirstPage = false;
+  RxString sucessMessage = RxString('');
   @override
   void onInit() {
     super.onInit();
-    if (requestStatus.isEmpty) {
-      loadTRequestTypes();
-    }
+
     _initPagingController();
   }
 
@@ -32,17 +32,17 @@ class ClientRequestListController extends GetxController {
 
   void refresh() => pagingController.refresh();
 
-  void loadTRequestTypes() async {
-    requestStatus.value = [
-      TypeModel(label: "En attente", filter: 'enattent', count: 3),
-      TypeModel(label: "Traités", filter: 'traite', count: 8),
-      TypeModel(label: "Annulées", filter: 'annule', count: 3)
-    ];
+  Future<void> loadTRequestTypes() async {
+    requestStatus.value = await requestProvider.loadRequestStatus();
     selectedStatus.value = requestStatus.first;
   }
 
   void updateRequestStatus(TypeModel status) async {
     selectedStatus.value = status;
+    _refreshPagination();
+  }
+
+  void _refreshPagination() {
     _hasLoadedFirstPage = false;
     _isFetching = false;
     pagingController.cancel();
@@ -58,6 +58,9 @@ class ClientRequestListController extends GetxController {
   }
 
   Future<List<Request>> _fetchPage(int pageKey) async {
+    if (requestStatus.isEmpty) {
+      await loadTRequestTypes();
+    }
     print("arrive ici");
     if (_hasLoadedFirstPage && pageKey == 1) {
       return [];
@@ -69,5 +72,24 @@ class ClientRequestListController extends GetxController {
     _isFetching = false;
     _hasLoadedFirstPage = true;
     return newItems;
+  }
+
+  Future<void> cancelRequest({required String requestId}) async {
+    DialogHelper.showConfirmationDialog(
+      title: "Confirmation",
+      message: "Voullez-vous vraiment annuler cette requette?",
+      onConfirm: () async {
+        await requestProvider
+            .cancelRequest(
+          requestId: requestId,
+          message: (value) {
+            sucessMessage.value = value;
+          },
+        )
+            .whenComplete(() {
+          _refreshPagination();
+        });
+      },
+    );
   }
 }

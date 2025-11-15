@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pharmix/app/modules/client/clientFeedBackRequest/bindings/client_feed_back_request_binding.dart';
 import 'package:pharmix/app/modules/client/clientFeedBackRequest/views/client_feed_back_request_view.dart';
+import 'package:pharmix/app/modules/client/clientFeedBackRequest/views/client_feed_back_response_view.dart';
 import 'package:pharmix/app/modules/client/requestDetail/bindings/request_detail_binding.dart';
 import 'package:pharmix/app/modules/client/requestDetail/views/request_detail_view.dart';
 
@@ -153,7 +154,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CLIENT_FEED_BACK_ORDER,
-      page: () => const ClientFeedBackRequestView(),
+      page: () => const ClientFeedBackResponseView(),
       binding: ClientFeedBackRequestBinding(),
     ),
     GetPage(
