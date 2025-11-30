@@ -9,6 +9,8 @@ enum ApiRoutes {
   searchProduct(
       'products/search-product?query={query}&page={page}&limit={limit}'),
   getUserRequests('requests?query={query}&page={pageKey}&filter={filter}'),
+  getUserRequestResponses(
+      'responses/{requestId}?query={query}&page={pageKey}&filter={filter}'),
   newUserRequests('requests'),
   cancelUserRequests('requests/{requestId}/cancel'),
   requestStats('requests/stats'),

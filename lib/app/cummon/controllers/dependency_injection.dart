@@ -13,10 +13,10 @@ import 'package:pharmix/app/data/models/device_info.dart';
 import 'package:pharmix/app/data/repositories/user_repository.dart';
 import 'package:pharmix/app/modules/client/clientFeedBackRequest/controllers/client_feed_back_request_controller.dart';
 import 'package:pharmix/app/modules/client/home/controllers/product_controller.dart';
-import 'package:pharmix/app/modules/client/home/controllers/profile_controller.dart';
 import 'package:pharmix/app/modules/client/paiement/controllers/paiement_controller.dart';
 import 'package:pharmix/app/modules/pharmacy/pharmacien/controllers/pharmacien_controller.dart';
 import 'package:pharmix/app/modules/client/searchproduct/controllers/searchproduct_controller.dart';
+import 'package:pharmix/app/utils/helpers/app_theme_helper.dart';
 import 'package:pharmix/app/utils/services/localization_service.dart';
 
 class DependencieInjection {
@@ -27,6 +27,7 @@ class DependencieInjection {
     Get.put(NavigationController());
     Get.put(LocalizationService());
     Get.put(LanguageController());
+    Get.lazyPut(()=>GetTheme());
     Get.lazyPut(() => PharmacienController());
     Get.put(SocketController());
     Get.put(PaiementController());
@@ -34,7 +35,9 @@ class DependencieInjection {
     Get.put(UserController(Get.find<UserRepository>()), permanent: true);
     Get.lazyPut<SearchproductController>(() => SearchproductController());
     Get.lazyPut<ProductController>(() => ProductController());
-    Get.put(ClientFeedBackRequestController());
+    Get.lazyPut<ClientFeedBackRequestController>(
+        () => ClientFeedBackRequestController(),
+        fenix: true);
   }
 
   static Future<void> saveDeviceInfo() async {

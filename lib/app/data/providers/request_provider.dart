@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:pharmix/app/cummon/controllers/base_controller.dart';
 import 'package:pharmix/app/data/models/request.dart';
+import 'package:pharmix/app/data/models/request_pharmacy.dart';
 import 'package:pharmix/app/data/models/request_type.dart';
 import 'package:pharmix/app/data/providers/api_provider.dart';
 import 'package:pharmix/app/utils/enums/api_routes.dart';
@@ -16,13 +17,11 @@ class RequestProvider with BaseController {
             {'pageKey': pageKey.toString(), 'query': query, 'filter': filter}),
       ).catchError(handleError);
       if (response != null && response['data'] != null) {
-        print(response);
         final List<dynamic> data = response['data'];
         return data.map((json) => Request.fromJson(json)).toList();
       }
       return [];
     } catch (e) {
-      DialogHelper.showErrorSnackbar(message: "fetching error: $e");
       return [];
     }
   }
@@ -82,6 +81,24 @@ class RequestProvider with BaseController {
       return [];
     } catch (e) {
       hideLoading();
+      return [];
+    }
+  }
+
+    Future<List<RequestPharmacy>> fetchClientRequestResponses(
+      {required int pageKey, String? query, String? filter,required String requestId}) async {
+    try {
+      final response = await ApiProvider.get(
+        auth: true,
+        apiURL: ApiRoutes.getUserRequestResponses.format(
+            {'pageKey': pageKey.toString(), 'query': query, 'filter': filter,'requestId':requestId}),
+      ).catchError(handleError);
+      if (response != null && response['data'] != null) {
+        final List<dynamic> data = response['data'];
+        return data.map((json) => RequestPharmacy.fromJson(json)).toList();
+      }
+      return [];
+    } catch (e) {
       return [];
     }
   }

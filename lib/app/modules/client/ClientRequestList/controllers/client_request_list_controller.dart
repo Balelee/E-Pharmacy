@@ -50,9 +50,15 @@ class ClientRequestListController extends GetxController {
   }
 
   void _initPagingController() {
+
     pagingController = PagingController<int, Request>(
-      getNextPageKey: (state) =>
-          state.lastPageIsEmpty ? null : state.nextIntPageKey,
+      getNextPageKey: (state)  {
+        
+        final totalLoaded = state.items?.length ?? 0;
+        if (totalLoaded == 0) return 1;
+        if (totalLoaded % 10 != 0) return null;
+        return state.nextIntPageKey;
+      },
       fetchPage: _fetchPage,
     );
   }
@@ -75,21 +81,23 @@ class ClientRequestListController extends GetxController {
   }
 
   Future<void> cancelRequest({required String requestId}) async {
-    DialogHelper.showConfirmationDialog(
+    bool? isCanceled = await DialogHelper.showConfirmationDialog(
       title: "Confirmation",
       message: "Voullez-vous vraiment annuler cette requette?",
-      onConfirm: () async {
-        await requestProvider
-            .cancelRequest(
-          requestId: requestId,
-          message: (value) {
-            sucessMessage.value = value;
-          },
-        )
-            .whenComplete(() {
-          _refreshPagination();
-        });
-      },
+      onConfirm: () {},
     );
+
+    if (isCanceled != null && isCanceled == true) {
+      await requestProvider
+          .cancelRequest(
+        requestId: requestId,
+        message: (value) {
+          sucessMessage.value = value;
+        },
+      )
+          .whenComplete(() {
+        _refreshPagination();
+      });
+    }
   }
 }

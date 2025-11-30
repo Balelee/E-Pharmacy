@@ -10,7 +10,7 @@ enum RequestStatusEnum {
 }
 
 enum RequestPharmacyStatusEnum {
-  enattente('enattent', "En Attente"),
+  enattente('enattent', "En attente"),
   traite('accepted', "Traité"),
   refused('refused', "Réfusé");
 

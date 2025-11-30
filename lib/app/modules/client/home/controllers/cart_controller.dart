@@ -4,6 +4,7 @@ import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/data/models/cart_item.dart';
 import 'package:pharmix/app/data/providers/product_provider.dart';
 import 'package:pharmix/app/routes/app_pages.dart';
+import 'package:pharmix/app/utils/functions/function.dart';
 import 'package:pharmix/app/utils/helpers/Location_helper.dart';
 
 class CartController extends GetxController {
@@ -26,6 +27,14 @@ class CartController extends GetxController {
     super.onClose();
   }
 
+void showBasketBottomSheet() {
+    Functions.displayBasketBottomSheet(
+      onValidate: () => newRequest(),
+      panierList: panierList,
+      errorValue: RxString(""),
+      onCancel: () => { Get.back()},
+    );
+  }
   void newRequest() async {
     Position? position = await locationHelper.allowPermission();
     double lat = position?.latitude ?? 0;
@@ -48,7 +57,7 @@ class CartController extends GetxController {
         Get.find<SocketController>()
             .listenToMyRequestTraitement(requestId: response['request_id']);
 
-        Get.toNamed(AppPages.CLIENT_ORDER_LIST);
+        Get.offNamed(AppPages.CLIENT_ORDER_LIST);
       }
     });
   }

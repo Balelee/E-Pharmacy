@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pharmix/app/data/models/request.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
+import 'package:pharmix/app/themes/app_text_styles.dart';
+import 'package:pharmix/app/utils/helpers/app_theme_helper.dart';
+import 'package:pharmix/app/widgets/custom_text.dart';
 
 class BottomsheetHelper {
   static Future<Widget?> commandeDetailBottomSheet(
@@ -263,5 +266,123 @@ class BottomsheetHelper {
       ),
       isScrollControlled: true,
     );
+  }
+
+  static Future<dynamic> displayBottomSheet({
+    required List<Widget> content,
+    Widget? action,
+    bool isDismissible = true,
+    String? title,
+    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
+    CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.start,
+    void Function()? onBottomSheetClose,
+    VoidCallback? onReport,
+    VoidCallback? onEdit,
+    VoidCallback? onDelete,
+    Widget? headerAction,
+  }) {
+    final theme = GetTheme.to.theme;
+    return Get.bottomSheet(
+      GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => FocusScope.of(Get.context!).unfocus(),
+        child: SafeArea(
+          top: false,
+          child: DraggableScrollableSheet(
+            initialChildSize: 0.9,
+            minChildSize: 0.2,
+            maxChildSize: 0.95,
+            builder: (context, scrollController) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: AppColors.background,
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 17, vertical: 10)
+                        .copyWith(top: 2.0),
+                child: Column(
+                  crossAxisAlignment: crossAxisAlignment,
+                  children: [
+                    // === Petit trait draggable ===
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onVerticalDragUpdate: (details) {
+                              // Permet au DraggableScrollableSheet de récupérer le drag
+                              Scrollable.ensureVisible(context);
+                            },
+                            child: Center(
+                              child: Container(
+                                width: 40,
+                                height: 4,
+                                margin:
+                                    const EdgeInsets.symmetric(vertical: 18),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.4),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => Get.back(),
+                          child: const Icon(Icons.close),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 8.0),
+                    // === Header ===
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomText(
+                          text: title ?? "",
+                          style: AppTextStyles.heading4.copyWith(),
+                        ),
+                        headerAction ?? const SizedBox.shrink(),
+                      ],
+                    ),
+
+                    const SizedBox(height: 15),
+
+                    // === Contenu scrollable ===
+                    Expanded(
+                      child: SingleChildScrollView(
+                        controller: scrollController,
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
+                          mainAxisAlignment: mainAxisAlignment,
+                          crossAxisAlignment: crossAxisAlignment,
+                          children: content,
+                        ),
+                      ),
+                    ),
+
+                    if (action != null) ...[
+                      const SizedBox(height: 15),
+                      action,
+                    ],
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+      backgroundColor: Colors.transparent,
+      isDismissible: isDismissible,
+      isScrollControlled: true,
+      enableDrag: true,
+    ).then((value) {
+      onBottomSheetClose?.call();
+      return null;
+    });
   }
 }

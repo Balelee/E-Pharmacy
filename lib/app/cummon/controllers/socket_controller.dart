@@ -83,8 +83,7 @@ class SocketController extends GetxController {
   void listenToMyRequestTraitement({required int requestId}) async {
     ClientFeedBackRequestController clientFeedBackRequestController =
         Get.find<ClientFeedBackRequestController>();
-    clientFeedBackRequestController.startProcessingRequest();
-    ecouter(
+   ecouter(
         channel: 'private-client.$requestId',
         event: 'commande.statut',
         action: (e) {

@@ -7,6 +7,8 @@ class Request {
   final String amount;
   final String status;
   final String statusLabel;
+  final String? created_at_label;
+  final String? created_at_value;
   final Color statusColor;
   final List<RequestDetail> requestDetails;
 
@@ -17,6 +19,8 @@ class Request {
     required this.status,
     required this.statusLabel,
     required this.statusColor,
+    required this.created_at_label,
+    required this.created_at_value,
     required this.requestDetails,
   });
 
@@ -24,6 +28,8 @@ class Request {
     return Request(
       id: json['id'],
       number: json['request_number'].toString(),
+      created_at_label: json['date'].toString(),
+      created_at_value: json['created_at'],
       amount: json['priceTotal'].toString(),
       statusLabel: json['statusLabel'],
       status: json['status'],

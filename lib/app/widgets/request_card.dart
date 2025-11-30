@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pharmix/app/data/enums/request_status_enum.dart';
 import 'package:pharmix/app/data/models/request.dart';
 import 'package:pharmix/generated/locales.g.dart';
 
@@ -25,11 +26,10 @@ class _RequestCardState extends State<RequestCard> {
   @override
   Widget build(BuildContext context) {
     final r = widget.request;
-
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: r.status == RequestStatusEnum.annule.value ? null : widget.onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
+        margin: const EdgeInsets.only(bottom: 12, right: 6, left: 6),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -45,7 +45,6 @@ class _RequestCardState extends State<RequestCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // — Titre + Statut
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -84,8 +83,6 @@ class _RequestCardState extends State<RequestCard> {
               ],
             ),
             const SizedBox(height: 4),
-
-            // — Produits + Date
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -202,6 +199,11 @@ class _RequestCardState extends State<RequestCard> {
                           TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                     ),
                   ),
+                Text(
+                  r.created_at_label.toString(),
+                  style: const TextStyle(
+                      fontSize: 13, fontStyle: FontStyle.italic),
+                ),
               ],
             ),
           ],

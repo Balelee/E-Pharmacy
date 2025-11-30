@@ -2,9 +2,7 @@ import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pharmix/app/cummon/controllers/socket_controller.dart';
 import 'package:pharmix/app/data/models/cart_item.dart';
-import 'package:pharmix/app/data/models/paginated_transaction.dart';
 import 'package:pharmix/app/data/models/product_filter.dart';
-import 'package:pharmix/app/modules/client/clientFeedBackRequest/controllers/client_feed_back_request_controller.dart';
 import 'package:pharmix/app/modules/client/home/controllers/cart_controller.dart';
 
 import '../../../../data/models/product.dart';
@@ -12,8 +10,6 @@ import '../../../../data/providers/product_provider.dart';
 
 class ProductController extends GetxController {
   CartController cartController = Get.find<CartController>();
-  ClientFeedBackRequestController clientFeedBackRequestController =
-      Get.find<ClientFeedBackRequestController>();
   SocketController socketController = Get.find<SocketController>();
   var produits = <Product>[].obs;
 
@@ -55,7 +51,7 @@ class ProductController extends GetxController {
   }
 
   void getOderLength() {
-    request_length.value = clientFeedBackRequestController.requests.length;
+    request_length.value = 2;
   }
 
   void fetchResearchData({required String? label}) async {

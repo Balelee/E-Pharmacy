@@ -49,7 +49,12 @@ class ClientRequestListView extends GetView<ClientRequestListController> {
                       return RequestCard(
                         request: request,
                         onTap: () {
-                          Get.toNamed(AppPages.CLIENT_FEED_BACK_ORDER);
+                          Get.toNamed(AppPages.CLIENT_FEED_BACK_RESPONSE,
+                              arguments: {
+                                "requestId": request.id.toString(),
+                                "status": controller.selectedStatus.value,
+                                "created_at_value": request.created_at_value
+                              });
                         },
                         onCancel: () {
                           controller.cancelRequest(

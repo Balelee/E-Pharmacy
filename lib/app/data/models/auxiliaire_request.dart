@@ -14,6 +14,8 @@ class AuxiliaireRequest extends Request {
     required super.statusLabel,
     required super.statusColor,
     required super.requestDetails,
+   required super.created_at_label,
+   required super.created_at_value,
     this.clientPhone,
     this.date,
   });
@@ -24,6 +26,8 @@ class AuxiliaireRequest extends Request {
       number: json['request_number'].toString(),
       amount: json['priceTotal'].toString(),
       statusLabel: json['statusLabel'],
+      created_at_label: json['date']??"",
+      created_at_value: json['created_at']??"",
       status: json['status'],
       statusColor: Color(int.parse(json['statusColor'] ?? '0xFFF44336')),
       requestDetails: (json['details'] as List)
