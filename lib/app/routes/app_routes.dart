@@ -23,7 +23,7 @@ abstract class Routes {
   static const PHARMACIEN = _Paths.PHARMACIEN;
   static const ORDERPHARMACIEN = _Paths.ORDERPHARMACIEN;
   static const CLIENT_ORDER_LIST = _Paths.CLIENT_ORDER_LIST;
-  static const CLIENT_FEED_BACK_ORDER = _Paths.CLIENT_FEED_BACK_ORDER;
+  static const CLIENT_FEED_BACK_RESPONSE = _Paths.CLIENT_FEED_BACK_RESPONSE;
   static const ADMINHOME = _Paths.ADMINHOME;
 }
 
@@ -49,6 +49,6 @@ abstract class _Paths {
   static const PHARMACIEN = '/pharmacien';
   static const ORDERPHARMACIEN = '/requestpharmacien';
   static const CLIENT_ORDER_LIST = '/client-request-list';
-  static const CLIENT_FEED_BACK_ORDER = '/client-feed-back-request';
+  static const CLIENT_FEED_BACK_RESPONSE = '/client-feed-back-response';
   static const ADMINHOME = '/adminhome';
 }

@@ -97,11 +97,11 @@ class DialogHelper {
       textConfirm: 'Yes'.tr,
       textCancel: 'No'.tr,
       confirmTextColor: Colors.white,
+      barrierDismissible: false,
       onConfirm: () {
         Get.back(result: true);
         onConfirm();
       },
-      onCancel: () => Get.back(result: false),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:pharmix/app/data/repositories/user_repository.dart';
 import 'package:pharmix/app/modules/client/home/controllers/profile_controller.dart';
 import 'package:pharmix/app/themes/app_colors.dart';
@@ -82,80 +83,96 @@ class EditProfilePage extends GetView<ProfileController> {
                       color: Colors.grey.shade300,
                     ),
                     const SizedBox(height: 8),
-                    CustomTextFormField(
-                      controller: controller.lastNameController,
-                      labelText: LocaleKeys.nom.tr,
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      prefix: Icon(Icons.person),
-                      validator: (p0) {
-                        final error = Validators.validateSimpleText(p0);
-                        return error;
-                      },
-                      onChanged: (Value) => controller.setIsEditting(),
+                    Form(
+                      key: controller.updateProfileFormkey,
+                      child: Column(
+                        children: [
+                          CustomTextFormField(
+                            controller: controller.lastNameController,
+                            labelText: LocaleKeys.nom.tr,
+                            border:
+                                OutlineInputBorder(borderSide: BorderSide.none),
+                            prefix: Icon(Icons.person),
+                            validator: (p0) {
+                              final error = Validators.validateSimpleText(p0);
+                              return error;
+                            },
+                            onChanged: (Value) => controller.setIsEditting(),
+                          ),
+                          const SizedBox(height: 20),
+                          CustomTextFormField(
+                            controller: controller.firstNameController,
+                            labelText: LocaleKeys.prenom.tr,
+                            border:
+                                OutlineInputBorder(borderSide: BorderSide.none),
+                            prefix: Icon(Icons.person),
+                            validator: (p0) {
+                              final error = Validators.validateSimpleText(p0);
+                              return error;
+                            },
+                            onChanged: (Value) => controller.setIsEditting(),
+                          ),
+                          const SizedBox(height: 20),
+                          CustomTextFormField(
+                            controller: controller.placeOfBirthController,
+                            labelText: LocaleKeys.place_date.tr,
+                            border:
+                                OutlineInputBorder(borderSide: BorderSide.none),
+                            prefix: Icon(Icons.place),
+                            validator: (p0) {
+                              final error = Validators.validateSimpleText(p0);
+                              return error;
+                            },
+                            onChanged: (Value) => controller.setIsEditting(),
+                          ),
+                          const SizedBox(height: 20),
+                          CustomTextFormField(
+                            controller: controller.dateOfBirthController,
+                            labelText: LocaleKeys.birth_date.tr,
+                            keyboardType: TextInputType.datetime,
+                            inputFormatters: [
+                              MaskTextInputFormatter(mask: '##-##-####')
+                            ],
+                            border:
+                                OutlineInputBorder(borderSide: BorderSide.none),
+                            prefix: Icon(Icons.calendar_today),
+                            validator: (p0) {
+                              final error = Validators.validateSimpleText(p0);
+                              return error;
+                            },
+                            onChanged: (Value) => controller.setIsEditting(),
+                          ),
+                          const SizedBox(height: 20),
+                          CustomTextFormField(
+                            controller: controller.phoneController,
+                            labelText: LocaleKeys.phone.tr,
+                            keyboardType: TextInputType.phone,
+                            border:
+                                OutlineInputBorder(borderSide: BorderSide.none),
+                            prefix: Icon(Icons.phone),
+                            validator: (p0) {
+                              final error = Validators.validatePhoneNumber(p0);
+                              return error;
+                            },
+                            onChanged: (Value) => controller.setIsEditting(),
+                          ),
+                          const SizedBox(height: 20),
+                          CustomTextFormField(
+                            controller: controller.emailController,
+                            labelText: LocaleKeys.Email.tr,
+                            border:
+                                OutlineInputBorder(borderSide: BorderSide.none),
+                            prefix: Icon(Icons.email),
+                            validator: (p0) {
+                              final error = Validators.validateEmail(p0);
+                              return error;
+                            },
+                            onChanged: (Value) => controller.setIsEditting(),
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
                     ),
-                    const SizedBox(width: 12),
-                    CustomTextFormField(
-                      controller: controller.firstNameController,
-                      labelText: LocaleKeys.prenom.tr,
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      prefix: Icon(Icons.person),
-                      validator: (p0) {
-                        final error = Validators.validateSimpleText(p0);
-                        return error;
-                      },
-                      onChanged: (Value) => controller.setIsEditting(),
-                    ),
-                    const SizedBox(height: 12),
-                    CustomTextFormField(
-                      controller: controller.placeOfBirthController,
-                      labelText: LocaleKeys.place_date.tr,
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      prefix: Icon(Icons.place),
-                      validator: (p0) {
-                        final error = Validators.validateSimpleText(p0);
-                        return error;
-                      },
-                      onChanged: (Value) => controller.setIsEditting(),
-                    ),
-                    const SizedBox(height: 12),
-                    CustomTextFormField(
-                      controller: controller.dateOfBirthController,
-                      labelText: LocaleKeys.birth_date.tr,
-                      keyboardType: TextInputType.datetime,
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      prefix: Icon(Icons.calendar_today),
-                      validator: (p0) {
-                        final error = Validators.validateSimpleText(p0);
-                        return error;
-                      },
-                      onChanged: (Value) => controller.setIsEditting(),
-                    ),
-                    const SizedBox(height: 12),
-                    CustomTextFormField(
-                      controller: controller.phoneController,
-                      labelText: LocaleKeys.phone.tr,
-                      keyboardType: TextInputType.phone,
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      prefix: Icon(Icons.phone),
-                      validator: (p0) {
-                        final error = Validators.validatePhoneNumber(p0);
-                        return error;
-                      },
-                      onChanged: (Value) => controller.setIsEditting(),
-                    ),
-                    const SizedBox(height: 12),
-                    CustomTextFormField(
-                      controller: controller.emailController,
-                      labelText: LocaleKeys.Email.tr,
-                      border: OutlineInputBorder(borderSide: BorderSide.none),
-                      prefix: Icon(Icons.email),
-                      validator: (p0) {
-                        final error = Validators.validateEmail(p0);
-                        return error;
-                      },
-                      onChanged: (Value) => controller.setIsEditting(),
-                    ),
-                    const SizedBox(height: 24),
                     if (controller.isEditting.value)
                       Row(
                         children: [

@@ -8,11 +8,17 @@ enum ApiRoutes {
   products('products?page={pageKey}&q={query}&filter={filter}'),
   searchProduct(
       'products/search-product?query={query}&page={page}&limit={limit}'),
-  getUserRequests('requests'),
+  getUserRequests('requests?query={query}&page={pageKey}&filter={filter}'),
+  getUserRequestResponses(
+      'responses/{requestId}?query={query}&page={pageKey}&filter={filter}'),
   newUserRequests('requests'),
+  cancelUserRequests('requests/{requestId}/cancel'),
+  requestStats('requests/stats'),
   requestspharmacies('requests-w-pharmacien?status={status}'),
   requestsTRpharmacies('requests-tr-pharmacien?status={status}'),
-  pharmacies('pharmacies?page={pageKey}&q={query}'),
+  pharmacies(
+      'pharmacies?page={pageKey}&q={query}&lat={lat}&lng={lng}&is_on_duty={is_on_duty}'),
+  pharmacyCategories('pharmacies/categories'),
   adminUsers('admin/users'),
   adminUpdateUsers('admin/users/{user}'),
   tips('tips'),

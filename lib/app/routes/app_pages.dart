@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:pharmix/app/modules/client/clientFeedBackRequest/bindings/client_feed_back_request_binding.dart';
-import 'package:pharmix/app/modules/client/clientFeedBackRequest/views/client_feed_back_request_view.dart';
+import 'package:pharmix/app/modules/client/clientFeedBackRequest/views/client_feed_back_response_view.dart';
 import 'package:pharmix/app/modules/client/requestDetail/bindings/request_detail_binding.dart';
 import 'package:pharmix/app/modules/client/requestDetail/views/request_detail_view.dart';
 
@@ -57,7 +57,7 @@ class AppPages {
   static const PHARMACIEN = Routes.PHARMACIEN;
   static const ORDERPHARMACIEN = Routes.ORDERPHARMACIEN;
   static const CLIENT_ORDER_LIST = Routes.CLIENT_ORDER_LIST;
-  static const CLIENT_FEED_BACK_ORDER = Routes.CLIENT_FEED_BACK_ORDER;
+  static const CLIENT_FEED_BACK_RESPONSE = Routes.CLIENT_FEED_BACK_RESPONSE;
   static const ADMINHOME = Routes.ADMINHOME;
 
   static final routes = [
@@ -152,8 +152,8 @@ class AppPages {
       binding: ClientRequestListBinding(),
     ),
     GetPage(
-      name: _Paths.CLIENT_FEED_BACK_ORDER,
-      page: () => const ClientFeedBackRequestView(),
+      name: _Paths.CLIENT_FEED_BACK_RESPONSE,
+      page: () => const ClientFeedBackResponseView(),
       binding: ClientFeedBackRequestBinding(),
     ),
     GetPage(

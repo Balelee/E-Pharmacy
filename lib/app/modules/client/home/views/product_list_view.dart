@@ -43,7 +43,7 @@ class ProductListView extends GetView<ProductController> {
             Padding(
                 padding: const EdgeInsets.only(right: 15.0),
                 child: InkWell(
-                  onTap: () => Get.toNamed(AppPages.CLIENT_FEED_BACK_ORDER),
+                  onTap: () => Get.toNamed(AppPages.CLIENT_ORDER_LIST),
                   child: Icon(
                     Icons.receipt_long,
                     color: AppColors.background,
@@ -69,7 +69,7 @@ class ProductListView extends GetView<ProductController> {
                   IconButton(
                     onPressed: () {
                       controller.getOderLength();
-                      Get.toNamed(AppPages.CLIENT_FEED_BACK_ORDER);
+                      Get.toNamed(AppPages.CLIENT_ORDER_LIST);
                     },
                     icon: Icon(
                       Icons.visibility,
@@ -93,6 +93,7 @@ class ProductListView extends GetView<ProductController> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4.0),
                 child: CustomSearchBar(
+                  searchLabel: "Rechercher un médicament...",
                   onSearch: (query) {
                     controller.fetchResearchData(label: query);
                   },
@@ -112,97 +113,102 @@ class ProductListView extends GetView<ProductController> {
                     ],
                   )),
               Expanded(
-                child: PagedGridView<int, Product>(
-                  pagingController: controller.pagingController,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 0.75,
-                  ),
-                  padding: EdgeInsets.all(0.0),
-                  builderDelegate: PagedChildBuilderDelegate<Product>(
-                    itemBuilder: (context, produit, index) {
-                      return GestureDetector(
-                        onTap: () => Get.toNamed(AppPages.DETAIL_PRODUIT,
-                            arguments: produit),
-                        child: Card(
-                          elevation: 1.0,
-                          color: Get.theme.scaffoldBackgroundColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(12)),
-                                  child: Image.asset(
-                                    "assets/images/productimg.png",
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                child: PagingListener<int, Product>(
+                  controller: controller.pagingController,
+                  builder: (context, state, fetchNextPage) {
+                    return PagedGridView<int, Product>(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 0.75,
+                      ),
+                      state: state,
+                      fetchNextPage: fetchNextPage,
+                      builderDelegate: PagedChildBuilderDelegate<Product>(
+                        itemBuilder: (context, produit, index) {
+                          return GestureDetector(
+                            onTap: () => Get.toNamed(AppPages.DETAIL_PRODUIT,
+                                arguments: produit),
+                            child: Card(
+                              elevation: 1.0,
+                              color: Get.theme.scaffoldBackgroundColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  produit.name,
-                                  style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.primary),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0,
-                                  vertical: 6.0,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CustomText(
-                                      text:
-                                          "${produit.price} ${LocaleKeys.devise.tr}",
-                                      style: AppTextStyles.bodyText1Bold,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () =>
-                                          controller.addToCart(produit),
-                                      child: Container(
-                                        padding: EdgeInsets.all(1.0),
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Get.theme.primaryColor,
-                                        ),
-                                        child: Icon(Icons.add,
-                                            color: Get.theme.cardColor),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.vertical(
+                                          top: Radius.circular(12)),
+                                      child: Image.asset(
+                                        "assets/images/productimg.png",
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      produit.name,
+                                      style: const TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.primary),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0,
+                                      vertical: 6.0,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        CustomText(
+                                          text:
+                                              "${produit.price} ${LocaleKeys.devise.tr}",
+                                          style: AppTextStyles.bodyText1Bold,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () =>
+                                              controller.addToCart(produit),
+                                          child: Container(
+                                            padding: EdgeInsets.all(1.0),
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Get.theme.primaryColor,
+                                            ),
+                                            child: Icon(Icons.add,
+                                                color: Get.theme.cardColor),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    firstPageProgressIndicatorBuilder: (_) => Center(
-                        child: CircularProgressIndicator(
-                      color: Get.theme.primaryColor,
-                    )),
-                    newPageProgressIndicatorBuilder: (_) => Center(
-                        child: CircularProgressIndicator(
-                      color: Get.theme.primaryColor,
-                    )),
-                    noItemsFoundIndicatorBuilder: (_) =>
-                        Center(child: Text(LocaleKeys.no_product.tr)),
-                  ),
+                            ),
+                          );
+                        },
+                        firstPageProgressIndicatorBuilder: (_) =>
+                            const Center(child: CircularProgressIndicator()),
+                        newPageProgressIndicatorBuilder: (_) =>
+                            const Center(child: CircularProgressIndicator()),
+                        noMoreItemsIndicatorBuilder: (_) =>
+                            const Center(child: Text('Fin')),
+                        firstPageErrorIndicatorBuilder: (_) => Center(
+                            child: Text('Erreur: ${controller.errorMessage}')),
+                        invisibleItemsThreshold: 5,
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
@@ -216,7 +222,7 @@ class ProductListView extends GetView<ProductController> {
               borderRadius: BorderRadius.circular(30.0),
             ),
             onPressed: () {
-              Get.toNamed(AppPages.BASKET);
+              controller.cartController.showBasketBottomSheet();
             },
             child: Container(
               decoration: BoxDecoration(
